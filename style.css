@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --bg: #0e0e0e;
+  --card-bg: #1a1a1a;
+  --text: #f5f5f5;
+  --accent: #00b4d8;
+  --muted: #888;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* Typing animation */
+.typing {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid var(--accent);
+  animation: typing 3s steps(26, end) forwards, blink 0.7s step-end infinite;
+  max-width: fit-content;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: var(--accent); }
+}
+
+header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  border-bottom: 1px solid #222;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+header p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Container for projects + blogs */
+.container {
+  display: flex;
+  max-width: 1100px;
+  margin: 40px auto;
+  gap: 35px;
+  padding: 0 20px;
+  align-items: flex-start;
+}
+
+/* Projects Section */
+main.projects {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.project {
+  border-left: 3px solid var(--accent);
+  background-color: var(--card-bg);
+  padding: 18px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.project:hover {
+  transform: translateX(5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.project h2 a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.project h2 a:hover {
+  text-decoration: underline;
+}
+
+.project p {
+  color: var(--muted);
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+/* Blogs Sidebar */
+aside.blogs {
+  flex: 1;
+  background-color: var(--card-bg);
+  padding: 18px;
+  border-radius: 8px;
+  border-left: 2px solid #222;
+  position: sticky;
+  top: 20px;
+}
+
+aside.blogs h2 {
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+aside.blogs ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+aside.blogs ul li {
+  margin-bottom: 14px;
+}
+
+aside.blogs ul li a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: block;
+  padding: 4px 0;
+  transition: color 0.2s, transform 0.2s;
+}
+
+aside.blogs ul li a:hover {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 35px 20px;
+  border-top: 1px solid #222;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  aside.blogs {
+    margin-top: 25px;
+    border-left: none;
+    position: relative;
+    top: auto;
+  }
+}
+
+a {
+      color: #00b4d8;
+      text-decoration: none;
+    }
+a:hover {
+      text-decoration: underline;
+    }

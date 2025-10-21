@@ -3,24 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AQI Prediction Project</title>
+  <title>☢️ AQI Prediction Project</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main style="max-width:800px;margin:auto;padding:60px 20px;">
     <a href="index.html" style="color:#00b4d8;text-decoration:none;">← Back to Home</a>
-    <h1>🌫️ Air Quality Index (AQI) Prediction Using Random Forest Regressor</h1>
 
+    <h1>☢️ Air Quality Index (AQI) Prediction Using Random Forest Regressor</h1>
+
+    <!-- Overview -->
     <h2>🧠 Overview</h2>
-    <p>This project aims to predict the next day’s AQI using historical pollutant data...</p>
+    <p>This project aims to <strong>predict the next day’s Air Quality Index (AQI)</strong> using historical pollutant measurements. 
+    The dataset contains hourly readings of pollutants such as <strong>CO, NH₃, NO₂, O₃, PM10, PM2.5, and SO₂</strong>, aggregated into daily averages for modeling.</p>
+    <p>A <strong>Random Forest Regressor</strong> was used to capture nonlinear relationships between pollutant levels and AQI. Features include both pollutant concentrations and temporal attributes such as <strong>month</strong> and <strong>weekday</strong>.</p>
 
+    <!-- Motivation -->
     <h2>💡 Motivation</h2>
-    <p>With Diwali approaching, I wanted to observe how AQI levels change during the festival...</p>
+    <p>With <strong>Diwali approaching</strong>, I wanted to observe how AQI levels deviate during the festival period — since air quality typically worsens significantly due to fireworks and increased emissions.</p>
+    <p>My blog <a href="aqi.html">Effects of Diwali on AQI: Insights from my model</a> is targeted around this.</p>
+    
+    <!-- Tech Stack -->
+    <h2>⚙️ Tech Stack</h2>
+    <ul>
+      <li>Python</li>
+      <li>scikit-learn</li>
+      <li>pandas, numpy</li>
+      <li>matplotlib, seaborn</li>
+    </ul>
 
+    <!-- Model Performance -->
     <h2>📊 Model Performance</h2>
-    <p><strong>R² ≈ 0.86</strong> on seen data, significant drop observed during unmodeled festival events.</p>
 
-    <img src="https://github.com/user-attachments/assets/c0b63ca2-6bd1-42c9-a537-8eed5df1d09c" alt="Prediction Graph" width="100%" />
+    <h3>✅ Pre-Festival (Seen Data)</h3>
+    <p>Predictions before Diwali were highly accurate, as shown by standard regression metrics:</p>
+    <ul>
+      <li><strong>MAE</strong>, <strong>MSE</strong>, and <strong>R²</strong> scores indicated solid performance (R² ≈ 0.86 on seen data).</li>
+    </ul>
+
+    <p><strong>Predicted vs Actual Graph:</strong></p>
+    <img src="https://github.com/user-attachments/assets/c0b63ca2-6bd1-42c9-a537-8eed5df1d09c" 
+         alt="Prediction Graph" width="100%" style="margin-top:20px;border-radius:10px;" />
+
+    <h3>⚠️ Festival Period (Unseen Data)</h3>
+    <p>Predictions during Diwali were <strong>less consistent</strong>, often off by 20–25 AQI points. 
+    This occurred because Diwali arrived earlier than usual and month/weekday features couldn’t effectively capture the sudden festival-related changes.</p>
+
+    <!-- Stress Test -->
+    <h3>💢 Stress Test (Removing Previous Day AQI Feature)</h3>
+    <p>In the feature importance graph, <strong>AQI</strong> was the most important feature. We did a stress test to see model performance without this key feature.</p>
+
+    <p><strong>With AQI Feature:</strong></p>
+    <img src="https://github.com/user-attachments/assets/dfe0d644-761c-47f8-9cbd-9d02bb38a65e" 
+         alt="With AQI Feature" width="100%" style="margin-top:10px;border-radius:10px;" />
+
+    <p><strong>Without AQI Feature:</strong></p>
+    <img src="https://github.com/user-attachments/assets/3304f206-96d7-4c7e-9804-df9f54338d33" 
+         alt="Without AQI Feature" width="100%" style="margin-top:10px;border-radius:10px;" />
+
+    <!-- Summary -->
+    <h2>🧩 Summary</h2>
+    <ul>
+      <li><strong>Model:</strong> Random Forest Regressor</li>
+      <li><strong>Data:</strong> Daily averages of major air pollutants</li>
+      <li><strong>Goal:</strong> Next-day AQI prediction</li>
+      <li><strong>Result:</strong> Strong general accuracy (R² ≈ 0.86) on seen data; reduced accuracy during unmodeled festival events</li>
+    </ul>
+
+    <!-- GitHub Link -->
+    <div style="margin-top:40px;text-align:center;">
+      <a href="https://github.com/ahhyoushh/AQI-Predictor" target="_blank" 
+         style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
+                text-decoration:none;transition:0.2s;">
+        🔗 View on GitHub
+      </a>
+    </div>
+
+    <footer style="margin-top:60px;color:#888;text-align:center;">
+      © 2025 Ayush Bhalerao
+    </footer>
   </main>
 </body>
 </html>

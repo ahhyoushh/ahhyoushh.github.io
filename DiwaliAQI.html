@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎆 Diwali and Air Quality: Insights from AQI Prediction</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #eee;
+      font-family: 'Helvetica', sans-serif;
+      line-height: 1.7;
+    }
+    a {
+      color: #00b4d8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    h1,h2,h3 {
+      color: #fff;
+    }
+    pre {
+      background-color: #1a1a1a;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    img {
+      border-radius: 10px;
+      max-width: 100%;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <main style="max-width:800px;margin:auto;padding:60px 20px;">
+    <a href="index.html" style="margin-bottom:20px;display:inline-block;">← Back to Home</a>
+    <h1>🎆 How Diwali Impacts Air Quality: Insights from My AQI Prediction Model</h1>
+
+    <p>Every year, Diwali brings a burst of lights, celebration, and, unfortunately, a spike in air pollution. Fireworks, increased traffic, and energy usage cause the Air Quality Index (AQI) to soar. This year, I decided to quantify that effect using a <strong>Random Forest Regressor</strong> trained on historical AQI data.</p>
+
+    <h2>📊 My Approach</h2>
+    <p>I collected hourly pollutant measurements from key air quality indicators like <strong>CO, NO₂, SO₂, O₃, PM10, PM2.5, and NH₃</strong>. These were aggregated into daily averages, and I added <strong>temporal features</strong> such as month and weekday to capture seasonal patterns.</p>
+    <p>I then trained a <strong>Random Forest Regressor</strong> to predict the next day’s AQI. This model allowed me to see how “normal” air quality would behave and then compare it to the unusual spikes during Diwali.</p>
+
+    <h2>💡 Key Findings</h2>
+    <h3>1. Pre-Diwali Predictions</h3>
+    <ul>
+      <li>The model performed very well on days leading up to the festival, with an <strong>R² score of ~0.86</strong>.</li>
+      <li>It could reliably forecast AQI using historical pollutant levels and temporal patterns.</li>
+    </ul>
+
+    <h3>2. Diwali Effect</h3>
+    <ul>
+      <li>During the festival, the predicted AQI often <strong>underestimated actual readings by 20–25 points</strong>.</li>
+      <li>This shows how Diwali introduces an irregular spike in pollution that traditional temporal patterns cannot fully capture.</li>
+      <li>The Month feature could not accurately preddict this festival change due to diwali being quite early this year.</li>
+    </ul>
+
+    <h3>3. Feature Importance</h3>
+    <ul>
+      <li>The model highlighted that the <strong>previous day's AQI</strong> was the most influential predictor.</li>
+      <li>When this feature was removed, performance dropped, indicating that AQI trends are strongly autocorrelated.</li>
+    </ul>
+
+    <h2>🔍 Observations</h2>
+    <ul>
+      <li>Diwali pushes AQI levels far above normal daily fluctuations.</li>
+      <li>Temporal features like weekday or month are insufficient to capture sudden festival-driven surges.</li>
+      <li>Predictive models need <strong>event-specific inputs</strong> (like festival dates) to better forecast extreme pollution events.</li>
+    </ul>
+
+    <h2>🌱 Implications</h2>
+    <ul>
+      <li><strong>Urban planners</strong>: anticipate pollution spikes and manage traffic or industrial activity.</li>
+      <li><strong>Healthcare providers</strong>: warn sensitive populations like children, elderly, and people with respiratory issues.</li>
+      <li><strong>Citizens</strong>: make informed decisions about outdoor activity or preventive measures.</li>
+    </ul>
+    <h2>📂Source</h2>
+    <p>The complete code and dataset used for this analysis are available on my <a href="https://github.com/ahhyoushh/AQI-Predictor" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
+    <a href="aqi.html">🔗Go to AQI Project</a>
+
+    <h2>📈 Using AI for Cleaner Cities</h2>
+    <p>My Random Forest model demonstrates how <strong>machine learning can capture normal AQI patterns</strong>, but it also highlights the limitations when sudden, human-driven events occur. By combining historical data, temporal features, and event-specific indicators, predictive models could help forecast pollution peaks more accurately and guide preventive action during festivals.</p>
+
+    <p>Diwali is beautiful, but its environmental cost is real. Using data and predictive models, we can better understand the consequences and take informed steps to mitigate pollution while still celebrating responsibly.</p>
+    <p>Note that my AQI predictions were done based on Pune's AQI Data set from 2017-24 with large number of values removed due to values being outliers and missing.</p>
+    <footer style="margin-top:60px;color:#888;text-align:center;">
+      © 2025 Ayush Bhalerao
+    </footer>
+  </main>
+</body>
+</html>

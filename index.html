@@ -3,27 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ayush’s Projects</title>
+  <title>Ayush’s Projects & Blogs</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Ayush’s Projects & Blogs</h1>
+    <h1><span class="typing">Ayush’s Projects & Blogs</span></h1>
     <p>Documenting experiments, ideas, and models — clean and simple.</p>
   </header>
 
-  <main>
-    <div class="project">
-      <h2><a href="aqi.html">🌫️ Air Quality Index (AQI) Prediction</a></h2>
-      <p>Predicting next-day AQI using a Random Forest Regressor trained on pollutant data.</p>
-    </div>
+  <div class="container">
+    <main class="projects">
+      <div class="project">
+        <h2><a href="aqi.html">☢️ Air Quality Index (AQI) Prediction</a></h2>
+        <p>Predicting next-day AQI using a Random Forest Regressor trained on pollutant data to check deviation in data during Diwali festival.</p>
+      </div>
 
-    <!-- Add more projects like this -->
-    <div class="project">
-      <h2><a href="#">📈 Data Science Notes</a></h2>
-      <p>Quick insights, snippets, and tricks I’ve learned along the way.</p>
-    </div>
-  </main>
+      <div class="project">
+        <h2><a href="face_detection.html">🧔‍♂️ Face Detection using OpenCV</a></h2>
+        <p>Quick simple face detection using OpenCV's cascade classifier.</p>
+      </div>
+
+      <div class="project">
+        <h2><a href="dcbot.html">🤖 Moderator/Fun Discord Bot</a></h2>
+        <p>Discord Bot that detects phrases using vectorisation and simple cosine similarity.</p>
+      </div>
+
+      <div class="project">
+        <h2><a href="ewsenku.html">♻️ Ewaste Recycling Platform</a></h2>
+        <p>Platform that categorises ewaste using Gemini API and finds the nearest ewaste center.</p>
+      </div>
+    </main>
+
+    <aside class="blogs">
+      <h2>Latest Blogs</h2>
+      <ul>
+        <li><a href="DiwaliAQI.html">📄 Effect of Diwali on AQI: Insights from my model</a></li>
+      </ul>
+    </aside>
+  </div>
 
   <footer>
     <p>© 2025 Ayush Bhalerao</p>
