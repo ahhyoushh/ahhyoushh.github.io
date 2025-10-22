@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎬 Movies CRUD API Project</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main style="max-width:800px;margin:auto;padding:60px 20px;">
+    <a href="index.html" style="color:#00b4d8;text-decoration:none;">← Back to Home</a>
+
+    <h1>🎬 Movies CRUD API Using Go (Golang)</h1>
+
+    <!-- Overview -->
+    <h2>🧠 Overview</h2>
+    <p>This project implements a <strong>CRUD (Create, Read, Update, Delete) API</strong> for managing movie records using <strong>Golang</strong>. 
+    Users can perform operations like adding new movies, retrieving all or specific movies, updating movie details, and deleting movies.</p>
+    <p>The API uses <strong>gorilla/mux</strong> for routing and handles requests in a RESTful manner.</p>
+
+    <!-- Motivation -->
+    <h2>💡 Motivation</h2>
+    <p>I built this project to <strong>practice RESTful API development in Go</strong> and explore Go’s efficiency in handling server-side requests for CRUD operations.</p>
+
+    <!-- Tech Stack -->
+    <h2>⚙️ Tech Stack</h2>
+    <ul>
+      <li>Golang</li>
+      <li>gorilla/mux for routing</li>
+      <li>Standard library for JSON handling</li>
+      <li>Postman or cURL for testing APIs</li>
+    </ul>
+
+    <!-- API Endpoints -->
+    <h2>📡 API Endpoints</h2>
+    <ul>
+      <li><strong>GET /movies</strong> – Retrieve all movies</li>
+      <li><strong>GET /movies/{id}</strong> – Retrieve a single movie by ID</li>
+      <li><strong>POST /movies</strong> – Add a new movie</li>
+      <li><strong>PUT /movies/{id}</strong> – Update an existing movie</li>
+      <li><strong>DELETE /movies/{id}</strong> – Delete a movie by ID</li>
+    </ul>
+
+  <!-- Sample Response -->
+    <h2>📊 Sample Movie JSON</h2>
+    <pre style="background:#1e1e1e;color:#d4d4d4;padding:15px;border-radius:8px;overflow-x:auto;">
+    {
+    "id": "1",
+    "isbn": "438227",
+    "title": "Inception",
+    "director": {
+        "firstname": "Christopher",
+        "lastname": "Nolan"
+        }
+    }
+    </pre>
+
+
+    <!-- Summary -->
+    <h2>🧩 Summary</h2>
+    <ul>
+      <li><strong>Project:</strong> RESTful CRUD API for movies</li>
+      <li><strong>Language:</strong> Golang</li>
+      <li><strong>Routing:</strong> gorilla/mux</li>
+      <li><strong>Goal:</strong> Practice building scalable API backends in Go</li>
+      <li><strong>Testing:</strong> Use Postman or cURL to test endpoints</li>
+    </ul>
+
+    <!-- GitHub Link -->
+    <div style="margin-top:40px;text-align:center;">
+      <a href="https://github.com/ahhyoushh/movies-crud-api-go" target="_blank" 
+         style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
+                text-decoration:none;transition:0.2s;">
+        🔗 View on GitHub
+      </a>
+    </div>
+
+    <footer style="margin-top:60px;color:#888;text-align:center;">
+      © 2025 Ayush Bhalerao
+    </footer>
+  </main>
+</body>
+</html>
