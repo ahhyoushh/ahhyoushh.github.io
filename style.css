@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+.project-date {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.code-snippet {
+  background-color: #1e1e1e; /* dark code background */
+  color: #d4d4d4;            /* light text */
+  padding: 16px;
+  border-radius: 8px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  margin: 15px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.code-snippet pre {
+  margin: 0;
+}
 
 .github-icon {
   position: fixed;
