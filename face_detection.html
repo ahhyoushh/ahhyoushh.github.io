@@ -3,20 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🧔‍♂️ Face Detection with OpenCV</title>
+  <title>🧔‍♂️ Face Detection Doorcam – OpenCV Project</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main style="max-width:800px;margin:auto;padding:60px 20px;">
     <a href="index.html" style="color:#00b4d8;text-decoration:none;">← Back to Home</a>
-    <h1>🧔‍♂️ Face Detection with OpenCV</h1>
+    <h1>🧔‍♂️ Face Detection Doorcam using OpenCV</h1>
     <p class="project-date">June, 2022</p>
 
     <h2>🔍 Overview</h2>
-    <p>This project demonstrates real-time face detection using OpenCV's pre-trained Haar Cascade Classifier. The application captures video from your webcam, detects faces, and highlights them with bounding boxes.</p>
+    <p>
+      This project started off ‘cause I kept missing my doorbell and getting yelled at 😭.  
+      So I decided to turn an old smartphone into a <strong>smart door camera</strong> that plays a bell sound 
+      on a remote speaker whenever it detects a human face.
+    </p>
+
+    <p>
+      The setup runs locally using Python and OpenCV — it captures video from the phone’s camera, 
+      detects faces in real time, and triggers a sound alert when someone shows up at the door.  
+      The code runs right on <strong>Termux</strong> on an old Redmi phone, no server or internet needed.
+    </p>
 
     <h2>⚙️ How It Works</h2>
-    <p>The script utilizes OpenCV's <code>CascadeClassifier</code> with the <code>haarcascade_frontalface_default.xml</code> model to identify faces in each frame of the webcam feed. Detected faces are outlined with rectangles, and the application continues to run until manually closed.</p>
+    <p>
+      The script uses OpenCV’s <code>CascadeClassifier</code> with 
+      the <code>haarcascade_frontalface_default.xml</code> model to detect faces in every frame.  
+      Each detected face is highlighted with a rectangle, and a short bell sound plays instantly.  
+      The app keeps running until manually closed, making it a light, DIY smart doorbell setup.
+    </p>
 
     <h2>📦 Requirements</h2>
     <ul>
@@ -24,7 +39,11 @@
       <li><code>opencv-python-headless</code> – for headless environments (optional)</li>
     </ul>
 
-
+    <h2>🔮 Future Additions</h2>
+    <ul>
+      <li>Adding a “Leave a Message” feature when no one answers</li>
+      <li>Possibly integrating cloud notifications or local WiFi alerts</li>
+    </ul>
 
     <h2>📂 File Structure</h2>
     <pre>
@@ -36,14 +55,16 @@
       </code>
     </pre>
 
-        <div style="margin-top:40px;text-align:center;">
-        <a href="https://github.com/ahhyoushh/opencv-facedetection-python/tree/main" target="_blank" 
-        style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
-        text-decoration:none;transition:0.2s;">
-        🔗 View on GitHub
-        </a>
+    <div style="margin-top:40px;text-align:center;">
+      <a href="https://github.com/ahhyoushh/opencv-facedetection-python/tree/main" target="_blank" 
+      style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
+      text-decoration:none;transition:0.2s;">
+      🔗 View on GitHub
+      </a>
+    </div>
+
     <footer style="margin-top:60px;color:#888;text-align:center;">
-      © 2025 Ayush Bhalerao
+      © 2022 Ayush Bhalerao
     </footer>
   </main>
 </body>
