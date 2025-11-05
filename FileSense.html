@@ -47,6 +47,7 @@
     </ul>
 
     <h2>🔧 What’s Inside</h2>
+    <div class="code-snippet">
     <pre><code>
 filesense/
 ├── files/                   # Folder to scan
@@ -55,7 +56,7 @@ filesense/
 ├── folder_labels.json       # Folder labels + descriptions
 ├── folder_embeddings.faiss  # Generated FAISS index
 └── README.md
-    </code></pre>
+    </code></pre></div>
 
     <h2>🔬 How It Works</h2>
     <h3>1️⃣ Index Creation (<code>create_index.py</code>)</h3>
@@ -97,33 +98,38 @@ filesense/
       <li><code>python-docx</code></li>
       <li>System-level: <code>tesseract-ocr</code> installed</li>
     </ul>
+    <div class="code-snippet">
+    <pre><code>
+    pip install sentence-transformers faiss-cpu numpy pdfplumber pytesseract pillow python-docx
 
-    <pre><code>pip install sentence-transformers faiss-cpu numpy pdfplumber pytesseract pillow python-docx
-# system: sudo apt install tesseract-ocr
-    </code></pre>
+    # system: sudo apt install tesseract-ocr
+    </code></pre></div>
 
     <h2>🛠️ Quick Start</h2>
+    <div class="code-snippet">
     <ol>
       <li>Clone the repo:
         <pre><code>git clone https://github.com/ahhyoushh/filesense.git
 cd filesense</code></pre>
-      </li>
+      </li></ol></div>
       <li>Edit <code>folder_labels.json</code> to define your folders.</li>
       <li>Build the FAISS index:
         <pre><code>python create_index.py</code></pre>
       </li>
       <li>Drop files into <code>files/</code> and run:
+        <div class="code-snippet">
         <pre><code>python script.py</code></pre>
-      </li>
+      </li></div>
       <li>Check your sorted folders (e.g. Physics/, English/, Unsorted/).</li>
     </ol>
 
     <h2>⚙️ Config You Should Know</h2>
+    <div class="code-snippet">
     <ul>
       <li><b>files_dir:</b> Folder to scan (in <code>script.py</code>).</li>
       <li><b>THRESHOLD:</b> Similarity cutoff (default 0.45).</li>
       <li><b>MODEL_NAME:</b> Change SentenceTransformer model (in <code>create_index.py</code>).</li>
-    </ul>
+    </ul></div>
 
     <h2>🔮 Future Additions</h2>
     <ul>
