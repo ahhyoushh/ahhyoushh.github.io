@@ -212,7 +212,13 @@ footer {
   font-weight: 400;
 }
 
-
+ .note {
+      background: #292219;
+      border-left: 4px solid #f59e0b;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-top: 22px;
+    }
 
 /* Code Snippet */
 .code-snippet {
