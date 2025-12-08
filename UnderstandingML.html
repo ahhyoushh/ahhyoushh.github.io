@@ -1,35 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>🤖 Understanding Machine Learning: My Experience</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>understanding machine learning: my experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --text: #e0e0e0;
+      --text-muted: #888888;
+      --accent: #888888;
+      --accent-hover: #c0c0c0;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    .back-link {
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .project-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .note {
+      background: #0d0d0d;
+      border-left: 2px solid var(--accent);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-  <main style="max-width:800px;margin:auto;padding:60px 20px;">
-    <a href="index.html" style="margin-bottom:20px;display:inline-block;">← Back to Home</a>
-    <h1>🤖 Understanding Machine Learning: My Experience</h1>
-    <p class="project-date">November, 2024</p>
+  <main>
+    <a href="index.html" class="back-link">← back</a>
 
-    <p>I was always curious about how large language models work. I used to wonder how something built on binary logic could seem so human. It amazed me how systems like ChatGPT could understand context, generate text, or even mimic a person’s thought process. That curiosity sometimes turned into frustration because I could not see how those parts fit together. I wanted to know how machines recognize patterns, learn from data, and make decisions that look intelligent.</p>
+    <h1>understanding machine learning: my experience</h1>
+    <p class="project-date">november 2024</p>
 
-    <p>I found a book ,The cover was the typical O’Reilly grayscale and the title was <strong>Machine Learning (Pocket Reference): Working with Structured Data in Python</strong> by Matt Harrison. I picked it up out of curiosity, not expecting much since I only knew basic Python and had used pandas a little. I thought I would understand very little, but the first two chapters made sense right away.</p>
+    <p>I was always curious about how large language models work. I used to wonder how something built on binary logic could seem so human. It amazed me how systems like ChatGPT could understand context, generate text, or even mimic a person's thought process. That curiosity sometimes turned into frustration because I could not see how those parts fit together. I wanted to know how machines recognize patterns, learn from data, and make decisions that look intelligent.</p>
+
+    <p>I found a book called <strong>Machine Learning (Pocket Reference): Working with Structured Data in Python</strong> by Matt Harrison. I picked it up out of curiosity, not expecting much since I only knew basic Python and had used pandas a little. I thought I would understand very little, but the first two chapters made sense right away.</p>
 
     <p>The book focused on practical steps. It showed how to clean data, engineer features, and train models so they actually work. One example that stuck with me was the <strong>Titanic dataset</strong>. The book explained how to take raw columns like age, sex, and ticket class, fix missing values, turn text into numbers, and train a classifier to predict survival. Seeing that pipeline in a few lines of code made the whole idea click. I could finally see how data becomes decisions.</p>
 
     <p>The chapters on regression and classification helped me understand what different models do. The parts on preprocessing made me realize why cleaning data matters more than complex algorithms. The sections that used scikit-learn showed the actual workflow of building and evaluating models. I learned about splitting data into training and testing sets, and why metrics like accuracy and precision matter for understanding model performance.</p>
 
-    <p>It wasn’t about heavy math or complex theory, it was about a mindset. The book taught me that machines aren’t magical; they simply learn patterns and structure in data. That idea inspired me deeply. It gave me project ideas and a sense of direction. After finishing the pocket reference in two weeks, I started experimenting with small projects, training classifiers on public datasets, and building simple automation tools that use structured data to solve problems.</p>
+    <p>It wasn't about heavy math or complex theory, it was about a mindset. The book taught me that machines aren't magical; they simply learn patterns and structure in data. That idea inspired me deeply. It gave me project ideas and a sense of direction. After finishing the pocket reference in two weeks, I started experimenting with small projects, training classifiers on public datasets, and building simple automation tools that use structured data to solve problems.</p>
 
-    <p class="note">If you want to start like I did, try the Titanic dataset. Clean missing values, convert categories to numbers, and train a simple classifier using scikit-learn. The steps are small, but once you see the pipeline work, everything starts to make sense.</p>
+    <div class="note">
+      If you want to start like I did, try the Titanic dataset. Clean missing values, convert categories to numbers, and train a simple classifier using scikit-learn. The steps are small, but once you see the pipeline work, everything starts to make sense.
+    </div>
 
     <p>Finding that book felt random, but it changed how I see AI. It turned curiosity into understanding and gave me the confidence to explore machine learning on my own. And funnily enough, even this blog was formatted with a little help from AI itself.</p>
 
-    <footer style="margin-top:60px;color:#888;text-align:center;">
-      © 2024 Ayush Bhalerao
-    </footer>
+    <footer>© 2024 ayush bhalerao</footer>
   </main>
 </body>
 </html>

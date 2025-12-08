@@ -3,69 +3,200 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🧔‍♂️ Face Detection Doorcam – OpenCV Project</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>face detection doorcam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --text: #e0e0e0;
+      --text-muted: #888888;
+      --accent: #888888;
+      --accent-hover: #c0c0c0;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    .back-link {
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    code {
+      background: #0d0d0d;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      font-family: 'Fira Code', monospace;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    pre {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .project-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .cta-link:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main style="max-width:800px;margin:auto;padding:60px 20px;">
-    <a href="index.html" style="color:#00b4d8;text-decoration:none;">← Back to Home</a>
-    <h1>🧔‍♂️ Face Detection Doorcam using OpenCV</h1>
-    <p class="project-date">June, 2022</p>
+  <main>
+    <a href="index.html" class="back-link">← back</a>
 
-    <h2>🔍 Overview</h2>
-    <p>
-      This project started off ‘cause I kept missing my doorbell and getting yelled at 😭.  
-      So I decided to turn an old smartphone into a <strong>smart door camera</strong> that plays a bell sound 
-      on a remote speaker whenever it detects a human face.
-    </p>
+    <h1>face detection doorcam using opencv</h1>
+    <p class="project-date">june 2022</p>
 
-    <p>
-      The setup runs locally using Python and OpenCV — it captures video from the phone’s camera, 
-      detects faces in real time, and triggers a sound alert when someone shows up at the door.  
-      The code runs right on <strong>Termux</strong> on an old Redmi phone, no server or internet needed.
-    </p>
+    <h2>overview</h2>
+    <p>This project started because I kept missing my doorbell. So I decided to turn an old smartphone into a <strong>smart door camera</strong> that plays a bell sound on a remote speaker whenever it detects a human face.</p>
 
-    <h2>⚙️ How It Works</h2>
-    <p>
-      The script uses OpenCV’s <code>CascadeClassifier</code> with 
-      the <code>haarcascade_frontalface_default.xml</code> model to detect faces in every frame.  
-      Each detected face is highlighted with a rectangle, and a short bell sound plays instantly.  
-      The app keeps running until manually closed, making it a light, DIY smart doorbell setup.
-    </p>
+    <p>The setup runs locally using Python and OpenCV — it captures video from the phone's camera, detects faces in real time, and triggers a sound alert when someone shows up at the door. The code runs right on <strong>Termux</strong> on an old Redmi phone, no server or internet needed.</p>
 
-    <h2>📦 Requirements</h2>
+    <h2>how it works</h2>
+    <p>The script uses OpenCV's <code>CascadeClassifier</code> with the <code>haarcascade_frontalface_default.xml</code> model to detect faces in every frame. Each detected face is highlighted with a rectangle, and a short bell sound plays instantly. The app keeps running until manually closed, making it a light, DIY smart doorbell setup.</p>
+
+    <h2>requirements</h2>
     <ul>
       <li><code>opencv-python</code> – for computer vision tasks</li>
       <li><code>opencv-python-headless</code> – for headless environments (optional)</li>
     </ul>
 
-    <h2>🔮 Future Additions</h2>
+    <h2>future additions</h2>
     <ul>
-      <li>Adding a “Leave a Message” feature when no one answers</li>
+      <li>Adding a "leave a message" feature when no one answers</li>
       <li>Possibly integrating cloud notifications or local WiFi alerts</li>
     </ul>
 
-    <h2>📂 File Structure</h2>
-    <pre>
-      <code>
-        face_detection/
-        ├── detect_face.py
-        ├── haarcascade_frontalface_default.xml
-        └── README.md
-      </code>
-    </pre>
+    <h2>file structure</h2>
+    <pre><code>face_detection/
+├── detect_face.py
+├── haarcascade_frontalface_default.xml
+└── README.md</code></pre>
 
-    <div style="margin-top:40px;text-align:center;">
-      <a href="https://github.com/ahhyoushh/opencv-facedetection-python/tree/main" target="_blank" 
-      style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
-      text-decoration:none;transition:0.2s;">
-      🔗 View on GitHub
-      </a>
+    <div style="text-align: center;">
+      <a href="https://github.com/ahhyoushh/opencv-facedetection-python/tree/main" target="_blank" class="cta-link">→ view on github</a>
     </div>
 
-    <footer style="margin-top:60px;color:#888;text-align:center;">
-      © 2022 Ayush Bhalerao
-    </footer>
+    <footer>© 2022 ayush bhalerao</footer>
   </main>
 </body>
 </html>

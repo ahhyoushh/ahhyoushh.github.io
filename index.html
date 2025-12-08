@@ -2,67 +2,177 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ayush’s Projects & Blogs</title>
+  <title>Ayush Bhalerao</title>
   <link rel="stylesheet" href="style.css" />
+
+  
 </head>
 <body>
-  <a href="https://github.com/ahhyoushh" target="_blank" class="github-icon">
-  <i class="fab fa-github"></i>
-  </a>
-  <header>
-    <h1><span class="typing">Ayush’s Projects & Blogs</span></h1>
-    <p>Documenting experiments, ideas, and models — clean and simple.</p>
-  </header>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-brand">$ ayush</div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#blogs">blogs</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="https://github.com/ahhyoushh" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+  </nav>
 
-  <div class="container">
-    <main class="projects">
-      <div class="project">
-        <h2><a href="FileSense">🗂️ FileSense – Smart File Organizer</a></h2>
-        <p>Semantically understand your documents and even screenshots using ocr and organise them in your folders.</p>
-      </div>
-      <div class="project">
-        <h2><a href="aqi.html">☢️ Air Quality Index (AQI) Prediction</a></h2>
-        <p>Predicting next-day AQI using a Random Forest Regressor trained on pollutant data to check deviation in data during Diwali festival.</p>
-      </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <span>const</span> Name = {
+    </div>
+    <h1>Ayush Bhalerao</h1>
+    <p class="hero-subtitle">Interested in learning applied <strong>ML,NLP, and State-Of-The-Art Technologies</strong>. Trying my best not to vibe code;</p>
+
+    <a href="#projects" class="cta-link">→ explore work</a>
+    <a href="#about" class="cta-link">→ about me</a>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="section-header">// about</div>
+    <h2 class="section-title">About</h2>
     
-      <div class="project">
-        <h2><a href="face_detection.html">🧔‍♂️ Face Detection Doorcam using OpenCV</a></h2>
-        <p>Quick simple face detection using OpenCV's cascade classifier.</p>
-      </div>
+    <div class="about-content">
+      <p class="about-text">
+        I'm a student passionate about building practical applications that solve real problems. I enjoy exploring the intersection of different Technologies and love implementing them with my vision.
+      </p>
+      <p class="about-text">
+        Currently curious about Reinforcement Learning and working implementing it in My <a href="#projects" >FileSense</a> project.
+      </p>
+    </div>
 
-      <div class="project">
-        <h2><a href="dcbot.html">🤖 Moderator/Fun Discord Bot</a></h2>
-        <p>Discord Bot that detects phrases using vectorisation and simple cosine similarity.</p>
-      </div>
-      <div class="project">
-        <h2><a href="clichat.html">💬 CLI Chat – Command-Line Chat Application</a></h2>
-        <p>A simple mail-like client and server!</p>
-      </div>
-      <div class="project">
-        <h2><a href="goapi.html">🎬 Movies CRUD API Using Go (Golang)</a></h2>
-        <p>A simple CRUD (Create, Read, Update, Delete) API for managing movie records, built with Go and gorilla/mux.</p>
-      </div>
+    <div class="skills">
+      <div class="skills-title">// languages & tools</div>
+      <p class="hero-subtitle">My skills are not limited to these..</p>
       
-      <div class="project">
-        <h2><a href="ewsenku.html">♻️ Ewaste Recycling Platform</a></h2>
-        <p>Platform that categorises ewaste using Gemini API and finds the nearest ewaste center.</p>
+      <div class="skill-list">
+        <div class="skill-item">Python</div>
+        <div class="skill-item">Go/Golang</div>
+        <div class="skill-item">Flask</div>
+        <div class="skill-item">BERT / SBERT</div>
+        <div class="skill-item">OpenCV</div>
+        <div class="skill-item">FAISS</div>
+        <div class="skill-item">Discord.py</div>        
+        <div class="skill-item">Firebase</div>
+        <div class="skill-item">REST APIs</div>
+        <div class="skill-item">Google-genai</div>
+        
       </div>
-    </main>
+    </div>
+  </section>
 
-    <aside class="blogs">
-      <h2>Latest Blogs</h2>
-      <ul>
-        <li><a href="DiwaliAQI.html">📄 Effect of Diwali on AQI: Insights from my model</a></li>
-      </ul>
-      <ul>
-        <li><a href="UnderstandingML.html">🤖 Understanding Machine Learning: My Experience</a></li>
-      </ul>
-    </aside>
-  </div>
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <div class="section-header">// work</div>
+    <h2 class="section-title">Projects</h2>
+    
+    <ul class="project-list">
+      <li class="project-item">
+        <div class="project-title"><a href="FileSense">filesense</a></div>
+        <p class="project-desc">Smart file organizer that semantically understands documents and screenshots using OCR.</p>
+        <div class="project-tags">
+          <span class="tag">python</span>
+          <span class="tag">ml</span>
+          <span class="tag">ocr</span>
+        </div>
+      </li>
+
+      <li class="project-item">
+        <div class="project-title"><a href="aqi.html">air quality index prediction</a></div>
+        <p class="project-desc">Next-day AQI prediction using Random Forest Regressor trained on pollutant data.</p>
+        <div class="project-tags">
+          <span class="tag">machine-learning</span>
+          <span class="tag">data-analysis</span>
+          <span class="tag">python</span>
+        </div>
+      </li>
+
+      <li class="project-item">
+        <div class="project-title"><a href="ewsenku.html">e-waste recycling platform</a></div>
+        <p class="project-desc">Categorizes electronic waste using Gemini API and locates nearest recycling centers.</p>
+        <div class="project-tags">
+          <span class="tag">gemini-api</span>
+          <span class="tag">sustainability</span>
+          <span class="tag">web</span>
+        </div>
+      </li>
+
+      <li class="project-item">
+        <div class="project-title"><a href="dcbot.html">discord moderator bot</a></div>
+        <p class="project-desc">Smart Discord bot using vectorization and cosine similarity for phrase detection.</p>
+        <div class="project-tags">
+          <span class="tag">discord.py</span>
+          <span class="tag">nlp</span>
+          <span class="tag">python</span>
+        </div>
+      </li>
+
+      <li class="project-item">
+        <div class="project-title"><a href="goapi.html">movies crud api</a></div>
+        <p class="project-desc">RESTful API for managing movie records built with Go and gorilla/mux router.</p>
+        <div class="project-tags">
+          <span class="tag">go</span>
+          <span class="tag">api</span>
+          <span class="tag">backend</span>
+        </div>
+      </li>
+
+      <li class="project-item">
+        <div class="project-title"><a href="face_detection.html">face detection doorcam</a></div>
+        <p class="project-desc">Real-time face detection system using OpenCV's cascade classifier.</p>
+        <div class="project-tags">
+          <span class="tag">opencv</span>
+          <span class="tag">cv</span>
+          <span class="tag">python</span>
+        </div>
+      </li>
+
+      <li class="project-item">
+        <div class="project-title"><a href="clichat.html">cli chat</a></div>
+        <p class="project-desc">Simple command-line chat application with client and server implementation.</p>
+        <div class="project-tags">
+          <span class="tag">python</span>
+          <span class="tag">networking</span>
+          <span class="tag">cli</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Blogs Section -->
+  <section class="blogs" id="blogs">
+    <div class="section-header">// writings</div>
+    <h2 class="section-title">Blog</h2>
+    
+    <ul class="blog-list">
+      <li class="blog-item">
+        <div class="blog-date">dec 2024</div>
+        <div class="blog-title"><a href="DiwaliAQI.html">effect of diwali on aqi</a></div>
+        <p class="blog-desc">Analyzing how the Diwali festival impacts air quality and what my ML model reveals about pollution patterns.</p>
+      </li>
+
+      <li class="blog-item">
+        <div class="blog-date">nov 2024</div>
+        <div class="blog-title"><a href="UnderstandingML.html">understanding machine learning</a></div>
+        <p class="blog-desc">My journey learning ML: practical insights, lessons learned, and key takeaways from building models.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <p>© 2025 Ayush Bhalerao</p>
+    <p class="footer-text">© 2025 ayush Bhalerao </p>
   </footer>
 </body>
 </html>

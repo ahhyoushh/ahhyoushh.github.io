@@ -3,26 +3,190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>☢️ AQI Prediction Project</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>air quality index prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --text: #e0e0e0;
+      --text-muted: #888888;
+      --accent: #888888;
+      --accent-hover: #c0c0c0;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    .back-link {
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .project-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .code-snippet {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .code-snippet pre {
+      margin: 0;
+    }
+
+    .note {
+      background: #0d0d0d;
+      border-left: 2px solid var(--accent);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .cta-link:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main style="max-width:800px;margin:auto;padding:60px 20px;">
-    <a href="index.html" style="color:#00b4d8;text-decoration:none;">← Back to Home</a>
+  <main>
+    <a href="index.html" class="back-link">← back</a>
 
-    <h1>☢️ Air Quality Index (AQI) Prediction Using Random Forest Regressor</h1>
-    <p class="project-date">October, 2025</p>
-    <!-- Overview -->
-    <h2>🧠 Overview</h2>
-    <p>This project aims to <strong>predict the next day’s Air Quality Index (AQI)</strong> using historical pollutant measurements. 
-    The dataset contains hourly readings of pollutants such as <strong>CO, NH₃, NO₂, O₃, PM10, PM2.5, and SO₂</strong>, aggregated into daily averages for modeling.</p>
+    <h1>air quality index prediction</h1>
+    <p class="project-date">october 2025</p>
+
+    <h2>overview</h2>
+    <p>This project aims to <strong>predict the next day's Air Quality Index (AQI)</strong> using historical pollutant measurements. The dataset contains hourly readings of pollutants such as <strong>CO, NH₃, NO₂, O₃, PM10, PM2.5, and SO₂</strong>, aggregated into daily averages for modeling.</p>
     <p>A <strong>Random Forest Regressor</strong> was used to capture nonlinear relationships between pollutant levels and AQI. Features include both pollutant concentrations and temporal attributes such as <strong>month</strong> and <strong>weekday</strong>.</p>
-    <!-- Motivation -->
-    <h2>💡 Motivation</h2>
+
+    <h2>motivation</h2>
     <p>With <strong>Diwali approaching</strong>, I wanted to observe how AQI levels deviate during the festival period — since air quality typically worsens significantly due to fireworks and increased emissions.</p>
-    <p>My blog <a href="DiwaliAQI.html">🔗Effects of Diwali on AQI: Insights from my model</a> is targeted around this.</p>
-    <!-- Tech Stack -->
-    <h2>⚙️ Tech Stack</h2>
+    <p>My blog <a href="DiwaliAQI.html">effects of diwali on aqi: insights from my model</a> explores this in detail.</p>
+
+    <h2>tech stack</h2>
     <ul>
       <li>Python</li>
       <li>scikit-learn</li>
@@ -30,56 +194,42 @@
       <li>matplotlib, seaborn</li>
     </ul>
 
-    <!-- Model Performance -->
-    <h2>📊 Model Performance</h2>
+    <h2>model performance</h2>
 
-    <h3>✅ Pre-Festival (Seen Data)</h3>
+    <h3>pre-festival (seen data)</h3>
     <p>Predictions before Diwali were highly accurate, as shown by standard regression metrics:</p>
     <ul>
       <li><strong>MAE</strong>, <strong>MSE</strong>, and <strong>R²</strong> scores indicated solid performance (R² ≈ 0.86 on seen data).</li>
     </ul>
 
-    <p><strong>Predicted vs Actual Graph:</strong></p>
-    <img src="https://github.com/user-attachments/assets/c0b63ca2-6bd1-42c9-a537-8eed5df1d09c" 
-         alt="Prediction Graph" width="100%" style="margin-top:20px;border-radius:10px;" />
+    <p><strong>predicted vs actual</strong></p>
+    <img src="https://github.com/user-attachments/assets/c0b63ca2-6bd1-42c9-a537-8eed5df1d09c" alt="Prediction Graph" />
 
-    <h3>⚠️ Festival Period (Unseen Data)</h3>
-    <p>Predictions during Diwali were <strong>less consistent</strong>, often off by 20–25 AQI points. 
-    This occurred because Diwali arrived earlier than usual and month/weekday features couldn’t effectively capture the sudden festival-related changes.</p>
+    <h3>festival period (unseen data)</h3>
+    <p>Predictions during Diwali were <strong>less consistent</strong>, often off by 20–25 AQI points. This occurred because Diwali arrived earlier than usual and month/weekday features couldn't effectively capture the sudden festival-related changes.</p>
 
-    <!-- Stress Test -->
-    <h3>💢 Stress Test (Removing Previous Day AQI Feature)</h3>
+    <h3>stress test (removing previous day AQI feature)</h3>
     <p>In the feature importance graph, <strong>AQI</strong> was the most important feature. We did a stress test to see model performance without this key feature.</p>
 
-    <p><strong>With AQI Feature:</strong></p>
-    <img src="https://github.com/user-attachments/assets/dfe0d644-761c-47f8-9cbd-9d02bb38a65e" 
-         alt="With AQI Feature" width="100%" style="margin-top:10px;border-radius:10px;" />
+    <p><strong>with AQI feature</strong></p>
+    <img src="https://github.com/user-attachments/assets/dfe0d644-761c-47f8-9cbd-9d02bb38a65e" alt="With AQI Feature" />
 
-    <p><strong>Without AQI Feature:</strong></p>
-    <img src="https://github.com/user-attachments/assets/3304f206-96d7-4c7e-9804-df9f54338d33" 
-         alt="Without AQI Feature" width="100%" style="margin-top:10px;border-radius:10px;" />
+    <p><strong>without AQI feature</strong></p>
+    <img src="https://github.com/user-attachments/assets/3304f206-96d7-4c7e-9804-df9f54338d33" alt="Without AQI Feature" />
 
-    <!-- Summary -->
-    <h2>🧩 Summary</h2>
+    <h2>summary</h2>
     <ul>
-      <li><strong>Model:</strong> Random Forest Regressor</li>
-      <li><strong>Data:</strong> Daily averages of major air pollutants</li>
-      <li><strong>Goal:</strong> Next-day AQI prediction</li>
-      <li><strong>Result:</strong> Strong general accuracy (R² ≈ 0.86) on seen data; reduced accuracy during unmodeled festival events</li>
+      <li><strong>model:</strong> Random Forest Regressor</li>
+      <li><strong>data:</strong> Daily averages of major air pollutants</li>
+      <li><strong>goal:</strong> Next-day AQI prediction</li>
+      <li><strong>result:</strong> Strong general accuracy (R² ≈ 0.86) on seen data; reduced accuracy during unmodeled festival events</li>
     </ul>
 
-    <!-- GitHub Link -->
-    <div style="margin-top:40px;text-align:center;">
-      <a href="https://github.com/ahhyoushh/AQI-Predictor" target="_blank" 
-         style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
-                text-decoration:none;transition:0.2s;">
-        🔗 View on GitHub
-      </a>
+    <div style="text-align: center;">
+      <a href="https://github.com/ahhyoushh/AQI-Predictor" target="_blank" class="cta-link">→ view on github</a>
     </div>
 
-    <footer style="margin-top:60px;color:#888;text-align:center;">
-      © 2025 Ayush Bhalerao
-    </footer>
+    <footer>© 2025 ayush bhalerao</footer>
   </main>
 </body>
 </html>

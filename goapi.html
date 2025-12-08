@@ -3,28 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎬 Movies CRUD API Project</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>movies crud api</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --text: #e0e0e0;
+      --text-muted: #888888;
+      --accent: #888888;
+      --accent-hover: #c0c0c0;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    .back-link {
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    pre {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .project-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .cta-link:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main style="max-width:800px;margin:auto;padding:60px 20px;">
-    <a href="index.html" style="color:#00b4d8;text-decoration:none;">← Back to Home</a>
+  <main>
+    <a href="index.html" class="back-link">← back</a>
 
-    <h1>🎬 Movies CRUD API Using Go (Golang)</h1>
-    <p class="project-date">August, 2022</p>
+    <h1>movies crud api using go</h1>
+    <p class="project-date">august 2022</p>
 
-    <!-- Overview -->
-    <h2>🧠 Overview</h2>
-    <p>This project implements a <strong>CRUD (Create, Read, Update, Delete) API</strong> for managing movie records using <strong>Golang</strong>. 
-    Users can perform operations like adding new movies, retrieving all or specific movies, updating movie details, and deleting movies.</p>
+    <h2>overview</h2>
+    <p>This project implements a <strong>CRUD (Create, Read, Update, Delete) API</strong> for managing movie records using <strong>Golang</strong>. Users can perform operations like adding new movies, retrieving all or specific movies, updating movie details, and deleting movies.</p>
     <p>The API uses <strong>gorilla/mux</strong> for routing and handles requests in a RESTful manner.</p>
 
-    <!-- Motivation -->
-    <h2>💡 Motivation</h2>
-    <p>I built this project to <strong>practice RESTful API development in Go</strong> and explore Go’s efficiency in handling server-side requests for CRUD operations.</p>
+    <h2>motivation</h2>
+    <p>I built this project to <strong>practice RESTful API development in Go</strong> and explore Go's efficiency in handling server-side requests for CRUD operations.</p>
 
-    <!-- Tech Stack -->
-    <h2>⚙️ Tech Stack</h2>
+    <h2>tech stack</h2>
     <ul>
       <li>Golang</li>
       <li>gorilla/mux for routing</li>
@@ -32,8 +172,7 @@
       <li>Postman or cURL for testing APIs</li>
     </ul>
 
-    <!-- API Endpoints -->
-    <h2>📡 API Endpoints</h2>
+    <h2>api endpoints</h2>
     <ul>
       <li><strong>GET /movies</strong> – Retrieve all movies</li>
       <li><strong>GET /movies/{id}</strong> – Retrieve a single movie by ID</li>
@@ -42,43 +181,31 @@
       <li><strong>DELETE /movies/{id}</strong> – Delete a movie by ID</li>
     </ul>
 
-  <!-- Sample Response -->
-    <h2>📊 Sample Movie JSON</h2>
-    <pre style="background:#1e1e1e;color:#d4d4d4;padding:15px;border-radius:8px;overflow-x:auto;">
-    {
-    "id": "1",
-    "isbn": "438227",
-    "title": "Inception",
-    "director": {
-        "firstname": "Christopher",
-        "lastname": "Nolan"
-        }
-    }
-    </pre>
+    <h2>sample movie json</h2>
+    <pre><code>{
+  "id": "1",
+  "isbn": "438227",
+  "title": "Inception",
+  "director": {
+    "firstname": "Christopher",
+    "lastname": "Nolan"
+  }
+}</code></pre>
 
-
-    <!-- Summary -->
-    <h2>🧩 Summary</h2>
+    <h2>summary</h2>
     <ul>
-      <li><strong>Project:</strong> RESTful CRUD API for movies</li>
-      <li><strong>Language:</strong> Golang</li>
-      <li><strong>Routing:</strong> gorilla/mux</li>
-      <li><strong>Goal:</strong> Practice building scalable API backends in Go</li>
-      <li><strong>Testing:</strong> Use Postman or cURL to test endpoints</li>
+      <li><strong>project:</strong> RESTful CRUD API for movies</li>
+      <li><strong>language:</strong> Golang</li>
+      <li><strong>routing:</strong> gorilla/mux</li>
+      <li><strong>goal:</strong> Practice building scalable API backends in Go</li>
+      <li><strong>testing:</strong> Use Postman or cURL to test endpoints</li>
     </ul>
 
-    <!-- GitHub Link -->
-    <div style="margin-top:40px;text-align:center;">
-      <a href="https://github.com/ahhyoushh/movies-crud-api-go" target="_blank" 
-         style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
-                text-decoration:none;transition:0.2s;">
-        🔗 View on GitHub
-      </a>
+    <div style="text-align: center;">
+      <a href="https://github.com/ahhyoushh/movies-crud-api-go" target="_blank" class="cta-link">→ view on github</a>
     </div>
 
-    <footer style="margin-top:60px;color:#888;text-align:center;">
-      © 2022 Ayush Bhalerao
-    </footer>
+    <footer>© 2022 ayush bhalerao</footer>
   </main>
 </body>
 </html>

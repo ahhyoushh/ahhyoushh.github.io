@@ -3,47 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EwSenku – E-Waste Recycling Platform</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>e-waste recycling platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --text: #e0e0e0;
+      --text-muted: #888888;
+      --accent: #888888;
+      --accent-hover: #c0c0c0;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    .back-link {
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .project-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .cta-link:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main style="max-width:800px;margin:auto;padding:60px 20px;">
-    <a href="index.html" style="color:#00b4d8;text-decoration:none;">← Back to Home</a>
-    <h1>♻️ EwSenku – E-Waste Recycling Platform</h1>
-    <p class="project-date">February, 2025</p>
-    
-    <h2>🌍 Overview</h2>
-    <p>EwSenku is a web-based platform that helps users identify and recycle electronic waste responsibly. 
-    It classifies uploaded images or text descriptions of e-waste using the <strong>Gemini API</strong> and connects users with the nearest recycling centers.</p>
+  <main>
+    <a href="index.html" class="back-link">← back</a>
 
-    <h2>🧠 Core Features</h2>
+    <h1>e-waste recycling platform</h1>
+    <p class="project-date">february 2025</p>
+
+    <h2>overview</h2>
+    <p>EwSenku is a web-based platform that helps users identify and recycle electronic waste responsibly. It classifies uploaded images or text descriptions of e-waste using the <strong>Gemini API</strong> and connects users with the nearest recycling centers.</p>
+
+    <h2>core features</h2>
     <ul>
       <li>Automatic e-waste categorization using Gemini API.</li>
       <li>Nearest recycling center locator via Google Maps API.</li>
       <li>Simple, clean user interface for submissions.</li>
     </ul>
 
-    <h2>⚙️ Tech Stack</h2>
+    <h2>tech stack</h2>
     <ul>
       <li>Python / Flask</li>
       <li>Gemini API (image/text classification)</li>
-      <li>leaflet</li>
-      <li>geojson</li>
-      <li>Vuejs</li>
+      <li>Leaflet</li>
+      <li>GeoJSON</li>
+      <li>Vue.js</li>
       <li>HTML, CSS, JS</li>
     </ul>
 
     <p>The goal was to create a system that bridges the gap between waste generators and recyclers through smart classification.</p>
-    <p>I as the member of the team did the backend side for handeling data, classifying data, api, etc</p>
-    <div style="margin-top:40px;text-align:center;">
-        <a href="https://github.com/ahhyoushh/Senku" target="_blank" 
-        style="color:#00b4d8;border:1px solid #00b4d8;padding:8px 16px;border-radius:6px;
-        text-decoration:none;transition:0.2s;">
-        🔗 View on GitHub
-        </a>
+    <p>As a team member, I handled the backend for data processing, classification, API development, and more.</p>
+
+    <div style="text-align: center;">
+      <a href="https://github.com/ahhyoushh/Senku" target="_blank" class="cta-link">→ view on github</a>
     </div>
 
-    <footer style="margin-top:60px;color:#888;text-align:center;">© 2025 Ayush Bhalerao</footer>
+    <footer>© 2025 ayush bhalerao</footer>
   </main>
 </body>
 </html>

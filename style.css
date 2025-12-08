@@ -1,270 +1,292 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
-/* Root Variables */
-:root {
-  --bg: #0a0a0a;
-  --card-bg: #111111;
-  --text: #e5e7eb;
-  --accent: #f5f5f5;
-  --accent-hover: #ffffff;
-  --muted: #9ca3af;
-  --border: #1f1f1f;
-}
-
-/* Body */
-body {
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+}
+:root {
+  --bg: #0a0a0a;
+  --bg-alt: #121212;
+  --text: #e0e0e0;
+  --text-muted: #888888;
+  --accent: #888888;
+  --accent-hover: #c0c0c0;
+  --border: #1a1a1a;
+  --code-bg: #0d0d0d;
+}
+body {
+  font-family: 'Inter', monospace;
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-
-/* Typing animation */
-.typing {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid var(--accent);
-  animation: typing 3s steps(26, end) forwards, blink 0.7s step-end infinite;
-  max-width: fit-content;
-  font-weight: 600;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes blink {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: var(--accent); }
-}
-
-/* Header */
-header {
-  text-align: center;
-  padding: 80px 20px 50px;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-}
-
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  position: relative;
-  z-index: 1;
-  color: var(--accent);
-}
-
-header p {
-  color: var(--muted);
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 0.3px;
-  position: relative;
-  z-index: 1;
-}
-
-/* GitHub Icon */
-.github-icon {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  font-size: 2.8rem;
-  color: var(--accent);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-}
-
-.github-icon:hover {
-  color: #ffffff;
-  transform: scale(1.1);
-}
-
-/* Container */
-.container {
-  display: flex;
-  max-width: 1200px;
-  margin: 60px auto;
-  gap: 40px;
-  padding: 0 24px;
-  align-items: flex-start;
-}
-
-/* Projects Section - Compact */
-main.projects {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.project {
-  border-left: 2px solid var(--accent);
-  background-color: var(--card-bg);
-  padding: 16px;
-  border-radius: 10px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid var(--border);
-  position: relative;
-}
-
-.project:hover {
-  transform: translateX(4px);
-  border-left-color: var(--accent-hover);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-}
-
-.project h2 a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.05rem;
-  letter-spacing: -0.5px;
-  transition: color 0.3s ease;
-}
-
-.project h2 a:hover {
-  color: var(--accent-hover);
-}
-
-.project p {
-  color: var(--muted);
-  margin-top: 8px;
-  font-size: 0.88rem;
-  line-height: 1.6;
-  font-weight: 400;
-}
-
-/* Blogs Sidebar - Compact */
-aside.blogs {
-  flex: 1;
-  background-color: var(--card-bg);
-  padding: 16px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  position: sticky;
-  top: 20px;
-}
-
-aside.blogs h2 {
-  color: var(--accent);
-  margin-bottom: 18px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-align: left;
-  letter-spacing: -0.5px;
-}
-
-aside.blogs ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-aside.blogs ul li {
-  margin-bottom: 10px;
-}
-
-aside.blogs ul li a {
+a {
   color: var(--text);
   text-decoration: none;
-  font-size: 0.88rem;
-  display: block;
-  padding: 6px 10px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 6px;
-  font-weight: 500;
-  letter-spacing: 0.1px;
+  transition: color 0.2s;
 }
-
-aside.blogs ul li a:hover {
+a:hover {
   color: var(--accent-hover);
-  background-color: rgba(255, 255, 255, 0.05);
-  transform: translateX(4px);
 }
-
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Fira Code', monospace;
+}
+.nav-brand {
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--accent-hover);
+}
+.nav-social {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-social a {
+  color: var(--text-muted);
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.nav-social a:hover {
+  color: var(--accent-hover);
+}
+/* Hero Section */
+.hero {
+  padding: 6rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-text {
+  margin-bottom: 1rem;
+}
+.hero-text span {
+  font-family: 'Fira Code', monospace;
+  color: var(--accent);
+  font-weight: 500;
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+.cta-link {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+}
+.cta-link:hover {
+  background-color: var(--accent);
+  color: var(--bg);
+}
+/* About Section */
+.about {
+  padding: 4rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.section-header {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.about-content {
+  margin-bottom: 3rem;
+}
+.about-text {
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+  line-height: 1.8;
+  max-width: 700px;
+}
+.skills {
+  margin-top: 2rem;
+}
+.skills-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.skill-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.skill-item {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 0.5rem 0;
+}
+.skill-item::before {
+  content: '→ ';
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+/* Projects Section */
+.projects {
+  padding: 4rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.project-list {
+  list-style: none;
+}
+.project-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: opacity 0.2s;
+}
+.project-item:last-child {
+  border-bottom: none;
+}
+.project-item:hover {
+  opacity: 0.8;
+}
+.project-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.project-title a {
+  color: var(--text);
+  transition: color 0.2s;
+}
+.project-title a:hover {
+  color: var(--accent-hover);
+}
+.project-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+}
+/* Blogs Section */
+.blogs {
+  padding: 4rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.blog-list {
+  list-style: none;
+}
+.blog-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.blog-item:last-child {
+  border-bottom: none;
+}
+.blog-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.blog-title a {
+  color: var(--text);
+  transition: color 0.2s;
+}
+.blog-title a:hover {
+  color: var(--accent-hover);
+}
+.blog-date {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.blog-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
 /* Footer */
 footer {
+  padding: 3rem;
   text-align: center;
-  padding: 40px 20px;
   border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.3px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }
-
-/* Project Date Styling */
-.project-date {
-  font-size: 0.82rem;
-  color: #9ca3af;
-  margin-top: -6px;
-  margin-bottom: 16px;
-  font-style: italic;
-  letter-spacing: 0.8px;
-  font-weight: 400;
+.footer-text {
+  font-family: 'Fira Code', monospace;
 }
-
- .note {
-      background: #292219;
-      border-left: 4px solid #f59e0b;
-      padding: 12px 16px;
-      border-radius: 6px;
-      margin-top: 22px;
-    }
-
-/* Code Snippet */
-.code-snippet {
-  background: #0f0f0f;
-  color: #e5e7eb;
-  padding: 16px;
-  border-radius: 10px;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.88rem;
-  overflow-x: auto;
-  margin: 16px 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  border: 1px solid #1f1f1f;
-}
-
-.code-snippet pre {
-  margin: 0;
-}
-
-/* Links Global */
-a {
-  color: #3b82f6; /* soft sky-blue accent */
-  text-decoration: none;
-  transition: color 0.25s ease, text-shadow 0.25s ease;
-}
-
-a:hover {
-  color: #60a5fa; /* lighter blue on hover */
-  text-shadow: 0 0 6px rgba(96, 165, 250, 0.4);
-}
-
-
 /* Responsive */
-@media (max-width: 900px) {
-  .container {
+@media (max-width: 768px) {
+  nav {
     flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
   }
-
-  aside.blogs {
-    margin-top: 30px;
-    border-left: none;
-    position: relative;
-    top: auto;
+  .nav-links {
+    gap: 1.5rem;
   }
-
-  header h1 {
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+  .hero h1 {
     font-size: 2rem;
+  }
+  .about, .projects, .blogs {
+    padding: 2rem 1.5rem;
+  }
+  .skill-list {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 }
