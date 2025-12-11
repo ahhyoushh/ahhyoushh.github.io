@@ -8,11 +8,125 @@
   <title>Ayush Bhalerao</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    /* Loading Screen */
+    .loader-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.6s ease-out;
+    }
 
+    .loader-container.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-  
+    .glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(136, 136, 136, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .glow-1 {
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow-2 {
+      bottom: -150px;
+      right: -150px;
+      animation-delay: 2s;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.4;
+        transform: scale(1.1);
+      }
+    }
+
+    .loader-content {
+      position: relative;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .dollar-loader {
+      font-family: 'Fira Code', monospace;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      animation: float-dollar 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float-dollar {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(-12px);
+        opacity: 1;
+      }
+    }
+
+    .line-loader {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: scan 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes scan {
+      0% {
+        width: 0;
+        opacity: 0;
+      }
+      50% {
+        width: 60px;
+        opacity: 1;
+      }
+      100% {
+        width: 0;
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loader-container" id="loaderContainer">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="loader-content">
+      <div class="dollar-loader">$</div>
+      <div class="line-loader"></div>
+    </div>
+  </div>
+
   <!-- Navigation -->
   <nav>
     <div class="nav-brand">$ ayush</div>
@@ -25,6 +139,12 @@
       <a href="https://github.com/ahhyoushh" target="_blank" title="GitHub">
         <i class="fab fa-github"></i>
       </a>
+      <a href="https://linkedin.com/in/ayushbhalerao" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="mailto:bhaleraoayush06@gmail.com" target="_blank" title="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
     </div>
   </nav>
 
@@ -34,6 +154,7 @@
       <span>const</span> Name = {
     </div>
     <h1>Ayush Bhalerao</h1>
+    <div class="hero-closing">}</div>
     <p class="hero-subtitle">Computers get me excited;</p>
 
     <a href="#projects" class="cta-link">→ explore work</a>
@@ -47,10 +168,10 @@
     
     <div class="about-content">
       <p class="about-text">
-        I'm a student passionate about building practical applications that solve real problems. I enjoy exploring the intersection of different Technologies and love implementing them with my vision.
+        I'm a student passionate about building practical applications that solve real problems. I enjoy exploring the intersection of different technologies and love implementing them with my vision.
       </p>
       <p class="about-text">
-        Currently curious about Reinforcement Learning and working on implementing it in <a href="#projects" >FileSense</a>.
+        Currently curious about Reinforcement Learning and working on implementing it in <a href="#projects">FileSense</a>.
       </p>
     </div>
 
@@ -66,7 +187,7 @@
         <div class="skill-item">Scikit-learn</div>
         <div class="skill-item">Random Forest</div>
         <div class="skill-item">Pandas</div>
-        <div class="skill-item">Gorrilla/mux</div>        
+        <div class="skill-item">Gorilla/mux</div>        
         <div class="skill-item">MySQL</div>        
         <div class="skill-item">Git / GitHub</div>
         <div class="skill-item">Supabase</div>        
@@ -74,8 +195,6 @@
         <div class="skill-item">REST APIs</div>
         <div class="skill-item">Google-genai</div>
         <div class="skill-item">Discord.py</div>        
-
-        
       </div>
     </div>
   </section>
@@ -96,8 +215,6 @@
           <span class="tag">reinforcement-learning</span>
           <span class="tag">FAISS</span>
           <span class="tag">supabase</span>
-
-
         </div>
       </li>
 
@@ -111,7 +228,6 @@
           <span class="tag">scikit-learn</span>
           <span class="tag">random-forest</span>
           <span class="tag">pandas</span>
-
         </div>
       </li>
 
@@ -167,14 +283,12 @@
         <p class="project-desc">RESTful API for managing movie records built with Go and gorilla/mux router.</p>
         <div class="project-tags">
           <span class="tag">go</span>
-          <span class="tag">gorrilla/mux</span>
+          <span class="tag">gorilla/mux</span>
           <span class="tag">rest-apis</span>
           <span class="tag">backend</span>
           <span class="tag">routing</span>
         </div>
       </li>
-
-
     </ul>
   </section>
 
@@ -200,7 +314,25 @@
 
   <!-- Footer -->
   <footer>
-    <p class="footer-text">© 2025 ayush Bhalerao </p>
+    <p class="footer-text">© 2025 ayush Bhalerao</p>
   </footer>
+
+  <script>
+    // Hide loader when page is fully loaded
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loaderContainer');
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 1500);
+    });
+
+    // Optional: Skip loader with spacebar or enter
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        const loader = document.getElementById('loaderContainer');
+        loader.classList.add('hidden');
+      }
+    });
+  </script>
 </body>
 </html>
