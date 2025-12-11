@@ -148,6 +148,18 @@
         font-size: 1.5rem;
       }
     }
+    .code-snippet {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
   </style>
 </head>
 <body>
@@ -174,7 +186,11 @@
 
     <h2>api endpoints</h2>
     <ul>
-      <a href="https://movies-crud-api-go.onrender.com">API base url</a>
+      <li><strong>Base url:</strong>
+      <div class="code-snippet">
+          <code>https://movies-crud-api-go.onrender.com/</code>
+      </div><strong>Note:</strong> No index.html to render</li>
+
       <li><strong>GET /movies</strong> – Retrieve all movies</li>
       <li><strong>GET /movies/{id}</strong> – Retrieve a single movie by ID</li>
       <li><strong>POST /movies</strong> – Add a new movie</li>
