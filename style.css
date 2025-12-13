@@ -1,3 +1,6 @@
+/* =========================================
+   RESET & VARIABLES
+   ========================================= */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +9,7 @@
 
 :root {
   --bg: #0a0a0a;
-  --bg-alt: #121212;
+  --bg-alt: #0f0f0f;
   --text: #e0e0e0;
   --text-muted: #888888;
   --accent: #888888;
@@ -32,30 +35,109 @@ a:hover {
   color: var(--accent-hover);
 }
 
-/* Navigation */
+/* =========================================
+   LOADER STYLES
+   ========================================= */
+.loader-container {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s;
+}
+.loader-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.glow {
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(136,136,136,0.15), transparent 70%);
+  border-radius: 50%;
+  animation: float 6s infinite ease-in-out;
+}
+.glow-1 { top: 20%; left: 30%; animation-delay: 0s; }
+.glow-2 { bottom: 20%; right: 30%; animation-delay: 3s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -20px); }
+}
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.pulse-ring {
+  width: 50px; height: 50px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  position: absolute;
+}
+@keyframes pulse {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.neon-circle {
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+}
+.loading-bars {
+  display: flex;
+  gap: 4px;
+}
+.bar {
+  width: 4px; height: 15px;
+  background: var(--accent);
+  animation: wave 1s infinite ease-in-out;
+}
+.bar:nth-child(1) { animation-delay: 0.0s; }
+.bar:nth-child(2) { animation-delay: 0.1s; }
+.bar:nth-child(3) { animation-delay: 0.2s; }
+.bar:nth-child(4) { animation-delay: 0.3s; }
+.bar:nth-child(5) { animation-delay: 0.4s; }
+@keyframes wave {
+  0%, 100% { transform: scaleY(1); opacity: 0.5; }
+  50% { transform: scaleY(2); opacity: 1; }
+}
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 3rem;
+  padding: 1.5rem 3rem;
   border-bottom: 1px solid var(--border);
   font-family: 'Fira Code', monospace;
 }
 
 .nav-brand {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   letter-spacing: 2px;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
   list-style: none;
+  flex: 1;
+  justify-content: center;
 }
 
 .nav-links a {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   transition: color 0.2s;
 }
@@ -66,12 +148,13 @@ nav {
 
 .nav-social {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.2rem;
+  flex-shrink: 0;
 }
 
 .nav-social a {
   color: var(--text-muted);
-  font-size: 1.1rem;
+  font-size: 1rem;
   transition: color 0.2s;
 }
 
@@ -79,55 +162,71 @@ nav {
   color: var(--accent-hover);
 }
 
-/* Hero Section */
+/* =========================================
+   HERO SECTION
+   ========================================= */
 .hero {
-  padding: 6rem 3rem;
+  padding: 3.5rem 3rem;
   max-width: 900px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
 }
 
 .hero-text {
-  margin-bottom: 0rem;
+  margin-bottom: 0.1rem;
   font-family: 'Fira Code', monospace;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--accent);
   font-weight: 500;
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 3.2rem;
   font-weight: 700;
-  margin-bottom: 0rem;
-  margin-top: 0.2rem;
+  margin-bottom: 0.1rem;
   letter-spacing: -1.5px;
   line-height: 1.1;
 }
 
 .hero-closing {
   font-family: 'Fira Code', monospace;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--accent);
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .hero-subtitle {
   color: var(--text-muted);
-  font-size: 1rem;
-  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
   max-width: 600px;
+}
+
+.cta-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .cta-link {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.2rem;
   border: 1px solid var(--accent);
   color: var(--accent);
   font-family: 'Fira Code', monospace;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   transition: all 0.2s;
-  margin-right: 1rem;
-  margin-bottom: 2rem;
+  cursor: pointer;
+  background: transparent;
 }
 
 .cta-link:hover {
@@ -135,74 +234,205 @@ nav {
   color: var(--bg);
 }
 
-/* About Section */
-.about {
-  padding: 4rem 3rem;
-  max-width: 900px;
-  margin: 0 auto;
-  border-top: 1px solid var(--border);
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Skills Bars */
+.skills-bars {
+  width: 100%;
+  max-width: 280px;
+}
+
+.skill-bar-item {
+  margin-bottom: 1.5rem;
+}
+
+.skill-bar-item:last-child {
+  margin-bottom: 0;
+}
+
+.skill-bar-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+}
+
+.skill-bar-name {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.skill-bar-percent {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.skill-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(136, 136, 136, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.8) 0%, rgba(192, 192, 192, 0.5) 100%);
+  border-radius: 2px;
+  transition: width 0.6s ease-out;
+}
+
+.skill-bar-fill.negative {
+  background: linear-gradient(270deg, rgba(192, 192, 192, 0.8) 0%, rgba(192, 192, 192, 0.5) 100%);
+}
+
+.rizz-zero {
+  width: 0% !important;
+  background: transparent;
+}
+
+/* =========================================
+   GENERIC SECTION STYLES
+   ========================================= */
 .section-header {
   font-family: 'Fira Code', monospace;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--accent);
   margin-bottom: 0.5rem;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* =========================================
+   STATS SECTION (Seamless: No Lines)
+   ========================================= */
+.stats {
+  padding: 1rem 3rem 3.5rem 3rem; /* Reduced top padding for flow */
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: none; /* Removed line over */
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+}
+
+.stat-card {
+  display: block;
+  background: rgba(136, 136, 136, 0.05);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  background: rgba(136, 136, 136, 0.1);
+  border-color: var(--accent);
+}
+
+.stat-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: 'Fira Code', monospace;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.stat-title {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-family: 'Fira Code', monospace;
+}
+
+/* =========================================
+   ABOUT SECTION (Seamless: No Lines)
+   ========================================= */
+.about {
+  padding: 3.5rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: none; /* Removed line under status */
 }
 
 .about-content {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 .about-text {
   color: var(--text-muted);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   line-height: 1.8;
   max-width: 700px;
+  font-size: 0.95rem;
 }
 
 .skills {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .skills-title {
   font-family: 'Fira Code', monospace;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--text);
   margin-bottom: 1rem;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .skill-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.4rem;
   margin-bottom: 1.5rem;
 }
 
 .skill-item {
   font-family: 'Fira Code', monospace;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
+  transition: color 0.2s;
+}
+
+.skill-item:hover {
+  color: var(--accent-hover);
 }
 
 .skill-item::before {
-  content: '→ ';
+  content: '▸ ';
   color: var(--accent);
-  margin-right: 0.5rem;
+  margin-right: 0.4rem;
 }
 
-/* Projects Section */
+/* =========================================
+   PROJECTS SECTION
+   ========================================= */
 .projects {
-  padding: 4rem 3rem;
+  padding: 3.5rem 3rem;
   max-width: 900px;
   margin: 0 auto;
   border-top: 1px solid var(--border);
@@ -213,7 +443,7 @@ nav {
 }
 
 .project-item {
-  padding: 1.5rem 0;
+  padding: 1.3rem 0;
   border-bottom: 1px solid var(--border);
   transition: opacity 0.2s;
 }
@@ -223,15 +453,22 @@ nav {
 }
 
 .project-item:hover {
-  opacity: 0.8;
+  opacity: 0.85;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.4rem;
+  gap: 1rem;
 }
 
 .project-title {
   font-family: 'Fira Code', monospace;
   font-size: 0.95rem;
   color: var(--text);
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .project-title a {
@@ -243,30 +480,49 @@ nav {
   color: var(--accent-hover);
 }
 
+.project-id {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  opacity: 0.7;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .project-desc {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .tag {
   font-family: 'Fira Code', monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--accent);
-  padding: 0.25rem 0.5rem;
-  border: 1px solid var(--accent);
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--border);
   border-radius: 2px;
+  transition: all 0.2s;
+  background-color: rgba(136, 136, 136, 0.05);
 }
 
-/* Blogs Section */
+.tag:hover {
+  border-color: var(--accent);
+  background-color: rgba(136, 136, 136, 0.1);
+}
+
+/* =========================================
+   BLOGS SECTION
+   ========================================= */
 .blogs {
-  padding: 4rem 3rem;
+  padding: 3.5rem 3rem;
   max-width: 900px;
   margin: 0 auto;
   border-top: 1px solid var(--border);
@@ -277,20 +533,25 @@ nav {
 }
 
 .blog-item {
-  padding: 1.5rem 0;
+  padding: 1.3rem 0;
   border-bottom: 1px solid var(--border);
+  transition: opacity 0.2s;
 }
 
 .blog-item:last-child {
   border-bottom: none;
 }
 
+.blog-item:hover {
+  opacity: 0.85;
+}
+
 .blog-title {
   font-family: 'Fira Code', monospace;
   font-size: 0.95rem;
   color: var(--text);
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
 }
 
 .blog-title a {
@@ -304,58 +565,338 @@ nav {
 
 .blog-date {
   font-family: 'Fira Code', monospace;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--accent);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .blog-desc {
   color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   IDEAS / TODO – FINAL CLEAN STYLES
+   ========================================= */
+
+#todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-todo-link {
+  font-family: "Fira Code", monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  opacity: 0.6;
+  margin-top: 0.5rem;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.project-todo-link:hover {
+  opacity: 1;
+  color: var(--accent-hover);
+}
+
+
+/* Section headers: UPCOMING / OTHER */
+.todo-section-header {
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 2.5rem 0 0.8rem;
+}
+
+/* Project name header */
+.todo-project-header {
+  font-family: "Fira Code", monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 1.8rem 0 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+/* Project header (grey pill) */
+.todo-project-header {
+  display: inline-block;
+  font-family: "Fira Code", monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(136, 136, 136, 0.12);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  margin: 1.8rem 0 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.todo-project-header.upcoming {
+  border-style: dashed;
+  color: var(--accent);
+}
+
+/* Section headers */
+.todo-section-header {
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 3rem 0 1rem;
+}
+
+/* Todo item */
+.todo-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Arrow stays task marker */
+.todo-title {
+  font-family: "Fira Code", monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.todo-item {
+  position: relative;
+}
+
+/* status badge */
+.todo-item::after {
+  content: "PENDING";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-family: "Fira Code", monospace;
+  font-size: 0.65rem;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.todo-done::after {
+  content: "DONE";
+  color: #6ee7b7;
+}
+
+/* done task styling */
+.todo-done .todo-title {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+/* Subtasks */
+.subtask-list {
+  margin: 0.5rem 0 0 2rem;
+  list-style: disc;
+  padding: 0;
+}
+
+.subtask-item {
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0.25rem 0;
+}
+
+
+.todo-project-header {
+  display: inline-block;
+  font-family: "Fira Code", monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(136, 136, 136, 0.12);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  margin: 1.8rem 0 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+
+
+.todo-section-header {
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 3rem 0 1rem;
+  padding-left: 0.2rem;
+}
+
+/* Rizz easter egg */
+.rizz-easter {
+  position: relative;
+  cursor: help;
+}
+
+.rizz-easter::after {
+  content: "🥀";
+  position: absolute;
+  left: 110%;
+  top: -2px;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.25s ease;
   font-size: 0.9rem;
 }
 
-/* Footer */
+.rizz-easter:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.todo-project-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.todo-project-link:hover {
+  color: var(--accent-hover);
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
 footer {
-  padding: 3rem;
+  padding: 2.5rem 3rem;
   text-align: center;
   border-top: 1px solid var(--border);
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .footer-text {
   font-family: 'Fira Code', monospace;
+  letter-spacing: 0.5px;
 }
 
-/* Responsive */
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1rem;
+    padding: 1.2rem;
   }
 
   .nav-links {
-    gap: 1.5rem;
+    gap: 1rem;
+    justify-content: center;
   }
 
   .nav-social {
-    gap: 1rem;
+    gap: 0.8rem;
   }
 
   .hero {
-    padding: 3rem 1.5rem;
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.5rem;
+    gap: 2rem;
   }
 
   .hero h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
-  .about, .projects, .blogs {
-    padding: 2rem 1.5rem;
+  .hero-right {
+    width: 100%;
+  }
+
+  .skills-bars {
+    max-width: 100%;
+  }
+
+  .about, .projects, .blogs, .stats, #ideas {
+    padding: 2.5rem 1.5rem;
   }
 
   .skill-list {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
+
+  .cta-links {
+    flex-direction: column;
+  }
+
+  .cta-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .project-header {
+    flex-direction: column;
+  }
+
+  .project-id {
+    white-space: normal;
+  }
+}
+
+/* === PROJECT → TASKS BUTTON (VISUAL CTA) === */
+
+.project-todo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  margin-top: 0.6rem;
+  margin-left: 1.2rem; /* ← moves it to the right */
+
+  padding: 0.35rem 0.75rem;
+
+  font-family: "Fira Code", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+
+  color: var(--accent);
+  background: linear-gradient(
+    135deg,
+    rgba(136,136,136,0.18),
+    rgba(136,136,136,0.08)
+  );
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* arrow icon */
+.project-todo-link::before {
+  content: "↳";
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+/* hover = obvious CTA */
+.project-todo-link:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  transform: translateX(2px);
 }

@@ -1,413 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ayush Bhalerao</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png">
-  <style>
-    /* Loading Screen */
-    .loader-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--bg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 0.6s ease-out;
-    }
-
-    .loader-container.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .glow {
-      position: fixed;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(136, 136, 136, 0.08) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      animation: pulse 4s ease-in-out infinite;
-    }
-
-    .glow-1 {
-      top: -100px;
-      left: -100px;
-    }
-
-    .glow-2 {
-      bottom: -150px;
-      right: -150px;
-      animation-delay: 2s;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.2;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.4;
-        transform: scale(1.1);
-      }
-    }
-
-    .loader-content {
-      position: relative;
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3rem;
-    }
-
-    .neon-circle {
-      position: relative;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(192, 192, 192, 0.2), transparent);
-      border: 2px solid var(--accent);
-      animation: orbit-rotation 3s linear infinite;
-      box-shadow: 0 0 30px rgba(136, 136, 136, 0.3), inset 0 0 30px rgba(136, 136, 136, 0.1);
-    }
-
-    .neon-circle::before {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(136, 136, 136, 0.5);
-    }
-
-    @keyframes orbit-rotation {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .pulse-ring {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 140px;
-      height: 140px;
-      border: 1px solid rgba(136, 136, 136, 0.3);
-      border-radius: 50%;
-      animation: pulse-ring-anim 2s ease-out infinite;
-    }
-
-    @keyframes pulse-ring-anim {
-      0% {
-        width: 140px;
-        height: 140px;
-        opacity: 1;
-      }
-      100% {
-        width: 220px;
-        height: 220px;
-        opacity: 0;
-      }
-    }
-
-    .loading-bars {
-      display: flex;
-      gap: 0.4rem;
-      align-items: flex-end;
-    }
-
-    .bar {
-      width: 3px;
-      height: 20px;
-      background: linear-gradient(180deg, var(--accent), rgba(136, 136, 136, 0.4));
-      border-radius: 2px;
-      animation: bar-wave 0.8s ease-in-out infinite;
-      box-shadow: 0 0 10px rgba(136, 136, 136, 0.4);
-    }
-
-    .bar:nth-child(1) {
-      animation-delay: 0s;
-      height: 15px;
-    }
-
-    .bar:nth-child(2) {
-      animation-delay: 0.1s;
-      height: 25px;
-    }
-
-    .bar:nth-child(3) {
-      animation-delay: 0.2s;
-      height: 20px;
-    }
-
-    .bar:nth-child(4) {
-      animation-delay: 0.3s;
-      height: 30px;
-    }
-
-    .bar:nth-child(5) {
-      animation-delay: 0.4s;
-      height: 18px;
-    }
-
-    @keyframes bar-wave {
-      0%, 100% {
-        height: 15px;
-      }
-      50% {
-        height: 30px;
-      }
-    }
-  </style>
 </head>
+
 <body>
-  <!-- Loading Screen -->
-  <div class="loader-container" id="loaderContainer">
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
 
-    <div class="loader-content">
-      <div style="position: relative; display: flex; justify-content: center; align-items: center;">
-        <div class="pulse-ring"></div>
-        <div class="neon-circle"></div>
-      </div>
-
-      <div class="loading-bars">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
+<!-- LOADER (Preserved functionality) -->
+<div class="loader-container" id="loaderContainer">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="loader-content">
+    <div style="position: relative; display:flex; justify-content:center; align-items:center;">
+      <div class="pulse-ring"></div>
+      <div class="neon-circle"></div>
+    </div>
+    <div class="loading-bars">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
   </div>
+</div>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-brand">$ ayush</div>
-    <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#blogs">blogs</a></li>
-    </ul>
-    <div class="nav-social">
-      <a href="https://github.com/ahhyoushh" target="_blank" title="GitHub">
-        <i class="fab fa-github"></i>
-      </a>
-      <a href="https://linkedin.com/in/ayushbhalerao" target="_blank" title="LinkedIn">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="mailto:bhaleraoayush06@gmail.com" target="_blank" title="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </div>
-  </nav>
+<!-- Navigation -->
+<nav>
+  <div class="nav-brand">$ ayush</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#blogs">blogs</a></li>
+    <li><a href="#ideas">ideas</a></li>
+  </ul>
+  <div class="nav-social">
+    <a href="https://github.com/ahhyoushh" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://linkedin.com/in/ayushbhalerao" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:bhaleraoayush06@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+  </div>
+</nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-text">
-      <span>const</span> Name = {
-    </div>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-text"><span>const</span> Name = {</div>
     <h1>Ayush Bhalerao</h1>
     <div class="hero-closing">}</div>
     <p class="hero-subtitle">Computers get me excited;</p>
-
-    <a href="#projects" class="cta-link">→ explore work</a>
-    <a href="#about" class="cta-link">→ about me</a>
-  </section>
-
-  <!-- About Section -->
-  <section class="about" id="about">
-    <div class="section-header">// about</div>
-    <h2 class="section-title">About</h2>
-    
-    <div class="about-content">
-      <p class="about-text">
-        I'm a student passionate about building practical applications that solve real problems. I enjoy exploring the intersection of different technologies and love implementing them with my vision.
-      </p>
-      <p class="about-text">
-        Currently curious about Reinforcement Learning and working on implementing it in <a href="#projects">FileSense</a>.
-      </p>
+    <div class="cta-links">
+      <a href="#projects" class="cta-link">→ explore work</a>
+      <a href="#about" class="cta-link">→ about me</a>
     </div>
+  </div>
 
-    <div class="skills">
-      <div class="skills-title">// languages & tools</div>
-      <p class="hero-subtitle">Most proficient ones...</p>
-      
-      <div class="skill-list">
-        <div class="skill-item">Python</div>
-        <div class="skill-item">Go/Golang</div>
-        <div class="skill-item">Flask</div>
-        <div class="skill-item">SBERT / BERT</div>
-        <div class="skill-item">Scikit-learn</div>
-        <div class="skill-item">Random Forest</div>
-        <div class="skill-item">Pandas</div>
-        <div class="skill-item">Gorilla/mux</div>        
-        <div class="skill-item">MySQL</div>        
-        <div class="skill-item">Git / GitHub</div>
-        <div class="skill-item">Supabase</div>        
-        <div class="skill-item">Firebase</div>
-        <div class="skill-item">REST APIs</div>
-        <div class="skill-item">Google-genai</div>
-        <div class="skill-item">Discord.py</div>        
+  <div class="hero-right">
+    <div class="skills-bars">
+      <!-- Skill: Python -->
+      <div class="skill-bar-item">
+        <div class="skill-bar-label">
+          <span class="skill-bar-name">Python</span>
+          <span class="skill-bar-percent">90%</span>
+        </div>
+        <div class="skill-bar-container">
+          <div class="skill-bar-fill" style="width: 90%"></div>
+        </div>
+      </div>
+
+      <!-- Skill: HTML/JS -->
+      <div class="skill-bar-item">
+        <div class="skill-bar-label">
+          <span class="skill-bar-name">HTML/JS</span>
+          <span class="skill-bar-percent">85%</span>
+        </div>
+        <div class="skill-bar-container">
+          <div class="skill-bar-fill" style="width: 85%"></div>
+        </div>
+      </div>
+
+      <!-- Skill: Golang -->
+      <div class="skill-bar-item">
+        <div class="skill-bar-label">
+          <span class="skill-bar-name">Golang</span>
+          <span class="skill-bar-percent">80%</span>
+        </div>
+        <div class="skill-bar-container">
+          <div class="skill-bar-fill" style="width: 80%"></div>
+        </div>
+      </div>
+
+      <!-- Skill: Rizz (Negative logic preserved) -->
+      <div class="skill-bar-item">
+        <div class="skill-bar-label">
+          <span class="skill-bar-name">Rizz</span>
+          <span class="skill-bar-percent rizz-easter" title="Underflow error">-0.5%</span>
+        </div>
+        <div class="skill-bar-container">
+          <div class="skill-bar-fill negative rizz-zero" style="width: 0.5%; margin-left: 100%"></div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Projects Section -->
-  <section class="projects" id="projects">
-    <div class="section-header">// work</div>
-    <h2 class="section-title">Projects</h2>
-    
-    <ul class="project-list">
-      <li class="project-item">
+<!-- Stats Section (Border Removed in CSS) -->
+<section class="stats">
+  <div class="stats-grid">
+    <a href="https://wa.me/919322431437" target="_blank" class="stat-card stat-link">
+      <div class="stat-number">☕</div>
+      <div class="stat-title">Open To Chat</div>
+    </a>
+    <a href="https://github.com/ahhyoushh" target="_blank" class="stat-card stat-link">
+      <div class="stat-number">🤝</div>
+      <div class="stat-title">Open For Collab</div>
+    </a>
+  </div>
+</section>
+
+<!-- About Section (Border Removed in CSS) -->
+<section class="about" id="about">
+  <div class="section-header">// about</div>
+  <h2 class="section-title">About</h2>
+  <div class="about-content">
+    <p class="about-text">I'm a student passionate about building practical applications that solve real problems.</p>
+    <p class="about-text">Currently curious about Reinforcement Learning and working on implementing it in <a href="#projects">FileSense</a>.</p>
+  </div>
+
+  <div class="skills">
+    <div class="skills-title">// languages & tools</div>
+    <div class="skill-list">
+      <div class="skill-item">Python</div>
+      <div class="skill-item">Go/Golang</div>
+      <div class="skill-item">Flask</div>
+      <div class="skill-item">SBERT / BERT</div>
+      <div class="skill-item">Scikit-learn</div>
+      <div class="skill-item">Random Forest</div>
+      <div class="skill-item">Pandas</div>
+      <div class="skill-item">Gorilla/mux</div>
+      <div class="skill-item">MySQL</div>
+      <div class="skill-item">Git / GitHub</div>
+      <div class="skill-item">Supabase</div>
+      <div class="skill-item">Firebase</div>
+      <div class="skill-item">REST APIs</div>
+      <div class="skill-item">Google-genai</div>
+      <div class="skill-item">Discord.py</div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects" id="projects">
+  <div class="section-header">// work</div>
+  <h2 class="section-title">Projects</h2>
+  <ul class="project-list">
+    <li class="project-item" data-project-id="filesense">
+      <div class="project-header">
         <div class="project-title"><a href="FileSense">filesense</a></div>
-        <p class="project-desc">Smart file organizer that semantically understands documents and screenshots using OCR.</p>
-        <div class="project-tags">
-          <span class="tag">python</span>
-          <span class="tag">sentence-BERT</span>
-          <span class="tag">optical-character-recognition</span>
-          <span class="tag">reinforcement-learning</span>
-          <span class="tag">FAISS</span>
-          <span class="tag">supabase</span>
-        </div>
-      </li>
+        <div class="project-id">filesense</div>
+      </div>
+      <p class="project-desc">Smart file organizer that semantically understands documents.</p>
+      <div class="project-tags">
+        <span class="tag">python</span>
+        <span class="tag">sentence-BERT</span>
+        <span class="tag">reinforcement-learning</span>
+        <span class="tag">FAISS</span>
+        <span class="tag">supabase</span>
+      </div>
+      <div class="project-actions"></div>
+    </li>
 
-      <li class="project-item">
+    <li class="project-item" data-project-id="aqi">
+      <div class="project-header">
         <div class="project-title"><a href="aqi.html">air quality index prediction</a></div>
-        <p class="project-desc">Next-day AQI prediction using Random Forest Regressor trained on pollutant data.</p>
-        <div class="project-tags">
-          <span class="tag">machine-learning</span>
-          <span class="tag">data-analysis</span>
-          <span class="tag">python</span>
-          <span class="tag">scikit-learn</span>
-          <span class="tag">random-forest</span>
-          <span class="tag">pandas</span>
-        </div>
-      </li>
+        <div class="project-id">aqi</div>
+      </div>
+      <p class="project-desc">Next-day AQI prediction using Random Forest.</p>
+      <div class="project-tags">
+        <span class="tag">ml</span>
+        <span class="tag">pandas</span>
+        <span class="tag">sklearn</span>
+      </div>
+      <div class="project-actions"></div>
+    </li>
 
-      <li class="project-item">
+    <li class="project-item" data-project-id="ewsenku">
+      <div class="project-header">
         <div class="project-title"><a href="ewsenku.html">e-waste recycling platform</a></div>
-        <p class="project-desc">Categorizes electronic waste using Gemini API and locates nearest recycling centers.</p>
-        <div class="project-tags">
-          <span class="tag">flask</span>
-          <span class="tag">firebase/firestore</span>
-          <span class="tag">gemini-api</span>
-          <span class="tag">sustainability</span>
-          <span class="tag">web requests</span>
-        </div>
-      </li>
+        <div class="project-id">ewsenku</div>
+      </div>
+      <p class="project-desc">Categorizes electronic waste using Gemini API and locates nearest recycling centers.</p>
+      <div class="project-tags">
+        <span class="tag">flask</span>
+        <span class="tag">firebase/firestore</span>
+        <span class="tag">gemini-api</span>
+        <span class="tag">sustainability</span>
+      </div>
+      <div class="project-actions"></div>
+    </li>
 
-      <li class="project-item">
+    <li class="project-item" data-project-id="dcbot">
+      <div class="project-header">
         <div class="project-title"><a href="dcbot.html">discord moderator bot</a></div>
-        <p class="project-desc">Smart Discord bot using vectorization and cosine similarity for phrase detection.</p>
-        <div class="project-tags">
-          <span class="tag">discord.py</span>
-          <span class="tag">rest-apis</span>
-          <span class="tag">machine-learning</span>
-          <span class="tag">cosine-similarity</span>
-          <span class="tag">python</span>
-        </div>
-      </li>
+        <div class="project-id">dcbot</div>
+      </div>
+      <p class="project-desc">Smart Discord bot using vectorization and cosine similarity for phrase detection.</p>
+      <div class="project-tags">
+        <span class="tag">discord.py</span>
+        <span class="tag">rest-apis</span>
+        <span class="tag">machine-learning</span>
+        <span class="tag">cosine-similarity</span>
+      </div>
+      <div class="project-actions"></div>
+    </li>
 
-      <li class="project-item">
+    <li class="project-item" data-project-id="clichat">
+      <div class="project-header">
         <div class="project-title"><a href="clichat.html">cli chat</a></div>
-        <p class="project-desc">Simple command-line chat application with client and server implementation.</p>
-        <div class="project-tags">
-          <span class="tag">python</span>
-          <span class="tag">requests</span>
-          <span class="tag">networking</span>
-          <span class="tag">git/github</span>
-          <span class="tag">cli</span>
-        </div>
-      </li>
+        <div class="project-id">clichat</div>
+      </div>
+      <p class="project-desc">Simple command-line chat application with client and server implementation.</p>
+      <div class="project-tags">
+        <span class="tag">python</span>
+        <span class="tag">requests</span>
+        <span class="tag">networking</span>
+        <span class="tag">cli</span>
+      </div>
+      <div class="project-actions"></div>
+    </li>
 
-      <li class="project-item">
+    <li class="project-item" data-project-id="face_detection">
+      <div class="project-header">
         <div class="project-title"><a href="face_detection.html">face detection doorcam</a></div>
-        <p class="project-desc">Real-time face detection system using OpenCV's cascade classifier.</p>
-        <div class="project-tags">
-          <span class="tag">opencv</span>
-          <span class="tag">haar-cascade-classifier</span>
-          <span class="tag">machine-learning</span>
-          <span class="tag">python</span>
-        </div>
-      </li>
+        <div class="project-id">face_detection</div>
+      </div>
+      <p class="project-desc">Real-time face detection system using OpenCV's cascade classifier.</p>
+      <div class="project-tags">
+        <span class="tag">opencv</span>
+        <span class="tag">haar-cascade</span>
+        <span class="tag">machine-learning</span>
+      </div>
+      <div class="project-actions"></div>
+    </li>
 
-      <li class="project-item">
+    <li class="project-item" data-project-id="goapi">
+      <div class="project-header">
         <div class="project-title"><a href="goapi.html">movies crud api</a></div>
-        <p class="project-desc">RESTful API for managing movie records built with Go and gorilla/mux router.</p>
-        <div class="project-tags">
-          <span class="tag">go</span>
-          <span class="tag">gorilla/mux</span>
-          <span class="tag">rest-apis</span>
-          <span class="tag">backend</span>
-          <span class="tag">routing</span>
-        </div>
-      </li>
-    </ul>
-  </section>
+        <div class="project-id">goapi</div>
+      </div>
+      <p class="project-desc">RESTful API for managing movie records built with Go and gorilla/mux router.</p>
+      <div class="project-tags">
+        <span class="tag">go</span>
+        <span class="tag">gorilla/mux</span>
+        <span class="tag">rest-apis</span>
+        <span class="tag">backend</span>
+      </div>
+      <div class="project-actions"></div>
+    </li>
+  </ul>
+</section>
 
-  <!-- Blogs Section -->
-  <section class="blogs" id="blogs">
-    <div class="section-header">// writings</div>
-    <h2 class="section-title">Blog</h2>
-    
-    <ul class="blog-list">
-      <li class="blog-item">
-        <div class="blog-date">dec 2025</div>
-        <div class="blog-title"><a href="DiwaliAQI.html">effect of diwali on aqi</a></div>
-        <p class="blog-desc">Analyzing how the Diwali festival impacts air quality and what my ML model reveals about pollution patterns.</p>
-      </li>
+<!-- Blogs Section -->
+<section class="blogs" id="blogs">
+  <div class="section-header">// writings</div>
+  <h2 class="section-title">Blog</h2>
+  <ul class="blog-list">
+    <li class="blog-item">
+      <div class="blog-date">dec 2025</div>
+      <div class="blog-title"><a href="DiwaliAQI.html">effect of diwali on aqi</a></div>
+      <p class="blog-desc">Analyzing how the Diwali festival impacts air quality and what my ML model reveals.</p>
+    </li>
+    <li class="blog-item">
+      <div class="blog-date">nov 2024</div>
+      <div class="blog-title"><a href="UnderstandingML.html">understanding machine learning</a></div>
+      <p class="blog-desc">My journey learning ML: practical insights, lessons learned, and key takeaways.</p>
+    </li>
+  </ul>
+</section>
 
-      <li class="blog-item">
-        <div class="blog-date">nov 2024</div>
-        <div class="blog-title"><a href="UnderstandingML.html">understanding machine learning</a></div>
-        <p class="blog-desc">My journey learning ML: practical insights, lessons learned, and key takeaways from building models.</p>
-      </li>
-    </ul>
-  </section>
+<!-- Ideas Section -->
+<section class="projects" id="ideas">
+  <div class="section-header">// ideas</div>
+  <h2 class="section-title">Ideas & Upcoming</h2>
+  <ul class="project-list" id="todo-list"></ul>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <p class="footer-text">© 2025 ayush Bhalerao</p>
-  </footer>
+<footer>
+  <p class="footer-text">© 2025 ayush bhalerao</p>
+</footer>
 
-  <script>
-    // Hide loader when page is fully loaded
-    window.addEventListener('load', () => {
-      const loader = document.getElementById('loaderContainer');
-      setTimeout(() => {
-        loader.classList.add('hidden');
-      }, 1500);
-    });
+<!-- JS Logic -->
+<script>
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loaderContainer");
+  if(loader) {
+    setTimeout(() => loader.classList.add("hidden"), 1500);
+  }
+});
+</script>
+<script src="script.js"></script>
 
-    // Optional: Skip loader with spacebar or enter
-    document.addEventListener('keydown', (e) => {
-      if (e.code === 'Space' || e.code === 'Enter') {
-        const loader = document.getElementById('loaderContainer');
-        loader.classList.add('hidden');
-      }
-    });
-  </script>
 </body>
 </html>
