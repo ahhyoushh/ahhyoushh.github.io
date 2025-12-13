@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ayush Bhalerao</title>
   
-  <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
@@ -15,7 +14,6 @@
 
 <body>
 
-<!-- LOADER (Preserved functionality) -->
 <div class="loader-container" id="loaderContainer">
   <div class="glow glow-1"></div>
   <div class="glow glow-2"></div>
@@ -30,7 +28,6 @@
   </div>
 </div>
 
-<!-- Navigation -->
 <nav>
   <div class="nav-brand">$ ayush</div>
   <ul class="nav-links">
@@ -46,11 +43,10 @@
   </div>
 </nav>
 
-<!-- Hero Section -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-text"><span>const</span> Name = {</div>
-    <h1>Ayush Bhalerao</h1>
+      <h1 class="hero-name">Ayush<wbr> Bhalerao</h1>
     <div class="hero-closing">}</div>
     <p class="hero-subtitle">Computers get me excited;</p>
     <div class="cta-links">
@@ -61,7 +57,6 @@
 
   <div class="hero-right">
     <div class="skills-bars">
-      <!-- Skill: Python -->
       <div class="skill-bar-item">
         <div class="skill-bar-label">
           <span class="skill-bar-name">Python</span>
@@ -72,7 +67,6 @@
         </div>
       </div>
 
-      <!-- Skill: HTML/JS -->
       <div class="skill-bar-item">
         <div class="skill-bar-label">
           <span class="skill-bar-name">HTML/JS</span>
@@ -83,7 +77,6 @@
         </div>
       </div>
 
-      <!-- Skill: Golang -->
       <div class="skill-bar-item">
         <div class="skill-bar-label">
           <span class="skill-bar-name">Golang</span>
@@ -94,21 +87,21 @@
         </div>
       </div>
 
-      <!-- Skill: Rizz (Negative logic preserved) -->
-      <div class="skill-bar-item">
-        <div class="skill-bar-label">
-          <span class="skill-bar-name">Rizz</span>
-          <span class="skill-bar-percent rizz-easter" title="Underflow error">-0.5%</span>
-        </div>
-        <div class="skill-bar-container">
-          <div class="skill-bar-fill negative rizz-zero" style="width: 0.5%; margin-left: 100%"></div>
-        </div>
+    <div class="skill-bar-item">
+      <div class="skill-bar-label">
+        <span class="skill-bar-name">Rust / C++</span>
+        <span class="skill-bar-percent">15%</span>
       </div>
+      <div class="skill-bar-container">
+        <div class="skill-bar-fill" style="width: 15%"></div>
+      </div>
+    </div>
+
+
     </div>
   </div>
 </section>
 
-<!-- Stats Section (Border Removed in CSS) -->
 <section class="stats">
   <div class="stats-grid">
     <a href="https://wa.me/919322431437" target="_blank" class="stat-card stat-link">
@@ -122,7 +115,6 @@
   </div>
 </section>
 
-<!-- About Section (Border Removed in CSS) -->
 <section class="about" id="about">
   <div class="section-header">// about</div>
   <h2 class="section-title">About</h2>
@@ -131,140 +123,220 @@
     <p class="about-text">Currently curious about Reinforcement Learning and working on implementing it in <a href="#projects">FileSense</a>.</p>
   </div>
 
-  <div class="skills">
-    <div class="skills-title">// languages & tools</div>
-    <div class="skill-list">
-      <div class="skill-item">Python</div>
-      <div class="skill-item">Go/Golang</div>
-      <div class="skill-item">Flask</div>
-      <div class="skill-item">SBERT / BERT</div>
-      <div class="skill-item">Scikit-learn</div>
-      <div class="skill-item">Random Forest</div>
-      <div class="skill-item">Pandas</div>
-      <div class="skill-item">Gorilla/mux</div>
-      <div class="skill-item">MySQL</div>
-      <div class="skill-item">Git / GitHub</div>
-      <div class="skill-item">Supabase</div>
-      <div class="skill-item">Firebase</div>
-      <div class="skill-item">REST APIs</div>
-      <div class="skill-item">Google-genai</div>
-      <div class="skill-item">Discord.py</div>
-    </div>
+<div class="skills">
+  <div class="skills-title">// skills</div>
+  <div class="skill-list">
+    <div class="skill-item">Programming: Python, Go</div>
+    <div class="skill-item">Machine Learning: scikit-learn, Random Forest</div>
+    <div class="skill-item">Text Embeddings & Similarity: SBERT / BERT, cosine similarity</div>
+    <div class="skill-item">Data Handling: Pandas, NumPy</div>
+    <div class="skill-item">Backend Development: Flask, REST APIs</div>
+    <div class="skill-item">API Design & Routing: gorilla/mux</div>
+    <div class="skill-item">Databases: MySQL, Supabase, Firebase</div>
+    <div class="skill-item">Version Control: Git, GitHub</div>
+    <div class="skill-item">Automation & CLI Tools</div>
+    <div class="skill-item">Third-party API Integration (e.g. Google GenAI)</div>
+    <div class="skill-item">Bot Development: discord.py</div>
   </div>
+</div>
 </section>
 
-<!-- Projects Section -->
 <section class="projects" id="projects">
   <div class="section-header">// work</div>
   <h2 class="section-title">Projects</h2>
   <ul class="project-list">
+
     <li class="project-item" data-project-id="filesense">
       <div class="project-header">
-        <div class="project-title"><a href="FileSense">filesense</a></div>
+        <div class="project-title"><a href="FileSense">FileSense</a></div>
+        <div class="project-actions"></div>
         <div class="project-id">filesense</div>
       </div>
-      <p class="project-desc">Smart file organizer that semantically understands documents.</p>
+      <p class="project-desc">
+        Local file organizer that groups documents using semantic similarity and user feedback.
+      </p>
+      
+      <div class="project-dev-meta">
+        <div>> core: SBERT embeddings + Cosine Similarity clustering</div>
+        <div>> status: Implementing RLHF for custom user categorization</div>
+        <div>> limit: Local inference latency on large directories</div>
+      </div>
+
       <div class="project-tags">
         <span class="tag">python</span>
-        <span class="tag">sentence-BERT</span>
-        <span class="tag">reinforcement-learning</span>
-        <span class="tag">FAISS</span>
-        <span class="tag">supabase</span>
+        <span class="tag">sentence-embeddings</span>
+        <span class="tag">faiss</span>
+        <span class="tag">ml-basics</span>
+        <span class="tag">automation</span>
       </div>
-      <div class="project-actions"></div>
     </li>
 
     <li class="project-item" data-project-id="aqi">
       <div class="project-header">
-        <div class="project-title"><a href="aqi.html">air quality index prediction</a></div>
+        <div class="project-title"><a href="aqi.html">Air Quality Index Prediction</a></div>
+        <div class="project-actions"></div>
         <div class="project-id">aqi</div>
       </div>
-      <p class="project-desc">Next-day AQI prediction using Random Forest.</p>
-      <div class="project-tags">
-        <span class="tag">ml</span>
-        <span class="tag">pandas</span>
-        <span class="tag">sklearn</span>
+      <p class="project-desc">
+        Predicts next-day AQI values using historical air quality data and machine learning.
+      </p>
+
+      <div class="project-dev-meta">
+        <div>> model: Random Forest Regressor (scikit-learn)</div>
+        <div>> data: Historical time-series via CPCB API</div>
+        <div>> limit: Dataset sparsity in rural regions affects accuracy</div>
       </div>
-      <div class="project-actions"></div>
+
+      <div class="project-tags">
+        <span class="tag">machine-learning</span>
+        <span class="tag">pandas</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">data-analysis</span>
+      </div>
     </li>
 
     <li class="project-item" data-project-id="ewsenku">
       <div class="project-header">
-        <div class="project-title"><a href="ewsenku.html">e-waste recycling platform</a></div>
+        <div class="project-title"><a href="ewsenku.html">E-Waste Recycling Platform</a></div>
+        <div class="project-actions"></div>
         <div class="project-id">ewsenku</div>
       </div>
-      <p class="project-desc">Categorizes electronic waste using Gemini API and locates nearest recycling centers.</p>
-      <div class="project-tags">
-        <span class="tag">flask</span>
-        <span class="tag">firebase/firestore</span>
-        <span class="tag">gemini-api</span>
-        <span class="tag">sustainability</span>
-      </div>
-      <div class="project-actions"></div>
-    </li>
+      <p class="project-desc">
+        Web platform that identifies electronic waste categories and suggests nearby recycling centers.
+      </p>
 
-    <li class="project-item" data-project-id="dcbot">
-      <div class="project-header">
-        <div class="project-title"><a href="dcbot.html">discord moderator bot</a></div>
-        <div class="project-id">dcbot</div>
+      <div class="project-dev-meta">
+        <div>> core: Flask backend + Firebase Auth + GeoJSON mapping</div>
+        <div>> method: Keyword matching against e-waste registry</div>
+        <div>> todo: Integrate image recognition for waste classification</div>
       </div>
-      <p class="project-desc">Smart Discord bot using vectorization and cosine similarity for phrase detection.</p>
-      <div class="project-tags">
-        <span class="tag">discord.py</span>
-        <span class="tag">rest-apis</span>
-        <span class="tag">machine-learning</span>
-        <span class="tag">cosine-similarity</span>
-      </div>
-      <div class="project-actions"></div>
-    </li>
 
-    <li class="project-item" data-project-id="clichat">
-      <div class="project-header">
-        <div class="project-title"><a href="clichat.html">cli chat</a></div>
-        <div class="project-id">clichat</div>
-      </div>
-      <p class="project-desc">Simple command-line chat application with client and server implementation.</p>
       <div class="project-tags">
         <span class="tag">python</span>
-        <span class="tag">requests</span>
-        <span class="tag">networking</span>
-        <span class="tag">cli</span>
+        <span class="tag">flask</span>
+        <span class="tag">api-integration</span>
+        <span class="tag">firebase</span>
       </div>
-      <div class="project-actions"></div>
     </li>
 
     <li class="project-item" data-project-id="face_detection">
       <div class="project-header">
-        <div class="project-title"><a href="face_detection.html">face detection doorcam</a></div>
+        <div class="project-title"><a href="face_detection.html">Face Detection Doorcam</a></div>
+        <div class="project-actions"></div>
         <div class="project-id">face_detection</div>
       </div>
-      <p class="project-desc">Real-time face detection system using OpenCV's cascade classifier.</p>
+      <p class="project-desc">
+        Real-time face detection system using OpenCV for basic monitoring and alerts.
+      </p>
+
+      <div class="project-dev-meta">
+        <div>> tech: OpenCV Haar Cascades</div>
+        <div>> pipeline: Frame capture -> Grayscale -> CascadeClassifier</div>
+        <div>> limit: High sensitivity to lighting conditions; no face recognition (ID) yet</div>
+      </div>
+
       <div class="project-tags">
         <span class="tag">opencv</span>
-        <span class="tag">haar-cascade</span>
-        <span class="tag">machine-learning</span>
+        <span class="tag">computer-vision</span>
+        <span class="tag">python</span>
       </div>
-      <div class="project-actions"></div>
+    </li>
+
+    <li class="project-item" data-project-id="dcbot">
+      <div class="project-header">
+        <div class="project-title"><a href="dcbot.html">Discord Moderator Bot</a></div>
+        <div class="project-actions"></div>
+        <div class="project-id">dcbot</div>
+      </div>
+      <p class="project-desc">
+        Discord bot that detects similar phrases using text vectorization for basic moderation.
+      </p>
+
+      <div class="project-dev-meta">
+        <div>> algo: TF-IDF vectorization for spam similarity detection</div>
+        <div>> lib: discord.py (async/await)</div>
+        <div>> limit: Context unaware; struggles with sarcasm</div>
+      </div>
+
+      <div class="project-tags">
+        <span class="tag">python</span>
+        <span class="tag">text-similarity</span>
+        <span class="tag">discord.py</span>
+      </div>
+    </li>
+
+    <li class="project-item" data-project-id="clichat">
+      <div class="project-header">
+        <div class="project-title"><a href="clichat.html">CLI Chat Application</a></div>
+        <div class="project-actions"></div>
+        <div class="project-id">clichat</div>
+      </div>
+      <p class="project-desc">
+        Command-line chat program implementing basic client–server communication.
+      </p>
+
+      <div class="project-dev-meta">
+        <div>> core: Python socket module (TCP) + Threading for concurrent listeners</div>
+        <div>> note: Implements custom handshake protocol</div>
+        <div>> limit: Plaintext transmission (No End-to-End Encryption)</div>
+      </div>
+
+      <div class="project-tags">
+        <span class="tag">python</span>
+        <span class="tag">networking</span>
+        <span class="tag">cli</span>
+      </div>
     </li>
 
     <li class="project-item" data-project-id="goapi">
       <div class="project-header">
-        <div class="project-title"><a href="goapi.html">movies crud api</a></div>
+        <div class="project-title"><a href="goapi.html">Movies CRUD API</a></div>
+        <div class="project-actions"></div>
         <div class="project-id">goapi</div>
       </div>
-      <p class="project-desc">RESTful API for managing movie records built with Go and gorilla/mux router.</p>
+      <p class="project-desc">
+        REST API for managing movie records built using Go.
+      </p>
+
+      <div class="project-dev-meta">
+        <div>> stack: Go (net/http) + Gorilla Mux router</div>
+        <div>> architecture: Struct-based service layer</div>
+        <div>> limit: Currently uses in-memory slice storage (volatile)</div>
+      </div>
+
       <div class="project-tags">
         <span class="tag">go</span>
-        <span class="tag">gorilla/mux</span>
-        <span class="tag">rest-apis</span>
+        <span class="tag">rest-api</span>
         <span class="tag">backend</span>
       </div>
-      <div class="project-actions"></div>
     </li>
+
+    <li class="project-item" data-project-id="trashcli">
+      <div class="project-header">
+        <div class="project-title"><a href="https://github.com/ahhyoushh/trash-collector-cli">Trash Collector CLI</a></div>
+        <div class="project-actions"></div>
+        <div class="project-id">trashcli</div>
+      </div>
+      <p class="project-desc">
+        Simple CLI tool to store and track ideas or tasks from the terminal for this website.
+      </p>
+
+      <div class="project-dev-meta">
+        <div>> core: argparse + JSON serialization for persistence</div>
+        <div>> func: Append-only log logic</div>
+        <div>> improvement: Migrate to SQLite for complex querying</div>
+      </div>
+
+      <div class="project-tags">
+        <span class="tag">python</span>
+        <span class="tag">cli</span>
+        <span class="tag">automation</span>
+      </div>
+    </li>
+
   </ul>
 </section>
 
-<!-- Blogs Section -->
 <section class="blogs" id="blogs">
   <div class="section-header">// writings</div>
   <h2 class="section-title">Blog</h2>
@@ -282,10 +354,18 @@
   </ul>
 </section>
 
-<!-- Ideas Section -->
 <section class="projects" id="ideas">
   <div class="section-header">// ideas</div>
   <h2 class="section-title">Ideas & Upcoming</h2>
+  <div class="ideas-note">
+  <span class="ideas-note-label">// note</span>
+  <p class="ideas-note-text">
+    BTW these tasks are added through CLI using <strong>
+    <a href="https://github.com/ahhyoushh/trash-collector-cli" target="_blank">
+      trash-collector-cli
+    </a></strong>
+  </p>
+  </div>
   <ul class="project-list" id="todo-list"></ul>
 </section>
 
@@ -293,16 +373,65 @@
   <p class="footer-text">© 2025 ayush bhalerao</p>
 </footer>
 
-<!-- JS Logic -->
+
 <script>
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loaderContainer");
-  if(loader) {
-    setTimeout(() => loader.classList.add("hidden"), 1500);
+  const toast = document.getElementById("dev-toast");
+  const toastText = document.getElementById("dev-toast-text");
+  let toastTimeout = null;
+
+  function showToast(text, duration = 4000) {
+    if (!toast || !toastText) return;
+
+    toastText.textContent = text;
+    toast.classList.add("visible");
+
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove("visible");
+    }, duration);
   }
+
+  // Hide loader
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add("hidden");
+
+      // 🔥 SHOW TOAST AFTER LOADER IS GONE
+      showToast("Toggle: [ctrl+shift+d]", 5000);
+    }, 1500);
+  }
+
+  // Dev mode toggle (keyboard)
+  document.addEventListener("keydown", (e) => {
+    if (!e.ctrlKey || !e.shiftKey || e.key.toLowerCase() !== "d") return;
+
+    e.preventDefault();
+
+    const enabled = document.body.classList.toggle("dev-mode");
+
+    showToast(
+      enabled
+        ? "Toggle: Dev Mode [ON]"
+        : "Toggle: Dev Mode [OFF]"
+    );
+
+    console.log(
+      `%c[System] Diagnostics Mode: ${enabled ? "MOUNTED" : "UNMOUNTED"}`,
+      "color:#888;background:#0a0a0a;padding:4px;border:1px solid #888"
+    );
+  });
 });
 </script>
+
+
 <script src="script.js"></script>
+<div id="dev-toast" class="dev-toast">
+  <span class="toast-icon">></span>
+  <span id="dev-toast-text">Toggle: [ctrl+shift+d]</span>
+  <span class="cursor">▮</span>
+</div>
 
 </body>
 </html>

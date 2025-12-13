@@ -1,6 +1,3 @@
-/* =========================================
-   RESET & VARIABLES
-   ========================================= */
 * {
   margin: 0;
   padding: 0;
@@ -35,9 +32,11 @@ a:hover {
   color: var(--accent-hover);
 }
 
-/* =========================================
-   LOADER STYLES
-   ========================================= */
+.hero-name {
+  max-width: 6ch;
+  line-height: 1.05;
+}
+
 .loader-container {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -48,10 +47,12 @@ a:hover {
   z-index: 9999;
   transition: opacity 0.5s ease, visibility 0.5s;
 }
+
 .loader-container.hidden {
   opacity: 0;
   visibility: hidden;
 }
+
 .glow {
   position: absolute;
   width: 300px; height: 300px;
@@ -59,6 +60,7 @@ a:hover {
   border-radius: 50%;
   animation: float 6s infinite ease-in-out;
 }
+
 .glow-1 { top: 20%; left: 30%; animation-delay: 0s; }
 .glow-2 { bottom: 20%; right: 30%; animation-delay: 3s; }
 
@@ -66,12 +68,14 @@ a:hover {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(20px, -20px); }
 }
+
 .loader-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
 }
+
 .pulse-ring {
   width: 50px; height: 50px;
   border: 2px solid var(--accent);
@@ -79,39 +83,42 @@ a:hover {
   animation: pulse 2s infinite;
   position: absolute;
 }
+
 @keyframes pulse {
   0% { transform: scale(0.5); opacity: 0; }
   50% { opacity: 0.5; }
   100% { transform: scale(1.5); opacity: 0; }
 }
+
 .neon-circle {
   width: 12px; height: 12px;
   background: var(--accent);
   border-radius: 50%;
   box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
 }
+
 .loading-bars {
   display: flex;
   gap: 4px;
 }
+
 .bar {
   width: 4px; height: 15px;
   background: var(--accent);
   animation: wave 1s infinite ease-in-out;
 }
+
 .bar:nth-child(1) { animation-delay: 0.0s; }
 .bar:nth-child(2) { animation-delay: 0.1s; }
 .bar:nth-child(3) { animation-delay: 0.2s; }
 .bar:nth-child(4) { animation-delay: 0.3s; }
 .bar:nth-child(5) { animation-delay: 0.4s; }
+
 @keyframes wave {
   0%, 100% { transform: scaleY(1); opacity: 0.5; }
   50% { transform: scaleY(2); opacity: 1; }
 }
 
-/* =========================================
-   NAVIGATION
-   ========================================= */
 nav {
   display: flex;
   justify-content: space-between;
@@ -162,9 +169,6 @@ nav {
   color: var(--accent-hover);
 }
 
-/* =========================================
-   HERO SECTION
-   ========================================= */
 .hero {
   padding: 3.5rem 3rem;
   max-width: 900px;
@@ -240,7 +244,6 @@ nav {
   align-items: center;
 }
 
-/* Skills Bars */
 .skills-bars {
   width: 100%;
   max-width: 280px;
@@ -292,14 +295,47 @@ nav {
   background: linear-gradient(270deg, rgba(192, 192, 192, 0.8) 0%, rgba(192, 192, 192, 0.5) 100%);
 }
 
-.rizz-zero {
-  width: 0% !important;
-  background: transparent;
+/* Rizz label handling */
+.rizz-label {
+  font-weight: 600;
 }
 
-/* =========================================
-   GENERIC SECTION STYLES
-   ========================================= */
+/* Normal mode: emoji only */
+body:not(.dev-mode) .rizz-label::after {
+  content: "";
+}
+
+/* Dev mode: append label text */
+body.dev-mode .rizz-label::after {
+  content: " Rizz";
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-left: 0.25rem;
+}
+
+.rizz-emoji {
+  margin-left: 0.35rem;
+  opacity: 0.85;
+}
+
+.rizz-value {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Rizz hover easter egg (normal mode only) */
+.rizz-skill .skill-bar-name::after {
+  content: "";
+  margin-left: 0.35rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
+  content: "🥀";
+  opacity: 1;
+}
+
 .section-header {
   font-family: 'Fira Code', monospace;
   font-size: 0.8rem;
@@ -315,14 +351,11 @@ nav {
   margin-bottom: 1.5rem;
 }
 
-/* =========================================
-   STATS SECTION (Seamless: No Lines)
-   ========================================= */
 .stats {
-  padding: 1rem 3rem 3.5rem 3rem; /* Reduced top padding for flow */
+  padding: 1rem 3rem 3.5rem 3rem;
   max-width: 900px;
   margin: 0 auto;
-  border-top: none; /* Removed line over */
+  border-top: none;
 }
 
 .stats-grid {
@@ -367,14 +400,11 @@ nav {
   font-family: 'Fira Code', monospace;
 }
 
-/* =========================================
-   ABOUT SECTION (Seamless: No Lines)
-   ========================================= */
 .about {
   padding: 3.5rem 3rem;
   max-width: 900px;
   margin: 0 auto;
-  border-top: none; /* Removed line under status */
+  border-top: none;
 }
 
 .about-content {
@@ -390,32 +420,34 @@ nav {
 }
 
 .skills {
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 .skills-title {
   font-family: 'Fira Code', monospace;
   font-size: 0.8rem;
   color: var(--text);
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
 .skill-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.4rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.6rem 1.2rem;
+  margin-bottom: 1.6rem;
 }
 
 .skill-item {
   font-family: 'Fira Code', monospace;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
   color: var(--text-muted);
-  padding: 0.4rem 0;
-  transition: color 0.2s;
+  padding-left: 1rem;
+  position: relative;
+  transition: color 0.2s ease;
 }
 
 .skill-item:hover {
@@ -423,14 +455,13 @@ nav {
 }
 
 .skill-item::before {
-  content: '▸ ';
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0.1em;
   color: var(--accent);
-  margin-right: 0.4rem;
 }
 
-/* =========================================
-   PROJECTS SECTION
-   ========================================= */
 .projects {
   padding: 3.5rem 3rem;
   max-width: 900px;
@@ -455,14 +486,20 @@ nav {
 .project-item:hover {
   opacity: 0.85;
 }
-
 .project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.4rem;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: start;
+  column-gap: 1rem;
 }
+
+.project-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 70px;
+}
+
 
 .project-title {
   font-family: 'Fira Code', monospace;
@@ -518,9 +555,6 @@ nav {
   background-color: rgba(136, 136, 136, 0.1);
 }
 
-/* =========================================
-   BLOGS SECTION
-   ========================================= */
 .blogs {
   padding: 3.5rem 3rem;
   max-width: 900px;
@@ -578,10 +612,6 @@ nav {
   line-height: 1.5;
 }
 
-/* =========================================
-   IDEAS / TODO – FINAL CLEAN STYLES
-   ========================================= */
-
 #todo-list {
   list-style: none;
   margin: 0;
@@ -603,28 +633,6 @@ nav {
   color: var(--accent-hover);
 }
 
-
-/* Section headers: UPCOMING / OTHER */
-.todo-section-header {
-  font-family: "Fira Code", monospace;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin: 2.5rem 0 0.8rem;
-}
-
-/* Project name header */
-.todo-project-header {
-  font-family: "Fira Code", monospace;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text);
-  margin: 1.8rem 0 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-/* Project header (grey pill) */
 .todo-project-header {
   display: inline-block;
   font-family: "Fira Code", monospace;
@@ -644,7 +652,6 @@ nav {
   color: var(--accent);
 }
 
-/* Section headers */
 .todo-section-header {
   font-family: "Fira Code", monospace;
   font-size: 0.9rem;
@@ -653,15 +660,15 @@ nav {
   text-transform: uppercase;
   color: var(--accent);
   margin: 3rem 0 1rem;
+  padding-left: 0.2rem;
 }
 
-/* Todo item */
 .todo-item {
   padding: 0.9rem 0;
   border-bottom: 1px solid var(--border);
+  position: relative;
 }
 
-/* Arrow stays task marker */
 .todo-title {
   font-family: "Fira Code", monospace;
   font-size: 0.95rem;
@@ -670,11 +677,6 @@ nav {
   padding-left: 1.4rem;
 }
 
-.todo-item {
-  position: relative;
-}
-
-/* status badge */
 .todo-item::after {
   content: "PENDING";
   position: absolute;
@@ -691,13 +693,11 @@ nav {
   color: #6ee7b7;
 }
 
-/* done task styling */
 .todo-done .todo-title {
   color: var(--text-muted);
   text-decoration: line-through;
 }
 
-/* Subtasks */
 .subtask-list {
   margin: 0.5rem 0 0 2rem;
   list-style: disc;
@@ -712,54 +712,7 @@ nav {
 }
 
 
-.todo-project-header {
-  display: inline-block;
-  font-family: "Fira Code", monospace;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text);
-  background: rgba(136, 136, 136, 0.12);
-  border: 1px solid var(--border);
-  padding: 0.4rem 0.7rem;
-  border-radius: 4px;
-  margin: 1.8rem 0 0.8rem;
-  letter-spacing: 0.05em;
-}
 
-
-
-.todo-section-header {
-  font-family: "Fira Code", monospace;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 3rem 0 1rem;
-  padding-left: 0.2rem;
-}
-
-/* Rizz easter egg */
-.rizz-easter {
-  position: relative;
-  cursor: help;
-}
-
-.rizz-easter::after {
-  content: "🥀";
-  position: absolute;
-  left: 110%;
-  top: -2px;
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: all 0.25s ease;
-  font-size: 0.9rem;
-}
-
-.rizz-easter:hover::after {
-  opacity: 1;
-  transform: translateX(0);
-}
 
 .todo-project-link {
   color: inherit;
@@ -770,10 +723,6 @@ nav {
   color: var(--accent-hover);
 }
 
-
-/* =========================================
-   FOOTER
-   ========================================= */
 footer {
   padding: 2.5rem 3rem;
   text-align: center;
@@ -787,9 +736,6 @@ footer {
   letter-spacing: 0.5px;
 }
 
-/* =========================================
-   RESPONSIVE DESIGN
-   ========================================= */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
@@ -855,48 +801,210 @@ footer {
   }
 }
 
-/* === PROJECT → TASKS BUTTON (VISUAL CTA) === */
+.ideas-note {
+  margin: 1rem 0 1.6rem;
+  padding: 0.6rem 0.8rem;
+  border-left: 2px solid var(--border);
+  background: transparent;
+}
+
+.ideas-note-label {
+  display: none; /* remove the "// note" noise */
+}
+
+.ideas-note-text {
+  font-family: "Fira Code", monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.ideas-note-text a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.ideas-note-text a:hover {
+  text-decoration: underline;
+}
+
 
 .project-todo-link {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-
   margin-top: 0.6rem;
-  margin-left: 1.2rem; /* ← moves it to the right */
-
+  margin-left: 1.2rem;
   padding: 0.35rem 0.75rem;
-
   font-family: "Fira Code", monospace;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-
   color: var(--accent);
   background: linear-gradient(
     135deg,
     rgba(136,136,136,0.18),
     rgba(136,136,136,0.08)
   );
-
   border: 1px solid var(--border);
   border-radius: 6px;
-
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-/* arrow icon */
 .project-todo-link::before {
   content: "↳";
   font-weight: 700;
   opacity: 0.8;
 }
 
-/* hover = obvious CTA */
 .project-todo-link:hover {
   background: var(--accent);
   color: var(--bg);
   border-color: var(--accent);
   transform: translateX(2px);
+}
+
+body.dev-mode {
+  background-color: #050505;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+body.dev-mode * {
+  font-family: 'Fira Code', monospace !important;
+}
+
+body.dev-mode nav,
+body.dev-mode section,
+body.dev-mode .stat-card,
+body.dev-mode footer {
+  outline: 1px dashed rgba(136,136,136,0.3);
+  position: relative;
+}
+
+body.dev-mode section::before {
+  content: "<" attr(class) ">";
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.6rem;
+  color: var(--accent);
+  opacity: 0.5;
+  padding: 2px 5px;
+  background: var(--bg);
+}
+
+body.dev-mode .project-item::before {
+  content: "PID: " attr(data-project-id);
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.65rem;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.project-dev-meta {
+  display: none;
+}
+
+body.dev-mode .project-dev-meta {
+  display: block;
+  font-size: 0.75rem;
+  color: #a0a0a0;
+  background-color: #0d0d0d;
+  border-left: 2px solid var(--accent);
+  padding: 0.8rem;
+  margin: 0.8rem 0;
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  animation: slideDown 0.25s ease-out;
+}
+
+body.dev-mode .project-dev-meta div {
+  margin-bottom: 0.3rem;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body.dev-mode #todo-list .todo-item {
+  border: none;
+  border-left: 1px solid var(--accent);
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255,255,255,0.02);
+}
+
+body.dev-mode #todo-list .todo-item::before {
+  content: "[PROCESS]";
+  font-size: 0.6rem;
+  color: var(--accent);
+  opacity: 0.6;
+  margin-right: 0.4rem;
+}
+
+body.dev-mode #todo-list .todo-item::after {
+  content: "STATUS: RUNNING";
+  position: static;
+  display: block;
+  font-size: 0.6rem;
+  margin-top: 2px;
+}
+
+body.dev-mode #todo-list .todo-done::after {
+  content: "STATUS: TERMINATED (0)";
+  color: #6ee7b7;
+}
+
+.dev-toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 99999;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  font-family: "Fira Code", monospace;
+  font-size: 0.75rem;
+
+  background: rgba(8, 8, 8, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+
+  color: var(--text-muted);
+
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.dev-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-icon {
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+.cursor {
+  margin-left: 2px;
+  animation: blink 1.1s steps(1) infinite;
+  opacity: 0.8;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }

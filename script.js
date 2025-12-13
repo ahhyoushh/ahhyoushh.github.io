@@ -164,7 +164,13 @@ async function initIdeas() {
     link.href = "#ideas";
     link.className = "project-todo-link";
 
-    project.querySelector(".project-actions")?.appendChild(link);
+    const tags = project.querySelector(".project-tags");
+    if (!tags) return;
+
+    if (project.querySelector(".project-todo-link")) return;
+
+    tags.insertAdjacentElement("afterend", link);
+
   });
 }
 
