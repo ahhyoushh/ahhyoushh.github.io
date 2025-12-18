@@ -18,9 +18,10 @@
       font-family: 'Fira Code', monospace;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Subtle animated background */
+    /* Animated grid background */
     body::before {
       content: '';
       position: fixed;
@@ -34,6 +35,50 @@
       background-size: 50px 50px;
       pointer-events: none;
       z-index: 0;
+      animation: gridDrift 20s linear infinite;
+    }
+
+    @keyframes gridDrift {
+      0% { background-position: 0 0; }
+      100% { background-position: 50px 50px; }
+    }
+
+    /* Floating glow orbs */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .glow-1 {
+      width: 500px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.3);
+      top: -200px;
+      right: -100px;
+      animation: float1 15s ease-in-out infinite;
+    }
+
+    .glow-2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.2);
+      bottom: -150px;
+      left: -100px;
+      animation: float2 18s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(50px, -50px) rotate(180deg); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-50px, 50px) rotate(-180deg); }
     }
 
     header {
@@ -41,6 +86,18 @@
       padding: 100px 20px 60px;
       position: relative;
       z-index: 1;
+      animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
@@ -49,6 +106,12 @@
       color: #ffffff;
       font-weight: 700;
       letter-spacing: -1px;
+      animation: titleGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0); }
+      50% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.1); }
     }
 
     h2 {
@@ -57,6 +120,18 @@
       margin: 0;
       font-size: 1.35rem;
       letter-spacing: 0.5px;
+      animation: fadeInStagger 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeInStagger {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     section {
@@ -75,18 +150,27 @@
       color: #f5f5f5;
       text-transform: lowercase;
       letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
     }
 
     h3::before {
       content: '» ';
       color: #808080;
       margin-right: 8px;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
     p {
       color: #d0d0d0;
       margin-bottom: 16px;
       font-size: 1.05rem;
+      animation: fadeInStagger 0.8s ease-out both;
     }
 
     ul {
@@ -98,6 +182,23 @@
       margin-bottom: 10px;
       color: #c5c5c5;
       font-size: 1.02rem;
+      transition: all 0.3s ease;
+      animation: fadeInStagger 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    li:nth-child(1) { animation-delay: 0.1s; }
+    li:nth-child(2) { animation-delay: 0.15s; }
+    li:nth-child(3) { animation-delay: 0.2s; }
+    li:nth-child(4) { animation-delay: 0.25s; }
+    li:nth-child(5) { animation-delay: 0.3s; }
+    li:nth-child(6) { animation-delay: 0.35s; }
+    li:nth-child(7) { animation-delay: 0.4s; }
+    li:nth-child(8) { animation-delay: 0.45s; }
+
+    li:hover {
+      color: #ffffff;
+      transform: translateX(8px);
     }
 
     li::marker {
@@ -105,15 +206,35 @@
     }
 
     pre {
-      background: #161616;
+      background: linear-gradient(135deg, #161616 0%, #1a1a1a 100%);
       padding: 20px;
-      border-radius: 4px;
+      border-radius: 6px;
       overflow-x: auto;
       font-size: 0.95rem;
       color: #e0e0e0;
       border: 1px solid #262626;
       margin-bottom: 20px;
       line-height: 1.5;
+      animation: slideIn 0.6s ease-out;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    pre:hover {
+      border-color: #3a3a3a;
+      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+      transform: translateY(-4px);
     }
 
     pre code {
@@ -133,6 +254,17 @@
       height: 1px;
       background: linear-gradient(to right, transparent, #2a2a2a, transparent);
       margin: 50px 0;
+      position: relative;
+      animation: expandWidth 0.8s ease-out;
+    }
+
+    @keyframes expandWidth {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
     }
 
     .footer {
@@ -143,6 +275,7 @@
       position: relative;
       z-index: 1;
       border-top: 1px solid #1a1a1a;
+      animation: fadeInStagger 0.8s ease-out 0.4s both;
     }
 
     .tagline {
@@ -157,19 +290,44 @@
       color: #d0d0d0;
       text-decoration: none;
       border-bottom: 1px solid #404040;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
     }
 
     a:hover {
       color: #ffffff;
       border-bottom-color: #606060;
+      transform: translateY(-2px);
+    }
+
+    a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #ffffff;
+      transition: width 0.3s ease;
+    }
+
+    a:hover::after {
+      width: 100%;
     }
 
     .highlight {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 3px 8px;
       border-radius: 3px;
       color: #f0f0f0;
+      transition: all 0.3s ease;
+      cursor: default;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .highlight:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
     .status-badge {
@@ -184,6 +342,18 @@
       margin-bottom: 30px;
       letter-spacing: 1px;
       text-transform: uppercase;
+      animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Feature grid */
@@ -198,13 +368,52 @@
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid #252525;
       padding: 24px;
-      border-radius: 4px;
-      transition: all 0.3s ease;
+      border-radius: 6px;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: featureSlideUp 0.6s ease-out forwards;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes featureSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .feature:nth-child(1) { animation-delay: 0.1s; }
+    .feature:nth-child(2) { animation-delay: 0.15s; }
+    .feature:nth-child(3) { animation-delay: 0.2s; }
+    .feature:nth-child(4) { animation-delay: 0.25s; }
+    .feature:nth-child(5) { animation-delay: 0.3s; }
+    .feature:nth-child(6) { animation-delay: 0.35s; }
+
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .feature:hover::before {
+      left: 100%;
     }
 
     .feature:hover {
       border-color: #3a3a3a;
       background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
     }
 
     .feature-title {
@@ -212,6 +421,8 @@
       color: #e5e5e5;
       margin-bottom: 12px;
       font-weight: 600;
+      position: relative;
+      z-index: 1;
     }
 
     .feature-title::before {
@@ -224,6 +435,8 @@
       font-size: 0.95rem;
       color: #a5a5a5;
       line-height: 1.5;
+      position: relative;
+      z-index: 1;
     }
 
     /* Command reference */
@@ -238,8 +451,39 @@
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid #252525;
       padding: 16px;
-      border-radius: 4px;
+      border-radius: 6px;
       font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: commandFade 0.5s ease-out forwards;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes commandFade {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .command-item:nth-child(1) { animation-delay: 0.05s; }
+    .command-item:nth-child(2) { animation-delay: 0.1s; }
+    .command-item:nth-child(3) { animation-delay: 0.15s; }
+    .command-item:nth-child(4) { animation-delay: 0.2s; }
+    .command-item:nth-child(5) { animation-delay: 0.25s; }
+    .command-item:nth-child(6) { animation-delay: 0.3s; }
+    .command-item:nth-child(7) { animation-delay: 0.35s; }
+
+    .command-item:hover {
+      border-color: #3a3a3a;
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
 
     .command-item code {
@@ -280,17 +524,19 @@
 </head>
 <body>
 
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
 <header>
   <h1>no-cursor</h1>
   <h2 class="tagline">Local. Deterministic. CLI-first Code Assistant.</h2>
 </header>
 
 <section>
-  <div class="status-badge">✓ MVP Complete</div>
-
   <p>
     A local, CLI-first code editor built for completely local experience. No ratelimits ragebaits. No cloud APIs. No background agents.
   </p>
+  <p style="text-align: center; margin-top: 30px; font-size: 1.1rem;">dont call this a wrapper 🥀</p>
 
   <div class="divider"></div>
 
@@ -459,9 +705,8 @@ nc> exit
 <div class="footer">
   no-cursor — deterministic local coding, by design.
   <br><br>
-  <a href="https://github.com/ahhyoushh/no-cursor">github</a>
+  <a href="https://github.com/ahhyoushh/no-cursor">github</a> · © 2025 ayush bhalerao
 </div>
-    <footer>© 2025 ayush bhalerao</footer>
 
 </body>
 </html>
