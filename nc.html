@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>no-cursor (nc)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0e0e0e;
+      color: #e5e5e5;
+      font-family: 'Fira Code', monospace;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Subtle animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 100px 20px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin: 0 0 20px 0;
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    h2 {
+      font-weight: 400;
+      color: #b0b0b0;
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.5px;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h3 {
+      margin-top: 50px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #f5f5f5;
+      text-transform: lowercase;
+      letter-spacing: 1px;
+    }
+
+    h3::before {
+      content: '» ';
+      color: #808080;
+      margin-right: 8px;
+    }
+
+    p {
+      color: #d0d0d0;
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      padding-left: 30px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      color: #c5c5c5;
+      font-size: 1.02rem;
+    }
+
+    li::marker {
+      color: #5a5a5a;
+    }
+
+    pre {
+      background: #161616;
+      padding: 20px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      border: 1px solid #262626;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    pre code {
+      color: #d5d5d5;
+    }
+
+    .code-title {
+      font-size: 0.9rem;
+      color: #888888;
+      margin-bottom: 10px;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #2a2a2a, transparent);
+      margin: 50px 0;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 80px 20px 40px;
+      color: #5a5a5a;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #a0a0a0;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    /* Interactive elements */
+    a {
+      color: #d0d0d0;
+      text-decoration: none;
+      border-bottom: 1px solid #404040;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      color: #ffffff;
+      border-bottom-color: #606060;
+    }
+
+    .highlight {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #f0f0f0;
+    }
+
+    .status-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid #3a3a3a;
+      color: #c0c0c0;
+      padding: 8px 16px;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Feature grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .feature {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid #252525;
+      padding: 24px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+      border-color: #3a3a3a;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      color: #e5e5e5;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .feature-title::before {
+      content: '◆ ';
+      color: #606060;
+      margin-right: 8px;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: #a5a5a5;
+      line-height: 1.5;
+    }
+
+    /* Command reference */
+    .command-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+    }
+
+    .command-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid #252525;
+      padding: 16px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .command-item code {
+      display: block;
+      color: #e0e0e0;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .command-desc {
+      color: #8a8a8a;
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      header {
+        padding: 60px 20px 40px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>no-cursor</h1>
+  <h2 class="tagline">Local. Deterministic. CLI-first Code Assistant.</h2>
+</header>
+
+<section>
+  <div class="status-badge">✓ MVP Complete</div>
+
+  <p>
+    A local, CLI-first code editor built for completely local experience. No ratelimits. No cloud APIs. No background agents. Just you, your code, and explicit control.
+  </p>
+
+  <div class="divider"></div>
+
+  <h3>Why no-cursor?</h3>
+  
+  <div class="features">
+    <div class="feature">
+      <div class="feature-title">100% Local</div>
+      <div class="feature-desc">Runs entirely on your machine. Zero cloud dependencies. No external API calls. You own your data.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Deterministic</div>
+      <div class="feature-desc">Same input, same output. Reproducible across runs with local GGUF models. Predictable behavior.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Diff-Based Edits</div>
+      <div class="feature-desc">All changes shown as unified diffs. Review before apply. No silent mutations or surprises.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">File Safety</div>
+      <div class="feature-desc">Content hashing prevents corruption. Automatic backups. Explicit approval required for all edits.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Single File Focus</div>
+      <div class="feature-desc">One file at a time. Simple, focused, and verifiable. No complex multi-file refactoring.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">No Auto-Mutations</div>
+      <div class="feature-desc">You decide when changes commit. Dry-run mode lets you preview without changing files.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Quick Demo</h3>
+  <div class="code-title">Typical interaction:</div>
+  <pre><code>$ nc init
+» Creating .nc/ workspace
+» Starting llama-server on localhost:8000
+» Ready
+
+nc> open main.py
+✓ Tracking: main.py (hash: 7f3a...)
+
+nc> ask explain the validation logic
+The function checks input against schema and returns boolean...
+
+nc> edit "add type hints to all parameters"
+--- main.py
++++ main.py (edited)
+@@ -12,7 +12,7 @@
+-def validate(data):
++def validate(data: dict) -> bool:
+
+nc> diff
+[showing unified diff above]
+
+nc> apply --dry-run
+[preview mode, no changes applied]
+
+nc> apply
+✓ Applied. Backup saved to .nc/backups/
+
+nc> exit
+» Shutdown complete</code></pre>
+
+  <div class="divider"></div>
+
+  <h3>Command Reference</h3>
+  
+  <div class="command-grid">
+    <div class="command-item">
+      <code>nc init</code>
+      <div class="command-desc">Start workspace & server</div>
+    </div>
+    <div class="command-item">
+      <code>open &lt;file&gt;</code>
+      <div class="command-desc">Track a single file</div>
+    </div>
+    <div class="command-item">
+      <code>ask &lt;question&gt;</code>
+      <div class="command-desc">Read-only explanation</div>
+    </div>
+    <div class="command-item">
+      <code>edit &lt;instruction&gt;</code>
+      <div class="command-desc">Generate unified diff</div>
+    </div>
+    <div class="command-item">
+      <code>diff</code>
+      <div class="command-desc">Show last diff</div>
+    </div>
+    <div class="command-item">
+      <code>apply [--dry-run]</code>
+      <div class="command-desc">Apply or preview edits</div>
+    </div>
+    <div class="command-item">
+      <code>exit</code>
+      <div class="command-desc">Clean shutdown</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Install</h3>
+  <div class="code-title">Requirements:</div>
+  <ul>
+    <li>Python 3.10+</li>
+    <li>llama.cpp server (run locally)</li>
+    <li>A local GGUF model (e.g., Qwen2.5-Coder-3B-instruct-q4_k_m.gguf) <a href="https://huggingface.co/ministral/Ministral-3b-instruct/tree/main">Recommended</a></li>
+  </ul>
+
+  <pre><code>pip install -e .</code></pre>
+
+  <div class="divider"></div>
+
+  <h3>Guaranteed Principles</h3>
+  <ul>
+    <li><span class="highlight">One file at a time</span> — Single-file focus for simplicity and safety</li>
+    <li><span class="highlight">File hash verified</span> — Detects corruption before edits</li>
+    <li><span class="highlight">Diff-only edits</span> — All changes shown as unified diffs</li>
+    <li><span class="highlight">No auto-apply</span> — You decide when to commit changes</li>
+    <li><span class="highlight">Deterministic</span> — Same model, same prompt = same output</li>
+    <li><span class="highlight">No silent changes</span> — Explicit user approval required</li>
+    <li><span class="highlight">No cloud inference</span> — 100% local computation</li>
+    <li><span class="highlight">Automatic backups</span> — Before every apply operation</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <h3>Terminal Compatibility</h3>
+  <p>Designed and tested for stable operation in:</p>
+  <ul>
+    <li>PowerShell</li>
+    <li>Windows Terminal</li>
+    <li>VS Code integrated terminal</li>
+    <li>Vim / bash / zsh</li>
+  </ul>
+
+  <p style="margin-top: 20px; color: #888888; font-size: 0.95rem;">No readline / curses / external UI libraries. Pure Python + CLI.</p>
+
+  <div class="divider"></div>
+
+  <h3>Status & Roadmap</h3>
+  <p><strong>Core system complete</strong> — MVP stable and fully functional.</p>
+  
+  <p style="margin-top: 20px; color: #888888;"><strong>Next priorities:</strong></p>
+  <ul>
+    <li>Undo / revert stack</li>
+    <li>Status / health command</li>
+    <li>Diff confidence scoring</li>
+    <li>Structured multi-line edit input</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <h3>Non-Goals</h3>
+  <ul>
+    <li>Autonomous agents or background daemons</li>
+    <li>Cloud inference or API calls</li>
+    <li>Multi-file refactoring</li>
+    <li>Silent or auto-mutated edits</li>
+  </ul>
+
+</section>
+
+<div class="footer">
+  no-cursor — deterministic local coding, by design.
+  <br><br>
+  <a href="https://github.com/ahhyoushh/no-cursor">github</a>
+</div>
+    <footer>© 2025 ayush bhalerao</footer>
+
+</body>
+</html>
