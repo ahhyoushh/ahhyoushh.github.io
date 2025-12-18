@@ -10,23 +10,19 @@
   
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png">
+
+  <style>
+    body {
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+    body.loaded {
+      opacity: 1;
+    }
+  </style>
 </head>
 
 <body>
-
-<div class="loader-container" id="loaderContainer">
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
-  <div class="loader-content">
-    <div style="position: relative; display:flex; justify-content:center; align-items:center;">
-      <div class="pulse-ring"></div>
-      <div class="neon-circle"></div>
-    </div>
-    <div class="loading-bars">
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-    </div>
-  </div>
-</div>
 
 <nav>
   <div class="nav-brand">$ ayush</div>
@@ -397,64 +393,23 @@
 </footer>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const loader = document.getElementById("loaderContainer");
-  const toast = document.getElementById("dev-toast");
-  const toastText = document.getElementById("dev-toast-text");
-  let toastTimeout = null;
-
-  function showToast(text, duration = 4000) {
-    if (!toast || !toastText) return;
-
-    toastText.textContent = text;
-    toast.classList.add("visible");
-
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-      toast.classList.remove("visible");
-    }, duration);
-  }
-
-  // Hide loader
-  if (loader) {
-    setTimeout(() => {
-      loader.classList.add("hidden");
-
-      // 🔥 SHOW TOAST AFTER LOADER IS GONE
-      showToast("Toggle: [ctrl+shift+d]", 5000);
-    }, 1500);
-  }
-
-  // Dev mode toggle (keyboard)
-  document.addEventListener("keydown", (e) => {
-    if (!e.ctrlKey || !e.shiftKey || e.key.toLowerCase() !== "d") return;
-
-    e.preventDefault();
-
-    const enabled = document.body.classList.toggle("dev-mode");
-
-    showToast(
-      enabled
-        ? "Toggle: Dev Mode [ON]"
-        : "Toggle: Dev Mode [OFF]"
-    );
-
-    console.log(
-      `%c[System] Diagnostics Mode: ${enabled ? "MOUNTED" : "UNMOUNTED"}`,
-      "color:#888;background:#0a0a0a;padding:4px;border:1px solid #888"
-    );
-  });
-});
-</script>
-
-
 <script src="script.js"></script>
+
 <div id="dev-toast" class="dev-toast">
   <span class="toast-icon">></span>
   <span id="dev-toast-text">Toggle: [ctrl+shift+d]</span>
   <span class="cursor">▮</span>
 </div>
+
+<script>
+window.addEventListener("load", () => {
+  document.body.classList.add("loaded");
+});
+</script>
+
+</body>
+</html>
+
 
 </body>
 </html>

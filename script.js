@@ -21,7 +21,7 @@ function findProjectById(id) {
 // ================= FETCH =================
 async function fetchTodos() {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/todos?select=id,title,sub_tasks,project_id,is_done`,
+    `${SUPABASE_URL}/rest/v1/todos?select=id,title,sub_tasks,project_id,is_done&order=id.desc`,
     {
       headers: {
         apikey: SUPABASE_ANON_KEY,
