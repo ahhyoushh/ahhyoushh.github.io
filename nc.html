@@ -1,712 +1,795 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>no-cursor (nc)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>no-cursor (nc)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background-color: #0e0e0e;
-      color: #e5e5e5;
-      font-family: 'Fira Code', monospace;
-      line-height: 1.6;
-      overflow-x: hidden;
-      position: relative;
-    }
+        body {
+            background-color: #0e0e0e;
+            color: #e5e5e5;
+            font-family: 'Fira Code', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    /* Animated grid background */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
-      pointer-events: none;
-      z-index: 0;
-      animation: gridDrift 20s linear infinite;
-    }
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            animation: gridDrift 20s linear infinite;
+        }
 
-    @keyframes gridDrift {
-      0% { background-position: 0 0; }
-      100% { background-position: 50px 50px; }
-    }
+        @keyframes gridDrift {
+            0% {
+                background-position: 0 0;
+            }
 
-    /* Floating glow orbs */
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.15;
-    }
+            100% {
+                background-position: 50px 50px;
+            }
+        }
 
-    .glow-1 {
-      width: 500px;
-      height: 500px;
-      background: rgba(255, 255, 255, 0.3);
-      top: -200px;
-      right: -100px;
-      animation: float1 15s ease-in-out infinite;
-    }
+        /* Floating glow orbs */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
 
-    .glow-2 {
-      width: 400px;
-      height: 400px;
-      background: rgba(255, 255, 255, 0.2);
-      bottom: -150px;
-      left: -100px;
-      animation: float2 18s ease-in-out infinite;
-    }
+        .glow-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.3);
+            top: -200px;
+            right: -100px;
+            animation: float1 15s ease-in-out infinite;
+        }
 
-    @keyframes float1 {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      50% { transform: translate(50px, -50px) rotate(180deg); }
-    }
+        .glow-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.2);
+            bottom: -150px;
+            left: -100px;
+            animation: float2 18s ease-in-out infinite;
+        }
 
-    @keyframes float2 {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      50% { transform: translate(-50px, 50px) rotate(-180deg); }
-    }
+        @keyframes float1 {
 
-    header {
-      text-align: center;
-      padding: 100px 20px 60px;
-      position: relative;
-      z-index: 1;
-      animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
 
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+            50% {
+                transform: translate(50px, -50px) rotate(180deg);
+            }
+        }
 
-    h1 {
-      font-size: 3.5rem;
-      margin: 0 0 20px 0;
-      color: #ffffff;
-      font-weight: 700;
-      letter-spacing: -1px;
-      animation: titleGlow 2s ease-in-out infinite;
-    }
+        @keyframes float2 {
 
-    @keyframes titleGlow {
-      0%, 100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0); }
-      50% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.1); }
-    }
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
 
-    h2 {
-      font-weight: 400;
-      color: #b0b0b0;
-      margin: 0;
-      font-size: 1.35rem;
-      letter-spacing: 0.5px;
-      animation: fadeInStagger 0.8s ease-out 0.2s both;
-    }
+            50% {
+                transform: translate(-50px, 50px) rotate(-180deg);
+            }
+        }
 
-    @keyframes fadeInStagger {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-    section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-      position: relative;
-      z-index: 1;
-    }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
 
-    h3 {
-      margin-top: 50px;
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #f5f5f5;
-      text-transform: lowercase;
-      letter-spacing: 1px;
-      position: relative;
-      display: inline-block;
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    h3::before {
-      content: '» ';
-      color: #808080;
-      margin-right: 8px;
-      animation: blink 2s ease-in-out infinite;
-    }
+        h1 {
+            font-size: 3.5rem;
+            margin: 0 0 20px 0;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: -1px;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
+        @keyframes titleGlow {
 
-    p {
-      color: #d0d0d0;
-      margin-bottom: 16px;
-      font-size: 1.05rem;
-      animation: fadeInStagger 0.8s ease-out both;
-    }
+            0%,
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0);
+            }
 
-    ul {
-      padding-left: 30px;
-      margin-bottom: 20px;
-    }
+            50% {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            }
+        }
 
-    li {
-      margin-bottom: 10px;
-      color: #c5c5c5;
-      font-size: 1.02rem;
-      transition: all 0.3s ease;
-      animation: fadeInStagger 0.6s ease-out forwards;
-      opacity: 0;
-    }
+        h2 {
+            font-weight: 400;
+            color: #b0b0b0;
+            margin: 0;
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+            animation: fadeInStagger 0.8s ease-out 0.2s both;
+        }
 
-    li:nth-child(1) { animation-delay: 0.1s; }
-    li:nth-child(2) { animation-delay: 0.15s; }
-    li:nth-child(3) { animation-delay: 0.2s; }
-    li:nth-child(4) { animation-delay: 0.25s; }
-    li:nth-child(5) { animation-delay: 0.3s; }
-    li:nth-child(6) { animation-delay: 0.35s; }
-    li:nth-child(7) { animation-delay: 0.4s; }
-    li:nth-child(8) { animation-delay: 0.45s; }
+        @keyframes fadeInStagger {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-    li:hover {
-      color: #ffffff;
-      transform: translateX(8px);
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    li::marker {
-      color: #5a5a5a;
-    }
+        section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-    pre {
-      background: linear-gradient(135deg, #161616 0%, #1a1a1a 100%);
-      padding: 20px;
-      border-radius: 6px;
-      overflow-x: auto;
-      font-size: 0.95rem;
-      color: #e0e0e0;
-      border: 1px solid #262626;
-      margin-bottom: 20px;
-      line-height: 1.5;
-      animation: slideIn 0.6s ease-out;
-      position: relative;
-      transition: all 0.3s ease;
-    }
+        h3 {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f5f5f5;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+        h3::before {
+            content: '» ';
+            color: #808080;
+            margin-right: 8px;
+            animation: blink 2s ease-in-out infinite;
+        }
 
-    pre:hover {
-      border-color: #3a3a3a;
-      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
-      transform: translateY(-4px);
-    }
+        @keyframes blink {
 
-    pre code {
-      color: #d5d5d5;
-    }
+            0%,
+            100% {
+                opacity: 1;
+            }
 
-    .code-title {
-      font-size: 0.9rem;
-      color: #888888;
-      margin-bottom: 10px;
-      text-transform: lowercase;
-      letter-spacing: 0.5px;
-    }
+            50% {
+                opacity: 0.4;
+            }
+        }
 
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #2a2a2a, transparent);
-      margin: 50px 0;
-      position: relative;
-      animation: expandWidth 0.8s ease-out;
-    }
+        p {
+            color: #d0d0d0;
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+            animation: fadeInStagger 0.8s ease-out both;
+        }
 
-    @keyframes expandWidth {
-      from {
-        width: 0;
-      }
-      to {
-        width: 100%;
-      }
-    }
+        ul {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
 
-    .footer {
-      text-align: center;
-      font-size: 0.9rem;
-      padding: 80px 20px 40px;
-      color: #5a5a5a;
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid #1a1a1a;
-      animation: fadeInStagger 0.8s ease-out 0.4s both;
-    }
+        li {
+            margin-bottom: 10px;
+            color: #c5c5c5;
+            font-size: 1.02rem;
+            transition: all 0.3s ease;
+            animation: fadeInStagger 0.6s ease-out forwards;
+            opacity: 0;
+        }
 
-    .tagline {
-      font-size: 1.2rem;
-      color: #a0a0a0;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
+        li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
 
-    /* Interactive elements */
-    a {
-      color: #d0d0d0;
-      text-decoration: none;
-      border-bottom: 1px solid #404040;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
-    }
+        li:nth-child(2) {
+            animation-delay: 0.15s;
+        }
 
-    a:hover {
-      color: #ffffff;
-      border-bottom-color: #606060;
-      transform: translateY(-2px);
-    }
+        li:nth-child(3) {
+            animation-delay: 0.2s;
+        }
 
-    a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: #ffffff;
-      transition: width 0.3s ease;
-    }
+        li:nth-child(4) {
+            animation-delay: 0.25s;
+        }
 
-    a:hover::after {
-      width: 100%;
-    }
+        li:nth-child(5) {
+            animation-delay: 0.3s;
+        }
 
-    .highlight {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 3px 8px;
-      border-radius: 3px;
-      color: #f0f0f0;
-      transition: all 0.3s ease;
-      cursor: default;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+        li:nth-child(6) {
+            animation-delay: 0.35s;
+        }
 
-    .highlight:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
+        li:nth-child(7) {
+            animation-delay: 0.4s;
+        }
 
-    .status-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid #3a3a3a;
-      color: #c0c0c0;
-      padding: 8px 16px;
-      border-radius: 3px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 30px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
+        li:nth-child(8) {
+            animation-delay: 0.45s;
+        }
 
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        li:hover {
+            color: #ffffff;
+            transform: translateX(8px);
+        }
 
-    /* Feature grid */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin: 40px 0;
-    }
+        li::marker {
+            color: #5a5a5a;
+        }
 
-    .feature {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid #252525;
-      padding: 24px;
-      border-radius: 6px;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      animation: featureSlideUp 0.6s ease-out forwards;
-      opacity: 0;
-      position: relative;
-      overflow: hidden;
-    }
+        pre {
+            background: linear-gradient(135deg, #161616 0%, #1a1a1a 100%);
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.95rem;
+            color: #e0e0e0;
+            border: 1px solid #262626;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            transition: all 0.3s ease;
+        }
 
-    @keyframes featureSlideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
 
-    .feature:nth-child(1) { animation-delay: 0.1s; }
-    .feature:nth-child(2) { animation-delay: 0.15s; }
-    .feature:nth-child(3) { animation-delay: 0.2s; }
-    .feature:nth-child(4) { animation-delay: 0.25s; }
-    .feature:nth-child(5) { animation-delay: 0.3s; }
-    .feature:nth-child(6) { animation-delay: 0.35s; }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-    .feature::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s ease;
-    }
+        pre:hover {
+            border-color: #3a3a3a;
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+        }
 
-    .feature:hover::before {
-      left: 100%;
-    }
+        pre code {
+            color: #d5d5d5;
+        }
 
-    .feature:hover {
-      border-color: #3a3a3a;
-      background: rgba(255, 255, 255, 0.04);
-      transform: translateY(-8px);
-      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
-    }
+        .code-title {
+            font-size: 0.9rem;
+            color: #888888;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+            letter-spacing: 0.5px;
+        }
 
-    .feature-title {
-      font-size: 1.1rem;
-      color: #e5e5e5;
-      margin-bottom: 12px;
-      font-weight: 600;
-      position: relative;
-      z-index: 1;
-    }
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #2a2a2a, transparent);
+            margin: 50px 0;
+            position: relative;
+            animation: expandWidth 0.8s ease-out;
+        }
 
-    .feature-title::before {
-      content: '◆ ';
-      color: #606060;
-      margin-right: 8px;
-    }
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
 
-    .feature-desc {
-      font-size: 0.95rem;
-      color: #a5a5a5;
-      line-height: 1.5;
-      position: relative;
-      z-index: 1;
-    }
+            to {
+                width: 100%;
+            }
+        }
 
-    /* Command reference */
-    .command-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin: 30px 0;
-    }
+        .footer {
+            text-align: center;
+            font-size: 0.9rem;
+            padding: 80px 20px 40px;
+            color: #5a5a5a;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid #1a1a1a;
+            animation: fadeInStagger 0.8s ease-out 0.4s both;
+        }
 
-    .command-item {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid #252525;
-      padding: 16px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      animation: commandFade 0.5s ease-out forwards;
-      opacity: 0;
-      position: relative;
-      overflow: hidden;
-    }
+        .tagline {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
 
-    @keyframes commandFade {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
+        /* Interactive elements */
+        a {
+            color: #d0d0d0;
+            text-decoration: none;
+            border-bottom: 1px solid #404040;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
 
-    .command-item:nth-child(1) { animation-delay: 0.05s; }
-    .command-item:nth-child(2) { animation-delay: 0.1s; }
-    .command-item:nth-child(3) { animation-delay: 0.15s; }
-    .command-item:nth-child(4) { animation-delay: 0.2s; }
-    .command-item:nth-child(5) { animation-delay: 0.25s; }
-    .command-item:nth-child(6) { animation-delay: 0.3s; }
-    .command-item:nth-child(7) { animation-delay: 0.35s; }
+        a:hover {
+            color: #ffffff;
+            border-bottom-color: #606060;
+            transform: translateY(-2px);
+        }
 
-    .command-item:hover {
-      border-color: #3a3a3a;
-      background: rgba(255, 255, 255, 0.05);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
 
-    .command-item code {
-      display: block;
-      color: #e0e0e0;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
+        a:hover::after {
+            width: 100%;
+        }
 
-    .command-desc {
-      color: #8a8a8a;
-      font-size: 0.85rem;
-    }
+        .highlight {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: #f0f0f0;
+            transition: all 0.3s ease;
+            cursor: default;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
+        .highlight:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
 
-      h2 {
-        font-size: 1.1rem;
-      }
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid #3a3a3a;
+            color: #c0c0c0;
+            padding: 8px 16px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-      h3 {
-        font-size: 1.2rem;
-      }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
 
-      header {
-        padding: 60px 20px 40px;
-      }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-      .features {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        /* Feature grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #252525;
+            padding: 24px;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: featureSlideUp 0.6s ease-out forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes featureSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .feature:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .feature:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .feature:nth-child(4) {
+            animation-delay: 0.25s;
+        }
+
+        .feature:nth-child(5) {
+            animation-delay: 0.3s;
+        }
+
+        .feature:nth-child(6) {
+            animation-delay: 0.35s;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature:hover::before {
+            left: 100%;
+        }
+
+        .feature:hover {
+            border-color: #3a3a3a;
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            color: #e5e5e5;
+            margin-bottom: 12px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-title::before {
+            content: '◆ ';
+            color: #606060;
+            margin-right: 8px;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: #a5a5a5;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Command reference */
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .command-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #252525;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: commandFade 0.5s ease-out forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes commandFade {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .command-item:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .command-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .command-item:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .command-item:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .command-item:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .command-item:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        .command-item:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .command-item:hover {
+            border-color: #3a3a3a;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .command-item code {
+            display: block;
+            color: #e0e0e0;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .command-desc {
+            color: #8a8a8a;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            header {
+                padding: 60px 20px 40px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="glow-orb glow-1"></div>
-<div class="glow-orb glow-2"></div>
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
 
-<header>
-  <h1>no-cursor</h1>
-  <h2 class="tagline">Local. Deterministic. CLI-first Code Assistant.</h2>
-</header>
+    <header>
+        <h1>no-cursor</h1>
+        <h2 class="tagline">Local. Deterministic. CLI-first Code Assistant.</h2>
+    </header>
 
-<section>
-  <p>
-    A local, CLI-first code editor built for completely local experience. No ratelimits ragebaits. No cloud APIs. No background agents.
-  </p>
-  <p style="text-align: center; margin-top: 30px; font-size: 1.1rem;">dont call this a wrapper 🥀</p>
+    <section>
+        <p>
+            A local, CLI-first code assistant designed for a private, fast, and deterministic experience.
+            No cloud APIs, no background agents, no latency—just pure local intelligence focused on your active file.
+        </p>
+        <p style="text-align: center; margin-top: 30px; font-size: 1.1rem;">dont call this a wrapper 🥀</p>
 
-  <div class="divider"></div>
+        <div class="divider"></div>
 
-  <h3>Why no-cursor?</h3>
-  
-  <div class="features">
-    <div class="feature">
-      <div class="feature-title">100% Local</div>
-      <div class="feature-desc">Runs entirely on your machine. Zero cloud dependencies. No external API calls. You own your data.</div>
+        <h3>Why no-cursor?</h3>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-title">Proactive Auditing</div>
+                <div class="feature-desc">The new <b>fix</b> command actively audits your file for logic bugs and
+                    security flaws using local LLM reasoning.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Strategic Planning</div>
+                <div class="feature-desc">Generate step-by-step roadmaps for your complex feature goals with the
+                    <b>plan</b> and <b>save-plan</b> system.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Semantic Search</div>
+                <div class="feature-desc">Find logic and patterns within your file using natural language, powered by
+                    local semantic indexing.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Interactive Assistance</div>
+                <div class="feature-desc">Live, file-aware chat mode with full history persistence stored directly in
+                    your workspace.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Deterministic Edits</div>
+                <div class="feature-desc">Changes are shown as resilient unified diffs with built-in confidence scoring
+                    and hash verification.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Air-Gapped Private</div>
+                <div class="feature-desc">Runs entirely on your machine. Zero usage tracking. Zero cloud dependencies.
+                    You own every byte.</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>The Assistant Console</h3>
+        <div class="code-title">Typical NC Assistant workflow:</div>
+        <pre><code>nc (test.py)> chat
+Entering Interactive Chat for test.py. Type 'exit' to return.
+nc (chat:test.py)> how does the divide function work?
+Assistant: The divide function returns b / a. It seems the arguments are reversed...
+
+nc (test.py)> fix
+Auditing file for bugs...
+[Bug Audit & Fix Suggestion]
+The divide function is logically reversed (b/a instead of a/b).
+--- a/test.py
++++ b/test.py
+@@ -3,4 +3,4 @@
+ def divide(a, b):
+-    return b / a
++    return a / b
+
+Apply detected fix? [y/n]: y
+✓ Applied. Backup saved to .nc/backup/
+
+nc (test.py)> plan "Add logging and exception handling"
+[Implementation Plan]
+1. [ ] Wrap b/a in a try-except block
+2. [ ] Import logging module
+3. [ ] Add log.info for results
+
+Plan generated. Use 'save-plan' to keep it.
+nc (test.py)> save-plan
+✓ Plan for 'Add logging...' saved to workspace.
+
+nc (test.py)> stats
+Usage: 1.2k tokens | Total Time: 45s | Calls: 12</code></pre>
+
+        <div class="divider"></div>
+
+        <h3>Command Reference</h3>
+
+        <div class="command-grid">
+            <div class="command-item">
+                <code>open &lt;file&gt;</code>
+                <div class="command-desc">Focus file for editing</div>
+            </div>
+            <div class="command-item">
+                <code>edit &lt;msg&gt;</code>
+                <div class="command-desc">Request code changes</div>
+            </div>
+            <div class="command-item">
+                <code>chat &lt;msg&gt;</code>
+                <div class="command-desc">Live contextual assistance</div>
+            </div>
+            <div class="command-item">
+                <code>fix</code>
+                <div class="command-desc">Audit file for bugs</div>
+            </div>
+            <div class="command-item">
+                <code>plan &lt;goal&gt;</code>
+                <div class="command-desc">Generate feature roadmap</div>
+            </div>
+            <div class="command-item">
+                <code>search &lt;msg&gt;</code>
+                <div class="command-desc">Semantic search in file</div>
+            </div>
+            <div class="command-item">
+                <code>apply</code>
+                <div class="command-desc">Commit changes to disk</div>
+            </div>
+            <div class="command-item">
+                <code>revert</code>
+                <div class="command-desc">Restore last backup</div>
+            </div>
+            <div class="command-item">
+                <code>stats</code>
+                <div class="command-desc">Show usage statistics</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Status & Roadmap</h3>
+        <p><strong>Assistant ecosystem ready</strong> — Core tools for editing, auditing, and searching are fully
+            functional.</p>
+
+        <p style="margin-top: 20px; color: #888888;"><strong>Next priorities:</strong></p>
+        <ul>
+            <li>Multi-file context injection</li>
+            <li>Sequential plan execution automation</li>
+            <li>Conversation summary for long histories</li>
+            <li>Workspace-wide semantic indexing</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <h3>Guaranteed Principles</h3>
+        <ul>
+            <li><span class="highlight">Unifile focus</span> — Total context for the file you are actually touching.
+            </li>
+            <li><span class="highlight">Inspectable diffs</span> — Human-readable changes with confidence scores.</li>
+            <li><span class="highlight">State Persistence</span> — File-specific chat history and saved plans.</li>
+            <li><span class="highlight">Deterministic</span> — Local GGUF models mean reliable, repeatable results.</li>
+        </ul>
+
+    </section>
+
+    <div class="footer">
+        no-cursor — deterministic local coding, by design.
+        <br><br>
+        <a href="https://github.com/ahhyoushh/no-cursor">github</a> · © 2025 ayush bhalerao
     </div>
-    <div class="feature">
-      <div class="feature-title">Deterministic</div>
-      <div class="feature-desc">Same input, same output. Reproducible across runs with local GGUF models. Predictable behavior.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-title">Diff-Based Edits</div>
-      <div class="feature-desc">All changes shown as unified diffs. Review before apply. No silent mutations or surprises.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-title">File Safety</div>
-      <div class="feature-desc">Content hashing prevents corruption. Automatic backups. Explicit approval required for all edits.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-title">Single File Focus</div>
-      <div class="feature-desc">One file at a time. Simple, focused, and verifiable. No complex multi-file refactoring.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-title">No Auto-Mutations</div>
-      <div class="feature-desc">You decide when changes commit. Dry-run mode lets you preview without changing files.</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Quick Demo</h3>
-  <div class="code-title">Typical interaction:</div>
-  <pre><code>$ nc init
-» Creating .nc/ workspace
-» Starting llama-server on localhost:8000
-» Ready
-
-nc> open main.py
-✓ Tracking: main.py (hash: 7f3a...)
-
-nc> ask explain the validation logic
-The function checks input against schema and returns boolean...
-
-nc> edit "add type hints to all parameters"
---- main.py
-+++ main.py (edited)
-@@ -12,7 +12,7 @@
--def validate(data):
-+def validate(data: dict) -> bool:
-
-nc> diff
-[showing unified diff above]
-
-nc> apply --dry-run
-[preview mode, no changes applied]
-
-nc> apply
-✓ Applied. Backup saved to .nc/backups/
-
-nc> exit
-» Shutdown complete</code></pre>
-
-  <div class="divider"></div>
-
-  <h3>Command Reference</h3>
-  
-  <div class="command-grid">
-    <div class="command-item">
-      <code>nc init</code>
-      <div class="command-desc">Start workspace & server</div>
-    </div>
-    <div class="command-item">
-      <code>open &lt;file&gt;</code>
-      <div class="command-desc">Track a single file</div>
-    </div>
-    <div class="command-item">
-      <code>ask &lt;question&gt;</code>
-      <div class="command-desc">Read-only explanation</div>
-    </div>
-    <div class="command-item">
-      <code>edit &lt;instruction&gt;</code>
-      <div class="command-desc">Generate unified diff</div>
-    </div>
-    <div class="command-item">
-      <code>diff</code>
-      <div class="command-desc">Show last diff</div>
-    </div>
-    <div class="command-item">
-      <code>apply [--dry-run]</code>
-      <div class="command-desc">Apply or preview edits</div>
-    </div>
-    <div class="command-item">
-      <code>exit</code>
-      <div class="command-desc">Clean shutdown</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h3>Install</h3>
-  <div class="code-title">Requirements:</div>
-  <ul>
-    <li>Python 3.10+</li>
-    <li>llama.cpp server (run locally)</li>
-    <li>A local GGUF model (e.g., Qwen2.5-Coder-3B-instruct-q4_k_m.gguf or DeepSeek-R1-Distill-Qwen-1.5B ) <a href="https://huggingface.co/ministral/Ministral-3b-instruct/tree/main">Recommended</a></li>
-  </ul>
-
-  <pre><code>pip install -e .</code></pre>
-
-  <div class="divider"></div>
-
-  <h3>Guaranteed Principles</h3>
-  <ul>
-    <li><span class="highlight">One file at a time</span> — Single-file focus for simplicity and safety</li>
-    <li><span class="highlight">File hash verified</span> — Detects corruption before edits</li>
-    <li><span class="highlight">Diff-only edits</span> — All changes shown as unified diffs</li>
-    <li><span class="highlight">No auto-apply</span> — You decide when to commit changes</li>
-    <li><span class="highlight">Deterministic</span> — Same model, same prompt = same output</li>
-    <li><span class="highlight">No silent changes</span> — Explicit user approval required</li>
-    <li><span class="highlight">No cloud inference</span> — 100% local computation</li>
-    <li><span class="highlight">Automatic backups</span> — Before every apply operation</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h3>Terminal Compatibility</h3>
-  <p>Designed and tested for stable operation in:</p>
-  <ul>
-    <li>PowerShell</li>
-    <li>Windows Terminal</li>
-    <li>VS Code integrated terminal</li>
-    <li>Vim / bash / zsh</li>
-  </ul>
-
-  <p style="margin-top: 20px; color: #888888; font-size: 0.95rem;">No readline / curses / external UI libraries. Pure Python + CLI.</p>
-
-  <div class="divider"></div>
-
-  <h3>Status & Roadmap</h3>
-  <p><strong>Core system complete</strong> — MVP stable and fully functional.</p>
-  
-  <p style="margin-top: 20px; color: #888888;"><strong>Next priorities:</strong></p>
-  <ul>
-    <li>Undo / revert stack</li>
-    <li>Status / health command</li>
-    <li>Diff confidence scoring</li>
-    <li>Structured multi-line edit input</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h3>Non-Goals</h3>
-  <ul>
-    <li>Autonomous agents or background daemons</li>
-    <li>Cloud inference or API calls</li>
-    <li>Multi-file refactoring</li>
-    <li>Silent or auto-mutated edits</li>
-  </ul>
-
-</section>
-
-<div class="footer">
-  no-cursor — deterministic local coding, by design.
-  <br><br>
-  <a href="https://github.com/ahhyoushh/no-cursor">github</a> · © 2025 ayush bhalerao
-</div>
 
 </body>
+
 </html>
