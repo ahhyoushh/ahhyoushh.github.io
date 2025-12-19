@@ -638,6 +638,9 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   text-decoration: line-through;
   color: #aa4444;
 }
+.dev-mode {
+  outline: 3px solid lime;
+}
 
 .todo-project-header {
   display: inline-block;
