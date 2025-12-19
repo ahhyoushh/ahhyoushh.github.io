@@ -21,7 +21,7 @@ function findProjectById(id) {
 // ================= FETCH =================
 async function fetchTodos() {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/todos?select=id,title,sub_tasks,project_id,is_done&order=id.desc`,
+    `${SUPABASE_URL}/rest/v1/todos?select=id,title,sub_tasks,project_id,status&order=id.desc`,
     {
       headers: {
         apikey: SUPABASE_ANON_KEY,
@@ -68,17 +68,32 @@ async function initIdeas() {
 
   // ---- render helper ----
   const renderTodos = todos => {
-    const pending = todos.filter(t => !t.is_done);
-    const done = todos.filter(t => t.is_done);
+    const pending = todos.filter(t => t.status === "pending");
+    const done = todos.filter(t => t.status === "done");
+    const forgotten = todos.filter(t => t.status === "forgotten");
 
-    [...pending, ...done].forEach(todo => {
+    const printItem = todo => {
       const li = document.createElement("li");
       li.className = "todo-item";
-      if (todo.is_done) li.classList.add("todo-done");
+
+      if (todo.status === "done") li.classList.add("todo-done");
+      if (todo.status === "forgotten") li.classList.add("todo-forgotten");
 
       const title = document.createElement("div");
       title.className = "todo-title";
-      title.textContent = todo.title;
+
+      // attach suffix based on status
+      let suffix = "";
+      if (todo.status === "done") suffix = " [done]";
+      if (todo.status === "forgotten") suffix = " [forgotten]";
+
+      // dev override text for forgotten
+      if (todo.status === "forgotten") {
+        title.textContent = `${todo.title} [couldnt do]`;
+      } else {
+        title.textContent = `${todo.title}${suffix}`;
+      }
+
       li.appendChild(title);
 
       if (Array.isArray(todo.sub_tasks) && todo.sub_tasks.length) {
@@ -96,7 +111,9 @@ async function initIdeas() {
       }
 
       todoList.appendChild(li);
-    });
+    };
+
+    [...pending, ...done, ...forgotten].forEach(printItem);
   };
 
   // ===== Existing projects =====
@@ -170,7 +187,6 @@ async function initIdeas() {
     if (project.querySelector(".project-todo-link")) return;
 
     tags.insertAdjacentElement("afterend", link);
-
   });
 }
 

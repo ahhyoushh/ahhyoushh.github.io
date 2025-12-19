@@ -633,6 +633,12 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   color: var(--accent-hover);
 }
 
+.todo-forgotten {
+  opacity: 0.4;
+  text-decoration: line-through;
+  color: #aa4444;
+}
+
 .todo-project-header {
   display: inline-block;
   font-family: "Fira Code", monospace;
