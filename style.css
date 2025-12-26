@@ -32,9 +32,68 @@ a:hover {
   color: var(--accent-hover);
 }
 
+/* --- Hero Name & Animations --- */
+/* Fix: Replaced glitchy typing with stable cursor + interactive hover */
 .hero-name {
-  max-width: 6ch;
-  line-height: 1.05;
+  display: inline-block;
+  position: relative;
+  border: none;
+  width: auto;
+  overflow: visible;
+  white-space: normal;
+  vertical-align: baseline;
+  transition: background-color 0.1s, color 0.1s;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Terminal Block Cursor */
+.hero-name::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  background-color: var(--accent);
+  margin-left: 0.2rem;
+  vertical-align: -0.15em;
+  animation: blink-cursor 1.2s steps(2, start) infinite;
+}
+
+/* Interactive: Terminal Selection Look on Hover */
+.hero-name:hover {
+  background-color: var(--accent);
+  color: var(--bg);
+  cursor: default;
+}
+
+.hero-name:hover::after {
+  background-color: var(--bg); /* Invert cursor color on hover */
+  opacity: 1;
+  animation: none; /* Pause blinking on interaction */
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --- Page Entry Animation --- */
+/* Adds "interactive" feel by sliding content in on load */
+.hero, .stats, .about, .projects, .blogs, #todo-list {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero { animation-delay: 0.1s; }
+.stats { animation-delay: 0.2s; }
+.about { animation-delay: 0.3s; }
+.projects { animation-delay: 0.4s; }
+.blogs { animation-delay: 0.5s; }
+#todo-list { animation-delay: 0.6s; }
+
+@keyframes fadeSlideUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- Loader Animation --- */
@@ -477,13 +536,12 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
 .project-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Space between cards */
+  gap: 1.5rem;
   list-style: none;
 }
 
-/* Project Card Style */
 .project-item {
-  position: relative; /* For clickable overlay */
+  position: relative;
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
@@ -498,7 +556,6 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
-/* Clickable Card Trick: Link in title covers whole card */
 .project-title a::after {
   content: "";
   position: absolute;
@@ -529,7 +586,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   font-size: 1.05rem;
   color: var(--text);
   font-weight: 600;
-  z-index: 2; /* Keep text above the click overlay if needed, but a::after usually handles it */
+  z-index: 2;
 }
 
 .project-title a {
@@ -562,8 +619,8 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   flex-wrap: wrap;
   gap: 0.4rem;
   position: relative;
-  z-index: 2; /* Ensure tags can be hovered/selected if needed, though card click might override */
-  pointer-events: none; /* Let clicks pass through to the card */
+  z-index: 2;
+  pointer-events: none;
 }
 
 .tag {
@@ -577,7 +634,6 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   background-color: rgba(136, 136, 136, 0.05);
 }
 
-/* Since card is clickable, tags are purely visual here unless pointer-events auto */
 .project-item:hover .tag {
   border-color: rgba(136, 136, 136, 0.3);
   background-color: rgba(136, 136, 136, 0.1);
@@ -592,21 +648,31 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
 }
 
 .blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   list-style: none;
 }
 
 .blog-item {
-  padding: 1.3rem 0;
-  border-bottom: 1px solid var(--border);
-  transition: opacity 0.2s;
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .blog-item:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid var(--border);
 }
 
 .blog-item:hover {
-  opacity: 0.85;
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  opacity: 1;
 }
 
 .blog-title {
@@ -615,6 +681,15 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   color: var(--text);
   margin-bottom: 0.4rem;
   font-weight: 600;
+  position: relative;
+  z-index: 2;
+}
+
+.blog-title a::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
 }
 
 .blog-title a {
@@ -643,6 +718,9 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
 
 /* --- Ideas / Todo Section --- */
 #todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -700,9 +778,19 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
 }
 
 .todo-item {
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--border);
   position: relative;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.todo-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .todo-title {
@@ -716,8 +804,8 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
 .todo-item::after {
   content: "PENDING";
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 1.5rem;
+  top: 1.5rem;
   font-family: "Fira Code", monospace;
   font-size: 0.65rem;
   color: var(--accent);
@@ -827,7 +915,6 @@ footer {
     gap: 1rem;
   }
 
-  /* Projects Mobile Adjustments */
   .project-header {
     flex-direction: column;
   }
