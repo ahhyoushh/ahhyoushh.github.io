@@ -19,6 +19,17 @@
     body.loaded {
       opacity: 1;
     }
+    
+    /* Make the project cards look clickable */
+    .project-item {
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    /* Optional: Add a subtle hover effect for better UX */
+    .project-item:hover {
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 
@@ -110,7 +121,6 @@
     </a>
   </div>
   
-  <!-- New Github Layout: Horizontal below cards, no border -->
   <div class="github-section">
     <a href="https://github.com/ahhyoushh" target="_blank" class="github-link-wrapper">
       <img src="https://ghchart.rshah.org/888888/ahhyoushh" alt="Github Activity" class="github-chart-wide" />
@@ -150,6 +160,8 @@
   <div class="section-header">// work</div>
   <h2 class="section-title">Projects</h2>
   <ul class="project-list">
+    
+    <!-- NOCURSOR -->
     <li class="project-item" data-project-id="nocursor">
       <div class="project-header">
         <div class="project-title"><a href="nc.html">No-Cursor</a></div>
@@ -171,7 +183,13 @@
         <span class="tag">llama.cpp / ollama</span>
         <span class="tag">QWEN /Deepseek models</span>
       </div>
+      <!-- PREVIEW AT BOTTOM -->
+      <div class="project-preview">
+        <img src="./assets/nc_demo.gif" alt="demo preview">
+      </div>
     </li>
+
+    <!-- FILESENSE -->
     <li class="project-item" data-project-id="filesense">
       <div class="project-header">
         <div class="project-title"><a href="FileSense">FileSense</a></div>
@@ -196,8 +214,13 @@
         <span class="tag">SBERT / BERT</span>
         <span class="tag">automation</span>
       </div>
+      <!-- PREVIEW AT BOTTOM -->
+      <div class="project-preview">
+        <img src="./assets/filesense_preview.png" alt="demo preview">
+      </div>
     </li>
 
+    <!-- AQI -->
     <li class="project-item" data-project-id="aqi">
       <div class="project-header">
         <div class="project-title"><a href="aqi.html">Air Quality Index Prediction</a></div>
@@ -222,8 +245,13 @@
         <span class="tag">seaborn/matplotlib</span>
         <span class="tag">data-analysis</span>
       </div>
+      <!-- PREVIEW AT BOTTOM -->
+      <div class="project-preview">
+        <img src="./assets/aqi_preview.png" alt="demo preview">
+      </div>
     </li>
 
+    <!-- EWSENKU -->
     <li class="project-item" data-project-id="ewsenku">
       <div class="project-header">
         <div class="project-title"><a href="ewsenku.html">E-Waste Recycling Platform</a></div>
@@ -248,8 +276,13 @@
         <span class="tag">vuejs</span>
         <span class="tag">firebase</span>
       </div>
+      <!-- PREVIEW AT BOTTOM -->
+      <div class="project-preview">
+        <img src="./assets/ew_preview.png" alt="demo preview">
+      </div>
     </li>
 
+    <!-- FACE DETECTION -->
     <li class="project-item" data-project-id="face_detection">
       <div class="project-header">
         <div class="project-title"><a href="face_detection.html">Face Detection Doorcam</a></div>
@@ -273,6 +306,36 @@
       </div>
     </li>
 
+    <!-- CLICHAT -->
+    <li class="project-item" data-project-id="clichat">
+      <div class="project-header">
+        <div class="project-title"><a href="clichat.html">CLI Chat Application</a></div>
+        <div class="project-actions"></div>
+        <div class="project-id">clichat</div>
+      </div>
+      <p class="project-desc">
+        Command-line chat program implementing basic client–server communication.
+      </p>
+
+      <div class="project-dev-meta">
+        <div>> core: Python socket module (TCP) + Threading for concurrent listeners</div>
+        <div>> note: Implements custom handshake protocol</div>
+        <div>> limit: Plaintext transmission (No End-to-End Encryption)</div>
+      </div>
+
+      <div class="project-tags">
+        <span class="tag">python</span>
+        <span class="tag">requests</span>
+        <span class="tag">cli</span>
+        <span class="tag">network-protocols</span>
+      </div>
+      <!-- PREVIEW AT BOTTOM -->
+      <div class="project-preview">
+        <img src="./assets/cli_demo.gif" alt="demo preview">
+      </div>
+    </li>
+
+    <!-- DCBOT -->
     <li class="project-item" data-project-id="dcbot">
       <div class="project-header">
         <div class="project-title"><a href="dcbot.html">Discord Moderator Bot</a></div>
@@ -296,30 +359,7 @@
       </div>
     </li>
 
-    <li class="project-item" data-project-id="clichat">
-      <div class="project-header">
-        <div class="project-title"><a href="clichat.html">CLI Chat Application</a></div>
-        <div class="project-actions"></div>
-        <div class="project-id">clichat</div>
-      </div>
-      <p class="project-desc">
-        Command-line chat program implementing basic client–server communication.
-      </p>
-
-      <div class="project-dev-meta">
-        <div>> core: Python socket module (TCP) + Threading for concurrent listeners</div>
-        <div>> note: Implements custom handshake protocol</div>
-        <div>> limit: Plaintext transmission (No End-to-End Encryption)</div>
-      </div>
-
-      <div class="project-tags">
-        <span class="tag">python</span>
-        <span class="tag">requests</span>
-        <span class="tag">cli</span>
-        <span class="tag">network-protocols</span>
-      </div>
-    </li>
-
+    <!-- GOAPI -->
     <li class="project-item" data-project-id="goapi">
       <div class="project-header">
         <div class="project-title"><a href="goapi.html">Movies CRUD API</a></div>
@@ -343,6 +383,7 @@
       </div>
     </li>
 
+    <!-- TRASHCLI -->
     <li class="project-item" data-project-id="trashcli">
       <div class="project-header">
         <div class="project-title"><a href="https://github.com/ahhyoushh/trash-collector-cli">Trash Collector CLI</a></div>
@@ -419,6 +460,23 @@
 <script>
 window.addEventListener("load", () => {
   document.body.classList.add("loaded");
+
+  // Logic to make entire Project Box clickable
+  const projectItems = document.querySelectorAll('.project-item');
+  
+  projectItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      // If the user actually clicked a link or a tag, don't interfere
+      if (e.target.closest('a')) return;
+
+      // Find the main link in the title
+      const mainLink = item.querySelector('.project-title a');
+      if (mainLink) {
+        // Trigger a native click on the link to respect target="_blank" etc.
+        mainLink.click();
+      }
+    });
+  });
 });
 </script>
 

@@ -33,7 +33,6 @@ a:hover {
 }
 
 /* --- Hero Name & Animations --- */
-/* Fix: Replaced glitchy typing with stable cursor + interactive hover */
 .hero-name {
   display: inline-block;
   position: relative;
@@ -67,9 +66,9 @@ a:hover {
 }
 
 .hero-name:hover::after {
-  background-color: var(--bg); /* Invert cursor color on hover */
+  background-color: var(--bg);
   opacity: 1;
-  animation: none; /* Pause blinking on interaction */
+  animation: none;
 }
 
 @keyframes blink-cursor {
@@ -78,7 +77,6 @@ a:hover {
 }
 
 /* --- Page Entry Animation --- */
-/* Adds "interactive" feel by sliding content in on load */
 .hero, .stats, .about, .projects, .blogs, #todo-list {
   animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   opacity: 0;
@@ -358,7 +356,6 @@ nav {
   background: linear-gradient(270deg, rgba(192, 192, 192, 0.8) 0%, rgba(192, 192, 192, 0.5) 100%);
 }
 
-/* Rizz label handling */
 .rizz-label {
   font-weight: 600;
 }
@@ -424,7 +421,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2rem;
-  margin-bottom: 2rem; /* Add spacing between grid and github chart */
+  margin-bottom: 2rem;
 }
 
 .stat-card {
@@ -491,7 +488,6 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   min-height: 40px;
   object-fit: contain;
   margin-bottom: 0.5rem;
-  /* Keep Dark Mode Filter */
   filter: invert(1) hue-rotate(180deg);
 }
 
@@ -573,13 +569,15 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   list-style: none;
 }
 
+/* REFACTORED: Project Card Layout */
 .project-item {
   position: relative;
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
   border-radius: 6px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden; 
 }
 
 .project-item:hover {
@@ -589,16 +587,49 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
-.project-title a::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+/* 
+  REFACTORED: Bottom Preview Expansion 
+  Expands downwards from the bottom of the card.
+*/
+.project-preview {
+  display: block;
+  
+  /* Full Bleed Logic: Negative margins counteract parent padding */
+  width: calc(100% + 3rem);
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  margin-bottom: -1.5rem; /* Anchor to bottom */
+  margin-top: 0;
+
+  /* Animation State: Start collapsed */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  
+  transition: 
+    max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1), /* Smooth grow */
+    opacity 0.4s ease,
+    margin-top 0.3s ease;
 }
 
+.project-preview img {
+  width: 100%;
+  height: auto; /* Allow full height */
+  display: block;
+  object-fit: contain; /* Ensure whole image is seen */
+  background: #000; /* Contrast for transparency */
+}
+
+/* Hover Trigger: Expand downwards */
+.project-item:hover .project-preview {
+  max-height: 800px; /* Large enough to fit full image/gif */
+  opacity: 1;
+  margin-top: 1.5rem; /* Add spacing from tags */
+  border-top: 1px solid var(--border);
+}
+
+
+/* Content Headers */
 .project-header {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -607,19 +638,11 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   margin-bottom: 0.8rem;
 }
 
-.project-actions {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-width: 70px;
-}
-
 .project-title {
   font-family: 'Fira Code', monospace;
   font-size: 1.05rem;
   color: var(--text);
   font-weight: 600;
-  z-index: 2;
 }
 
 .project-title a {
@@ -640,6 +663,13 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   flex-shrink: 0;
 }
 
+.project-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 70px;
+}
+
 .project-desc {
   color: var(--text-muted);
   font-size: 0.85rem;
@@ -651,9 +681,6 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  position: relative;
-  z-index: 2;
-  pointer-events: none;
 }
 
 .tag {
@@ -665,11 +692,6 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   border-radius: 2px;
   transition: all 0.2s;
   background-color: rgba(136, 136, 136, 0.05);
-}
-
-.project-item:hover .tag {
-  border-color: rgba(136, 136, 136, 0.3);
-  background-color: rgba(136, 136, 136, 0.1);
 }
 
 /* --- Blogs Section --- */
