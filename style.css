@@ -37,6 +37,7 @@ a:hover {
   line-height: 1.05;
 }
 
+/* --- Loader Animation --- */
 .loader-container {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -119,6 +120,7 @@ a:hover {
   50% { transform: scaleY(2); opacity: 1; }
 }
 
+/* --- Navigation --- */
 nav {
   display: flex;
   justify-content: space-between;
@@ -169,6 +171,7 @@ nav {
   color: var(--accent-hover);
 }
 
+/* --- Hero Section --- */
 .hero {
   padding: 3.5rem 3rem;
   max-width: 900px;
@@ -244,6 +247,7 @@ nav {
   align-items: center;
 }
 
+/* --- Skills Bars --- */
 .skills-bars {
   width: 100%;
   max-width: 280px;
@@ -300,12 +304,10 @@ nav {
   font-weight: 600;
 }
 
-/* Normal mode: emoji only */
 body:not(.dev-mode) .rizz-label::after {
   content: "";
 }
 
-/* Dev mode: append label text */
 body.dev-mode .rizz-label::after {
   content: " Rizz";
   font-size: 0.75rem;
@@ -323,7 +325,6 @@ body.dev-mode .rizz-label::after {
   font-weight: 600;
 }
 
-/* Rizz hover easter egg (normal mode only) */
 .rizz-skill .skill-bar-name::after {
   content: "";
   margin-left: 0.35rem;
@@ -336,6 +337,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   opacity: 1;
 }
 
+/* --- Section Shared Styles --- */
 .section-header {
   font-family: 'Fira Code', monospace;
   font-size: 0.8rem;
@@ -351,6 +353,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   margin-bottom: 1.5rem;
 }
 
+/* --- Stats Section --- */
 .stats {
   padding: 1rem 3rem 3.5rem 3rem;
   max-width: 900px;
@@ -400,6 +403,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   font-family: 'Fira Code', monospace;
 }
 
+/* --- About Section --- */
 .about {
   padding: 3.5rem 3rem;
   max-width: 900px;
@@ -462,6 +466,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   color: var(--accent);
 }
 
+/* --- Projects Section --- */
 .projects {
   padding: 3.5rem 3rem;
   max-width: 900px;
@@ -470,27 +475,46 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
 }
 
 .project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between cards */
   list-style: none;
 }
 
+/* Project Card Style */
 .project-item {
-  padding: 1.3rem 0;
-  border-bottom: 1px solid var(--border);
-  transition: opacity 0.2s;
-}
-
-.project-item:last-child {
-  border-bottom: none;
+  position: relative; /* For clickable overlay */
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .project-item:hover {
-  opacity: 0.85;
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
+
+/* Clickable Card Trick: Link in title covers whole card */
+.project-title a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 .project-header {
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: start;
   column-gap: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .project-actions {
@@ -500,12 +524,12 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   min-width: 70px;
 }
 
-
 .project-title {
   font-family: 'Fira Code', monospace;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--text);
   font-weight: 600;
+  z-index: 2; /* Keep text above the click overlay if needed, but a::after usually handles it */
 }
 
 .project-title a {
@@ -529,7 +553,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
 .project-desc {
   color: var(--text-muted);
   font-size: 0.85rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 1rem;
   line-height: 1.5;
 }
 
@@ -537,6 +561,9 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+  position: relative;
+  z-index: 2; /* Ensure tags can be hovered/selected if needed, though card click might override */
+  pointer-events: none; /* Let clicks pass through to the card */
 }
 
 .tag {
@@ -550,11 +577,13 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   background-color: rgba(136, 136, 136, 0.05);
 }
 
-.tag:hover {
-  border-color: var(--accent);
+/* Since card is clickable, tags are purely visual here unless pointer-events auto */
+.project-item:hover .tag {
+  border-color: rgba(136, 136, 136, 0.3);
   background-color: rgba(136, 136, 136, 0.1);
 }
 
+/* --- Blogs Section --- */
 .blogs {
   padding: 3.5rem 3rem;
   max-width: 900px;
@@ -612,6 +641,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   line-height: 1.5;
 }
 
+/* --- Ideas / Todo Section --- */
 #todo-list {
   list-style: none;
   margin: 0;
@@ -637,9 +667,6 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   opacity: 0.4;
   text-decoration: line-through;
   color: #aa4444;
-}
-.dev-mode {
-  outline: 3px solid lime;
 }
 
 .todo-project-header {
@@ -720,9 +747,6 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   margin: 0.25rem 0;
 }
 
-
-
-
 .todo-project-link {
   color: inherit;
   text-decoration: none;
@@ -732,6 +756,7 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   color: var(--accent-hover);
 }
 
+/* --- Footer --- */
 footer {
   padding: 2.5rem 3rem;
   text-align: center;
@@ -745,6 +770,7 @@ footer {
   letter-spacing: 0.5px;
 }
 
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
@@ -801,6 +827,7 @@ footer {
     gap: 1rem;
   }
 
+  /* Projects Mobile Adjustments */
   .project-header {
     flex-direction: column;
   }
@@ -808,8 +835,17 @@ footer {
   .project-id {
     white-space: normal;
   }
+  
+  .project-item {
+    padding: 1.2rem;
+  }
+  
+  .project-item:hover {
+    transform: translateY(-2px);
+  }
 }
 
+/* --- Ideas Notes & Extra Links --- */
 .ideas-note {
   margin: 1rem 0 1.6rem;
   padding: 0.6rem 0.8rem;
@@ -818,7 +854,7 @@ footer {
 }
 
 .ideas-note-label {
-  display: none; /* remove the "// note" noise */
+  display: none;
 }
 
 .ideas-note-text {
@@ -836,7 +872,6 @@ footer {
 .ideas-note-text a:hover {
   text-decoration: underline;
 }
-
 
 .project-todo-link {
   display: inline-flex;
@@ -874,7 +909,9 @@ footer {
   transform: translateX(2px);
 }
 
+/* --- Dev Mode (Easter Egg) --- */
 body.dev-mode {
+  outline: 3px solid lime;
   background-color: #050505;
   background-image:
     linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
