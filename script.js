@@ -1,197 +1,75 @@
-// ================= CONFIG =================
-const SUPABASE_URL = "https://dojaqvnqlaazhnnpgwrf.supabase.co";
-const SUPABASE_ANON_KEY =
-  "sb_publishable_9xzQLpvq07XjXznVxVl-2w_ORpZkRZA";
+// ================= FEATURED CAROUSEL =================
+document.addEventListener("DOMContentLoaded", () => {
+  const carousel = document.getElementById("featuredCarousel");
+  const dots = document.getElementById("featuredDots");
 
-const projectHasTodos = new Set();
+  if (!carousel || !dots) return;
 
-// ================= HELPERS =================
-function getProjects() {
-  return document.querySelectorAll(".project-item[data-project-id]");
-}
+  const cards = carousel.querySelectorAll(".featured-card");
+  const dotElements = dots.querySelectorAll(".dot");
+  let currentIndex = 0;
+  let autoRotateInterval;
 
-function findProjectById(id) {
-  const projects = getProjects();
-  for (const p of projects) {
-    if (p.dataset.projectId.toLowerCase() === id) return p;
-  }
-  return null;
-}
+  function showCard(index) {
+    // Remove all classes from all cards and dots
+    cards.forEach((card, i) => {
+      card.classList.remove("active", "prev", "next");
 
-// ================= FETCH =================
-async function fetchTodos() {
-  const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/todos?select=id,title,sub_tasks,project_id,status&order=id.desc`,
-    {
-      headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      },
-    }
-  );
-  return res.json();
-}
+      // Calculate position relative to active card
+      const diff = i - index;
 
-// ================= MAIN =================
-async function initIdeas() {
-  const todoList = document.getElementById("todo-list");
-  if (!todoList) return;
-
-  const todos = await fetchTodos();
-
-  const existing = {};
-  const upcoming = {};
-  const other = [];
-
-  // ---- classify todos ----
-  todos.forEach(todo => {
-    if (todo.project_id) {
-      projectHasTodos.add(todo.project_id.toLowerCase());
-    }
-
-    if (!todo.project_id) {
-      other.push(todo);
-      return;
-    }
-
-    const pid = todo.project_id.toLowerCase();
-    const project = findProjectById(pid);
-
-    if (project) {
-      if (!existing[pid]) existing[pid] = [];
-      existing[pid].push(todo);
-    } else {
-      if (!upcoming[pid]) upcoming[pid] = [];
-      upcoming[pid].push(todo);
-    }
-  });
-
-  // ---- render helper ----
-  const renderTodos = todos => {
-    const pending = todos.filter(t => t.status === "pending");
-    const done = todos.filter(t => t.status === "done");
-    const forgotten = todos.filter(t => t.status === "forgotten");
-
-    const printItem = todo => {
-      const li = document.createElement("li");
-      li.className = "todo-item";
-
-      if (todo.status === "done") li.classList.add("todo-done");
-      if (todo.status === "forgotten") li.classList.add("todo-forgotten");
-
-      const title = document.createElement("div");
-      title.className = "todo-title";
-
-      // attach suffix based on status
-      let suffix = "";
-      if (todo.status === "done") suffix = " [done]";
-      if (todo.status === "forgotten") suffix = " [forgotten]";
-
-      // dev override text for forgotten
-      if (todo.status === "forgotten") {
-        title.textContent = `${todo.title} [couldnt do]`;
-      } else {
-        title.textContent = `${todo.title}${suffix}`;
+      if (diff === 0) {
+        card.classList.add("active");
+      } else if (diff === -1 || (index === 0 && i === cards.length - 1)) {
+        card.classList.add("prev");
+      } else if (diff === 1 || (index === cards.length - 1 && i === 0)) {
+        card.classList.add("next");
       }
-
-      li.appendChild(title);
-
-      if (Array.isArray(todo.sub_tasks) && todo.sub_tasks.length) {
-        const ul = document.createElement("ul");
-        ul.className = "subtask-list";
-
-        todo.sub_tasks.forEach(st => {
-          const si = document.createElement("li");
-          si.className = "subtask-item";
-          si.textContent = st;
-          ul.appendChild(si);
-        });
-
-        li.appendChild(ul);
-      }
-
-      todoList.appendChild(li);
-    };
-
-    [...pending, ...done, ...forgotten].forEach(printItem);
-  };
-
-  // ===== Existing projects =====
-  Object.entries(existing).forEach(([pid, items]) => {
-    const project = findProjectById(pid);
-    const name =
-      project?.querySelector(".project-title")?.innerText || pid;
-
-    const header = document.createElement("li");
-    header.className = "todo-project-header";
-
-    const link = document.createElement("a");
-    link.textContent = name;
-    link.href = "#projects";
-    link.className = "todo-project-link";
-
-    header.appendChild(link);
-    todoList.appendChild(header);
-
-    renderTodos(items);
-  });
-
-  // ===== Upcoming projects =====
-  if (Object.keys(upcoming).length) {
-    const up = document.createElement("li");
-    up.className = "todo-section-header";
-    up.textContent = "UPCOMING PROJECTS";
-    todoList.appendChild(up);
-
-    Object.entries(upcoming).forEach(([pid, items]) => {
-      const header = document.createElement("li");
-      header.className = "todo-project-header upcoming";
-
-      const link = document.createElement("a");
-      link.textContent = pid;
-      link.href = "#ideas";
-      link.className = "todo-project-link";
-
-      header.appendChild(link);
-      todoList.appendChild(header);
-
-      renderTodos(items);
     });
+
+    dotElements.forEach(dot => dot.classList.remove("active"));
+    dotElements[index].classList.add("active");
+
+    currentIndex = index;
   }
 
-  // ===== Other tasks =====
-  if (other.length) {
-    const ot = document.createElement("li");
-    ot.className = "todo-section-header";
-    ot.textContent = "OTHER TASKS";
-    todoList.appendChild(ot);
-
-    renderTodos(other);
+  function nextCard() {
+    const next = (currentIndex + 1) % cards.length;
+    showCard(next);
   }
 
-  // ===== Inject "tasks" link into Projects section =====
-  projectHasTodos.forEach(pid => {
-    const project = findProjectById(pid);
-    if (!project) return;
+  function startAutoRotate() {
+    autoRotateInterval = setInterval(nextCard, 3500); // 3.5 seconds
+  }
 
-    if (project.querySelector(".project-todo-link")) return;
+  function stopAutoRotate() {
+    clearInterval(autoRotateInterval);
+  }
 
-    const link = document.createElement("a");
-    link.textContent = "tasks";
-    link.href = "#ideas";
-    link.className = "project-todo-link";
-
-    const tags = project.querySelector(".project-tags");
-    if (!tags) return;
-
-    if (project.querySelector(".project-todo-link")) return;
-
-    tags.insertAdjacentElement("afterend", link);
+  // Dot click handlers
+  dotElements.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showCard(index);
+      stopAutoRotate();
+      startAutoRotate(); // Restart auto-rotation
+    });
   });
-}
+
+  // Pause on hover
+  carousel.addEventListener("mouseenter", stopAutoRotate);
+  carousel.addEventListener("mouseleave", startAutoRotate);
+
+  // Initialize carousel with first card
+  showCard(0);
+
+  // Start auto-rotation
+  startAutoRotate();
+});
 
 // ================= RUN =================
-document.addEventListener("DOMContentLoaded", initIdeas);
+// (removed initIdeas calls)
+
+
 // ================= DEV MODE =================
 document.addEventListener("DOMContentLoaded", () => {
   const toast = document.getElementById("dev-toast");

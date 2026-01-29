@@ -45,7 +45,7 @@
       <li><a href="#about">about</a></li>
       <li><a href="#projects">projects</a></li>
       <li><a href="#blogs">blogs</a></li>
-      <li><a href="#ideas">ideas</a></li>
+
     </ul>
     <div class="nav-social">
       <a href="https://github.com/ahhyoushh" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
@@ -134,12 +134,135 @@
     </div>
   </section>
 
+  <section class="featured" id="featured">
+    <div class="section-header">// featured</div>
+    <h2 class="section-title">Featured Work</h2>
+    <div class="featured-carousel-wrapper">
+      <div class="featured-carousel" id="featuredCarousel">
+
+        <!-- FileSense -->
+        <a href="FileSense" class="featured-card active">
+          <div class="featured-card-image">
+            <img src="./assets/filesense_preview.png" alt="FileSense Preview">
+          </div>
+          <div class="featured-card-content">
+            <div class="featured-card-header">
+              <div class="featured-card-title">FileSense</div>
+              <div class="featured-card-icon">→</div>
+            </div>
+            <p class="featured-card-desc">
+              Local file organizer using semantic similarity and user feedback with SBERT embeddings.
+            </p>
+            <div class="featured-card-tags">
+              <span class="featured-tag">ML</span>
+              <span class="featured-tag">SBERT</span>
+              <span class="featured-tag">RL</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- No-Cursor -->
+        <a href="nc.html" class="featured-card">
+          <div class="featured-card-image">
+            <img src="./assets/nc_demo.gif" alt="No-Cursor Demo">
+          </div>
+          <div class="featured-card-content">
+            <div class="featured-card-header">
+              <div class="featured-card-title">No-Cursor</div>
+              <div class="featured-card-icon">→</div>
+            </div>
+            <p class="featured-card-desc">
+              CLI-first code editor built for completely local experience with llama.cpp integration.
+            </p>
+            <div class="featured-card-tags">
+              <span class="featured-tag">LLM</span>
+              <span class="featured-tag">CLI</span>
+              <span class="featured-tag">Dev Tool</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- E-Waste Senku -->
+        <a href="ewsenku.html" class="featured-card">
+          <div class="featured-card-image">
+            <img src="./assets/ew_preview.png" alt="E-Waste Senku Preview">
+          </div>
+          <div class="featured-card-content">
+            <div class="featured-card-header">
+              <div class="featured-card-title">E-Waste Recycling Platform</div>
+              <div class="featured-card-icon">→</div>
+            </div>
+            <p class="featured-card-desc">
+              Web platform that identifies electronic waste categories and suggests nearby recycling centers.
+            </p>
+            <div class="featured-card-tags">
+              <span class="featured-tag">Flask</span>
+              <span class="featured-tag">Firebase</span>
+              <span class="featured-tag">GeoJSON</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Face Detection -->
+        <a href="face_detection.html" class="featured-card">
+          <div class="featured-card-image">
+            <img src="./assets/cli_demo.gif" alt="Face Detection Preview">
+          </div>
+          <div class="featured-card-content">
+            <div class="featured-card-header">
+              <div class="featured-card-title">Face Detection Doorcam</div>
+              <div class="featured-card-icon">→</div>
+            </div>
+            <p class="featured-card-desc">
+              Real-time face detection system using OpenCV Haar Cascades for monitoring and alerts.
+            </p>
+            <div class="featured-card-tags">
+              <span class="featured-tag">OpenCV</span>
+              <span class="featured-tag">Computer Vision</span>
+              <span class="featured-tag">Python</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- AQI Prediction -->
+        <a href="aqi.html" class="featured-card">
+          <div class="featured-card-image">
+            <img src="./assets/aqi_preview.png" alt="AQI Prediction Preview">
+          </div>
+          <div class="featured-card-content">
+            <div class="featured-card-header">
+              <div class="featured-card-title">AQI Prediction</div>
+              <div class="featured-card-icon">→</div>
+            </div>
+            <p class="featured-card-desc">
+              Next-day air quality prediction using Random Forest and historical time-series data.
+            </p>
+            <div class="featured-card-tags">
+              <span class="featured-tag">ML</span>
+              <span class="featured-tag">Random Forest</span>
+              <span class="featured-tag">Data Analysis</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Navigation Dots -->
+      <div class="featured-dots" id="featuredDots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
+        <span class="dot" data-index="4"></span>
+      </div>
+    </div>
+  </section>
+
   <section class="about" id="about">
     <div class="section-header">// about</div>
     <h2 class="section-title">About</h2>
     <div class="about-content">
-      <p class="about-text">I like computers;</p>
-      <P class="about-text"><strong>Interest: </strong> Edge AI, RL, Automation</P>
+      <P class="about-text"><strong>Interest: </strong> firmware/embedded systems, Edge AI, RL, Automation</P>
       <p class="about-text"><strong>Other Interest: </strong>Football, IoT</p>
     </div>
 
@@ -173,7 +296,7 @@
         </div>
         <div class="project-header">
           <div class="project-title"><a href="nc.html">No-Cursor</a></div>
-          <div class="project-actions"></div>
+          <div class="project-actions"><span class="bookmark-icon">▸</span></div>
           <div class="project-id">nocursor</div>
         </div>
         <p class="project-desc">
@@ -205,7 +328,7 @@
         </div>
         <div class="project-header">
           <div class="project-title"><a href="FileSense">FileSense</a></div>
-          <div class="project-actions"></div>
+          <div class="project-actions"><span class="bookmark-icon">▸</span></div>
           <div class="project-id">filesense</div>
         </div>
         <p class="project-desc">
@@ -239,7 +362,7 @@
         </div>
         <div class="project-header">
           <div class="project-title"><a href="aqi.html">Air Quality Index Prediction</a></div>
-          <div class="project-actions"></div>
+          <div class="project-actions"><span class="bookmark-icon">▸</span></div>
           <div class="project-id">aqi</div>
         </div>
         <p class="project-desc">
@@ -273,7 +396,7 @@
         </div>
         <div class="project-header">
           <div class="project-title"><a href="ewsenku.html">E-Waste Recycling Platform</a></div>
-          <div class="project-actions"></div>
+          <div class="project-actions"><span class="bookmark-icon">▸</span></div>
           <div class="project-id">ewsenku</div>
         </div>
         <p class="project-desc">
@@ -307,7 +430,7 @@
         </div>
         <div class="project-header">
           <div class="project-title"><a href="face_detection.html">Face Detection Doorcam</a></div>
-          <div class="project-actions"></div>
+          <div class="project-actions"><span class="bookmark-icon">▸</span></div>
           <div class="project-id">face_detection</div>
         </div>
         <p class="project-desc">
@@ -421,7 +544,9 @@
         <div class="project-header">
           <div class="project-title"><a href="https://github.com/ahhyoushh/trash-collector-cli">Trash Collector CLI</a>
           </div>
-          <div class="project-actions"></div>
+          <div class="project-actions">
+            <span class="tag tag-deprecated">deprecated</span>
+          </div>
           <div class="project-id">trashcli</div>
         </div>
         <p class="project-desc">
@@ -441,6 +566,8 @@
           <span class="tag">supabase</span>
           <span class="tag">dev-tool</span>
         </div>
+
+
       </li>
 
     </ul>
@@ -463,20 +590,7 @@
     </ul>
   </section>
 
-  <section class="projects" id="ideas">
-    <div class="section-header">// ideas</div>
-    <h2 class="section-title">Ideas & Upcoming</h2>
-    <div class="ideas-note">
-      <span class="ideas-note-label">// note</span>
-      <p class="ideas-note-text">
-        BTW these tasks are added through CLI using <strong>
-          <a href="https://github.com/ahhyoushh/trash-collector-cli" target="_blank">
-            trash-collector-cli
-          </a></strong>
-      </p>
-    </div>
-    <ul class="project-list" id="todo-list"></ul>
-  </section>
+
 
   <footer>
     <p class="footer-text">© 2025 ayush bhalerao</p>
