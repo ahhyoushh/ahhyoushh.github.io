@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Market Explained: BetJee</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+
+    <style>
+        /* --- BASE THEME --- */
+        :root {
+            --bg-color: #060709;
+            --card-bg: #0b0e11;
+            --text-main: #edf2f7;
+            --text-muted: #9ca3af;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --border-color: #1e2329;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(6, 7, 9, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-button a {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-button a:hover {
+            color: #60a5fa;
+        }
+
+
+        /* --- BLOG CONTAINER --- */
+        .blog-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem 8rem;
+        }
+
+        /* --- HEADER --- */
+        .report-header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .report-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .report-meta span {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .report-title {
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0 0 1rem 0;
+            letter-spacing: -1px;
+        }
+
+        .report-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* --- CONTENT TYPOGRAPHY --- */
+        .content h2 {
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            color: var(--text-main);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .content h2::before {
+            content: "//";
+            color: var(--accent-blue);
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        .content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            color: #fff;
+        }
+
+        .content p {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .content a {
+            color: var(--accent-blue);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+        }
+
+        .content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .content li {
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- STATS GRID --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 4px;
+        }
+
+        .stat-value.danger { color: var(--accent-red); }
+
+        /* --- CODE BLOCKS --- */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #161b22;
+            padding: 8px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            overflow-x: auto;
+            color: #e6edf3;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Syntax Highlighting Colors */
+        .token-keyword { color: #ff7b72; }
+        .token-func { color: #d2a8ff; }
+        .token-string { color: #a5d6ff; }
+        .token-comment { color: #8b949e; font-style: italic; }
+        .token-type { color: #79c0ff; }
+
+        /* --- MATH BLOCK --- */
+        .math-block {
+            background: var(--card-bg);
+            border-left: 3px solid var(--accent-blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* --- IMAGES --- */
+        .blog-image-container {
+            margin: 2.5rem 0;
+            background: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .image-caption {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 10px 0 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .img-small {
+            width: auto;         /* use actual image width */
+            max-width: 70%;      /* or set to any %/px you want */
+            max-height: 350px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="back-button">
+        <a href="index.html">&larr; Back to Home</a>
+    </div>
+
+
+    <article class="blog-wrapper">
+        
+        <header class="report-header">
+            <div class="report-meta">
+                <span>Date: 10/2/26 -> 11/2/26</span>
+                <span>Status: Deprecated</span>
+            </div>
+            <h1 class="report-title">Deep-dive: Engineering a Serverless Prediction Market</h1>
+            <p class="report-subtitle">For JEE Shifts (Unexpected traffic)</p>
+        </header>
+
+        <!-- PROJECT STATS CARD -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">Project</span>
+                <span class="stat-value">BetJee</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Uptime</span>
+                <span class="stat-value">48 Hours</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Requests</span>
+                <span class="stat-value">1.2 Million</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Users</span>
+                <span class="stat-value">2,300+</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Egress</span>
+                <span class="stat-value danger">13GB (264%)</span>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <!-- INTRODUCTION -->
+            <h2>1. Introduction: The "Meme" Economy</h2>
+            <p>
+                In the Indian engineering ecosystem, the <strong>Joint Entrance Examination (JEE)</strong> is the ultimate arbiter of fate. As the exam happens across multiple days and shifts, the difficulty varies. Students obsess over which shift was the "hardest", often betting that their shift was the toughest by human nature (since it's a percentile-based exam).
+            </p>
+
+            <!-- IMAGE 1: GOOGLE ANALYTICS -->
+            <div class="blog-image-container">
+                <!-- Add image: google analytics (displaying every analytics to show how it performed) -->
+                <img src="./assets/betjee/google_analytics.png" alt="Google Analytics Overview" class="blog-image">
+                <div class="image-caption">Fig 1. Performance Overview: 10k views in 48 hours</div>
+            </div>
+
+            <p>
+                It started as a meme on <strong>r/JEENEETARDS</strong> (<a href="https://www.reddit.com/r/JEENEETards" target="_blank">https://www.reddit.com/r/JEENEETards</a>).<br>
+                Post made: <a href="https://www.reddit.com/r/JEENEETards/comments/1r04qpp/comment/o4ks2rd/" target="_blank">Reddit Thread</a>
+            </p>
+            <p>
+                I realized this was a perfect use case for a <strong>Prediction Market</strong>—an exchange where the price of an asset (a specific shift) reflects the collective belief of the crowd. I built <strong>BetJee</strong> to test this hypothesis. It spiraled from a weekend project into a distributed system handling <strong>1.2 million requests</strong>.
+            </p>
+
+            <!-- IMAGE 2: ACTIVE USER COUNT -->
+            <div class="blog-image-container">
+                <!-- Add image: active user count to show average active users -->
+                <img src="./assets/betjee/active_user_count.png" alt="Realtime Active Users" class="blog-image img-small">
+                <div class="image-caption">Fig 2. Realtime Traffic: ~200 concurrent users constantly betting</div>
+            </div>
+
+            <p>
+                This is a deep dive into the architecture, the math behind the economy, and why I had to shut it down due to database egress limits (264% of quota) and my upcoming <strong>12th-grade Board Exams</strong> eating up my time.
+            </p>
+
+            <!-- DATABASE ARCHITECTURE -->
+            <h2>2. Database Architecture: The Ledger</h2>
+            <p>
+                Because this was a financial system (even with fake currency), data integrity was crucial. I designed a normalized PostgreSQL schema.
+            </p>
+
+            <h3>A. Schema Definitions</h3>
+            <p>
+                I separated user identity (`users`) from authentication secrets (`accounts`) to ensure security.
+            </p>
+            <p>
+                <strong>The Market State:</strong><br>
+                This table held the live state of every shift. I used an integer for `remaining_shares` to represent the liquidity pool.
+                Markets were fixed to be 21s1, 21s2, 22s1, 22s2, 23s1, 23s2, 24s1, 24s2, 28s1 and 28s2.
+            </p>
+
+            <div class="code-block">
+                <div class="code-header">SQL / MARKETS TABLE</div>
+                <pre><code class="language-sql"><span class="token-keyword">CREATE TABLE</span> markets (
+  shift_id <span class="token-type">INTEGER</span> <span class="token-keyword">PRIMARY KEY</span>,
+  code <span class="token-type">TEXT</span> <span class="token-keyword">NOT NULL</span>, <span class="token-comment">-- e.g., "27 JAN S1"</span>
+  remaining_shares <span class="token-type">INTEGER</span> <span class="token-keyword">NOT NULL</span>, <span class="token-comment">-- The liquidity pool</span>
+  updated_at <span class="token-type">TIMESTAMP WITH TIME ZONE</span> <span class="token-keyword">DEFAULT NOW</span>()
+);</code></pre>
+            </div>
+
+            <p>
+                <strong>The Immutable Ledger:</strong><br>
+                Every trade was recorded here. This allowed me to reconstruct the entire market history if the state ever corrupted. I enforced an immutable record using `GENERATED ALWAYS AS IDENTITY`.
+            </p>
+            <p>
+                <em>Note on Short Selling:</em> The schema supports negative integers for shares. This enabled <strong>Short Selling</strong>—allowing users to bet <em>against</em> a shift being hard. If a user sold shares they didn't own, they entered a negative position (e.g., -10 shares), effectively increasing the liquidity pool and driving the price down.
+            </p>
+
+            <div class="code-block">
+                <div class="code-header">SQL / TRANSACTIONS TABLE</div>
+                <pre><code class="language-sql"><span class="token-keyword">CREATE TABLE</span> transactions (
+  id <span class="token-type">BIGINT</span> <span class="token-keyword">PRIMARY KEY GENERATED ALWAYS AS IDENTITY</span>,
+  user_id <span class="token-type">TEXT</span> <span class="token-keyword">REFERENCES</span> users(id),
+  shift_id <span class="token-type">INTEGER</span> <span class="token-keyword">REFERENCES</span> markets(shift_id),
+  shares <span class="token-type">INTEGER</span> <span class="token-keyword">NOT NULL</span>, <span class="token-comment">-- Positive for Buy, Negative for Sell</span>
+  price <span class="token-type">NUMERIC</span> <span class="token-keyword">NOT NULL</span>, <span class="token-comment">-- Execution price</span>
+  type <span class="token-type">TEXT CHECK</span> (type <span class="token-keyword">IN</span> ('buy', 'sell')),
+  timestamp <span class="token-type">TIMESTAMP WITH TIME ZONE</span> <span class="token-keyword">DEFAULT NOW</span>()
+);</code></pre>
+            </div>
+
+            <p>
+                <strong>The Defense Layer:</strong><br>
+                There were around 800 bot accounts created on the initial Linear-bonding curve model, manipulating the market. To fight botnets, I tracked IP addresses in a Redis-like structure within Postgres to rate-limit trades.
+            </p>
+
+            <div class="code-block">
+                <div class="code-header">SQL / IP LIMITS</div>
+                <pre><code class="language-sql"><span class="token-keyword">CREATE TABLE</span> ip_limits (
+  ip_address <span class="token-type">TEXT PRIMARY KEY</span>,
+  last_username <span class="token-type">TEXT</span>,
+  last_trade_at <span class="token-type">TIMESTAMP WITH TIME ZONE</span>
+);</code></pre>
+            </div>
+
+            <h3>B. Row Level Security (RLS) Policies</h3>
+            <p>
+                I implemented a <strong>"Service-Role Only"</strong> write architecture. While the public (`anon`) could <em>read</em> the market data to render charts, they could effectively <em>never</em> write to the database directly. All writes had to go through the Edge Functions (RPC).
+            </p>
+            <p><strong>Policy: Public Read Access</strong></p>
+            <div class="code-block">
+                <pre><code class="language-sql"><span class="token-keyword">CREATE POLICY</span> "public read markets" <span class="token-keyword">ON</span> markets
+<span class="token-keyword">FOR SELECT</span>
+<span class="token-keyword">TO</span> anon
+<span class="token-keyword">USING</span> (true);</code></pre>
+            </div>
+
+            <p><strong>Policy: Service-Only Write Access</strong></p>
+            <div class="code-block">
+                <pre><code class="language-sql"><span class="token-keyword">CREATE POLICY</span> "service only users" <span class="token-keyword">ON</span> users
+<span class="token-keyword">FOR ALL</span>
+<span class="token-keyword">TO</span> service_role
+<span class="token-keyword">USING</span> (true)
+<span class="token-keyword">WITH CHECK</span> (true);</code></pre>
+            </div>
+
+            <!-- PRICING ENGINE -->
+            <h2>3. The Pricing Engine: Solving the "Whale" Problem</h2>
+            <p>
+                <strong>The Problem:</strong><br>
+                My initial prototype used a <strong>Linear Bonding Curve</strong> (Price = k * Supply). This failed immediately. A single "whale" (a user with high capital, mostly a bot-manipulated user) bought 500 shares, pushing the price linearly to infinity and crashing the market liquidity.
+            </p>
+
+            <!-- IMAGE 4: INITIAL MARKET LINEAR CURVE -->
+            <div class="blog-image-container">
+                <!-- Add image: initial market with basic linearbounding curve -->
+                <img src="./assets/betjee/initial_linear_market.png" alt="Initial Market State (Linear Curve)" class="blog-image">
+                <div class="image-caption">Fig 3. Early prototype using Linear Bonding Curve (Highly Volatile and bot sensitive)</div>
+            </div>
+
+            <p>
+                <strong>The Solution:</strong><br>
+                I pivoted to a <strong>Sigmoid Bonding Curve</strong>. This acts as an Automated Market Maker (AMM).
+            </p>
+            <ul>
+                <li><strong>Low Demand:</strong> Price increases slowly.</li>
+                <li><strong>Mid Demand:</strong> Price accelerates (high volatility).</li>
+                <li><strong>High Demand:</strong> Price plateaus as it approaches the cap.</li>
+            </ul>
+
+            <!-- IMAGE 5: SIGMOID BOUNDING CURVE UPDATE -->
+            <div class="blog-image-container">
+                <!-- Add image: siggmoid boudning curve update -->
+                <img src="./assets/betjee/sigmoid_curve.png" alt="Sigmoid Curve Implementation" class="blog-image">
+                <div class="image-caption">Fig 4. Stabilized Market after Sigmoid Update</div>
+            </div>
+
+            <h3>The Mathematics</h3>
+            <p>
+                To model this, I utilized the logistic function. The price <em>P</em> as a function of remaining supply <em>x</em> is defined as:
+            </p>
+
+            <div class="math-block">
+                P(x) = P<sub>min</sub> + <span style="display:inline-block; vertical-align:middle; text-align:center;">
+                    <span style="display:block; border-bottom:1px solid #fff;">P<sub>max</sub> - P<sub>min</sub></span>
+                    <span style="display:block;">1 + e<sup>-k(x - x₀)</sup></span>
+                </span>
+            </div>
+
+            <p>
+                Where:
+                <br>- <em>k</em> is the <strong>steepness</strong> (volatility).
+                <br>- <em>x₀</em> is the <strong>midpoint</strong> (where price action is most volatile).
+                <br>- <em>P<sub>min</sub></em> and <em>P<sub>max</sub></em> are the hard floors and caps.
+            </p>
+            <p>
+                This formula ensures that as shares become scarce (<em>x → 0</em>), the price exponentially approaches the maximum, making it mathematically impossible to corner the entire market.
+            </p>
+
+            <h3>The Implementation (PL/pgSQL)</h3>
+            <p>
+                I moved the pricing logic <em>inside</em> the database using a Postgres RPC function (`handle_trade`) to ensure it executed atomically.
+            </p>
+
+            <div class="code-block">
+                <div class="code-header">SQL / SIGMOID LOGIC</div>
+                <pre><code class="language-sql"><span class="token-comment">-- Calculate Price at Start</span>
+v_price_start := v_price_min + (v_price_max - v_price_min) /
+(1 + <span class="token-func">EXP</span>(-v_sigmoid_steepness * (((p_total_shares_cap - v_remaining_shares) / v_max_tradable_shares) - v_sigmoid_mid_point)));
+
+<span class="token-comment">-- Calculate Price at End (After shares are removed)</span>
+v_price_end := v_price_min + (v_price_max - v_price_min) /
+(1 + <span class="token-func">EXP</span>(-v_sigmoid_steepness * (((p_total_shares_cap - (v_remaining_shares - p_shares)) / v_max_tradable_shares) - v_sigmoid_mid_point)));
+
+<span class="token-comment">-- Execution Price = Average of Start and End</span>
+v_avg_price := (v_price_start + v_price_end) / 2.0;</code></pre>
+            </div>
+
+            <!-- ADVANCED FEATURES -->
+            <h2>4. Advanced Features: Stop Loss & Recursive Execution</h2>
+            <p>
+                A major challenge was implementing <strong>Stop Losses</strong> in a serverless environment. Since I couldn't afford to run a 24/7 background worker to check prices, I used an <strong>Event-Driven Recursive Trigger</strong>.
+            </p>
+            
+            <!-- IMAGE 6: SHORT SELLING STOPLOSS IMPLEMENTED -->
+            <div class="blog-image-container">
+                <!-- Add image: short selling stoploss implemented -->
+                <img src="./assets/betjee/short selling stop loss.webp" alt="Short Selling and Stop Loss Interface" class="blog-image">
+                <div class="image-caption">Fig 5. Short Selling & Stop Loss Interface (<a href="https://www.reddit.com/r/betjee/" target="_blank">Reddit Update</a>)</div>
+            </div>
+
+            <p>
+                <strong>The Logic:</strong><br>
+                Inside the `handle_trade` SQL function, after a trade executes and the price shifts, the system immediately checks the `stop_losses` table. If the new price crosses a user's trigger threshold, the function <strong>recursively calls itself</strong> to execute the stop-loss order within the same transaction block.
+            </p>
+            <p>
+                This ensured that stop losses were executed instantly with zero latency, purely within the database layer.
+            </p>
+
+            <div class="code-block">
+                <div class="code-header">SQL / RECURSION</div>
+                <pre><code class="language-sql"><span class="token-comment">-- 8. TRIGGER STOP LOSSES (Recursion)</span>
+<span class="token-keyword">FOR</span> v_sl_record <span class="token-keyword">IN</span>
+  <span class="token-keyword">DELETE FROM</span> stop_losses
+  <span class="token-keyword">WHERE</span> shift_id = p_shift_id
+  <span class="token-keyword">AND</span> ((shares < 0 <span class="token-keyword">AND</span> trigger_price >= v_price_end) <span class="token-keyword">OR</span> (shares > 0 <span class="token-keyword">AND</span> trigger_price <= v_price_end))
+  <span class="token-keyword">RETURNING</span> *
+<span class="token-keyword">LOOP</span>
+  <span class="token-comment">-- Execute force trade</span>
+  <span class="token-keyword">PERFORM</span> handle_trade(v_sl_record.user_id, v_sl_record.shift_id, v_sl_record.shares, ... 'SYSTEM', <span class="token-keyword">TRUE</span>);
+<span class="token-keyword">END LOOP</span>;</code></pre>
+            </div>
+
+            <!-- CONCURRENCY -->
+            <h2>5. Concurrency: The "Double Spend" Race Condition</h2>
+            <p>
+                <strong>The Problem:</strong><br>
+                With 200 trades per minute, Race Conditions were inevitable. If User A and User B buy the last 10 shares at the exact same millisecond, a standard `SELECT` then `UPDATE` would result in negative inventory (a double spend).
+            </p>
+            <p>
+                <strong>The Fix:</strong><br>
+                I enforced <strong>Pessimistic Locking</strong> using the `FOR UPDATE` clause.
+            </p>
+
+            <div class="code-block">
+                <div class="code-header">SQL / ROW LOCKING</div>
+                <pre><code class="language-sql"><span class="token-comment">-- LOCK ROWS (Concurrency Safety)</span>
+<span class="token-comment">-- This line halts any other transaction trying to touch this specific market</span>
+<span class="token-comment">-- until the current transaction commits or rolls back.</span>
+<span class="token-keyword">SELECT</span> remaining_shares <span class="token-keyword">INTO</span> v_remaining_shares
+<span class="token-keyword">FROM</span> markets
+<span class="token-keyword">WHERE</span> shift_id = p_shift_id <span class="token-keyword">FOR UPDATE</span>;
+
+<span class="token-comment">-- LIQUIDITY CHECK (Atomic)</span>
+<span class="token-keyword">IF</span> p_shares > 0 <span class="token-keyword">AND</span> (v_remaining_shares - p_shares) < p_min_market_shares <span class="token-keyword">THEN</span>
+    <span class="token-keyword">RAISE EXCEPTION</span> 'Liquidity Limit: Cannot buy, market is dry.';
+<span class="token-keyword">END IF</span>;</code></pre>
+            </div>
+
+            <!-- SECURITY -->
+            <h2>6. Security: The Bot War and "The Wipe"</h2>
+            <p>
+                As the platform trended, botnets arrived. They created thousands of accounts to farm the signup bonus and manipulate prices.
+            </p>
+            <p>
+                <strong>Evidence of bot manipulation:</strong><br>
+                <a href="https://www.reddit.com/r/betjee/comments/1r0i8iw/comment/o4jtiz5/" target="_blank">Reddit Post 1 (Bot Manipulation)</a><br>
+                <a href="https://www.reddit.com/r/JEENEETards/comments/1r0f85y/harshad_mehta/" target="_blank">Reddit Post 2 (Harshad Mehta Pump)</a><br>
+                <a href="https://www.reddit.com/r/JEENEETards/comments/1r0fit1/boosting_24s2_be_ready/" target="_blank">Reddit Post 3 (Market Boosting)</a>
+            </p>
+
+            <p>
+                <strong>The Problem:</strong><br>
+                Banning an account wasn't enough; they would just create more. Furthermore, if I banned a bot that held 50% of the shares, those shares would be "frozen," destroying the market liquidity.
+            </p>
+            <p>
+                <strong>The Fix: "Scorched Earth" Protocol</strong><br>
+                I wrote a `wipeUserCompletely` function in Deno. It utilized heuristic analysis (e.g., >3 accounts created on one IP in <15 seconds).
+            </p>
+            <p>
+                <strong>Code Segment: The Deflationary Wipe</strong><br>
+                This function deletes the user and their positions but <strong>does not refund the shares to the market pool</strong>. The shares are effectively "burned." This prevents the price from crashing, preserving value for legitimate investors.
+            </p>
+
+            <div class="code-block">
+                <div class="code-header">DENO / TYPESCRIPT</div>
+                <pre><code class="language-js"><span class="token-comment">// Deno Edge Function</span>
+<span class="token-keyword">export async function</span> <span class="token-func">wipeUserCompletely</span>(supa: any, usernames: string[], ip: string) {
+  console.<span class="token-func">log</span>(`[WIPE] Wiping users: ${usernames.join(", ")} on IP ${ip}`);
+
+  <span class="token-comment">// 1. Delete Transactions (Erase history)</span>
+  <span class="token-keyword">await</span> supa.<span class="token-func">from</span>("transactions").<span class="token-func">delete</span>().<span class="token-func">in</span>("user_id", usernames);
+
+  <span class="token-comment">// 2. Delete Positions (The "Burn")</span>
+  <span class="token-comment">// We delete the ownership record, but we DO NOT increment 'remaining_shares'</span>
+  <span class="token-comment">// in the markets table. The supply stays constricted.</span>
+  <span class="token-keyword">await</span> supa.<span class="token-func">from</span>("positions").<span class="token-func">delete</span>().<span class="token-func">in</span>("user_id", usernames);
+
+  <span class="token-comment">// 3. Delete Authentication</span>
+  <span class="token-keyword">await</span> supa.<span class="token-func">from</span>("accounts").<span class="token-func">delete</span>().<span class="token-func">in</span>("username", usernames);
+  <span class="token-keyword">await</span> supa.<span class="token-func">from</span>("users").<span class="token-func">delete</span>().<span class="token-func">in</span>("id", usernames);
+}</code></pre>
+            </div>
+
+            <!-- SCALABILITY -->
+            <h2>7. Architecture & Scalability Challenges</h2>
+            
+            <h3>The "Realtime" Illusion</h3>
+            <p>
+                Supabase offers Realtime (WebSockets), but the free tier has concurrent connection limits. With 2,300+ users, I couldn't use it.
+            </p>
+
+            <!-- IMAGE 7: SUPABASE API CALLS -->
+            <div class="blog-image-container">
+                <!-- Add image: supbase api calls report -->
+                <img src="./assets/betjee/supabase_report.png" alt="API Calls Report" class="blog-image">
+                <div class="image-caption">Fig 6. API Traffic Spike: 1.2M+ calls in 48 hours</div>
+            </div>
+
+            <p>
+                <strong>The Solution:</strong><br>
+                I implemented an optimized <strong>Polling Architecture</strong>. The client requested `delta` (changes since the last timestamp) every 3 seconds.
+            </p>
+            <ul>
+                <li><strong>Pros:</strong> Stateless, simple, worked within standard HTTP request quotas.</li>
+                <li><strong>Cons:</strong> Created massive egress traffic (13GB+), hitting <strong>264%</strong> of my Supabase limit.</li>
+            </ul>
+
+            <!-- IMAGE 3: EGRESS LIMIT -->
+            <div class="blog-image-container">
+                <!-- Add image: egress limit -->
+                <img src="./assets/betjee/egrees_limit.png" alt="Supabase Egress Limit" class="blog-image">
+                <div class="image-caption">Fig 7. Consequence of Polling: 264% Egress Limit Reached</div>
+            </div>
+
+            <h3>The Frontend Tax Bug</h3>
+            <p>
+                To reduce server load, I calculated the estimated tax (1.67%) on the client side using Vanilla JS.
+            </p>
+            <p>
+                <strong>The Mistake:</strong> I updated the Sigmoid `steepness` parameter on the backend SQL but forgot to push the update to the frontend `app.js`.
+            </p>
+            <p>
+                <strong>The Result:</strong> Users saw one price on the UI, but the trade executed at a slightly different price.
+            </p>
+            <p>
+                <strong>The Lesson:</strong> Never duplicate business logic. The database should be the <strong>Single Source of Truth</strong>.
+            </p>
+
+            <!-- COMMUNITY -->
+            <h2>8. The Community Irony</h2>
+            <p>
+                Perhaps the most educational aspect of this project wasn't the code, but the sociology.
+            </p>
+            <p>
+                I created a subreddit, <strong>r/betjee</strong> (<a href="https://www.reddit.com/r/betjee/" target="_blank">link</a>), to gather feedback and bug reports. It grew to over 30 active members quickly. However, as I focused entirely on fixing critical backend scaling issues (and studying for Physics), I was unable to moderate the community actively.
+            </p>
+            <p>
+                In a twist of irony, the creator of the subreddit, removed me from the moderation team. The community I built to discuss the algorithm and errors actively, is now, to my knowledge, being used for unrelated promotions.
+            </p>
+            <p>
+                It was a harsh lesson: <strong>Decentralized systems are great for code, but communities require centralized and trustworthy leadership.</strong>
+            </p>
+
+            <!-- CONCLUSION -->
+            <h2>9. Conclusion</h2>
+            <p>
+                BetJee was a crash course in high-frequency system design. I went from knowing nothing about what the stock market is to managing a trading engine with over 200 transactions a minute.
+            </p>
+            <p>
+                However, the reality of cloud costs and the imminent reality of my <strong>12th-grade Board Exams</strong> forced me to shut it down.
+            </p>
+            <p>
+                Final reddit post: <a href="https://www.reddit.com/r/betjee/comments/1r18jkc/and_it_ends/" target="_blank">And it ends</a><br>
+                The markets are closed. The servers are spinning down. It is time to open the textbooks. 😔
+            </p>
+
+        </div>
+    </article>
+
+    <footer>
+        <p class="footer-text">© 2026 ayush bhalerao</p>
+    </footer>
+
+</body>
+</html>
