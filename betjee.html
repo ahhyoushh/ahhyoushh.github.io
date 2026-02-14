@@ -42,7 +42,12 @@
             position: sticky;
             top: 0;
             z-index: 100;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
 
         .back-button a {
             font-family: var(--font-mono);
@@ -54,6 +59,25 @@
 
         .back-button a:hover {
             color: #60a5fa;
+        }
+        .github-button {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #fff;
+            background: #161b22;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .github-button:hover {
+            background: #21262d;
+            border-color: #30363d;
         }
 
 
@@ -286,7 +310,15 @@
 
     <div class="back-button">
         <a href="index.html">&larr; Back to Home</a>
+
+        <a href="https://github.com/ahhyoushh/BetJee"
+        target="_blank"
+        class="github-button">
+            <i class="fab fa-github"></i>
+            View on GitHub
+        </a>
     </div>
+
 
 
     <article class="blog-wrapper">
