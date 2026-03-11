@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // ================= AUTO LOAD NOTIFICATION =================
-  showToast("DEV READY", 5000);
+  showToast("DEV MODE READY: ctrl+shift+D", 8000);
 
   // ================= DISABLE BOOKMARK SHORTCUT =================
   document.addEventListener("keydown", (e) => {
