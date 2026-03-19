@@ -140,6 +140,27 @@
     <h2 class="section-title">Featured Work</h2>
     <div class="featured-carousel-wrapper">
       <div class="featured-carousel" id="featuredCarousel">
+        <!-- Threads@alphajee.online (Featured) -->
+        <a href="https://threads.alphajee.online" target="_blank" class="featured-card">
+          <div class="featured-card-image">
+            <img src="./assets/threads_preview.webp" alt="Threads Preview">
+          </div>
+          <div class="featured-card-content">
+            <div class="featured-card-header">
+              <div class="featured-card-title">Threads@alphajee.online</div>
+              <div class="featured-card-icon">→</div>
+            </div>
+            <p class="featured-card-desc">
+              High-availability Q&A social platform. Designed a 4-layer moderation pipeline (text + vision) and a serverless backend using Dockerized Node.js.
+            </p>
+            <div class="featured-card-tags">
+              <span class="featured-tag">Next.js</span>
+              <span class="featured-tag">Cloud Run</span>
+              <span class="featured-tag">Supabase</span>
+              <span class="featured-tag">Docker</span>
+            </div>
+          </div>
+        </a>
         <!-- BetJee Deep-Dive (Featured Blog) -->
         <a href="betjee.html" class="featured-card">
           <div class="featured-card-image">
@@ -279,6 +300,7 @@
         <span class="dot" data-index="3"></span>
         <span class="dot" data-index="4"></span>
         <span class="dot" data-index="5"></span>
+        <span class="dot" data-index="6"></span>
       </div>
     </div>
   </section>
@@ -294,12 +316,13 @@
     <div class="skills">
       <div class="skills-title">// skills</div>
       <div class="skill-list">
-        <div class="skill-item">Programming: Python, Go</div>
+        <div class="skill-item">Programming: Python, Go, Html, JS/TS, C++, Rust, MySQL, PostgreSQL</div>
+        <div class="skill-item">Web & Frameworks: Next.js, React.js,Zustand, Tailwind CSS</div>
+        <div class="skill-item">Cloud & DevOps: Docker Containers, Google Cloud (Run/Functions), Cloudflare(Workers,CRON)</div>
         <div class="skill-item">Machine Learning: scikit-learn, Random Forest, Language Models, Hugging Face</div>
         <div class="skill-item">Text Embeddings & Similarity: SBERT / BERT, cosine similarity</div>
+        <div class="skill-item">Backend Development: Flask, fastAPI, REST APIs, Serverless Functions</div>
         <div class="skill-item">Data Handling: Pandas, NumPy</div>
-        <div class="skill-item">Backend Development: Flask, REST APIs</div>
-        <div class="skill-item">API Design & Routing: gorilla/mux</div>
         <div class="skill-item">Databases: MySQL, Supabase, Firebase</div>
         <div class="skill-item">Version Control: Git, GitHub</div>
         <div class="skill-item">Automation & CLI Tools</div>
@@ -313,6 +336,41 @@
     <div class="section-header">// work</div>
     <h2 class="section-title">Projects</h2>
     <ul class="project-list">
+
+      <!-- THREADS -->
+      <li class="project-item" data-project-id="threads">
+        <div class="project-hover-hint">
+          <div class="hint-text">Click to visit site</div>
+        </div>
+        <div class="project-header">
+          <div class="project-title"><a href="https://threads.alphajee.online" target="_blank">Threads@alphajee.online</a></div>
+          <div class="project-actions"><span class="bookmark-icon">▸</span></div>
+          <div class="project-id">threads</div>
+        </div>
+        <p class="project-desc">
+          High-availability Q&A social platform. Architected a 4-layer moderation pipeline (NLP + Computer Vision) for real-time content safety. 
+          Engineered a scalable serverless backend using Dockerized Node.js on Google Cloud Run for <a href="https://alphajee.online" target="_blank">alphajee.online</a>.
+        </p>
+
+        <div class="project-dev-meta">
+          <div>> stack: Next.js + Supabase + Cloud Run</div>
+          <div>> infra: Dockerized serverless functions</div>
+          <div>> role: VP Of Engineering (Parent)</div>
+        </div>
+
+        <div class="project-tags">
+          <span class="tag">serverless functions</span>
+          <span class="tag">nextjs</span>
+          <span class="tag">google cloud</span>
+          <span class="tag">docker</span>
+          <span class="tag">supabase</span>
+        </div>
+
+        <!-- PREVIEW EMPTY FOR NOW -->
+        <div class="project-preview">
+          <img src="./assets/threads_preview.webp" alt="Threads Preview">
+        </div>
+      </li>
 
       <!-- BetJee as Project -->
     <li class="project-item" data-project-id="betjee">
