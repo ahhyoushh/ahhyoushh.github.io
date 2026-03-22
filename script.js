@@ -59,11 +59,21 @@ document.addEventListener("DOMContentLoaded", () => {
   carousel.addEventListener("mouseenter", stopAutoRotate);
   carousel.addEventListener("mouseleave", startAutoRotate);
 
+  // Start auto-rotation only when in viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startAutoRotate();
+      } else {
+        stopAutoRotate();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(carousel);
+
   // Initialize carousel with first card
   showCard(0);
-
-  // Start auto-rotation
-  startAutoRotate();
 });
 
 // ================= RUN =================
