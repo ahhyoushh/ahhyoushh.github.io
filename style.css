@@ -909,12 +909,20 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   filter: invert(1) hue-rotate(180deg);
 }
 
+/* --- Experience Section --- */
+.experience {
+  padding: 3.5rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
 /* --- About Section --- */
 .about {
   padding: 3.5rem 3rem;
   max-width: 900px;
   margin: 0 auto;
-  border-top: none;
+  border-top: 1px solid var(--border);
 }
 
 .about-content {
@@ -1429,6 +1437,7 @@ footer {
   }
 
   .about,
+  .experience,
   .projects,
   .blogs,
   .stats,
@@ -1455,7 +1464,15 @@ footer {
   }
 
   .project-header {
+    display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .experience-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
   }
 
   .project-id {
