@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetJee v2: The Realtime Prediction Engine</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+
+    <style>
+        /* --- BASE THEME --- */
+        :root {
+            --bg-color: #060709;
+            --card-bg: #0b0e11;
+            --text-main: #edf2f7;
+            --text-muted: #9ca3af;
+            --accent-green: #22c55e;
+            --accent-blue: #3b82f6;
+            --border-color: #1e2329;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(6, 7, 9, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button a {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .github-button {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #fff;
+            background: #161b22;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .blog-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem 8rem;
+        }
+
+        .report-header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .report-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .report-meta span {
+            background: rgba(34, 197, 94, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .report-title {
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0 0 1rem 0;
+            letter-spacing: -1px;
+        }
+
+        .content h2 {
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            color: var(--text-main);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .content h2::before {
+            content: "//";
+            color: var(--accent-green);
+            margin-right: 10px;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #161b22;
+            padding: 8px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            overflow-x: auto;
+            color: #e6edf3;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .stat-item { display: flex; flex-direction: column; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        .stat-value { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; margin-top: 4px; }
+
+        footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border-color); font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
+    </style>
+</head>
+
+<body>
+
+    <div class="back-button">
+        <a href="betjee.html">&larr; Back to Selection</a>
+        <a href="https://github.com/ahhyoushh/BetJEE_v2" target="_blank" class="github-button">
+            <i class="fab fa-github"></i>
+            View v2 GitHub
+        </a>
+    </div>
+
+    <article class="blog-wrapper">
+        <header class="report-header">
+            <div class="report-meta">
+                <span>Date: March 2026</span>
+                <span>Status: Active / Version 2</span>
+            </div>
+            <h1 class="report-title">BetJee v2: Engineering a High-Performance Realtime Exchange</h1>
+            <p style="font-size: 1.2rem; color: var(--text-muted); font-weight: 300;">
+                The evolution from polling to WebSockets, and from sigmoid curves to Binary LMSR.
+            </p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-item"><span class="stat-label">Stack</span><span class="stat-value">Next.js + CF Workers</span></div>
+            <div class="stat-item"><span class="stat-label">Realtime</span><span class="stat-value">Durable Objects</span></div>
+            <div class="stat-item"><span class="stat-label">Latency</span><span class="stat-value">~150ms</span></div>
+            <div class="stat-item"><span class="stat-label">Engine</span><span class="stat-value">Binary LMSR</span></div>
+            <div class="stat-item"><span class="stat-label">Language</span><span class="stat-value">BetJeeScript</span></div>
+        </div>
+
+        <div class="content">
+            <h2>1. Architecture: The Stateful Edge</h2>
+            <p>
+                BetJee v1's polling architecture was stateless but expensive, generating 1.2M requests in 48 hours. v2 moves the market state to the <strong>Edge</strong> using <strong>Cloudflare Durable Objects (DO)</strong>.
+            </p>
+            <p>
+                By maintaining persistent WebSocket connections, the DO acts as a single source of truth for prices. The <strong>WebSocket Hibernation API</strong> is critical here—it allows the DO to "sleep" while idle, staying comfortably within free-tier execution limits while serving hundreds of concurrent users.
+            </p>
+
+            <h2>2. Pricing Engine: Independent Binary Pools</h2>
+            <p>
+                V2 discards the shared sigmoid curve for <strong>Independent Binary Market Pools</strong>. Each market (Shift or Mention) has its own liquidity parameter (b) and quantity (q).
+            </p>
+            <div class="code-block">
+                <div class="code-header">SQL / LMSR PRICE FORMULA</div>
+                <pre><code>-- Price(YES) = exp(q/b) / (exp(q/b) + 1)
+v_price_yes := exp(v_q / v_b) / (1 + exp(v_q / v_b));</code></pre>
+            </div>
+            <p>
+                This ensures mathematical fairness: prices asymptotically approach 0 or 1 but never reach them, and the house loss is strictly bounded to <code>b * ln(2)</code> per market.
+            </p>
+
+            <h2>3. Algo Trading: The BetJeeScript Compiler</h2>
+            <p>
+                To allow automated trading without risking server integrity, I built a custom <strong>DSL (BetJeeScript)</strong>. The compiler uses <code>acorn</code> to parse user code into an <strong>Abstract Syntax Tree (AST)</strong>.
+            </p>
+            <p>
+                The AST is strictly audited before execution: loops (<code>for</code>, <code>while</code>) and external APIs (<code>fetch</code>, <code>window</code>) are banned at the node level. This guarantees O(1) execution time and zero sandbox escapes.
+            </p>
+
+            <h2>4. Realtime Sync: Zustand Sliced Updates</h2>
+            <p>
+                The Next.js frontend uses <strong>Zustand</strong> for state management. To handle high-frequency price updates, components subscribe only to specific slices of the market state. A price change in Shift 3 only re-renders the Shift 3 row, keeping the UI buttery smooth even during peak volatility.
+            </p>
+
+            <h2>5. Concurrency: Atomic Memory Cooldowns</h2>
+            <p>
+                V1's IP-based rate limiting moved to <strong>In-Memory Cooldowns</strong> within the Durable Object. Instead of hitting KV (which has slow write propagation), the DO tracks <code>botId -> lastTrade</code> in a private Map. This provides <strong>atomic check-and-set</strong> logic, preventing race conditions from high-frequency bots.
+            </p>
+
+            <h2>6. Conclusion</h2>
+            <p>
+                BetJee v2 represents a shift from "viral prototype" to "financial system." It combines the atomicity of Postgres with the low-latency of the Edge, creating a robust platform for community-driven belief aggregation.
+            </p>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2026 ayush bhalerao</p>
+    </footer>
+</body>
+</html>

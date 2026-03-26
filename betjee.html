@@ -304,6 +304,56 @@
             display: block;
             margin: 0 auto;
         }
+
+        /* --- VERSION SELECTION STYLES --- */
+        .version-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid var(--border-color);
+        }
+
+        .version-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .version-card.v1 { border-left-color: var(--accent-blue); }
+        .version-card.v1:hover { border-color: var(--accent-blue); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1); }
+        
+        .version-card.v2 { border-left-color: var(--accent-green); }
+        .version-card.v2:hover { border-color: var(--accent-green); box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1); }
+
+        .version-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        .v1 .version-tag { color: var(--accent-blue); }
+        .v2 .version-tag { color: var(--accent-green); }
+
+        .version-title { margin-top: 0; margin-bottom: 1rem; font-size: 1.5rem; color: #fff; }
+        .version-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1; }
+        
+        .version-link {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .v1 .version-link { color: var(--accent-blue); }
+        .v2 .version-link { color: var(--accent-green); }
     </style>
 </head>
 
@@ -326,16 +376,49 @@
         
         <header class="report-header">
             <div class="report-meta">
-                <span>Date: 10/2/26 -> 11/2/26</span>
-                <span>Status: Deprecated</span>
+                <span>Date: Feb 2026</span>
+                <span>Category: Systems Engineering</span>
             </div>
-            <h1 class="report-title">Deep-dive: Engineering a Serverless Prediction Market</h1>
+            <h1 class="report-title">The BetJee Project: Scaling Prediction Markets</h1>
             <p class="report-subtitle">
-                Original Website (Deprecated): 
-                <a href="https://bet-jee.vercel.app/" target="_blank">https://bet-jee.vercel.app/</a>
+                The journey from a viral weekend prototype to a professional realtime exchange.
             </p>
-
         </header>
+
+        <!-- VERSION SELECTION CARDS -->
+        <section style="margin-bottom: 4rem;">
+            <h2 style="font-family: var(--font-mono); font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; border: none; text-transform: uppercase; letter-spacing: 2px;">// Select Platform Version</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                
+                <!-- V1 Card -->
+                <a href="#v1-report" class="version-card v1">
+                    <div class="version-tag">VERSION 1.0 (LEGACY)</div>
+                    <h3 class="version-title">The Viral Prototype</h3>
+                    <p class="version-desc">Serverless architecture, sigmoid bonding curves, and the lesson of the 1.2 million request "hug of death."</p>
+                    <div class="version-link">
+                        READ V1 DEEP-DIVE <i class="fas fa-arrow-down"></i>
+                    </div>
+                </a>
+
+                <!-- V2 Card -->
+                <a href="betjee_v2.html" class="version-card v2">
+                    <div class="version-tag">VERSION 2.0 (CURRENT)</div>
+                    <h3 class="version-title">The Realtime Exchange</h3>
+                    <p class="version-desc">WebSocket architecture via Durable Objects, Binary LMSR engine, and integrated Algo Trading Studio.</p>
+                    <div class="version-link">
+                        EXPLORE V2 FEATURES <i class="fas fa-external-link-alt"></i>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <div id="v1-report" class="content">
+            <div style="padding: 1rem; background: rgba(59, 130, 246, 0.05); border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.1); margin-bottom: 2rem;">
+                <p style="margin: 0; font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-blue);">
+                    <i class="fas fa-info-circle"></i> Showing Legacy V1 Report below. For the latest architecture, see V2.
+                </p>
+            </div>
 
         <!-- PROJECT STATS CARD -->
         <div class="stats-grid">
