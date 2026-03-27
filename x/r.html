@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$ ayush — DSA → Edge AI Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111114;
+    --bg3: #18181d;
+    --bg4: #1f1f26;
+    --border: #2a2a35;
+    --border2: #3a3a48;
+    --cyan: #00d4ff;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-dim2: rgba(0,212,255,0.06);
+    --orange: #ff6b2b;
+    --orange-dim: rgba(255,107,43,0.12);
+    --green: #00ff88;
+    --green-dim: rgba(0,255,136,0.1);
+    --yellow: #ffd60a;
+    --red: #ff4455;
+    --text: #e8e8f0;
+    --text2: #9898b0;
+    --text3: #5a5a70;
+    --sidebar-w: 260px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-header {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .brand span { color: var(--text3); }
+
+  .tagline {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .progress-ring {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ring-wrap { position: relative; width: 48px; height: 48px; }
+
+  .ring-wrap svg { transform: rotate(-90deg); }
+
+  .ring-bg { fill: none; stroke: var(--border); stroke-width: 3; }
+  .ring-fill { fill: none; stroke: var(--cyan); stroke-width: 3; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+
+  .ring-pct {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+
+  .progress-text { font-size: 11px; color: var(--text2); line-height: 1.4; }
+  .progress-text strong { color: var(--text); display: block; }
+
+  .nav-section { padding: 12px 0; }
+
+  .nav-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text3);
+    padding: 0 20px;
+    margin-bottom: 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    cursor: pointer;
+    color: var(--text2);
+    font-size: 12px;
+    transition: all 0.15s;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-item:hover { color: var(--text); background: var(--bg3); }
+
+  .nav-item.active {
+    color: var(--cyan);
+    background: var(--cyan-dim2);
+    border-left-color: var(--cyan);
+  }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border2);
+    flex-shrink: 0;
+  }
+
+  .nav-item.active .nav-dot { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+
+  .phase-badge {
+    margin-left: auto;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .badge-cyan { background: var(--cyan-dim); color: var(--cyan); }
+  .badge-orange { background: var(--orange-dim); color: var(--orange); }
+  .badge-green { background: var(--green-dim); color: var(--green); }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--text3);
+  }
+
+  /* ─── MAIN ─── */
+  .main {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,11,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 50;
+  }
+
+  .breadcrumb { font-size: 11px; color: var(--text3); }
+  .breadcrumb span { color: var(--text2); }
+  .breadcrumb .sep { margin: 0 8px; }
+
+  .topbar-actions { display: flex; gap: 8px; }
+
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .btn-ghost:hover { border-color: var(--border2); color: var(--text); }
+
+  .btn-cyan {
+    background: var(--cyan);
+    color: #000;
+    font-weight: 700;
+  }
+  .btn-cyan:hover { opacity: 0.85; }
+
+  /* ─── CONTENT ─── */
+  .content { padding: 40px; max-width: 960px; }
+
+  section { margin-bottom: 80px; scroll-margin-top: 70px; }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 48px 0 56px;
+    position: relative;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    margin-bottom: 16px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--cyan);
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 .accent { color: var(--cyan); }
+  .hero h1 .accent2 { color: var(--orange); }
+
+  .hero-desc {
+    font-size: 13px;
+    color: var(--text2);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .stat { border-left: 2px solid var(--border); padding-left: 16px; }
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--cyan);
+    line-height: 1;
+  }
+  .stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--border2);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .section-title-group { flex: 1; }
+
+  .section-eyebrow {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .section-subtitle { font-size: 12px; color: var(--text2); margin-top: 6px; }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .timeline-phase {
+    background: var(--bg2);
+    padding: 24px;
+    position: relative;
+  }
+
+  .phase-num {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .phase-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .phase-1 .phase-name { color: var(--cyan); }
+  .phase-2 .phase-name { color: var(--orange); }
+  .phase-3 .phase-name { color: var(--green); }
+
+  .phase-duration { font-size: 11px; color: var(--text3); margin-bottom: 12px; }
+
+  .phase-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .tag {
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid var(--border2);
+    color: var(--text3);
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    transition: border-color 0.15s;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .card-icon {
+    width: 28px; height: 28px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .icon-cyan { background: var(--cyan-dim); color: var(--cyan); }
+  .icon-orange { background: var(--orange-dim); color: var(--orange); }
+  .icon-green { background: var(--green-dim); color: var(--green); }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .card-meta { font-size: 10px; color: var(--text3); margin-left: auto; }
+
+  .card p { font-size: 12px; color: var(--text2); line-height: 1.7; }
+
+  /* ─── PATTERN GRID ─── */
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .pattern-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .pattern-card:hover { border-color: var(--cyan); }
+  .pattern-card.expanded { border-color: var(--border2); }
+
+  .pattern-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .pattern-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .pattern-count {
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--bg3);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .pattern-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .pattern-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--cyan);
+    transition: width 0.6s ease;
+  }
+
+  .pattern-desc { font-size: 11px; color: var(--text3); line-height: 1.6; }
+
+  .pattern-expand { display: none; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; }
+  .pattern-card.expanded .pattern-expand { display: block; }
+
+  /* ─── CHECKLIST ─── */
+  .checklist { list-style: none; }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text2);
+    cursor: pointer;
+    transition: color 0.1s;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li:hover { color: var(--text); }
+  .checklist li.done { color: var(--text3); text-decoration: line-through; }
+
+  .check-box {
+    width: 14px; height: 14px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    font-size: 9px;
+  }
+
+  .checklist li.done .check-box {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: #000;
+  }
+
+  /* ─── FULL NEETCODE TABLE ─── */
+  .nc-group { margin-bottom: 28px; }
+
+  .nc-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .nc-group-header:hover { background: var(--bg4); }
+
+  .nc-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nc-group-prog {
+    font-size: 10px;
+    color: var(--text3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nc-group-body {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+
+  .nc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.1s;
+    font-size: 12px;
+    color: var(--text2);
+  }
+
+  .nc-item:last-child { border-bottom: none; }
+  .nc-item:hover { background: var(--bg3); }
+  .nc-item.done { color: var(--text3); }
+  .nc-item.done .nc-name { text-decoration: line-through; }
+
+  .nc-check {
+    width: 14px; height: 14px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    transition: all 0.15s;
+  }
+
+  .nc-item.done .nc-check { background: var(--green); border-color: var(--green); color: #000; }
+
+  .nc-name { flex: 1; }
+
+  .diff-badge {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .diff-easy { background: rgba(0,255,136,0.1); color: var(--green); }
+  .diff-med { background: rgba(255,214,10,0.1); color: var(--yellow); }
+  .diff-hard { background: rgba(255,68,85,0.1); color: var(--red); }
+
+  .nc-pattern {
+    font-size: 9px;
+    color: var(--text3);
+    background: var(--bg3);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+
+  /* ─── CODE BLOCK ─── */
+  .code-block {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: var(--text2);
+  }
+
+  .kw { color: var(--cyan); }
+  .cm { color: var(--text3); font-style: italic; }
+  .str { color: var(--orange); }
+  .fn { color: #c792ea; }
+  .num { color: var(--green); }
+  .good { color: var(--green); }
+  .bad { color: var(--red); }
+
+  /* ─── RESOURCE GRID ─── */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .resource-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: all 0.15s;
+    display: block;
+  }
+
+  .resource-card:hover {
+    border-color: var(--cyan);
+    background: var(--cyan-dim2);
+    transform: translateY(-1px);
+  }
+
+  .resource-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .resource-url { font-size: 10px; color: var(--cyan); margin-bottom: 8px; }
+  .resource-desc { font-size: 11px; color: var(--text2); line-height: 1.6; }
+  .resource-phase { font-size: 9px; color: var(--text3); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ─── PROTOCOL ─── */
+  .protocol-steps { display: flex; flex-direction: column; gap: 0; }
+
+  .proto-step {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .proto-step:last-child { border-bottom: none; }
+
+  .proto-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--border2);
+    line-height: 1;
+    width: 36px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .proto-content { flex: 1; }
+  .proto-time { font-size: 10px; color: var(--cyan); margin-bottom: 4px; font-weight: 600; }
+  .proto-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .proto-desc { font-size: 11px; color: var(--text2); line-height: 1.7; }
+
+  /* ─── HABITS TABLE ─── */
+  .habits-table { width: 100%; border-collapse: collapse; }
+
+  .habits-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+  }
+
+  .habits-table td {
+    padding: 10px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+
+  .habits-table tr:last-child td { border-bottom: none; }
+  .habits-table tr:hover td { background: var(--bg3); }
+
+  .habit-bad { color: var(--red); font-weight: 600; }
+  .habit-good { color: var(--green); font-weight: 600; }
+
+  /* ─── COMPLEXITY TABLE ─── */
+  .complexity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .cx-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cx-n { font-size: 11px; color: var(--text3); flex: 1; }
+  .cx-big { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; }
+  .cx-label { font-size: 10px; color: var(--text3); }
+
+  /* ─── WEEKLY TEMPLATE ─── */
+  .review-form { display: grid; gap: 12px; }
+
+  .review-field {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .review-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .review-field textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text2);
+    resize: vertical;
+    min-height: 60px;
+    line-height: 1.6;
+  }
+
+  .review-field textarea::placeholder { color: var(--text3); }
+
+  .save-review {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ─── INLINE BADGES ─── */
+  .inline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  /* ─── ALERT BOX ─── */
+  .alert {
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 12px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .alert-cyan { background: var(--cyan-dim); border-left: 3px solid var(--cyan); color: var(--text2); }
+  .alert-orange { background: var(--orange-dim); border-left: 3px solid var(--orange); color: var(--text2); }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
+  section { animation: fadeIn 0.4s ease both; }
+
+  .glow { text-shadow: 0 0 20px rgba(0,212,255,0.3); }
+
+  /* mobile hidden for sidebar items in small */
+  @media (max-width: 768px) {
+    .sidebar { width: 100%; height: auto; position: relative; }
+    .main { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="brand"><span>$ </span>ayush</div>
+    <div class="tagline">DSA → Edge AI Roadmap</div>
+    <div class="progress-ring">
+      <div class="ring-wrap">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle class="ring-bg" cx="24" cy="24" r="20"/>
+          <circle class="ring-fill" cx="24" cy="24" r="20" id="progressRing"
+            stroke-dasharray="125.6"
+            stroke-dashoffset="125.6"/>
+        </svg>
+        <div class="ring-pct" id="progressPct">0%</div>
+      </div>
+      <div class="progress-text">
+        <strong id="progressLabel">0 / 150</strong>
+        problems solved
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Overview</div>
+    <a class="nav-item active" href="#overview" onclick="setActive(this)">
+      <div class="nav-dot"></div> Overview
+    </a>
+    <a class="nav-item" href="#bigpicture" onclick="setActive(this)">
+      <div class="nav-dot"></div> Big Picture
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Phases</div>
+    <a class="nav-item" href="#phase1" onclick="setActive(this)">
+      <div class="nav-dot"></div> Phase 1 — C++ & DSA
+      <span class="phase-badge badge-cyan">Now</span>
+    </a>
+    <a class="nav-item" href="#phase2" onclick="setActive(this)">
+      <div class="nav-dot"></div> Phase 2 — ML Foundations
+      <span class="phase-badge badge-orange">Mo. 2</span>
+    </a>
+    <a class="nav-item" href="#phase3" onclick="setActive(this)">
+      <div class="nav-dot"></div> Phase 3 — Edge AI Bridge
+      <span class="phase-badge badge-green">Mo. 5</span>
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">NeetCode 150</div>
+    <a class="nav-item" href="#neetcode" onclick="setActive(this)">
+      <div class="nav-dot"></div> Full Problem List
+    </a>
+    <a class="nav-item" href="#patterns" onclick="setActive(this)">
+      <div class="nav-dot"></div> Pattern Guide
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Reference</div>
+    <a class="nav-item" href="#protocol" onclick="setActive(this)">
+      <div class="nav-dot"></div> Problem Protocol
+    </a>
+    <a class="nav-item" href="#habits" onclick="setActive(this)">
+      <div class="nav-dot"></div> C++ Habits
+    </a>
+    <a class="nav-item" href="#resources" onclick="setActive(this)">
+      <div class="nav-dot"></div> Resources
+    </a>
+    <a class="nav-item" href="#weekly" onclick="setActive(this)">
+      <div class="nav-dot"></div> Weekly Review
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    Updated Mar 2026 &nbsp;·&nbsp; NYCU Fall 2026
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="breadcrumb">
+      <span>$ ayush</span><span class="sep">/</span><span>roadmap</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" onclick="resetAll()">reset progress</button>
+      <button class="btn btn-cyan" onclick="window.print()">export pdf</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- HERO -->
+    <section id="overview">
+      <div class="hero">
+        <div class="hero-tag">Full Stack Engineering Plan</div>
+        <h1>DSA → C++ →<br><span class="accent">Edge AI</span> <span class="accent2">Roadmap</span></h1>
+        <p class="hero-desc">
+          A complete plan from NeetCode arrays to CUDA kernels and TensorRT inference.
+          30 min/day. No tutorial hell. Ship AlphaJEE while you grind.
+          This is the exact path from where you are now to landing high-paying
+          internships in Edge AI and ML performance optimization.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-val">150</div>
+            <div class="stat-label">Total Problems</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">3</div>
+            <div class="stat-label">Phases</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">~6mo</div>
+            <div class="stat-label">Full Timeline</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">30m</div>
+            <div class="stat-label">Daily DSA Budget</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIG PICTURE -->
+    <section id="bigpicture">
+      <div class="section-header">
+        <div class="section-num">00</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow">The Stack</div>
+          <div class="section-title">Big Picture</div>
+          <div class="section-subtitle">Three phases, three skill layers, one target role.</div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-phase phase-1">
+          <div class="phase-num">Phase 01</div>
+          <div class="phase-name">C++ & DSA</div>
+          <div class="phase-duration">Now → Month 3 · 30min/day</div>
+          <div class="phase-tags">
+            <span class="tag">Arrays</span>
+            <span class="tag">Two Pointers</span>
+            <span class="tag">Sliding Window</span>
+            <span class="tag">Stack</span>
+            <span class="tag">Binary Search</span>
+            <span class="tag">learncpp.com</span>
+          </div>
+        </div>
+        <div class="timeline-phase phase-2">
+          <div class="phase-num">Phase 02</div>
+          <div class="phase-name">ML Foundations</div>
+          <div class="phase-duration">Month 2–5 · +30min/day parallel</div>
+          <div class="phase-tags">
+            <span class="tag">fast.ai</span>
+            <span class="tag">Karpathy</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">ONNX Export</span>
+            <span class="tag">Backprop from scratch</span>
+          </div>
+        </div>
+        <div class="timeline-phase phase-3">
+          <div class="phase-num">Phase 03</div>
+          <div class="phase-name">Edge AI Bridge</div>
+          <div class="phase-duration">Month 5–6+ · Full sessions</div>
+          <div class="phase-tags">
+            <span class="tag">ONNX Runtime C++</span>
+            <span class="tag">TensorRT</span>
+            <span class="tag">CUDA C++</span>
+            <span class="tag">pybind11</span>
+            <span class="tag">Quantization</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-cyan">⚙</div>
+          <div class="card-title">The Three-Layer Skill Stack</div>
+        </div>
+        <table class="habits-table" style="margin-top:4px">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Language</th>
+              <th>What You're Actually Doing</th>
+              <th>Why It Matters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="color:var(--cyan)">Systems Thinking</span></td>
+              <td>C++</td>
+              <td>Memory model, cache, O(1) space patterns, STL internals</td>
+              <td>Everything else is built on this mental model</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--orange)">ML Research</span></td>
+              <td>Python</td>
+              <td>Training pipelines, evaluation, ONNX export scripts</td>
+              <td>You'll write Python daily in Edge AI roles</td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--green)">Inference Optimization</span></td>
+              <td>C++ / CUDA</td>
+              <td>TensorRT, custom kernels, quantization, memory layout</td>
+              <td>This is the hireable skill in Edge AI</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PHASE 1 -->
+    <section id="phase1">
+      <div class="section-header">
+        <div class="section-num" style="color:rgba(0,212,255,0.15)">01</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow" style="color:var(--cyan)">Phase 1 · Now → Month 3</div>
+          <div class="section-title">C++ Fluency via DSA</div>
+          <div class="section-subtitle">NeetCode 150 in pattern order. 30 min/day. One problem at a time.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-cyan">
+        <div class="alert-icon">⚡</div>
+        <div>
+          <strong style="color:var(--cyan)">The Rule:</strong> Solve every problem twice. First: brute force (get it accepted). Second: eliminate the extra allocation. If you can't explain the memory tradeoff at the architecture level, you don't know it yet.
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="card-header">
+          <div class="card-icon icon-cyan">▶</div>
+          <div class="card-title">Pattern Order — Strict. Do Not Skip Ahead.</div>
+        </div>
+        <ul class="checklist" id="phase1-milestones">
+          <li onclick="toggleCheck(this)" data-key="p1m1"><div class="check-box">✓</div> <div><strong>Arrays & Hashing</strong> — unordered_map, unordered_set, hash collisions, reserve(). ~9 problems.</div></li>
+          <li onclick="toggleCheck(this)" data-key="p1m2"><div class="check-box">✓</div> <div><strong>Two Pointers</strong> — In-place, zero extra alloc, const&amp; discipline. ~5 problems.</div></li>
+          <li onclick="toggleCheck(this)" data-key="p1m3"><div class="check-box">✓</div> <div><strong>Sliding Window</strong> — Index arithmetic, shrink/expand pattern. ~6 problems.</div></li>
+          <li onclick="toggleCheck(this)" data-key="p1m4"><div class="check-box">✓</div> <div><strong>Stack</strong> — std::stack, monotonic stack. ~7 problems.</div></li>
+          <li onclick="toggleCheck(this)" data-key="p1m5"><div class="check-box">✓</div> <div><strong>Binary Search</strong> — Integer overflow in mid, lo/hi discipline. ~7 problems.</div></li>
+        </ul>
+      </div>
+
+      <div id="patterns" style="margin-top:32px">
+        <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px">Pattern Deep Dives <span style="color:var(--text3);font-size:11px;font-weight:400">(click to expand)</span></h3>
+        <div class="pattern-grid">
+
+          <div class="pattern-card" onclick="togglePattern(this)">
+            <div class="pattern-top">
+              <div class="pattern-name">Arrays & Hashing</div>
+              <div class="pattern-count">9 problems</div>
+            </div>
+            <div class="pattern-bar"><div class="pattern-bar-fill" id="fill-ah" style="width:0%"></div></div>
+            <div class="pattern-desc">Hash maps for O(1) lookup. Hash sets for duplicate detection. The naive approach teaches you when NOT to use a hash.</div>
+            <div class="pattern-expand">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:10px">
+                <strong style="color:var(--text)">Key C++ concepts:</strong> unordered_map, unordered_set, reserve(), max_load_factor(). Hash tables have O(1) amortized but O(n) worst case. Sorting gives O(n log n) but O(1) space — always weigh the tradeoff.
+              </div>
+              <div class="code-block"><pre><span class="cm">// Hash set approach — O(n) time, O(n) space</span>
+<span class="kw">unordered_set</span>&lt;<span class="kw">int</span>&gt; seen;
+seen.<span class="fn">reserve</span>(nums.size());  <span class="cm">// avoid rehashing</span>
+<span class="kw">for</span> (<span class="kw">int</span> n : nums)
+    <span class="kw">if</span> (!seen.<span class="fn">insert</span>(n).second) <span class="kw">return true</span>;
+
+<span class="cm">// Sort approach — O(n log n) time, O(1) space</span>
+<span class="fn">sort</span>(nums.<span class="fn">begin</span>(), nums.<span class="fn">end</span>());
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; (<span class="kw">int</span>)nums.size() - <span class="num">1</span>; i++)
+    <span class="kw">if</span> (nums[i] == nums[i+<span class="num">1</span>]) <span class="kw">return true</span>;</pre></div>
+            </div>
+          </div>
+
+          <div class="pattern-card" onclick="togglePattern(this)">
+            <div class="pattern-top">
+              <div class="pattern-name">Two Pointers</div>
+              <div class="pattern-count">5 problems</div>
+            </div>
+            <div class="pattern-bar"><div class="pattern-bar-fill" id="fill-tp" style="width:0%"></div></div>
+            <div class="pattern-desc">Two indices moving toward each other or in the same direction. Eliminates O(n) space by working in-place on sorted data.</div>
+            <div class="pattern-expand">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:10px">
+                <strong style="color:var(--text)">Key insight:</strong> Sorting first costs O(n log n) but unlocks O(1) space solutions. The CPU cache loves sequential access — two pointers on a sorted array is cache-optimal. unordered_set is cache-hostile (hash jumps).
+              </div>
+              <div class="code-block"><pre><span class="cm">// 3Sum — O(n²) time, O(1) extra space</span>
+<span class="fn">sort</span>(nums.<span class="fn">begin</span>(), nums.<span class="fn">end</span>());
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n - <span class="num">2</span>; i++) {
+    <span class="kw">int</span> lo = i+<span class="num">1</span>, hi = n-<span class="num">1</span>;
+    <span class="kw">while</span> (lo &lt; hi) {
+        <span class="kw">int</span> s = nums[i] + nums[lo] + nums[hi];
+        <span class="kw">if</span> (s == <span class="num">0</span>) { <span class="cm">/* found */</span> }
+        <span class="kw">else if</span> (s &lt; <span class="num">0</span>) lo++;
+        <span class="kw">else</span> hi--;
+    }
+}</pre></div>
+            </div>
+          </div>
+
+          <div class="pattern-card" onclick="togglePattern(this)">
+            <div class="pattern-top">
+              <div class="pattern-name">Sliding Window</div>
+              <div class="pattern-count">6 problems</div>
+            </div>
+            <div class="pattern-bar"><div class="pattern-bar-fill" id="fill-sw" style="width:0%"></div></div>
+            <div class="pattern-desc">Maintain a variable-size window over a sequence. Expand right, shrink left based on constraint. O(n) from O(n²).</div>
+            <div class="pattern-expand">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:10px">
+                <strong style="color:var(--text)">Key insight:</strong> Each element enters and exits the window at most once → O(n). The window lives in registers/stack. The array is read sequentially → perfect cache behavior. This is why it beats brute force not just in big-O but in real wall time.
+              </div>
+              <div class="code-block"><pre><span class="cm">// Longest substring without repeating chars</span>
+<span class="kw">int</span> l = <span class="num">0</span>, res = <span class="num">0</span>;
+<span class="kw">unordered_map</span>&lt;<span class="kw">char</span>,<span class="kw">int</span>&gt; seen;
+<span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; s.size(); r++) {
+    <span class="kw">if</span> (seen.<span class="fn">count</span>(s[r])) l = <span class="fn">max</span>(l, seen[s[r]]+<span class="num">1</span>);
+    seen[s[r]] = r;
+    res = <span class="fn">max</span>(res, r - l + <span class="num">1</span>);
+}</pre></div>
+            </div>
+          </div>
+
+          <div class="pattern-card" onclick="togglePattern(this)">
+            <div class="pattern-top">
+              <div class="pattern-name">Stack</div>
+              <div class="pattern-count">7 problems</div>
+            </div>
+            <div class="pattern-bar"><div class="pattern-bar-fill" id="fill-st" style="width:0%"></div></div>
+            <div class="pattern-desc">LIFO structure for tracking "pending" decisions. Monotonic stack is the advanced form — maintains sorted order as you push.</div>
+            <div class="pattern-expand">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:10px">
+                <strong style="color:var(--text)">Architecture note:</strong> std::stack wraps std::deque by default (heap allocation, cache-unfriendly). Prefer stack&lt;int, vector&lt;int&gt;&gt; for better cache behavior. The call stack itself is a stack — recursive DFS uses the CPU's native stack which is fast.
+              </div>
+              <div class="code-block"><pre><span class="cm">// Monotonic decreasing stack — Daily Temperatures</span>
+<span class="kw">stack</span>&lt;<span class="kw">int</span>, <span class="kw">vector</span>&lt;<span class="kw">int</span>&gt;&gt; st;  <span class="cm">// vector backend = cache friendly</span>
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+    <span class="kw">while</span> (!st.<span class="fn">empty</span>() && temps[i] > temps[st.<span class="fn">top</span>()]) {
+        res[st.<span class="fn">top</span>()] = i - st.<span class="fn">top</span>();
+        st.<span class="fn">pop</span>();
+    }
+    st.<span class="fn">push</span>(i);
+}</pre></div>
+            </div>
+          </div>
+
+          <div class="pattern-card" onclick="togglePattern(this)">
+            <div class="pattern-top">
+              <div class="pattern-name">Binary Search</div>
+              <div class="pattern-count">7 problems</div>
+            </div>
+            <div class="pattern-bar"><div class="pattern-bar-fill" id="fill-bs" style="width:0%"></div></div>
+            <div class="pattern-desc">Not just sorted arrays — it's a framework for searching any monotonic answer space. "Is X feasible?" → binary search on X.</div>
+            <div class="pattern-expand">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:10px">
+                <strong style="color:var(--text)">The overflow trap:</strong> Every C++ binary search in an interview needs the safe midpoint. Also: std::lower_bound and std::upper_bound are O(log n) and already correct — know when to use them vs manual.
+              </div>
+              <div class="code-block"><pre><span class="cm">// ❌ OVERFLOW — classic mistake</span>
+<span class="bad">int mid = (lo + hi) / 2;  // UB if lo+hi > INT_MAX</span>
+
+<span class="cm">// ✅ SAFE</span>
+<span class="good">int mid = lo + (hi - lo) / 2;</span>
+
+<span class="cm">// Binary search on answer space (Koko Eating Bananas)</span>
+<span class="kw">int</span> lo = <span class="num">1</span>, hi = *<span class="fn">max_element</span>(piles.<span class="fn">begin</span>(), piles.<span class="fn">end</span>());
+<span class="kw">while</span> (lo &lt; hi) {
+    <span class="kw">int</span> mid = lo + (hi - lo) / <span class="num">2</span>;
+    <span class="kw">if</span> (<span class="fn">feasible</span>(piles, mid, h)) hi = mid;
+    <span class="kw">else</span> lo = mid + <span class="num">1</span>;
+}</pre></div>
+            </div>
+          </div>
+
+          <div class="pattern-card" onclick="togglePattern(this)">
+            <div class="pattern-top">
+              <div class="pattern-name">Linked Lists</div>
+              <div class="pattern-count">11 problems</div>
+            </div>
+            <div class="pattern-bar"><div class="pattern-bar-fill" id="fill-ll" style="width:0%"></div></div>
+            <div class="pattern-desc">Pointer manipulation. Fast/slow pointers. Reverse in-place. The most memory-explicit pattern — teaches you heap allocation directly.</div>
+            <div class="pattern-expand">
+              <div style="font-size:11px;color:var(--text2);margin-bottom:10px">
+                <strong style="color:var(--text)">Architecture note:</strong> Linked list nodes are heap-allocated, scattered in memory → cache misses on every node access. This is why std::vector dominates in practice. But understanding linked list manipulation is fundamental to understanding heap layout and pointer safety.
+              </div>
+              <div class="code-block"><pre><span class="cm">// Reverse in-place — O(n) time, O(1) space</span>
+<span class="kw">ListNode</span>* <span class="fn">reverseList</span>(<span class="kw">ListNode</span>* head) {
+    <span class="kw">ListNode</span>* prev = <span class="kw">nullptr</span>;
+    <span class="kw">while</span> (head) {
+        <span class="kw">auto</span>* nxt = head->next;
+        head->next = prev;
+        prev = head;
+        head = nxt;
+    }
+    <span class="kw">return</span> prev;
+}</pre></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Phase 1 Milestones -->
+      <div class="card" style="margin-top:28px">
+        <div class="card-header">
+          <div class="card-icon icon-cyan">◎</div>
+          <div class="card-title">Month-by-Month Milestones</div>
+        </div>
+        <table class="habits-table">
+          <thead><tr><th>Month</th><th>DSA Target</th><th>C++ Skill Target</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--cyan)">Month 1</td>
+              <td>Arrays & Hashing complete (9 problems)</td>
+              <td>const&amp;, reserve(), no unnecessary copies. Understand stack vs heap for local vars.</td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">Month 2</td>
+              <td>Two Pointers + Sliding Window (11 problems)</td>
+              <td>Can write a linked list from scratch. Understand what const&amp; does at the ABI level.</td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">Month 3</td>
+              <td>Stack + Binary Search (14 more). 34+ total.</td>
+              <td>Can articulate cache locality tradeoff. Zero bad habits in any solution.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PHASE 2 -->
+    <section id="phase2">
+      <div class="section-header">
+        <div class="section-num" style="color:rgba(255,107,43,0.15)">02</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow" style="color:var(--orange)">Phase 2 · Month 2–5 · Parallel Track</div>
+          <div class="section-title">ML Foundations</div>
+          <div class="section-subtitle">Top-down practical first, theory second. 30 min/day on top of DSA.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-orange">
+        <div class="alert-icon">⚠</div>
+        <div>
+          <strong style="color:var(--orange)">Anti-pattern warning:</strong> Do not watch ML videos without writing code. The ratio should be 80% coding, 20% watching. Run every notebook. Break things. Fix them.
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="card-header">
+          <div class="card-icon icon-orange">①</div>
+          <div class="card-title">fast.ai Part 1 — Weeks 1–4</div>
+          <div class="card-meta">practical-dl.fast.ai</div>
+        </div>
+        <p>Top-down. Train a model before you understand the math. fast.ai's philosophy matches how good engineers learn — by breaking working things, not by deriving from first principles.</p>
+        <ul class="checklist" style="margin-top:12px">
+          <li onclick="toggleCheck(this)" data-key="fai1"><div class="check-box">✓</div>Lesson 1: Getting started — train your first image classifier</li>
+          <li onclick="toggleCheck(this)" data-key="fai2"><div class="check-box">✓</div>Lesson 2: Deployment, data augmentation, production mindset</li>
+          <li onclick="toggleCheck(this)" data-key="fai3"><div class="check-box">✓</div>Lesson 3: Neural net foundations — what is actually happening in a layer</li>
+          <li onclick="toggleCheck(this)" data-key="fai4"><div class="check-box">✓</div>Lesson 4: NLP, tokenization, transfer learning</li>
+          <li onclick="toggleCheck(this)" data-key="fai5"><div class="check-box">✓</div>Lesson 5: Tabular + collaborative filtering from scratch</li>
+          <li onclick="toggleCheck(this)" data-key="fai6"><div class="check-box">✓</div>Lesson 6: CNNs from scratch</li>
+          <li onclick="toggleCheck(this)" data-key="fai7"><div class="check-box">✓</div>Lesson 7: Putting it all together</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-orange">②</div>
+          <div class="card-title">Karpathy — Neural Networks: Zero to Hero</div>
+          <div class="card-meta">youtube.com/@AndrejKarpathy · CRITICAL</div>
+        </div>
+        <p style="margin-bottom:12px">The single best ML curriculum that exists right now. You will build autograd, language models, and a full GPT from scratch. Do not skip this. If you only do one thing in Phase 2, this is it.</p>
+        <ul class="checklist">
+          <li onclick="toggleCheck(this)" data-key="karp1"><div class="check-box">✓</div><div><strong>micrograd</strong> — Build backpropagation from scratch in 100 lines of Python. You will understand autograd at the implementation level.</div></li>
+          <li onclick="toggleCheck(this)" data-key="karp2"><div class="check-box">✓</div><div><strong>makemore Part 1</strong> — Bigram character-level language model. Probability, loss, sampling.</div></li>
+          <li onclick="toggleCheck(this)" data-key="karp3"><div class="check-box">✓</div><div><strong>makemore Part 2</strong> — MLP. Understand what a neural net is actually computing.</div></li>
+          <li onclick="toggleCheck(this)" data-key="karp4"><div class="check-box">✓</div><div><strong>makemore Part 3</strong> — Activations, gradients, batch normalization. Why training is hard.</div></li>
+          <li onclick="toggleCheck(this)" data-key="karp5"><div class="check-box">✓</div><div><strong>makemore Part 4</strong> — Manual backprop. Derive every gradient by hand. Most people skip this. Don't.</div></li>
+          <li onclick="toggleCheck(this)" data-key="karp6"><div class="check-box">✓</div><div><strong>makemore Part 5</strong> — WaveNet architecture. Residual connections, dilated convolutions.</div></li>
+          <li onclick="toggleCheck(this)" data-key="karp7"><div class="check-box">✓</div><div><strong>nanoGPT</strong> — Build GPT-2 from scratch. Transformer architecture fully understood.</div></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-orange">③</div>
+          <div class="card-title">PyTorch From Scratch — Weeks 8–12</div>
+          <div class="card-meta">pytorch.org/docs</div>
+        </div>
+        <p style="margin-bottom:12px">Run parallel with Karpathy. The goal is to stop calling torch.nn and understand what it's doing.</p>
+        <ul class="checklist">
+          <li onclick="toggleCheck(this)" data-key="pt1"><div class="check-box">✓</div>Tensors, autograd, computational graph — trace a gradient manually</li>
+          <li onclick="toggleCheck(this)" data-key="pt2"><div class="check-box">✓</div>Write a Linear layer manually (no nn.Linear) — understand weight initialization</li>
+          <li onclick="toggleCheck(this)" data-key="pt3"><div class="check-box">✓</div>Write a full training loop without Trainer — optimizer step, zero_grad, backward</li>
+          <li onclick="toggleCheck(this)" data-key="pt4"><div class="check-box">✓</div>Implement cross-entropy loss manually — understand log-softmax numerically</li>
+          <li onclick="toggleCheck(this)" data-key="pt5"><div class="check-box">✓</div>Train a small CNN on CIFAR-10 end-to-end without tutorial</li>
+          <li onclick="toggleCheck(this)" data-key="pt6"><div class="check-box">✓</div>Export that model to ONNX — understand what the graph looks like</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PHASE 3 -->
+    <section id="phase3">
+      <div class="section-header">
+        <div class="section-num" style="color:rgba(0,255,136,0.12)">03</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow" style="color:var(--green)">Phase 3 · Month 5–6+ </div>
+          <div class="section-title">Edge AI Bridge</div>
+          <div class="section-subtitle">This is where C++ DSA and ML knowledge merge into the hireable skill.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-green">⬡</div>
+          <div class="card-title">The Full Stack You're Building</div>
+        </div>
+        <div class="code-block"><pre><span class="cm">Python (Training side)          C++ (Inference side)</span>
+─────────────────────           ──────────────────────────────
+PyTorch model         <span class="kw">──ONNX──></span>  ONNX Runtime C++ API
+Quantization script   <span class="kw">──────────></span>  TensorRT engine (.plan file)
+pybind11 wrapper      <span class="kw">&lt;────────></span>  Custom C++ inference pipeline
+Python evaluation     <span class="kw">──────────></span>  Benchmark: latency / throughput / memory</pre></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-green">①</div>
+          <div class="card-title">ONNX Runtime C++ API</div>
+          <div class="card-meta">onnxruntime.ai/docs/api/c</div>
+        </div>
+        <ul class="checklist">
+          <li onclick="toggleCheck(this)" data-key="onnx1"><div class="check-box">✓</div>Install ONNX Runtime from source or prebuilt</li>
+          <li onclick="toggleCheck(this)" data-key="onnx2"><div class="check-box">✓</div>Load a PyTorch model exported to ONNX in C++</li>
+          <li onclick="toggleCheck(this)" data-key="onnx3"><div class="check-box">✓</div>Run inference — understand input/output tensor memory layout (NCHW vs NHWC)</li>
+          <li onclick="toggleCheck(this)" data-key="onnx4"><div class="check-box">✓</div>Benchmark inference latency vs Python baseline — measure the gap</li>
+          <li onclick="toggleCheck(this)" data-key="onnx5"><div class="check-box">✓</div>Profile memory: measure allocation per inference call</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-green">②</div>
+          <div class="card-title">TensorRT — Inference Optimization</div>
+          <div class="card-meta">docs.nvidia.com/deeplearning/tensorrt</div>
+        </div>
+        <ul class="checklist">
+          <li onclick="toggleCheck(this)" data-key="trt1"><div class="check-box">✓</div>Read TensorRT Developer Guide — Chapters 1–4 (skim first, deep-dive second)</li>
+          <li onclick="toggleCheck(this)" data-key="trt2"><div class="check-box">✓</div>Parse an ONNX model with TensorRT builder API</li>
+          <li onclick="toggleCheck(this)" data-key="trt3"><div class="check-box">✓</div>Apply FP16 quantization — measure accuracy vs latency tradeoff</li>
+          <li onclick="toggleCheck(this)" data-key="trt4"><div class="check-box">✓</div>Apply INT8 quantization with calibration dataset</li>
+          <li onclick="toggleCheck(this)" data-key="trt5"><div class="check-box">✓</div>Operator fusion — understand what TensorRT fuses and why (Conv+BN+ReLU)</li>
+          <li onclick="toggleCheck(this)" data-key="trt6"><div class="check-box">✓</div>Dynamic shapes — handle variable batch sizes at inference</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-green">③</div>
+          <div class="card-title">pybind11 — C++↔Python Bridge</div>
+          <div class="card-meta">pybind11.readthedocs.io</div>
+        </div>
+        <ul class="checklist">
+          <li onclick="toggleCheck(this)" data-key="pb1"><div class="check-box">✓</div>Write a simple C++ function callable from Python — understand the binding overhead</li>
+          <li onclick="toggleCheck(this)" data-key="pb2"><div class="check-box">✓</div>Wrap a C++ inference pipeline — Python calls C++ for inference, gets numpy back</li>
+          <li onclick="toggleCheck(this)" data-key="pb3"><div class="check-box">✓</div>Benchmark pybind11 call overhead vs pure Python</li>
+          <li onclick="toggleCheck(this)" data-key="pb4"><div class="check-box">✓</div>Zero-copy buffer protocol — pass numpy arrays to C++ without copying</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-green">④</div>
+          <div class="card-title">CUDA C++ — GPU Fundamentals</div>
+          <div class="card-meta">docs.nvidia.com/cuda/cuda-c-programming-guide</div>
+        </div>
+        <ul class="checklist">
+          <li onclick="toggleCheck(this)" data-key="cuda1"><div class="check-box">✓</div>CUDA Programming Guide Chapters 1–4 — thread model, memory hierarchy</li>
+          <li onclick="toggleCheck(this)" data-key="cuda2"><div class="check-box">✓</div>Write a vector addition kernel — understand grid/block/thread indexing</li>
+          <li onclick="toggleCheck(this)" data-key="cuda3"><div class="check-box">✓</div>Write a naive matrix multiply kernel — measure global memory bandwidth</li>
+          <li onclick="toggleCheck(this)" data-key="cuda4"><div class="check-box">✓</div>Write a tiled matrix multiply — use shared memory, measure speedup</li>
+          <li onclick="toggleCheck(this)" data-key="cuda5"><div class="check-box">✓</div>Profile with nvprof or Nsight Compute — identify bottlenecks</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- NEETCODE 150 FULL LIST -->
+    <section id="neetcode">
+      <div class="section-header">
+        <div class="section-num">NC</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow">Complete Checklist</div>
+          <div class="section-title">NeetCode 150</div>
+          <div class="section-subtitle">Click any problem to mark it done. Progress saves in your browser.</div>
+        </div>
+      </div>
+
+      <div id="nc-list"></div>
+    </section>
+
+    <!-- PROTOCOL -->
+    <section id="protocol">
+      <div class="section-header">
+        <div class="section-num">P</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow">Every Single Problem</div>
+          <div class="section-title">Problem-Solving Protocol</div>
+          <div class="section-subtitle">30-minute hard limit. Run this every time without exception.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="protocol-steps">
+          <div class="proto-step">
+            <div class="proto-num">1</div>
+            <div class="proto-content">
+              <div class="proto-time">0:00 – 0:05</div>
+              <div class="proto-title">Read & Identify</div>
+              <div class="proto-desc">What are the input/output types? What are the constraints? (n tells you the acceptable complexity budget.) What are the edge cases — empty input, single element, all duplicates, negative numbers, overflow risk?</div>
+            </div>
+          </div>
+          <div class="proto-step">
+            <div class="proto-num">2</div>
+            <div class="proto-content">
+              <div class="proto-time">0:05 – 0:10</div>
+              <div class="proto-title">Brute Force in Pseudocode — Do Not Code Yet</div>
+              <div class="proto-desc">What's the naive O(n²) or O(n) + O(n) solution? Write it in plain English. Confirm it's correct before touching the keyboard.</div>
+            </div>
+          </div>
+          <div class="proto-step">
+            <div class="proto-num">3</div>
+            <div class="proto-content">
+              <div class="proto-time">0:10 – 0:20</div>
+              <div class="proto-title">Implement Brute Force in C++ — Get It Accepted</div>
+              <div class="proto-desc">Write it. Submit it. Get the green checkmark. This is your baseline. Do not optimize yet.</div>
+            </div>
+          </div>
+          <div class="proto-step">
+            <div class="proto-num">4</div>
+            <div class="proto-content">
+              <div class="proto-time">0:20 – 0:27</div>
+              <div class="proto-title">Optimize — Eliminate the Allocation</div>
+              <div class="proto-desc">Can I eliminate the hash set? (Two pointers / sort.) Can I reduce from O(n²) to O(n log n) or O(n)? Am I doing any unnecessary copies? Rewrite, get accepted.</div>
+            </div>
+          </div>
+          <div class="proto-step">
+            <div class="proto-num">5</div>
+            <div class="proto-content">
+              <div class="proto-time">0:27 – 0:30</div>
+              <div class="proto-title">Final Check — The Four Questions</div>
+              <div class="proto-desc">
+                (1) Are all input params passed as const&amp; where not modified?<br>
+                (2) Any overflow risk? (n > 10⁴ with multiplication → use long long)<br>
+                (3) Am I using the right STL container for the access pattern?<br>
+                (4) Can I explain the memory layout of my solution?
+              </div>
+            </div>
+          </div>
+          <div class="proto-step">
+            <div class="proto-num" style="color:var(--orange)">+</div>
+            <div class="proto-content">
+              <div class="proto-time">If stuck after 20 min</div>
+              <div class="proto-title">Watch NeetCode Video — Then Implement From Scratch</div>
+              <div class="proto-desc">Watch the explanation. Close the video. Implement it yourself from a blank file. Never copy-paste a solution. If you copy-paste it, you don't own it.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px">
+        <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">Complexity Budget by Input Size</h3>
+        <div class="complexity-grid">
+          <div class="cx-card">
+            <div class="cx-n">n ≤ 20</div>
+            <div><div class="cx-big" style="color:var(--red)">O(2ⁿ)</div><div class="cx-label">Backtracking OK</div></div>
+          </div>
+          <div class="cx-card">
+            <div class="cx-n">n ≤ 500</div>
+            <div><div class="cx-big" style="color:var(--orange)">O(n²)</div><div class="cx-label">Nested loops OK</div></div>
+          </div>
+          <div class="cx-card">
+            <div class="cx-n">n ≤ 10⁴</div>
+            <div><div class="cx-big" style="color:var(--yellow)">O(n log n)</div><div class="cx-label">Sort + scan OK</div></div>
+          </div>
+          <div class="cx-card">
+            <div class="cx-n">n ≤ 10⁶</div>
+            <div><div class="cx-big" style="color:var(--green)">O(n)</div><div class="cx-label">Linear only</div></div>
+          </div>
+          <div class="cx-card">
+            <div class="cx-n">n ≤ 10⁸</div>
+            <div><div class="cx-big" style="color:var(--cyan)">O(log n)</div><div class="cx-label">Binary search only</div></div>
+          </div>
+          <div class="cx-card">
+            <div class="cx-n">Any n</div>
+            <div><div class="cx-big" style="color:var(--cyan)">O(1)</div><div class="cx-label">Math / formula</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HABITS -->
+    <section id="habits">
+      <div class="section-header">
+        <div class="section-num">H</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow">Build These From Day One</div>
+          <div class="section-title">C++ Habits & Anti-Patterns</div>
+          <div class="section-subtitle">Every mistake here is a real bug in a codebase somewhere.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <table class="habits-table">
+          <thead>
+            <tr>
+              <th>Anti-Pattern</th>
+              <th>What to Do Instead</th>
+              <th>Why It Matters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="habit-bad">vector&lt;T&gt; by value in param</span></td>
+              <td><span class="habit-good">const vector&lt;T&gt;&amp;</span></td>
+              <td>Passing by value copies the entire vector on every call. O(n) hidden cost.</td>
+            </tr>
+            <tr>
+              <td><span class="habit-bad">(lo + hi) / 2</span></td>
+              <td><span class="habit-good">lo + (hi - lo) / 2</span></td>
+              <td>lo + hi overflows INT_MAX when both are large. Undefined behavior.</td>
+            </tr>
+            <tr>
+              <td><span class="habit-bad">int with large multiplication</span></td>
+              <td><span class="habit-good">long long when n > 10⁴</span></td>
+              <td>10⁵ × 10⁵ = 10¹⁰ which overflows 32-bit int silently.</td>
+            </tr>
+            <tr>
+              <td><span class="habit-bad">cout &lt;&lt; endl</span></td>
+              <td><span class="habit-good">cout &lt;&lt; "\n"</span></td>
+              <td>endl flushes the buffer every call. "\n" does not. Significant in tight loops.</td>
+            </tr>
+            <tr>
+              <td><span class="habit-bad">for (int i=0; i &lt; v.size(); i++)</span></td>
+              <td><span class="habit-good">for (int i=0; i &lt; (int)v.size(); i++)</span></td>
+              <td>size() returns size_t (unsigned). Comparing int to unsigned causes subtle bugs when i goes negative.</td>
+            </tr>
+            <tr>
+              <td><span class="habit-bad">unordered_set for everything</span></td>
+              <td><span class="habit-good">Sort + two pointers when space matters</span></td>
+              <td>unordered_set has O(1) avg but ~149 MB overhead on large inputs. Sort is in-place.</td>
+            </tr>
+            <tr>
+              <td><span class="habit-bad">stack&lt;int&gt; (default deque backend)</span></td>
+              <td><span class="habit-good">stack&lt;int, vector&lt;int&gt;&gt;</span></td>
+              <td>deque is heap-fragmented. vector backend is contiguous → cache friendly.</td>
+            </tr>
+            <tr>
+              <td><span class="habit-bad">Not reserving unordered containers</span></td>
+              <td><span class="habit-good">seen.reserve(nums.size())</span></td>
+              <td>Without reserve, multiple rehashes occur. Reserve eliminates them entirely.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section id="resources">
+      <div class="section-header">
+        <div class="section-num">R</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow">Curated — No Fluff</div>
+          <div class="section-title">Resources</div>
+          <div class="section-subtitle">Everything you need. Everything you should ignore.</div>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em">Phase 1 — DSA & C++</h3>
+      <div class="resource-grid" style="margin-bottom:24px">
+        <a class="resource-card" href="https://learncpp.com" target="_blank">
+          <div class="resource-name">learncpp.com</div>
+          <div class="resource-url">learncpp.com</div>
+          <div class="resource-desc">Best free C++ resource. Don't read linearly. Use it as a reference when you hit something you don't understand while solving. Covers memory model, pointers, STL internals.</div>
+          <div class="resource-phase">Phase 1 · Reference</div>
+        </a>
+        <a class="resource-card" href="https://neetcode.io" target="_blank">
+          <div class="resource-name">NeetCode.io</div>
+          <div class="resource-url">neetcode.io</div>
+          <div class="resource-desc">Problems + video explanations. Watch the video only if stuck after 20 min. Read C++ solutions, not Python. The pattern-based organization is the curriculum.</div>
+          <div class="resource-phase">Phase 1 · Primary Platform</div>
+        </a>
+        <a class="resource-card" href="https://cppreference.com" target="_blank">
+          <div class="resource-name">cppreference.com</div>
+          <div class="resource-url">cppreference.com</div>
+          <div class="resource-desc">Authoritative STL documentation. When you need to know exactly what reserve() does or what the iterator invalidation rules are for vector. Bookmark it.</div>
+          <div class="resource-phase">Phase 1 · STL Reference</div>
+        </a>
+        <a class="resource-card" href="https://leetcode.com" target="_blank">
+          <div class="resource-name">LeetCode</div>
+          <div class="resource-url">leetcode.com</div>
+          <div class="resource-desc">Use for actual submission after solving on NeetCode. Don't use for problem discovery — NeetCode's curation is better. Don't trust the memory metrics across languages.</div>
+          <div class="resource-phase">Phase 1 · Submission</div>
+        </a>
+      </div>
+
+      <h3 style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--orange);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em">Phase 2 — ML Foundations</h3>
+      <div class="resource-grid" style="margin-bottom:24px">
+        <a class="resource-card" href="https://fast.ai" target="_blank">
+          <div class="resource-name">fast.ai</div>
+          <div class="resource-url">fast.ai · practical-dl.fast.ai</div>
+          <div class="resource-desc">Practical ML intuition. Top-down: you train models before you understand the math. Jeremy Howard's approach matches how engineers think. Free, Jupyter-based, run everything.</div>
+          <div class="resource-phase">Phase 2 · Weeks 1–4</div>
+        </a>
+        <a class="resource-card" href="https://youtube.com/@AndrejKarpathy" target="_blank">
+          <div class="resource-name">Andrej Karpathy — YouTube</div>
+          <div class="resource-url">youtube.com/@AndrejKarpathy</div>
+          <div class="resource-desc">Neural Networks: Zero to Hero. Build autograd, language models, GPT from scratch. The best ML series that exists. Do not skip makemore Part 4 (manual backprop).</div>
+          <div class="resource-phase">Phase 2 · CRITICAL — Weeks 5–10</div>
+        </a>
+        <a class="resource-card" href="https://pytorch.org/docs" target="_blank">
+          <div class="resource-name">PyTorch Docs</div>
+          <div class="resource-url">pytorch.org/docs</div>
+          <div class="resource-desc">Use as API reference when building. Don't read tutorials. Go straight to torch.nn, torch.optim, torch.onnx module docs. The source code is more informative than the docs.</div>
+          <div class="resource-phase">Phase 2 · Reference</div>
+        </a>
+        <a class="resource-card" href="https://onnx.ai" target="_blank">
+          <div class="resource-name">ONNX</div>
+          <div class="resource-url">onnx.ai · onnxruntime.ai</div>
+          <div class="resource-desc">Open Neural Network Exchange. The bridge between your PyTorch training and C++ inference. Understand the graph format before Phase 3 — it makes TensorRT much clearer.</div>
+          <div class="resource-phase">Phase 2→3 · Bridge</div>
+        </a>
+      </div>
+
+      <h3 style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--green);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em">Phase 3 — Edge AI & CUDA</h3>
+      <div class="resource-grid" style="margin-bottom:24px">
+        <a class="resource-card" href="https://onnxruntime.ai/docs/api/c/" target="_blank">
+          <div class="resource-name">ONNX Runtime C++ API</div>
+          <div class="resource-url">onnxruntime.ai/docs/api/c</div>
+          <div class="resource-desc">Microsoft's cross-platform inference runtime. The C++ API is clean. You'll load ONNX models, create sessions, pass input tensors, get output. The performance is production-grade.</div>
+          <div class="resource-phase">Phase 3 · Primary Inference Runtime</div>
+        </a>
+        <a class="resource-card" href="https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/" target="_blank">
+          <div class="resource-name">TensorRT Developer Guide</div>
+          <div class="resource-url">docs.nvidia.com/deeplearning/tensorrt</div>
+          <div class="resource-desc">NVIDIA's inference optimizer. FP16/INT8 quantization, operator fusion, dynamic shapes, engine serialization. Dense but authoritative. Read Chapters 1–5 before touching code.</div>
+          <div class="resource-phase">Phase 3 · GPU Optimization</div>
+        </a>
+        <a class="resource-card" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/" target="_blank">
+          <div class="resource-name">CUDA C++ Programming Guide</div>
+          <div class="resource-url">docs.nvidia.com/cuda</div>
+          <div class="resource-desc">The authoritative GPU programming reference. Thread hierarchy, memory model (registers → shared → global), warp execution, atomic operations. Start at Chapter 1, implement as you read.</div>
+          <div class="resource-phase">Phase 3 · CUDA Kernels</div>
+        </a>
+        <a class="resource-card" href="https://pybind11.readthedocs.io" target="_blank">
+          <div class="resource-name">pybind11</div>
+          <div class="resource-url">pybind11.readthedocs.io</div>
+          <div class="resource-desc">Seamless C++↔Python interop. Write inference in C++, call it from Python with numpy arrays. The buffer protocol section is critical for zero-copy data transfer.</div>
+          <div class="resource-phase">Phase 3 · Python Bridge</div>
+        </a>
+      </div>
+
+      <div class="card" style="border-color:var(--red);border-opacity:0.3">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(255,68,85,0.1);color:var(--red)">✕</div>
+          <div class="card-title" style="color:var(--red)">Ignore These</div>
+        </div>
+        <table class="habits-table">
+          <thead><tr><th>Resource</th><th>Why to Skip</th></tr></thead>
+          <tbody>
+            <tr><td>Udemy / Coursera DSA courses</td><td>Too slow. 40-hour courses for things NeetCode covers in 10 minutes of video.</td></tr>
+            <tr><td>GeeksforGeeks</td><td>Inconsistent quality, often teaches bad C++ habits, wrong complexity analysis.</td></tr>
+            <tr><td>HackerRank</td><td>Gamified, teaches pattern-matching not understanding. No architectural reasoning.</td></tr>
+            <tr><td>YouTube "DSA roadmap" videos</td><td>Meta-content about learning instead of actual learning. Procrastination in disguise.</td></tr>
+            <tr><td>Competitive programming (Codeforces)</td><td>Wrong target. CP optimizes for contest tricks, not engineering clarity.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WEEKLY REVIEW -->
+    <section id="weekly">
+      <div class="section-header">
+        <div class="section-num">W</div>
+        <div class="section-title-group">
+          <div class="section-eyebrow">Every Sunday · 15 Minutes</div>
+          <div class="section-title">Weekly Review</div>
+          <div class="section-subtitle">Entries save in your browser. Run this without skipping.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div style="font-size:11px;color:var(--text3)">Week of <span id="weekDate" style="color:var(--text2)"></span></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-ghost" onclick="loadReview()">load last</button>
+            <button class="btn btn-cyan" onclick="saveReview()">save review</button>
+          </div>
+        </div>
+        <div class="review-form">
+          <div class="review-field">
+            <div class="review-label">Problems Solved This Week</div>
+            <textarea id="rv-problems" placeholder="1. Contains Duplicate — two pointers approach&#10;2. ..." rows="4"></textarea>
+          </div>
+          <div class="review-field">
+            <div class="review-label">Patterns I Struggled With</div>
+            <textarea id="rv-struggled" placeholder="Sliding window shrink condition..." rows="2"></textarea>
+          </div>
+          <div class="review-field">
+            <div class="review-label">C++ Mistakes Made (const&, overflow, copies, etc.)</div>
+            <textarea id="rv-mistakes" placeholder="Forgot cast to (int) before comparing with .size()..." rows="2"></textarea>
+          </div>
+          <div class="review-field">
+            <div class="review-label">One Thing I Understand Better Than Last Week</div>
+            <textarea id="rv-better" placeholder="Now I understand why unordered_set uses so much memory..." rows="2"></textarea>
+          </div>
+          <div class="review-field">
+            <div class="review-label">Next Week's Target Pattern</div>
+            <textarea id="rv-next" placeholder="Two Pointers — all 5 problems" rows="1"></textarea>
+          </div>
+          <div class="review-field">
+            <div class="review-label">AlphaJEE / BetJee Progress (don't let these die)</div>
+            <textarea id="rv-projects" placeholder="Merged notifications system PR. BetJee LMSR q-vector working..." rows="2"></textarea>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:10px;color:var(--text3)" id="save-status"></div>
+      </div>
+
+      <div class="alert alert-cyan" style="margin-top:16px">
+        <div class="alert-icon">◈</div>
+        <div>
+          <strong style="color:var(--cyan)">The AlphaJEE Rule:</strong> Your projects are a stronger signal than any LeetCode streak. One merged feature per week minimum. Keep BetJee v2 moving. These are the differentiators in your applications — not problem count.
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+const NC_DATA = [
+  { group: "Arrays & Hashing", color: "var(--cyan)", problems: [
+    { name: "Contains Duplicate", diff: "easy", key: "nc-ah-1" },
+    { name: "Valid Anagram", diff: "easy", key: "nc-ah-2" },
+    { name: "Two Sum", diff: "easy", key: "nc-ah-3" },
+    { name: "Group Anagrams", diff: "medium", key: "nc-ah-4" },
+    { name: "Top K Frequent Elements", diff: "medium", key: "nc-ah-5" },
+    { name: "Encode and Decode Strings", diff: "medium", key: "nc-ah-6" },
+    { name: "Product of Array Except Self", diff: "medium", key: "nc-ah-7" },
+    { name: "Valid Sudoku", diff: "medium", key: "nc-ah-8" },
+    { name: "Longest Consecutive Sequence", diff: "medium", key: "nc-ah-9" },
+  ]},
+  { group: "Two Pointers", color: "var(--cyan)", problems: [
+    { name: "Valid Palindrome", diff: "easy", key: "nc-tp-1" },
+    { name: "Two Sum II - Input Array Is Sorted", diff: "medium", key: "nc-tp-2" },
+    { name: "3Sum", diff: "medium", key: "nc-tp-3" },
+    { name: "Container With Most Water", diff: "medium", key: "nc-tp-4" },
+    { name: "Trapping Rain Water", diff: "hard", key: "nc-tp-5" },
+  ]},
+  { group: "Sliding Window", color: "var(--cyan)", problems: [
+    { name: "Best Time to Buy and Sell Stock", diff: "easy", key: "nc-sw-1" },
+    { name: "Longest Substring Without Repeating Characters", diff: "medium", key: "nc-sw-2" },
+    { name: "Longest Repeating Character Replacement", diff: "medium", key: "nc-sw-3" },
+    { name: "Permutation in String", diff: "medium", key: "nc-sw-4" },
+    { name: "Minimum Window Substring", diff: "hard", key: "nc-sw-5" },
+    { name: "Sliding Window Maximum", diff: "hard", key: "nc-sw-6" },
+  ]},
+  { group: "Stack", color: "var(--cyan)", problems: [
+    { name: "Valid Parentheses", diff: "easy", key: "nc-st-1" },
+    { name: "Min Stack", diff: "medium", key: "nc-st-2" },
+    { name: "Evaluate Reverse Polish Notation", diff: "medium", key: "nc-st-3" },
+    { name: "Generate Parentheses", diff: "medium", key: "nc-st-4" },
+    { name: "Daily Temperatures", diff: "medium", key: "nc-st-5" },
+    { name: "Car Fleet", diff: "medium", key: "nc-st-6" },
+    { name: "Largest Rectangle in Histogram", diff: "hard", key: "nc-st-7" },
+  ]},
+  { group: "Binary Search", color: "var(--cyan)", problems: [
+    { name: "Binary Search", diff: "easy", key: "nc-bs-1" },
+    { name: "Search a 2D Matrix", diff: "medium", key: "nc-bs-2" },
+    { name: "Koko Eating Bananas", diff: "medium", key: "nc-bs-3" },
+    { name: "Find Minimum in Rotated Sorted Array", diff: "medium", key: "nc-bs-4" },
+    { name: "Search in Rotated Sorted Array", diff: "medium", key: "nc-bs-5" },
+    { name: "Time Based Key-Value Store", diff: "medium", key: "nc-bs-6" },
+    { name: "Median of Two Sorted Arrays", diff: "hard", key: "nc-bs-7" },
+  ]},
+  { group: "Linked List", color: "#c792ea", problems: [
+    { name: "Reverse Linked List", diff: "easy", key: "nc-ll-1" },
+    { name: "Merge Two Sorted Lists", diff: "easy", key: "nc-ll-2" },
+    { name: "Reorder List", diff: "medium", key: "nc-ll-3" },
+    { name: "Remove Nth Node From End of List", diff: "medium", key: "nc-ll-4" },
+    { name: "Copy List with Random Pointer", diff: "medium", key: "nc-ll-5" },
+    { name: "Add Two Numbers", diff: "medium", key: "nc-ll-6" },
+    { name: "Linked List Cycle", diff: "easy", key: "nc-ll-7" },
+    { name: "Find the Duplicate Number", diff: "medium", key: "nc-ll-8" },
+    { name: "LRU Cache", diff: "medium", key: "nc-ll-9" },
+    { name: "Merge K Sorted Lists", diff: "hard", key: "nc-ll-10" },
+    { name: "Reverse Nodes in K-Group", diff: "hard", key: "nc-ll-11" },
+  ]},
+  { group: "Trees", color: "#c792ea", problems: [
+    { name: "Invert Binary Tree", diff: "easy", key: "nc-tr-1" },
+    { name: "Maximum Depth of Binary Tree", diff: "easy", key: "nc-tr-2" },
+    { name: "Diameter of Binary Tree", diff: "easy", key: "nc-tr-3" },
+    { name: "Balanced Binary Tree", diff: "easy", key: "nc-tr-4" },
+    { name: "Same Tree", diff: "easy", key: "nc-tr-5" },
+    { name: "Subtree of Another Tree", diff: "easy", key: "nc-tr-6" },
+    { name: "Lowest Common Ancestor of BST", diff: "medium", key: "nc-tr-7" },
+    { name: "Binary Tree Level Order Traversal", diff: "medium", key: "nc-tr-8" },
+    { name: "Binary Tree Right Side View", diff: "medium", key: "nc-tr-9" },
+    { name: "Count Good Nodes in Binary Tree", diff: "medium", key: "nc-tr-10" },
+    { name: "Validate Binary Search Tree", diff: "medium", key: "nc-tr-11" },
+    { name: "Kth Smallest Element in BST", diff: "medium", key: "nc-tr-12" },
+    { name: "Construct Binary Tree from Preorder and Inorder", diff: "medium", key: "nc-tr-13" },
+    { name: "Binary Tree Maximum Path Sum", diff: "hard", key: "nc-tr-14" },
+    { name: "Serialize and Deserialize Binary Tree", diff: "hard", key: "nc-tr-15" },
+  ]},
+  { group: "Heap / Priority Queue", color: "#c792ea", problems: [
+    { name: "Kth Largest Element in a Stream", diff: "easy", key: "nc-hp-1" },
+    { name: "Last Stone Weight", diff: "easy", key: "nc-hp-2" },
+    { name: "K Closest Points to Origin", diff: "medium", key: "nc-hp-3" },
+    { name: "Kth Largest Element in an Array", diff: "medium", key: "nc-hp-4" },
+    { name: "Task Scheduler", diff: "medium", key: "nc-hp-5" },
+    { name: "Design Twitter", diff: "medium", key: "nc-hp-6" },
+    { name: "Find Median from Data Stream", diff: "hard", key: "nc-hp-7" },
+  ]},
+  { group: "Backtracking", color: "var(--orange)", problems: [
+    { name: "Subsets", diff: "medium", key: "nc-bt-1" },
+    { name: "Combination Sum", diff: "medium", key: "nc-bt-2" },
+    { name: "Permutations", diff: "medium", key: "nc-bt-3" },
+    { name: "Subsets II", diff: "medium", key: "nc-bt-4" },
+    { name: "Combination Sum II", diff: "medium", key: "nc-bt-5" },
+    { name: "Word Search", diff: "medium", key: "nc-bt-6" },
+    { name: "Palindrome Partitioning", diff: "medium", key: "nc-bt-7" },
+    { name: "Letter Combinations of a Phone Number", diff: "medium", key: "nc-bt-8" },
+    { name: "N-Queens", diff: "hard", key: "nc-bt-9" },
+  ]},
+  { group: "Tries", color: "var(--orange)", problems: [
+    { name: "Implement Trie (Prefix Tree)", diff: "medium", key: "nc-ti-1" },
+    { name: "Design Add and Search Words Data Structure", diff: "medium", key: "nc-ti-2" },
+    { name: "Word Search II", diff: "hard", key: "nc-ti-3" },
+  ]},
+  { group: "Graphs", color: "var(--orange)", problems: [
+    { name: "Number of Islands", diff: "medium", key: "nc-gr-1" },
+    { name: "Clone Graph", diff: "medium", key: "nc-gr-2" },
+    { name: "Max Area of Island", diff: "medium", key: "nc-gr-3" },
+    { name: "Pacific Atlantic Water Flow", diff: "medium", key: "nc-gr-4" },
+    { name: "Surrounded Regions", diff: "medium", key: "nc-gr-5" },
+    { name: "Rotting Oranges", diff: "medium", key: "nc-gr-6" },
+    { name: "Walls and Gates", diff: "medium", key: "nc-gr-7" },
+    { name: "Course Schedule", diff: "medium", key: "nc-gr-8" },
+    { name: "Course Schedule II", diff: "medium", key: "nc-gr-9" },
+    { name: "Redundant Connection", diff: "medium", key: "nc-gr-10" },
+    { name: "Number of Connected Components", diff: "medium", key: "nc-gr-11" },
+    { name: "Graph Valid Tree", diff: "medium", key: "nc-gr-12" },
+    { name: "Word Ladder", diff: "hard", key: "nc-gr-13" },
+  ]},
+  { group: "Advanced Graphs", color: "var(--orange)", problems: [
+    { name: "Reconstruct Itinerary", diff: "hard", key: "nc-ag-1" },
+    { name: "Min Cost to Connect All Points", diff: "medium", key: "nc-ag-2" },
+    { name: "Network Delay Time", diff: "medium", key: "nc-ag-3" },
+    { name: "Swim in Rising Water", diff: "hard", key: "nc-ag-4" },
+    { name: "Alien Dictionary", diff: "hard", key: "nc-ag-5" },
+    { name: "Cheapest Flights Within K Stops", diff: "medium", key: "nc-ag-6" },
+  ]},
+  { group: "1D Dynamic Programming", color: "var(--green)", problems: [
+    { name: "Climbing Stairs", diff: "easy", key: "nc-dp-1" },
+    { name: "Min Cost Climbing Stairs", diff: "easy", key: "nc-dp-2" },
+    { name: "House Robber", diff: "medium", key: "nc-dp-3" },
+    { name: "House Robber II", diff: "medium", key: "nc-dp-4" },
+    { name: "Longest Palindromic Substring", diff: "medium", key: "nc-dp-5" },
+    { name: "Palindromic Substrings", diff: "medium", key: "nc-dp-6" },
+    { name: "Decode Ways", diff: "medium", key: "nc-dp-7" },
+    { name: "Coin Change", diff: "medium", key: "nc-dp-8" },
+    { name: "Maximum Product Subarray", diff: "medium", key: "nc-dp-9" },
+    { name: "Word Break", diff: "medium", key: "nc-dp-10" },
+    { name: "Longest Increasing Subsequence", diff: "medium", key: "nc-dp-11" },
+    { name: "Partition Equal Subset Sum", diff: "medium", key: "nc-dp-12" },
+  ]},
+  { group: "2D Dynamic Programming", color: "var(--green)", problems: [
+    { name: "Unique Paths", diff: "medium", key: "nc-2d-1" },
+    { name: "Longest Common Subsequence", diff: "medium", key: "nc-2d-2" },
+    { name: "Best Time to Buy/Sell Stock with Cooldown", diff: "medium", key: "nc-2d-3" },
+    { name: "Coin Change II", diff: "medium", key: "nc-2d-4" },
+    { name: "Target Sum", diff: "medium", key: "nc-2d-5" },
+    { name: "Interleaving String", diff: "medium", key: "nc-2d-6" },
+    { name: "Longest Increasing Path in Matrix", diff: "hard", key: "nc-2d-7" },
+    { name: "Distinct Subsequences", diff: "hard", key: "nc-2d-8" },
+    { name: "Edit Distance", diff: "medium", key: "nc-2d-9" },
+    { name: "Burst Balloons", diff: "hard", key: "nc-2d-10" },
+    { name: "Regular Expression Matching", diff: "hard", key: "nc-2d-11" },
+  ]},
+  { group: "Greedy", color: "var(--yellow)", problems: [
+    { name: "Maximum Subarray", diff: "medium", key: "nc-gy-1" },
+    { name: "Jump Game", diff: "medium", key: "nc-gy-2" },
+    { name: "Jump Game II", diff: "medium", key: "nc-gy-3" },
+    { name: "Gas Station", diff: "medium", key: "nc-gy-4" },
+    { name: "Hand of Straights", diff: "medium", key: "nc-gy-5" },
+    { name: "Merge Triplets to Form Target Triplet", diff: "medium", key: "nc-gy-6" },
+    { name: "Partition Labels", diff: "medium", key: "nc-gy-7" },
+    { name: "Valid Parenthesis String", diff: "medium", key: "nc-gy-8" },
+  ]},
+  { group: "Intervals", color: "var(--yellow)", problems: [
+    { name: "Insert Interval", diff: "medium", key: "nc-iv-1" },
+    { name: "Merge Intervals", diff: "medium", key: "nc-iv-2" },
+    { name: "Non-overlapping Intervals", diff: "medium", key: "nc-iv-3" },
+    { name: "Meeting Rooms", diff: "easy", key: "nc-iv-4" },
+    { name: "Meeting Rooms II", diff: "medium", key: "nc-iv-5" },
+    { name: "Minimum Interval to Include Each Query", diff: "hard", key: "nc-iv-6" },
+  ]},
+  { group: "Math & Geometry", color: "var(--yellow)", problems: [
+    { name: "Rotate Image", diff: "medium", key: "nc-mg-1" },
+    { name: "Spiral Matrix", diff: "medium", key: "nc-mg-2" },
+    { name: "Set Matrix Zeroes", diff: "medium", key: "nc-mg-3" },
+    { name: "Happy Number", diff: "easy", key: "nc-mg-4" },
+    { name: "Plus One", diff: "easy", key: "nc-mg-5" },
+    { name: "Pow(x, n)", diff: "medium", key: "nc-mg-6" },
+    { name: "Multiply Strings", diff: "medium", key: "nc-mg-7" },
+    { name: "Detect Squares", diff: "medium", key: "nc-mg-8" },
+  ]},
+  { group: "Bit Manipulation", color: "var(--yellow)", problems: [
+    { name: "Single Number", diff: "easy", key: "nc-bm-1" },
+    { name: "Number of 1 Bits", diff: "easy", key: "nc-bm-2" },
+    { name: "Counting Bits", diff: "easy", key: "nc-bm-3" },
+    { name: "Reverse Bits", diff: "easy", key: "nc-bm-4" },
+    { name: "Missing Number", diff: "easy", key: "nc-bm-5" },
+    { name: "Sum of Two Integers", diff: "medium", key: "nc-bm-6" },
+    { name: "Reverse Integer", diff: "medium", key: "nc-bm-7" },
+  ]},
+];
+
+// ─── STATE ──────────────────────────────────────────────
+function getState() {
+  try { return JSON.parse(localStorage.getItem('roadmap-state') || '{}'); } catch { return {}; }
+}
+
+function setState(key, val) {
+  const s = getState();
+  s[key] = val;
+  localStorage.setItem('roadmap-state', JSON.stringify(s));
+}
+
+function isChecked(key) { return !!getState()[key]; }
+
+// ─── CHECKLIST ──────────────────────────────────────────
+function toggleCheck(el) {
+  const key = el.dataset.key;
+  const done = !isChecked(key);
+  setState(key, done);
+  el.classList.toggle('done', done);
+  updateProgress();
+}
+
+function initChecklists() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    if (isChecked(el.dataset.key)) el.classList.add('done');
+  });
+}
+
+// ─── NEETCODE RENDER ────────────────────────────────────
+function renderNC() {
+  const container = document.getElementById('nc-list');
+  const state = getState();
+
+  NC_DATA.forEach(group => {
+    const done = group.problems.filter(p => state[p.key]).length;
+    const total = group.problems.length;
+    const pct = Math.round((done/total)*100);
+
+    const div = document.createElement('div');
+    div.className = 'nc-group';
+
+    const header = document.createElement('div');
+    header.className = 'nc-group-header';
+    header.innerHTML = `
+      <div class="nc-group-title">
+        <span style="width:8px;height:8px;border-radius:50%;background:${group.color};display:inline-block;flex-shrink:0"></span>
+        ${group.group}
+      </div>
+      <div class="nc-group-prog">
+        <span style="color:${group.color}">${done}/${total}</span>
+        <div style="width:60px;height:3px;background:var(--border);border-radius:2px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${group.color};transition:width 0.5s"></div>
+        </div>
+      </div>
+    `;
+
+    const body = document.createElement('div');
+    body.className = 'nc-group-body';
+    body.style.display = 'block';
+
+    group.problems.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'nc-item' + (state[p.key] ? ' done' : '');
+      item.dataset.key = p.key;
+      item.innerHTML = `
+        <div class="nc-check">${state[p.key] ? '✓' : ''}</div>
+        <div class="nc-name">${p.name}</div>
+        <span class="diff-badge diff-${p.diff}">${p.diff}</span>
+      `;
+      item.onclick = () => {
+        const checked = !isChecked(p.key);
+        setState(p.key, checked);
+        item.classList.toggle('done', checked);
+        item.querySelector('.nc-check').textContent = checked ? '✓' : '';
+        // update group header
+        const grpDone = group.problems.filter(pp => isChecked(pp.key)).length;
+        header.querySelector('.nc-group-prog span').textContent = `${grpDone}/${total}`;
+        header.querySelector('[style*="width:"]').style.width = Math.round((grpDone/total)*100) + '%';
+        updateProgress();
+      };
+      body.appendChild(item);
+    });
+
+    header.onclick = () => {
+      body.style.display = body.style.display === 'none' ? 'block' : 'none';
+    };
+
+    div.appendChild(header);
+    div.appendChild(body);
+    container.appendChild(div);
+  });
+}
+
+// ─── PROGRESS ───────────────────────────────────────────
+function updateProgress() {
+  const total = NC_DATA.reduce((s,g) => s + g.problems.length, 0);
+  const done = NC_DATA.reduce((s,g) => s + g.problems.filter(p => isChecked(p.key)).length, 0);
+  const pct = Math.round((done/total)*100);
+
+  const circ = 2 * Math.PI * 20;
+  const offset = circ - (pct/100) * circ;
+  document.getElementById('progressRing').style.strokeDashoffset = offset;
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent = done + ' / ' + total;
+}
+
+// ─── PATTERNS TOGGLE ────────────────────────────────────
+function togglePattern(card) {
+  card.classList.toggle('expanded');
+}
+
+// ─── NAV ────────────────────────────────────────────────
+function setActive(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── WEEKLY ─────────────────────────────────────────────
+function getWeekDate() {
+  const d = new Date();
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  const mon = new Date(d.setDate(diff));
+  return mon.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function saveReview() {
+  const week = getWeekDate();
+  const data = {
+    problems: document.getElementById('rv-problems').value,
+    struggled: document.getElementById('rv-struggled').value,
+    mistakes: document.getElementById('rv-mistakes').value,
+    better: document.getElementById('rv-better').value,
+    next: document.getElementById('rv-next').value,
+    projects: document.getElementById('rv-projects').value,
+  };
+  localStorage.setItem('review-' + week, JSON.stringify(data));
+  document.getElementById('save-status').textContent = '✓ Saved for week of ' + week;
+  setTimeout(() => document.getElementById('save-status').textContent = '', 3000);
+}
+
+function loadReview() {
+  const week = getWeekDate();
+  const raw = localStorage.getItem('review-' + week);
+  if (!raw) { document.getElementById('save-status').textContent = 'No review saved for this week yet.'; return; }
+  const data = JSON.parse(raw);
+  document.getElementById('rv-problems').value = data.problems || '';
+  document.getElementById('rv-struggled').value = data.struggled || '';
+  document.getElementById('rv-mistakes').value = data.mistakes || '';
+  document.getElementById('rv-better').value = data.better || '';
+  document.getElementById('rv-next').value = data.next || '';
+  document.getElementById('rv-projects').value = data.projects || '';
+}
+
+// ─── RESET ──────────────────────────────────────────────
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  localStorage.removeItem('roadmap-state');
+  location.reload();
+}
+
+// ─── SCROLL SPY ─────────────────────────────────────────
+function initScrollSpy() {
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const target = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+        if (target) target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+}
+
+// ─── INIT ────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderNC();
+  initChecklists();
+  updateProgress();
+  initScrollSpy();
+  document.getElementById('weekDate').textContent = getWeekDate();
+  loadReview();
+});
+</script>
+</body>
+</html>
