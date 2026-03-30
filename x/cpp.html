@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$ ayush — roadmap v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #090909;
+  --bg2: #101012;
+  --bg3: #161618;
+  --bg4: #1c1c1f;
+  --border: #242428;
+  --border2: #333338;
+  --cyan: #00d4ff;
+  --cyan2: rgba(0,212,255,0.08);
+  --cyan3: rgba(0,212,255,0.04);
+  --orange: #ff6b2b;
+  --orange2: rgba(255,107,43,0.08);
+  --green: #00e87a;
+  --green2: rgba(0,232,122,0.08);
+  --yellow: #f5c400;
+  --purple: #b57aff;
+  --red: #ff3d55;
+  --text: #ebebf0;
+  --text2: #8888a0;
+  --text3: #444458;
+  --sw: 248px;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; top: 0; left: 0;
+  width: var(--sw); height: 100vh;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  z-index: 200; overflow-y: auto;
+}
+
+.sb-brand {
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sb-logo {
+  font-size: 13px; font-weight: 700;
+  color: var(--cyan); letter-spacing: 0.04em;
+}
+.sb-logo span { color: var(--text3); }
+.sb-sub {
+  font-size: 9.5px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.12em; margin-top: 3px;
+}
+.sb-version {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 9px; color: var(--orange);
+  background: var(--orange2); border: 1px solid rgba(255,107,43,0.2);
+  padding: 1px 7px; border-radius: 10px; margin-top: 8px;
+}
+
+/* progress */
+.sb-progress {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.prog-label {
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--text3); margin-bottom: 10px;
+}
+
+.prog-stat {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.prog-name { font-size: 10px; color: var(--text2); }
+.prog-count { font-size: 10px; color: var(--text3); }
+
+.prog-bar {
+  height: 2px; background: var(--border);
+  border-radius: 1px; overflow: hidden; margin-bottom: 10px;
+}
+.prog-fill { height: 100%; border-radius: 1px; transition: width 0.6s ease; }
+
+.total-prog {
+  display: flex; align-items: center; gap: 10px; margin-top: 4px;
+}
+.total-num {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 800;
+  color: var(--cyan); line-height: 1;
+}
+.total-label { font-size: 10px; color: var(--text3); line-height: 1.4; }
+.total-label strong { color: var(--text2); display: block; }
+
+/* nav */
+.sb-nav { flex: 1; padding: 8px 0; }
+
+.nav-section-label {
+  font-size: 8.5px; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--text3);
+  padding: 10px 20px 4px;
+}
+
+.nav-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 20px;
+  font-size: 11.5px; color: var(--text2);
+  cursor: pointer; text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.12s;
+  position: relative;
+}
+.nav-item:hover { color: var(--text); background: var(--bg3); }
+.nav-item.active {
+  color: var(--cyan);
+  background: var(--cyan2);
+  border-left-color: var(--cyan);
+}
+
+.nav-pip {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--border2); flex-shrink: 0;
+  transition: all 0.12s;
+}
+.nav-item.active .nav-pip { background: var(--cyan); box-shadow: 0 0 5px var(--cyan); }
+
+.nav-badge {
+  margin-left: auto; font-size: 8.5px;
+  padding: 1px 5px; border-radius: 2px; font-weight: 600;
+}
+.nb-cyan { background: var(--cyan2); color: var(--cyan); }
+.nb-orange { background: var(--orange2); color: var(--orange); }
+.nb-green { background: var(--green2); color: var(--green); }
+.nb-purple { background: rgba(181,122,255,0.1); color: var(--purple); }
+
+.sb-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 9.5px; color: var(--text3);
+}
+
+/* ── MAIN ── */
+.main { margin-left: var(--sw); min-height: 100vh; }
+
+.topbar {
+  position: sticky; top: 0;
+  height: 48px;
+  background: rgba(9,9,9,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  z-index: 100;
+}
+
+.breadcrumb { font-size: 11px; color: var(--text3); }
+.breadcrumb .seg { color: var(--text2); }
+.breadcrumb .sep { margin: 0 7px; }
+
+.topbar-right { display: flex; gap: 6px; align-items: center; }
+
+.btn {
+  font-family: var(--font-mono); font-size: 10.5px;
+  padding: 4px 11px; border-radius: 3px;
+  border: none; cursor: pointer; transition: all 0.12s;
+  letter-spacing: 0.02em;
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+}
+.btn-ghost:hover { border-color: var(--border2); color: var(--text); }
+.btn-primary {
+  background: var(--cyan); color: #000; font-weight: 700;
+}
+.btn-primary:hover { opacity: 0.85; }
+
+/* ── CONTENT ── */
+.content { padding: 36px 40px 80px; max-width: 900px; }
+
+section { scroll-margin-top: 60px; margin-bottom: 72px; }
+
+/* ── HERO ── */
+.hero { padding: 40px 0 48px; }
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 9.5px; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--cyan); margin-bottom: 14px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 24px; height: 1px; background: var(--cyan);
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 48px; font-weight: 800;
+  line-height: 1.04; letter-spacing: -0.025em;
+  margin-bottom: 14px;
+}
+.h1-cyan { color: var(--cyan); }
+.h1-orange { color: var(--orange); }
+
+.hero-desc {
+  font-size: 12px; color: var(--text2);
+  max-width: 540px; line-height: 1.85; margin-bottom: 28px;
+}
+
+.hero-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: 10px; padding: 3px 10px;
+  border-radius: 2px; border: 1px solid var(--border2);
+  color: var(--text2);
+}
+.chip-cyan { border-color: rgba(0,212,255,0.3); color: var(--cyan); background: var(--cyan2); }
+.chip-orange { border-color: rgba(255,107,43,0.3); color: var(--orange); background: var(--orange2); }
+.chip-green { border-color: rgba(0,232,122,0.3); color: var(--green); background: var(--green2); }
+
+/* ── SECTION HEADER ── */
+.sh {
+  display: flex; align-items: flex-start;
+  gap: 14px; margin-bottom: 28px;
+}
+.sh-num {
+  font-family: var(--font-display);
+  font-size: 44px; font-weight: 800;
+  line-height: 1; flex-shrink: 0;
+  padding-top: 2px;
+}
+.sh-body { flex: 1; }
+.sh-eye {
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.15em; margin-bottom: 3px;
+}
+.sh-title {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 700; color: var(--text);
+}
+.sh-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
+
+/* ── TASK LIST ── */
+.task-group { margin-bottom: 20px; }
+
+.tg-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s;
+}
+.tg-header:hover { background: var(--bg4); }
+
+.tg-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.tg-name {
+  font-family: var(--font-display);
+  font-size: 12.5px; font-weight: 700; color: var(--text); flex: 1;
+}
+.tg-prog {
+  font-size: 9.5px; color: var(--text3);
+  display: flex; align-items: center; gap: 8px;
+}
+.tg-bar-wrap {
+  width: 52px; height: 2px;
+  background: var(--border); border-radius: 1px; overflow: hidden;
+}
+.tg-bar-fill { height: 100%; border-radius: 1px; transition: width 0.5s; }
+.tg-chevron {
+  font-size: 9px; color: var(--text3);
+  transition: transform 0.2s;
+}
+.tg-header.open .tg-chevron { transform: rotate(180deg); }
+
+.tg-body {
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+}
+
+.task-item {
+  display: flex; align-items: flex-start;
+  gap: 11px; padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.task-item:last-child { border-bottom: none; }
+.task-item:hover { background: var(--bg3); }
+.task-item.done { opacity: 0.45; }
+.task-item.done .task-text { text-decoration: line-through; color: var(--text3); }
+
+.task-check {
+  width: 14px; height: 14px; border-radius: 2px;
+  border: 1px solid var(--border2); flex-shrink: 0;
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700;
+  transition: all 0.15s;
+}
+.task-item.done .task-check {
+  background: var(--green); border-color: var(--green); color: #000;
+}
+
+.task-body { flex: 1; }
+.task-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.task-text strong { color: var(--text); font-weight: 600; }
+
+.task-tip {
+  margin-top: 5px;
+  padding: 7px 10px;
+  background: var(--bg4);
+  border-left: 2px solid var(--border2);
+  border-radius: 0 3px 3px 0;
+  font-size: 10.5px; color: var(--text3);
+  line-height: 1.6;
+}
+.task-tip.tip-cyan { border-left-color: var(--cyan); color: rgba(0,212,255,0.6); }
+.task-tip.tip-orange { border-left-color: var(--orange); color: rgba(255,107,43,0.6); }
+.task-tip.tip-green { border-left-color: var(--green); color: rgba(0,232,122,0.6); }
+.task-tip.tip-yellow { border-left-color: var(--yellow); color: rgba(245,196,0,0.6); }
+
+.task-tag {
+  display: inline-flex; align-items: center;
+  font-size: 9px; padding: 1px 6px;
+  border-radius: 2px; font-weight: 600;
+  margin-left: 6px; vertical-align: middle;
+}
+.tt-cyan { background: var(--cyan2); color: var(--cyan); }
+.tt-orange { background: var(--orange2); color: var(--orange); }
+.tt-green { background: var(--green2); color: var(--green); }
+.tt-purple { background: rgba(181,122,255,0.08); color: var(--purple); }
+.tt-red { background: rgba(255,61,85,0.08); color: var(--red); }
+
+/* ── CODE ── */
+.code {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 3px; padding: 14px 16px; margin: 8px 0;
+  overflow-x: auto;
+}
+.code pre {
+  font-family: var(--font-mono); font-size: 11px;
+  line-height: 1.75; color: var(--text2);
+}
+.kw { color: var(--cyan); }
+.cm { color: var(--text3); font-style: italic; }
+.ok { color: var(--green); }
+.bad { color: var(--red); }
+.val { color: var(--orange); }
+
+/* ── INFO CARD ── */
+.info-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 5px; padding: 18px 20px; margin-bottom: 12px;
+}
+.info-card:hover { border-color: var(--border2); }
+.ic-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.ic-icon {
+  width: 26px; height: 26px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; flex-shrink: 0;
+}
+.ici-cyan { background: var(--cyan2); color: var(--cyan); }
+.ici-orange { background: var(--orange2); color: var(--orange); }
+.ici-green { background: var(--green2); color: var(--green); }
+.ici-purple { background: rgba(181,122,255,0.08); color: var(--purple); }
+.ic-title {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 700; color: var(--text);
+}
+.ic-meta { margin-left: auto; font-size: 9.5px; color: var(--text3); }
+.ic-body { font-size: 11.5px; color: var(--text2); line-height: 1.75; }
+
+/* ── TABLE ── */
+.t { width: 100%; border-collapse: collapse; }
+.t th {
+  text-align: left; padding: 8px 14px;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text3);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg3);
+}
+.t td {
+  padding: 9px 14px; font-size: 11.5px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2); vertical-align: top;
+}
+.t tr:last-child td { border-bottom: none; }
+.t tr:hover td { background: var(--bg3); }
+
+/* ── ALERT ── */
+.alert {
+  display: flex; gap: 11px; align-items: flex-start;
+  padding: 12px 16px; border-radius: 4px;
+  font-size: 11.5px; line-height: 1.7;
+  margin: 12px 0;
+}
+.alert-icon { font-size: 13px; flex-shrink: 0; }
+.alert-cyan { background: var(--cyan2); border-left: 3px solid var(--cyan); color: var(--text2); }
+.alert-orange { background: var(--orange2); border-left: 3px solid var(--orange); color: var(--text2); }
+.alert-green { background: var(--green2); border-left: 3px solid var(--green); color: var(--text2); }
+
+/* ── RESOURCE GRID ── */
+.res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.res-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 5px; padding: 14px 16px;
+  text-decoration: none; display: block;
+  transition: all 0.12s;
+}
+.res-card:hover {
+  border-color: rgba(0,212,255,0.4);
+  background: var(--cyan3);
+  transform: translateY(-1px);
+}
+.res-name {
+  font-family: var(--font-display);
+  font-size: 12.5px; font-weight: 700; color: var(--text); margin-bottom: 2px;
+}
+.res-url { font-size: 9.5px; color: var(--cyan); margin-bottom: 7px; }
+.res-desc { font-size: 11px; color: var(--text2); line-height: 1.65; }
+.res-phase { font-size: 9px; color: var(--text3); margin-top: 7px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── NC SECTION ── */
+.nc-group { margin-bottom: 6px; }
+
+.nc-gh {
+  display: flex; align-items: center;
+  padding: 9px 14px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 4px 4px 0 0; cursor: pointer;
+  transition: background 0.1s;
+}
+.nc-gh:hover { background: var(--bg4); }
+.nc-gh-dot { width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; }
+.nc-gh-name {
+  font-family: var(--font-display); font-size: 12.5px; font-weight: 700;
+  color: var(--text); flex: 1;
+}
+.nc-gh-right { display: flex; align-items: center; gap: 8px; font-size: 9.5px; color: var(--text3); }
+.nc-gh-bar { width: 48px; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+.nc-gh-fill { height: 100%; border-radius: 1px; transition: width 0.5s; }
+
+.nc-gb {
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 4px 4px; overflow: hidden;
+}
+
+.nc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.1s; font-size: 11.5px;
+}
+.nc-item:last-child { border-bottom: none; }
+.nc-item:hover { background: var(--bg3); }
+.nc-item.done { opacity: 0.4; }
+.nc-item.done .nc-name { text-decoration: line-through; }
+
+.nc-ck {
+  width: 13px; height: 13px; border-radius: 2px;
+  border: 1px solid var(--border2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 700; transition: all 0.12s;
+}
+.nc-item.done .nc-ck { background: var(--green); border-color: var(--green); color: #000; }
+
+.nc-name { flex: 1; color: var(--text2); }
+
+.diff { font-size: 8.5px; padding: 1px 5px; border-radius: 2px; font-weight: 600; }
+.diff-easy { background: var(--green2); color: var(--green); }
+.diff-medium { background: rgba(245,196,0,0.08); color: var(--yellow); }
+.diff-hard { background: rgba(255,61,85,0.08); color: var(--red); }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+.content > section { animation: fadeUp 0.35s ease both; }
+
+/* ── HARDWARE PROJECT ── */
+.hw-stack {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+  align-items: center; margin: 16px 0;
+}
+.hw-box {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 4px; padding: 14px;
+}
+.hw-box-title {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+.hw-box ul { list-style: none; }
+.hw-box ul li {
+  font-size: 11px; color: var(--text2); padding: 2px 0;
+  display: flex; align-items: center; gap: 6px;
+}
+.hw-box ul li::before { content: '→'; color: var(--text3); font-size: 10px; }
+.hw-arrow {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 12px; color: var(--text3); font-size: 16px;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo"><span>$ </span>ayush</div>
+    <div class="sb-sub">Edge AI · ML Infra Roadmap</div>
+    <div class="sb-version">v2.0 — updated</div>
+  </div>
+
+  <div class="sb-progress">
+    <div class="prog-label">Overall Progress</div>
+
+    <div class="prog-stat">
+      <span class="prog-name">DSA (NeetCode 150)</span>
+      <span class="prog-count" id="nc-count">0/150</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="nc-bar" style="background:var(--cyan);width:0%"></div></div>
+
+    <div class="prog-stat">
+      <span class="prog-name">ML Foundations</span>
+      <span class="prog-count" id="ml-count">0/14</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="ml-bar" style="background:var(--orange);width:0%"></div></div>
+
+    <div class="prog-stat">
+      <span class="prog-name">Edge AI / Hardware</span>
+      <span class="prog-count" id="edge-count">0/20</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="edge-bar" style="background:var(--green);width:0%"></div></div>
+
+    <div class="total-prog" style="margin-top:10px">
+      <div class="total-num" id="total-pct">0%</div>
+      <div class="total-label"><strong id="total-label">0 / 184</strong>total tasks done</div>
+    </div>
+  </div>
+
+  <nav class="sb-nav">
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item active" href="#overview" onclick="setActive(this)"><div class="nav-pip"></div>Overview</a>
+
+    <div class="nav-section-label">Phase 1 — C++ & DSA</div>
+    <a class="nav-item" href="#cpp-foundations" onclick="setActive(this)"><div class="nav-pip"></div>C++ Foundations <span class="nav-badge nb-cyan">start here</span></a>
+    <a class="nav-item" href="#dsa-patterns" onclick="setActive(this)"><div class="nav-pip"></div>DSA Patterns</a>
+    <a class="nav-item" href="#neetcode" onclick="setActive(this)"><div class="nav-pip"></div>NeetCode 150</a>
+
+    <div class="nav-section-label">Phase 2 — ML</div>
+    <a class="nav-item" href="#ml-foundations" onclick="setActive(this)"><div class="nav-pip"></div>ML Foundations <span class="nav-badge nb-orange">parallel</span></a>
+
+    <div class="nav-section-label">Phase 3 — Edge AI</div>
+    <a class="nav-item" href="#inference" onclick="setActive(this)"><div class="nav-pip"></div>Inference Stack</a>
+    <a class="nav-item" href="#hardware" onclick="setActive(this)"><div class="nav-pip"></div>Hardware Project <span class="nav-badge nb-green">Pi + Docker</span></a>
+    <a class="nav-item" href="#deployment" onclick="setActive(this)"><div class="nav-pip"></div>Deployment Layer</a>
+    <a class="nav-item" href="#cuda" onclick="setActive(this)"><div class="nav-pip"></div>CUDA Kernels</a>
+
+    <div class="nav-section-label">Reference</div>
+    <a class="nav-item" href="#cpp-habits" onclick="setActive(this)"><div class="nav-pip"></div>C++ Habits</a>
+    <a class="nav-item" href="#resources" onclick="setActive(this)"><div class="nav-pip"></div>Resources</a>
+    <a class="nav-item" href="#jobs" onclick="setActive(this)"><div class="nav-pip"></div>Target Jobs</a>
+  </nav>
+
+  <div class="sb-footer">NYCU CS · Fall 2026 · Taiwan</div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="breadcrumb">
+      <span class="seg">$ ayush</span><span class="sep">/</span><span class="seg">roadmap</span><span class="sep">/</span><span style="color:var(--orange)">v2</span>
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-ghost" onclick="resetAll()">reset</button>
+      <button class="btn btn-primary" onclick="window.print()">export pdf</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <div class="hero">
+        <div class="hero-eyebrow">Edge AI · ML Infrastructure · Taiwan</div>
+        <h1>The <span class="h1-cyan">Plan.</span><br>No fluff, <span class="h1-orange">just tasks.</span></h1>
+        <p class="hero-desc">
+          Updated roadmap based on actual job descriptions, NYCU curriculum, and Taiwan's
+          semiconductor job market. No timetables. Just what to learn, in order, with tips on what actually matters.
+          Progress saves locally.
+        </p>
+        <div class="hero-chips">
+          <span class="chip chip-cyan">C++ primary</span>
+          <span class="chip chip-cyan">Python ML interface</span>
+          <span class="chip chip-orange">fast.ai + Karpathy</span>
+          <span class="chip chip-orange">PyTorch → ONNX</span>
+          <span class="chip chip-green">TensorRT</span>
+          <span class="chip chip-green">Raspberry Pi 5</span>
+          <span class="chip chip-green">Docker + systemd</span>
+          <span class="chip">NeetCode 150</span>
+          <span class="chip">Codeforces (fun)</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="ic-header">
+          <div class="ic-icon ici-cyan">⚡</div>
+          <div class="ic-title">The Three-Layer Stack</div>
+        </div>
+        <table class="t">
+          <thead><tr><th>Layer</th><th>Language</th><th>What you're actually doing</th><th>Target companies</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--cyan)">Systems Thinking</td>
+              <td>C++</td>
+              <td>DSA, memory model, cache, STL internals, inference runtimes</td>
+              <td>Qualcomm TW, NVIDIA TW</td>
+            </tr>
+            <tr>
+              <td style="color:var(--orange)">ML Interface</td>
+              <td>Python</td>
+              <td>Training, ONNX export, evaluation, quantization scripts</td>
+              <td>All of the above + startups</td>
+            </tr>
+            <tr>
+              <td style="color:var(--green)">Edge Deployment</td>
+              <td>C++ / Bash / Docker</td>
+              <td>ONNX Runtime, TensorRT, GStreamer, systemd services on ARM Linux</td>
+              <td>MediaTek, Advantech, ADLINK</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CPP FOUNDATIONS -->
+    <section id="cpp-foundations">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,212,255,0.12)">01</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--cyan)">Phase 1 · Start Here</div>
+          <div class="sh-title">C++ Foundations</div>
+          <div class="sh-sub">Build the mental model before touching DSA problems.</div>
+        </div>
+      </div>
+
+      <div id="tg-cpp"></div>
+    </section>
+
+    <!-- DSA PATTERNS -->
+    <section id="dsa-patterns">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,212,255,0.10)">02</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--cyan)">Phase 1 · Core DSA</div>
+          <div class="sh-title">DSA Patterns</div>
+          <div class="sh-sub">Five patterns. Everything else is a variation of these five.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-cyan">
+        <div class="alert-icon">⚡</div>
+        <div>Solve every problem twice. First: brute force, get it accepted. Second: eliminate the allocation. If you can't explain the memory tradeoff, you don't own the solution yet.</div>
+      </div>
+
+      <div id="tg-dsa" style="margin-top:16px"></div>
+    </section>
+
+    <!-- NEETCODE 150 -->
+    <section id="neetcode">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,212,255,0.08)">NC</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--cyan)">Full Checklist</div>
+          <div class="sh-title">NeetCode 150</div>
+          <div class="sh-sub">Click any problem to mark done. Saves in browser.</div>
+        </div>
+      </div>
+      <div id="nc-list"></div>
+    </section>
+
+    <!-- ML FOUNDATIONS -->
+    <section id="ml-foundations">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(255,107,43,0.12)">03</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--orange)">Phase 2 · Parallel Track</div>
+          <div class="sh-title">ML Foundations</div>
+          <div class="sh-sub">Start once Two Pointers clicks. Run parallel to DSA.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-orange">
+        <div class="alert-icon">⚠</div>
+        <div><strong style="color:var(--orange)">Anti-pattern:</strong> Watching ML videos without writing code. Run every notebook. Break things on purpose. 80% code, 20% video.</div>
+      </div>
+
+      <div id="tg-ml" style="margin-top:16px"></div>
+    </section>
+
+    <!-- INFERENCE STACK -->
+    <section id="inference">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,232,122,0.10)">04</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--green)">Phase 3 · Edge AI</div>
+          <div class="sh-title">Inference Stack</div>
+          <div class="sh-sub">ONNX Runtime → TensorRT → pybind11. This is the hireable skill.</div>
+        </div>
+      </div>
+      <div id="tg-inference"></div>
+    </section>
+
+    <!-- HARDWARE PROJECT -->
+    <section id="hardware">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,232,122,0.08)">05</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--green)">Phase 3 · Build Something Real</div>
+          <div class="sh-title">Hardware Project — Raspberry Pi</div>
+          <div class="sh-sub">The single project that answers 80% of Edge AI interview questions.</div>
+        </div>
+      </div>
+
+      <div class="alert alert-green">
+        <div class="alert-icon">◈</div>
+        <div><strong style="color:var(--green)">Buy list:</strong> Raspberry Pi 5 4GB (~$80) + USB webcam (~$12) + 32GB microSD (~$8). Total under $100. The Pi 5 is noticeably faster than Pi 4 for inference.</div>
+      </div>
+
+      <div class="hw-stack" style="margin:20px 0">
+        <div class="hw-box">
+          <div class="hw-box-title" style="color:var(--orange)">Input Layer</div>
+          <ul>
+            <li>USB webcam (V4L2)</li>
+            <li>OpenCV frame grab</li>
+            <li>GStreamer pipeline</li>
+            <li>ALSA audio (optional)</li>
+          </ul>
+        </div>
+        <div class="hw-arrow">→</div>
+        <div class="hw-box">
+          <div class="hw-box-title" style="color:var(--cyan)">Inference Layer</div>
+          <ul>
+            <li>ONNX Runtime ARM</li>
+            <li>TFLite INT8 model</li>
+            <li>Bounding box output</li>
+            <li>&lt;50ms latency target</li>
+          </ul>
+        </div>
+        <div class="hw-arrow">→</div>
+        <div class="hw-box">
+          <div class="hw-box-title" style="color:var(--green)">Deployment Layer</div>
+          <ul>
+            <li>Dockerized container</li>
+            <li>systemd service</li>
+            <li>Auto-start on boot</li>
+            <li>GitHub + README + benchmarks</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="tg-hardware"></div>
+    </section>
+
+    <!-- DEPLOYMENT LAYER -->
+    <section id="deployment">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,232,122,0.07)">06</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--green)">Phase 3 · New Addition</div>
+          <div class="sh-title">Deployment Layer</div>
+          <div class="sh-sub">Docker, GStreamer, OpenCV, systemd. The glue that makes inference production-grade.</div>
+        </div>
+      </div>
+      <div id="tg-deployment"></div>
+    </section>
+
+    <!-- CUDA -->
+    <section id="cuda">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(181,122,255,0.12)">07</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--purple)">Phase 3 · Advanced</div>
+          <div class="sh-title">CUDA Kernels</div>
+          <div class="sh-sub">GPU fundamentals. Needed for NVIDIA TW roles and custom op writing.</div>
+        </div>
+      </div>
+      <div id="tg-cuda"></div>
+    </section>
+
+    <!-- CPP HABITS -->
+    <section id="cpp-habits">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(255,61,85,0.1)">H</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--red)">Drill These In</div>
+          <div class="sh-title">C++ Anti-Patterns</div>
+          <div class="sh-sub">Every mistake here is a real bug in a production codebase somewhere.</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <table class="t">
+          <thead><tr><th>Wrong</th><th>Right</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--red)">vector&lt;T&gt; by value in params</td><td style="color:var(--green)">const vector&lt;T&gt;&amp;</td><td>Copies entire vector on every call. Hidden O(n) cost.</td></tr>
+            <tr><td style="color:var(--red)">(lo + hi) / 2</td><td style="color:var(--green)">lo + (hi - lo) / 2</td><td>Overflows INT_MAX. Undefined behavior.</td></tr>
+            <tr><td style="color:var(--red)">int with n &gt; 10⁴ multiplication</td><td style="color:var(--green)">long long</td><td>10⁵ × 10⁵ = 10¹⁰ silently overflows 32-bit int.</td></tr>
+            <tr><td style="color:var(--red)">cout &lt;&lt; endl</td><td style="color:var(--green)">cout &lt;&lt; "\n"</td><td>endl flushes the buffer. "\n" doesn't. Slow in loops.</td></tr>
+            <tr><td style="color:var(--red)">i &lt; v.size() with int i</td><td style="color:var(--green)">i &lt; (int)v.size()</td><td>size() is unsigned. Comparing signed/unsigned causes subtle underflow bugs.</td></tr>
+            <tr><td style="color:var(--red)">unordered_set for everything</td><td style="color:var(--green)">sort + two pointers when space matters</td><td>unordered_set has ~150MB overhead on large inputs.</td></tr>
+            <tr><td style="color:var(--red)">stack&lt;int&gt; default backend</td><td style="color:var(--green)">stack&lt;int, vector&lt;int&gt;&gt;</td><td>Default deque backend is heap-fragmented. vector = contiguous = cache friendly.</td></tr>
+            <tr><td style="color:var(--red)">unordered_set without reserve</td><td style="color:var(--green)">seen.reserve(nums.size())</td><td>Multiple rehashes without reserve. Reserve eliminates them entirely.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section id="resources">
+      <div class="sh">
+        <div class="sh-num">R</div>
+        <div class="sh-body">
+          <div class="sh-eye">Curated — No Fluff</div>
+          <div class="sh-title">Resources</div>
+          <div class="sh-sub">Everything you need. Nothing you don't.</div>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Phase 1 — C++ & DSA</h3>
+      <div class="res-grid" style="margin-bottom:20px">
+        <a class="res-card" href="https://learncpp.com" target="_blank">
+          <div class="res-name">learncpp.com</div>
+          <div class="res-url">learncpp.com</div>
+          <div class="res-desc">Best free C++ resource. Don't read linearly — use as reference when stuck on a concept while solving problems.</div>
+          <div class="res-phase">Phase 1 · Primary Reference</div>
+        </a>
+        <a class="res-card" href="https://neetcode.io" target="_blank">
+          <div class="res-name">NeetCode.io</div>
+          <div class="res-url">neetcode.io</div>
+          <div class="res-desc">Problems + video explanations. Watch only if stuck after 20 min. Read C++ solutions, not Python.</div>
+          <div class="res-phase">Phase 1 · Primary Platform</div>
+        </a>
+        <a class="res-card" href="https://cppreference.com" target="_blank">
+          <div class="res-name">cppreference.com</div>
+          <div class="res-url">cppreference.com</div>
+          <div class="res-desc">Authoritative STL docs. When you need exact behavior of reserve(), lower_bound(), or iterator invalidation rules.</div>
+          <div class="res-phase">Phase 1 · STL Reference</div>
+        </a>
+        <a class="res-card" href="https://codeforces.com" target="_blank">
+          <div class="res-name">Codeforces</div>
+          <div class="res-url">codeforces.com</div>
+          <div class="res-desc">Start Div 3/4. Keep it as a hobby — separate mental bucket from LeetCode interview prep. Don't let it eat DSA time.</div>
+          <div class="res-phase">Phase 1 · Fun / Hobby</div>
+        </a>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Phase 2 — ML</h3>
+      <div class="res-grid" style="margin-bottom:20px">
+        <a class="res-card" href="https://fast.ai" target="_blank">
+          <div class="res-name">fast.ai</div>
+          <div class="res-url">practical-dl.fast.ai</div>
+          <div class="res-desc">Top-down practical ML. Train models before understanding math. Run every notebook, don't just watch.</div>
+          <div class="res-phase">Phase 2 · Weeks 1–4</div>
+        </a>
+        <a class="res-card" href="https://youtube.com/@AndrejKarpathy" target="_blank">
+          <div class="res-name">Karpathy — Zero to Hero</div>
+          <div class="res-url">youtube.com/@AndrejKarpathy</div>
+          <div class="res-desc">Build autograd, language models, GPT from scratch. The best ML curriculum that exists. Do NOT skip makemore Part 4.</div>
+          <div class="res-phase">Phase 2 · CRITICAL</div>
+        </a>
+        <a class="res-card" href="https://pytorch.org/docs" target="_blank">
+          <div class="res-name">PyTorch Docs</div>
+          <div class="res-url">pytorch.org/docs</div>
+          <div class="res-desc">API reference. Go straight to torch.nn, torch.optim, torch.onnx. The source code is more useful than the docs.</div>
+          <div class="res-phase">Phase 2 · Reference</div>
+        </a>
+        <a class="res-card" href="https://onnx.ai" target="_blank">
+          <div class="res-name">ONNX</div>
+          <div class="res-url">onnx.ai · onnxruntime.ai</div>
+          <div class="res-desc">The bridge between PyTorch training and C++ inference. Understand the graph format before starting TensorRT.</div>
+          <div class="res-phase">Phase 2→3 · Bridge</div>
+        </a>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Phase 3 — Edge AI</h3>
+      <div class="res-grid" style="margin-bottom:20px">
+        <a class="res-card" href="https://onnxruntime.ai/docs/api/c/" target="_blank">
+          <div class="res-name">ONNX Runtime C++ API</div>
+          <div class="res-url">onnxruntime.ai/docs/api/c</div>
+          <div class="res-desc">Microsoft's cross-platform inference runtime. Load ONNX models, run in C++. Has an ARM build for Pi deployment.</div>
+          <div class="res-phase">Phase 3 · Primary Runtime</div>
+        </a>
+        <a class="res-card" href="https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/" target="_blank">
+          <div class="res-name">TensorRT Developer Guide</div>
+          <div class="res-url">docs.nvidia.com/tensorrt</div>
+          <div class="res-desc">FP16/INT8 quantization, operator fusion, engine serialization. Read Chapters 1–5 before touching code.</div>
+          <div class="res-phase">Phase 3 · GPU Optimization</div>
+        </a>
+        <a class="res-card" href="https://pybind11.readthedocs.io" target="_blank">
+          <div class="res-name">pybind11</div>
+          <div class="res-url">pybind11.readthedocs.io</div>
+          <div class="res-desc">C++↔Python bridge. Write inference in C++, call from Python with numpy. Buffer protocol section = zero-copy transfer.</div>
+          <div class="res-phase">Phase 3 · Python Bridge</div>
+        </a>
+        <a class="res-card" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/" target="_blank">
+          <div class="res-name">CUDA C++ Guide</div>
+          <div class="res-url">docs.nvidia.com/cuda</div>
+          <div class="res-desc">Thread hierarchy, shared vs global memory, warp execution. Start at Chapter 1, implement as you read.</div>
+          <div class="res-phase">Phase 3 · GPU Kernels</div>
+        </a>
+        <a class="res-card" href="https://gstreamer.freedesktop.org/documentation/" target="_blank">
+          <div class="res-name">GStreamer</div>
+          <div class="res-url">gstreamer.freedesktop.org</div>
+          <div class="res-desc">Camera feed pipeline on Linux edge devices. Harder than the AI itself. Essential for production edge deployments.</div>
+          <div class="res-phase">Phase 3 · New Addition</div>
+        </a>
+        <a class="res-card" href="https://docs.docker.com" target="_blank">
+          <div class="res-name">Docker Docs</div>
+          <div class="res-url">docs.docker.com</div>
+          <div class="res-desc">Every edge AI deployment uses containers. Docker + Docker Compose for multi-service pipelines. ARM builds supported.</div>
+          <div class="res-phase">Phase 3 · New Addition</div>
+        </a>
+      </div>
+
+      <div class="info-card" style="border-color:rgba(255,61,85,0.2)">
+        <div class="ic-header">
+          <div class="ic-icon" style="background:rgba(255,61,85,0.08);color:var(--red)">✕</div>
+          <div class="ic-title" style="color:var(--red)">Ignore</div>
+        </div>
+        <table class="t">
+          <thead><tr><th>Resource</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Udemy / Coursera DSA</td><td>Too slow. Tutorial hell.</td></tr>
+            <tr><td>GeeksforGeeks</td><td>Inconsistent, teaches bad C++ habits.</td></tr>
+            <tr><td>HackerRank</td><td>Gamified, wrong optimization target.</td></tr>
+            <tr><td>YouTube "roadmap" videos</td><td>Meta-content about learning instead of actual learning.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- JOBS -->
+    <section id="jobs">
+      <div class="sh">
+        <div class="sh-num">J</div>
+        <div class="sh-body">
+          <div class="sh-eye">Taiwan · Bachelor's · No Chinese Required</div>
+          <div class="sh-title">Target Jobs</div>
+          <div class="sh-sub">Realistic roles and salaries straight out of NYCU.</div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <table class="t">
+          <thead><tr><th>Title</th><th>Companies</th><th>Salary (NT$/yr)</th><th>Bachelor's?</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--cyan)">Edge AI Software Engineer</td>
+              <td>Foreign AI startups, ADLINK, AAEON</td>
+              <td>1.0M – 1.5M</td>
+              <td style="color:var(--green)">✅ Yes</td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">AIoT Application Engineer</td>
+              <td>Advantech, VIVOTEK, foreign vision startups</td>
+              <td>800k – 1.2M</td>
+              <td style="color:var(--green)">✅ Yes</td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">ML Infrastructure Engineer</td>
+              <td>NVIDIA TW, Qualcomm TW, MediaTek</td>
+              <td>1.3M – 1.8M+</td>
+              <td style="color:var(--green)">✅ Yes (strong projects needed)</td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">Applied ML Engineer (New Grad)</td>
+              <td>Amazon, Microsoft IoT, Logitech TW</td>
+              <td>1.3M – 1.8M+ + equity</td>
+              <td style="color:var(--green)">✅ Yes</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text3)">ML Research Scientist</td>
+              <td>Academic labs, TSMC research</td>
+              <td>High but competitive</td>
+              <td style="color:var(--red)">❌ Usually needs masters</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;font-size:10.5px;color:var(--text3);line-height:1.7">
+          NT$1.0M/year ≈ $31k USD — sounds low but Taiwan's cost of living (especially Hsinchu near NYCU) makes this equivalent to significantly more in purchasing power. Rent in Hsinchu is ~NT$8–12k/month.
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+// ─── TASK DATA ─────────────────────────────────────────────────────────────
+const TASKS = {
+  "tg-cpp": {
+    label: "C++ Foundations",
+    color: "var(--cyan)",
+    groups: [{
+      name: "Environment & Toolchain",
+      color: "var(--cyan)",
+      items: [
+        { key: "cpp-env-1", text: "<strong>Set up GCC on both machines</strong> — Windows (VS Code + MinGW) and Arch Linux.", tip: "Compile with: g++ -std=c++17 -Wall -Wextra -O2. The -Wall -Wextra flags will catch your Python-to-C++ habit bugs immediately.", tipType: "cyan" },
+        { key: "cpp-env-2", text: "<strong>Install clangd</strong> in VS Code — better intellisense than ms-cpp, catches const& violations inline.", tip: null },
+        { key: "cpp-env-3", text: "<strong>Write a hello world</strong> that uses vector, unordered_map, and a range-based for loop — just to verify the toolchain works.", tip: null },
+      ]
+    }, {
+      name: "Core Concepts to Internalize",
+      color: "var(--cyan)",
+      items: [
+        { key: "cpp-core-1", text: "<strong>Stack vs heap</strong> — know exactly where a local int, a vector, and a new'd pointer live in memory.", tip: "This is the mental model that makes everything else click. Local variables = stack (fast, auto-freed). new/malloc = heap (slow, manual). std::vector stores its data on the heap but the vector object itself is on the stack.", tipType: "cyan" },
+        { key: "cpp-core-2", text: "<strong>const& semantics</strong> — pass every input parameter as const& unless you explicitly need a copy or mutation.", tip: null },
+        { key: "cpp-core-3", text: "<strong>RAII</strong> — understand why you almost never need to call delete manually in modern C++. std::vector, std::unique_ptr, std::shared_ptr handle it.", tip: "unique_ptr = single owner, zero overhead. shared_ptr = reference counted, small overhead. Use unique_ptr by default.", tipType: "cyan" },
+        { key: "cpp-core-4", text: "<strong>Smart pointers</strong> — std::unique_ptr and std::shared_ptr. Understand when each is appropriate.", tip: null },
+        { key: "cpp-core-5", text: "<strong>Iterator invalidation rules</strong> — know when inserting into a vector invalidates all your iterators.", tip: "This kills production code silently. Inserting into vector = potentially reallocates = all iterators invalid. Safe pattern: use indices, not iterators, if you're modifying while iterating.", tipType: "orange" },
+        { key: "cpp-core-6", text: "<strong>Move semantics</strong> (C++11) — understand std::move and why returning a local vector is free (NRVO/move semantics).", tip: null },
+        { key: "cpp-core-7", text: "<strong>STL containers and their tradeoffs</strong> — vector (cache-friendly, O(1) random), unordered_map (O(1) avg hash), map (O(log n) tree), deque (fragmented heap).", tip: "Default to vector unless you have a specific reason not to. 90% of the time vector wins on performance due to cache locality.", tipType: "cyan" },
+      ]
+    }]
+  },
+
+  "tg-dsa": {
+    label: "DSA Patterns",
+    color: "var(--cyan)",
+    groups: [{
+      name: "Pattern 1 — Arrays & Hashing",
+      color: "var(--cyan)",
+      items: [
+        { key: "dsa-ah-1", text: "Complete all 9 NeetCode Arrays & Hashing problems in C++.", tip: "Hash sets for O(n) duplicate detection. unordered_map for frequency counting. Always reserve() before inserting n elements to avoid rehashing.", tipType: "cyan" },
+        { key: "dsa-ah-2", text: "For each solution: try to eliminate the hash structure and use sorting + scan instead.", tip: "Sort approach = O(n log n) time, O(1) space. Hash approach = O(n) time, O(n) space. Know when to pick which — if interviewer says 'optimize space', sort wins.", tipType: "cyan" },
+        { key: "dsa-ah-3", text: "Benchmark the memory difference between unordered_set and the sort approach on the contains-duplicate problem.", tip: "You already did this empirically. unordered_set = ~149MB. Sort in-place = ~7MB. Now you understand why.", tipType: "orange" },
+      ]
+    }, {
+      name: "Pattern 2 — Two Pointers",
+      color: "var(--cyan)",
+      items: [
+        { key: "dsa-tp-1", text: "Complete all 5 Two Pointers problems in C++.", tip: "Always sort first if the problem allows it. Two pointers on a sorted array is cache-optimal — sequential access, no hash jumps.", tipType: "cyan" },
+        { key: "dsa-tp-2", text: "Can you write 3Sum from scratch without reference? This is the milestone.", tip: "3Sum is the pattern test. If you can write it clean — sort, outer loop, lo/hi pointers, skip duplicates — you own two pointers.", tipType: "cyan" },
+      ]
+    }, {
+      name: "Pattern 3 — Sliding Window",
+      color: "var(--cyan)",
+      items: [
+        { key: "dsa-sw-1", text: "Complete all 6 Sliding Window problems in C++.", tip: "Each element enters and exits the window at most once = O(n). The window variables live in registers. Sequential array access = perfect cache behavior. This is why it beats brute force not just in big-O but in wall time.", tipType: "cyan" },
+        { key: "dsa-sw-2", text: "Minimum Window Substring is the hardest in this set — don't skip it.", tip: "If you get this one clean, you fully understand the shrink/expand pattern. It requires two pointers + a frequency map simultaneously.", tipType: "orange" },
+      ]
+    }, {
+      name: "Pattern 4 — Stack",
+      color: "var(--cyan)",
+      items: [
+        { key: "dsa-st-1", text: "Complete all 7 Stack problems in C++.", tip: "Use stack<int, vector<int>> not the default stack<int>. Default uses deque backend which is heap-fragmented. vector backend is contiguous = cache friendly.", tipType: "cyan" },
+        { key: "dsa-st-2", text: "Largest Rectangle in Histogram — hardest in set. Monotonic stack pattern.", tip: "The monotonic stack pattern shows up in multiple hard problems. Once it clicks here it's immediately transferable.", tipType: "orange" },
+      ]
+    }, {
+      name: "Pattern 5 — Binary Search",
+      color: "var(--cyan)",
+      items: [
+        { key: "dsa-bs-1", text: "Complete all 7 Binary Search problems in C++.", tip: "Always use lo + (hi - lo) / 2. Never (lo + hi) / 2. Binary search isn't just sorted arrays — it's a framework for any monotonic answer space.", tipType: "cyan" },
+        { key: "dsa-bs-2", text: "Koko Eating Bananas — the binary search on answer space problem. Own this pattern.", tip: "'Is X feasible?' formulation. Binary search on X. This pattern appears constantly in systems problems — finding optimal batch sizes, memory thresholds, etc.", tipType: "cyan" },
+        { key: "dsa-bs-3", text: "After the first 5 patterns, continue NeetCode 150 independently — Linked Lists, Trees, Heap, Backtracking, Graphs, DP in that order.", tip: null },
+      ]
+    }, {
+      name: "Codeforces — Hobby Track",
+      color: "var(--text3)",
+      items: [
+        { key: "cf-1", text: "Start with Div 4 contests. Goal: solve A and B problems consistently.", tip: "Don't jump to Div 2 until A and B take under 10 minutes. Div 3 is the sweet spot for building speed without needing advanced algorithms.", tipType: "yellow" },
+        { key: "cf-2", text: "Keep CF mentally separate from LeetCode. CF = fun + math. LeetCode = interview prep. Different optimization targets.", tip: null },
+        { key: "cf-3", text: "When CF style clashes with clean C++ habits (e.g. global arrays, no const&) — use CF style for CF, clean style for LeetCode. Don't mix.", tip: "CF solutions are intentionally dirty for speed. That's fine for contests. Just don't let those habits bleed into your interview solutions.", tipType: "orange" },
+      ]
+    }]
+  },
+
+  "tg-ml": {
+    label: "ML Foundations",
+    color: "var(--orange)",
+    groups: [{
+      name: "fast.ai Part 1",
+      color: "var(--orange)",
+      items: [
+        { key: "ml-fai-1", text: "<strong>Lesson 1</strong> — Train your first image classifier. Get comfortable with Jupyter.", tip: "Top-down approach. You will call functions you don't understand yet. That's the point. Understanding comes after you've used it.", tipType: "orange" },
+        { key: "ml-fai-2", text: "<strong>Lesson 2</strong> — Deployment, data cleaning, production mindset.", tip: null },
+        { key: "ml-fai-3", text: "<strong>Lesson 3</strong> — Neural net foundations. What is a layer actually computing.", tip: null },
+        { key: "ml-fai-4", text: "<strong>Lessons 4–7</strong> — NLP, tabular, CNNs from scratch, putting it together.", tip: null },
+      ]
+    }, {
+      name: "Karpathy — Zero to Hero (CRITICAL)",
+      color: "var(--orange)",
+      items: [
+        { key: "ml-karp-1", text: "<strong>micrograd</strong> — Build backpropagation from scratch in ~100 lines of Python.", tip: "This is the most important exercise in this entire roadmap. When you finish micrograd you understand autograd at the implementation level. Don't skip.", tipType: "orange" },
+        { key: "ml-karp-2", text: "<strong>makemore Parts 1–3</strong> — Bigrams → MLP. Build language models from scratch.", tip: null },
+        { key: "ml-karp-3", text: "<strong>makemore Part 4</strong> — Manual backprop. Derive every gradient by hand.", tip: "Most people skip this video. Don't. Manually deriving gradients is what separates engineers who debug ML from engineers who guess.", tipType: "orange" },
+        { key: "ml-karp-4", text: "<strong>makemore Part 5 + nanoGPT</strong> — WaveNet architecture → full GPT-2 from scratch.", tip: null },
+      ]
+    }, {
+      name: "PyTorch From Scratch",
+      color: "var(--orange)",
+      items: [
+        { key: "ml-pt-1", text: "Write a Linear layer manually — no nn.Linear. Understand weight initialization.", tip: null },
+        { key: "ml-pt-2", text: "Write a full training loop manually — no Trainer. optimizer.step(), zero_grad(), loss.backward().", tip: null },
+        { key: "ml-pt-3", text: "Implement cross-entropy loss manually — understand log-softmax numerical stability.", tip: "Naive softmax overflows with large logits. log-softmax subtracts max first. This is why torch.nn.CrossEntropyLoss takes raw logits not probabilities.", tipType: "cyan" },
+        { key: "ml-pt-4", text: "Train a small CNN on CIFAR-10 end-to-end without a tutorial.", tip: null },
+        { key: "ml-pt-5", text: "Export that trained model to ONNX. Inspect the graph with Netron.", tip: "Netron (netron.app) is a free graph visualizer. Seeing the ONNX graph before you write C++ inference code makes the C++ API much less confusing.", tipType: "cyan" },
+      ]
+    }]
+  },
+
+  "tg-inference": {
+    label: "Inference Stack",
+    color: "var(--green)",
+    groups: [{
+      name: "ONNX Runtime C++ API",
+      color: "var(--green)",
+      items: [
+        { key: "inf-onnx-1", text: "Install ONNX Runtime from prebuilt (x86 for dev, ARM for Pi deployment).", tip: null },
+        { key: "inf-onnx-2", text: "Load a PyTorch-exported ONNX model in C++. Run a single inference call.", tip: "ONNX Runtime C++ API is cleaner than TensorRT's. Start here before TensorRT — same concepts, lower barrier.", tipType: "green" },
+        { key: "inf-onnx-3", text: "Understand input/output tensor memory layout — NCHW vs NHWC. Know which your model uses.", tip: "NCHW = (batch, channel, height, width) — PyTorch default. NHWC = (batch, height, width, channel) — TensorFlow default. Wrong layout = garbage output with no error.", tipType: "orange" },
+        { key: "inf-onnx-4", text: "Benchmark inference latency vs Python baseline. Measure the gap.", tip: null },
+        { key: "inf-onnx-5", text: "Profile memory allocation per inference call. Understand where it's going.", tip: null },
+      ]
+    }, {
+      name: "TensorRT",
+      color: "var(--green)",
+      items: [
+        { key: "inf-trt-1", text: "Read TensorRT Developer Guide Chapters 1–4 before writing any code.", tip: "TensorRT has a lot of API surface. Reading first saves hours of debugging opaque errors.", tipType: "green" },
+        { key: "inf-trt-2", text: "Parse your ONNX model with the TensorRT builder API. Serialize to a .plan engine file.", tip: null },
+        { key: "inf-trt-3", text: "Apply FP16 quantization. Measure accuracy vs latency tradeoff on your test set.", tip: "FP16 typically has <0.1% accuracy drop with 2× speedup. INT8 needs calibration but can give 4× speedup. The job description you found used INT8 — that's the more impressive one.", tipType: "green" },
+        { key: "inf-trt-4", text: "Apply INT8 quantization with a calibration dataset.", tip: null },
+        { key: "inf-trt-5", text: "Understand operator fusion — what TensorRT fuses and why (Conv + BN + ReLU is the canonical example).", tip: null },
+      ]
+    }, {
+      name: "pybind11",
+      color: "var(--green)",
+      items: [
+        { key: "inf-pb-1", text: "Write a simple C++ function callable from Python — benchmark the call overhead.", tip: null },
+        { key: "inf-pb-2", text: "Wrap your ONNX Runtime inference pipeline so Python can call it with a numpy array and get results back.", tip: "Zero-copy buffer protocol: pass numpy arrays to C++ without copying. The buffer protocol section of the pybind11 docs is short but critical.", tipType: "green" },
+        { key: "inf-pb-3", text: "Benchmark: pure Python inference vs pybind11 C++ inference. Quantify the speedup.", tip: null },
+      ]
+    }]
+  },
+
+  "tg-hardware": {
+    label: "Hardware Project",
+    color: "var(--green)",
+    groups: [{
+      name: "Setup",
+      color: "var(--green)",
+      items: [
+        { key: "hw-1", text: "Buy Raspberry Pi 5 4GB + USB webcam + 32GB microSD. Flash Ubuntu 24.04 Server (ARM).", tip: "Server image not desktop. Lighter, less memory overhead, better for headless deployment. SSH in from your laptop.", tipType: "green" },
+        { key: "hw-2", text: "Set up SSH access from your laptop. Never plug a monitor into it again after initial setup.", tip: null },
+        { key: "hw-3", text: "Install Docker on the Pi. Verify it runs an ARM container correctly.", tip: "Most Docker Hub images have ARM64 builds now. ONNX Runtime has an official ARM image. Pull and test it.", tipType: "green" },
+      ]
+    }, {
+      name: "The Core Project",
+      color: "var(--green)",
+      items: [
+        { key: "hw-4", text: "Get USB webcam working with OpenCV on the Pi. Capture frames, display FPS.", tip: null },
+        { key: "hw-5", text: "Run a MobileNet or EfficientDet ONNX model on the Pi via ONNX Runtime. Measure inference latency.", tip: "MobileNetV2 is the standard benchmark model for Edge AI. Under 50ms on Pi 5 is achievable with quantization.", tipType: "green" },
+        { key: "hw-6", text: "Draw bounding boxes / classification labels on frames using OpenCV. Write output to a stream.", tip: null },
+        { key: "hw-7", text: "Dockerize the entire pipeline — Dockerfile that installs ONNX Runtime, OpenCV, copies your code.", tip: "Your Dockerfile should be reproducible. Anyone should be able to docker run it on an ARM machine and get the same result. This is what 'production-grade' means.", tipType: "green" },
+        { key: "hw-8", text: "Write a systemd service file that starts the Docker container on boot automatically.", tip: "systemd unit file with Restart=always and After=docker.service. The device should be running inference within 30 seconds of power-on with no manual steps.", tipType: "green" },
+        { key: "hw-9", text: "Benchmark: latency (ms per frame), throughput (FPS), memory usage (MB), CPU/GPU utilization.", tip: null },
+        { key: "hw-10", text: "Write a README with architecture diagram, benchmark table, and setup instructions. Push to GitHub.", tip: "This project + README is what you show in interviews. Make the benchmarks prominent. Numbers like '47ms latency, 21 FPS on Pi 5, 180MB memory footprint' are what interviewers remember.", tipType: "orange" },
+      ]
+    }]
+  },
+
+  "tg-deployment": {
+    label: "Deployment Layer",
+    color: "var(--green)",
+    groups: [{
+      name: "Docker",
+      color: "var(--green)",
+      items: [
+        { key: "dep-docker-1", text: "Understand Dockerfile instructions — FROM, RUN, COPY, CMD, ENTRYPOINT, ENV.", tip: null },
+        { key: "dep-docker-2", text: "Write a multi-stage Dockerfile for your C++ inference binary — builder stage + minimal runtime stage.", tip: "Multi-stage builds: compile in a full GCC image, copy only the binary to a minimal runtime image. Reduces final image size from ~2GB to ~200MB.", tipType: "green" },
+        { key: "dep-docker-3", text: "Docker Compose for a two-service pipeline — camera capture service + inference service.", tip: null },
+        { key: "dep-docker-4", text: "Understand ARM64 vs AMD64 Docker image differences. Use buildx for cross-platform builds.", tip: null },
+      ]
+    }, {
+      name: "GStreamer",
+      color: "var(--green)",
+      items: [
+        { key: "dep-gst-1", text: "Understand the pipeline model — sources, filters, sinks connected by pads.", tip: "GStreamer pipelines are like Unix pipes but for media. gst-launch-1.0 is the CLI tool for testing pipelines before writing code.", tipType: "green" },
+        { key: "dep-gst-2", text: "Build a pipeline: V4L2 camera source → video conversion → JPEG encoder → file sink.", tip: null },
+        { key: "dep-gst-3", text: "Build a pipeline: camera → appsink → your OpenCV/ONNX processing → appsrc → display.", tip: "appsink/appsrc is the bridge between GStreamer and your application code. This is the production pattern for real-time edge AI.", tipType: "green" },
+      ]
+    }, {
+      name: "Linux / systemd",
+      color: "var(--green)",
+      items: [
+        { key: "dep-linux-1", text: "Understand systemd unit files — ExecStart, Restart, After, WantedBy.", tip: null },
+        { key: "dep-linux-2", text: "Monitor CPU, memory, temperature on the Pi — htop, vcgencmd measure_temp, free -h.", tip: "Pi 5 throttles at 85°C. If your inference pipeline is pushing that, you need a heatsink or reduce batch size. Always log temperature in your benchmarks.", tipType: "orange" },
+        { key: "dep-linux-3", text: "ALSA basics — if you're doing audio inference, understand ALSA circular buffering and how to avoid underruns.", tip: "The job description you found explicitly mentioned ALSA circular buffering. This is a differentiating skill.", tipType: "cyan" },
+        { key: "dep-linux-4", text: "GitHub Actions CI/CD — auto-build and test your Docker image on push.", tip: null },
+      ]
+    }, {
+      name: "OpenCV",
+      color: "var(--green)",
+      items: [
+        { key: "dep-cv-1", text: "Capture frames from webcam in Python and C++. Understand the VideoCapture API.", tip: null },
+        { key: "dep-cv-2", text: "Preprocessing pipeline: resize → normalize → convert to float32 → reshape to NCHW. This is what you feed ONNX Runtime.", tip: "Getting the preprocessing exactly right is where most Edge AI bugs live. Wrong normalization = confidently wrong output with no obvious error.", tipType: "orange" },
+        { key: "dep-cv-3", text: "Draw bounding boxes, labels, FPS counter on frames. Display or write to video file.", tip: null },
+      ]
+    }]
+  },
+
+  "tg-cuda": {
+    label: "CUDA Kernels",
+    color: "var(--purple)",
+    groups: [{
+      name: "GPU Mental Model",
+      color: "var(--purple)",
+      items: [
+        { key: "cuda-1", text: "Read CUDA C++ Programming Guide Chapters 1–4.", tip: "Thread hierarchy: thread → warp (32 threads) → block → grid. Memory hierarchy: registers (fastest) → shared (fast, per-block) → global (slow, all threads). Everything in CUDA optimization is about moving data closer to registers.", tipType: "cyan" },
+        { key: "cuda-2", text: "Understand warp execution — all 32 threads in a warp execute the same instruction simultaneously.", tip: "Branch divergence: if threads in a warp take different branches, both branches execute and results are masked. This is why you avoid if-else inside kernels.", tipType: "cyan" },
+        { key: "cuda-3", text: "Understand memory coalescing — why threads should access contiguous memory addresses.", tip: "If thread 0 reads address 0 and thread 1 reads address 128, that's 2 memory transactions. If they read 0 and 1, that's 1 transaction. Coalesced access = 32× memory bandwidth.", tipType: "cyan" },
+      ]
+    }, {
+      name: "Kernel Implementations",
+      color: "var(--purple)",
+      items: [
+        { key: "cuda-4", text: "Write a vector addition kernel. Understand grid/block/thread indexing.", tip: null },
+        { key: "cuda-5", text: "Write a naive matrix multiply kernel. Benchmark memory bandwidth.", tip: null },
+        { key: "cuda-6", text: "Write a tiled matrix multiply using shared memory. Measure speedup vs naive.", tip: "Tiled matmul is the canonical CUDA optimization exercise. Shared memory tiling reduces global memory reads from O(n³) to O(n³/tile_size). This is the same principle behind tensor cores.", tipType: "purple" },
+        { key: "cuda-7", text: "Profile with nvprof or Nsight Compute. Identify the bottleneck — compute-bound or memory-bound.", tip: "Arithmetic intensity = FLOPS / bytes moved. If your kernel is memory-bound, more cores won't help — you need better memory access patterns.", tipType: "purple" },
+      ]
+    }]
+  }
+};
+
+// ─── NEETCODE DATA ──────────────────────────────────────────────────────────
+const NC_DATA = [
+  { group: "Arrays & Hashing", color: "var(--cyan)", problems: [
+    {name:"Contains Duplicate",diff:"easy",key:"nc-ah-1"},{name:"Valid Anagram",diff:"easy",key:"nc-ah-2"},
+    {name:"Two Sum",diff:"easy",key:"nc-ah-3"},{name:"Group Anagrams",diff:"medium",key:"nc-ah-4"},
+    {name:"Top K Frequent Elements",diff:"medium",key:"nc-ah-5"},{name:"Encode and Decode Strings",diff:"medium",key:"nc-ah-6"},
+    {name:"Product of Array Except Self",diff:"medium",key:"nc-ah-7"},{name:"Valid Sudoku",diff:"medium",key:"nc-ah-8"},
+    {name:"Longest Consecutive Sequence",diff:"medium",key:"nc-ah-9"},
+  ]},
+  { group: "Two Pointers", color: "var(--cyan)", problems: [
+    {name:"Valid Palindrome",diff:"easy",key:"nc-tp-1"},{name:"Two Sum II",diff:"medium",key:"nc-tp-2"},
+    {name:"3Sum",diff:"medium",key:"nc-tp-3"},{name:"Container With Most Water",diff:"medium",key:"nc-tp-4"},
+    {name:"Trapping Rain Water",diff:"hard",key:"nc-tp-5"},
+  ]},
+  { group: "Sliding Window", color: "var(--cyan)", problems: [
+    {name:"Best Time to Buy and Sell Stock",diff:"easy",key:"nc-sw-1"},{name:"Longest Substring Without Repeating Characters",diff:"medium",key:"nc-sw-2"},
+    {name:"Longest Repeating Character Replacement",diff:"medium",key:"nc-sw-3"},{name:"Permutation in String",diff:"medium",key:"nc-sw-4"},
+    {name:"Minimum Window Substring",diff:"hard",key:"nc-sw-5"},{name:"Sliding Window Maximum",diff:"hard",key:"nc-sw-6"},
+  ]},
+  { group: "Stack", color: "var(--cyan)", problems: [
+    {name:"Valid Parentheses",diff:"easy",key:"nc-st-1"},{name:"Min Stack",diff:"medium",key:"nc-st-2"},
+    {name:"Evaluate Reverse Polish Notation",diff:"medium",key:"nc-st-3"},{name:"Generate Parentheses",diff:"medium",key:"nc-st-4"},
+    {name:"Daily Temperatures",diff:"medium",key:"nc-st-5"},{name:"Car Fleet",diff:"medium",key:"nc-st-6"},
+    {name:"Largest Rectangle in Histogram",diff:"hard",key:"nc-st-7"},
+  ]},
+  { group: "Binary Search", color: "var(--cyan)", problems: [
+    {name:"Binary Search",diff:"easy",key:"nc-bs-1"},{name:"Search a 2D Matrix",diff:"medium",key:"nc-bs-2"},
+    {name:"Koko Eating Bananas",diff:"medium",key:"nc-bs-3"},{name:"Find Minimum in Rotated Sorted Array",diff:"medium",key:"nc-bs-4"},
+    {name:"Search in Rotated Sorted Array",diff:"medium",key:"nc-bs-5"},{name:"Time Based Key-Value Store",diff:"medium",key:"nc-bs-6"},
+    {name:"Median of Two Sorted Arrays",diff:"hard",key:"nc-bs-7"},
+  ]},
+  { group: "Linked List", color: "#c792ea", problems: [
+    {name:"Reverse Linked List",diff:"easy",key:"nc-ll-1"},{name:"Merge Two Sorted Lists",diff:"easy",key:"nc-ll-2"},
+    {name:"Reorder List",diff:"medium",key:"nc-ll-3"},{name:"Remove Nth Node From End",diff:"medium",key:"nc-ll-4"},
+    {name:"Copy List with Random Pointer",diff:"medium",key:"nc-ll-5"},{name:"Add Two Numbers",diff:"medium",key:"nc-ll-6"},
+    {name:"Linked List Cycle",diff:"easy",key:"nc-ll-7"},{name:"Find the Duplicate Number",diff:"medium",key:"nc-ll-8"},
+    {name:"LRU Cache",diff:"medium",key:"nc-ll-9"},{name:"Merge K Sorted Lists",diff:"hard",key:"nc-ll-10"},
+    {name:"Reverse Nodes in K-Group",diff:"hard",key:"nc-ll-11"},
+  ]},
+  { group: "Trees", color: "#c792ea", problems: [
+    {name:"Invert Binary Tree",diff:"easy",key:"nc-tr-1"},{name:"Maximum Depth of Binary Tree",diff:"easy",key:"nc-tr-2"},
+    {name:"Diameter of Binary Tree",diff:"easy",key:"nc-tr-3"},{name:"Balanced Binary Tree",diff:"easy",key:"nc-tr-4"},
+    {name:"Same Tree",diff:"easy",key:"nc-tr-5"},{name:"Subtree of Another Tree",diff:"easy",key:"nc-tr-6"},
+    {name:"Lowest Common Ancestor of BST",diff:"medium",key:"nc-tr-7"},{name:"Binary Tree Level Order Traversal",diff:"medium",key:"nc-tr-8"},
+    {name:"Binary Tree Right Side View",diff:"medium",key:"nc-tr-9"},{name:"Count Good Nodes in Binary Tree",diff:"medium",key:"nc-tr-10"},
+    {name:"Validate Binary Search Tree",diff:"medium",key:"nc-tr-11"},{name:"Kth Smallest Element in BST",diff:"medium",key:"nc-tr-12"},
+    {name:"Construct Binary Tree from Preorder and Inorder",diff:"medium",key:"nc-tr-13"},{name:"Binary Tree Maximum Path Sum",diff:"hard",key:"nc-tr-14"},
+    {name:"Serialize and Deserialize Binary Tree",diff:"hard",key:"nc-tr-15"},
+  ]},
+  { group: "Heap / Priority Queue", color: "#c792ea", problems: [
+    {name:"Kth Largest Element in a Stream",diff:"easy",key:"nc-hp-1"},{name:"Last Stone Weight",diff:"easy",key:"nc-hp-2"},
+    {name:"K Closest Points to Origin",diff:"medium",key:"nc-hp-3"},{name:"Kth Largest Element in an Array",diff:"medium",key:"nc-hp-4"},
+    {name:"Task Scheduler",diff:"medium",key:"nc-hp-5"},{name:"Design Twitter",diff:"medium",key:"nc-hp-6"},
+    {name:"Find Median from Data Stream",diff:"hard",key:"nc-hp-7"},
+  ]},
+  { group: "Backtracking", color: "var(--orange)", problems: [
+    {name:"Subsets",diff:"medium",key:"nc-bt-1"},{name:"Combination Sum",diff:"medium",key:"nc-bt-2"},
+    {name:"Permutations",diff:"medium",key:"nc-bt-3"},{name:"Subsets II",diff:"medium",key:"nc-bt-4"},
+    {name:"Combination Sum II",diff:"medium",key:"nc-bt-5"},{name:"Word Search",diff:"medium",key:"nc-bt-6"},
+    {name:"Palindrome Partitioning",diff:"medium",key:"nc-bt-7"},{name:"Letter Combinations of a Phone Number",diff:"medium",key:"nc-bt-8"},
+    {name:"N-Queens",diff:"hard",key:"nc-bt-9"},
+  ]},
+  { group: "Tries", color: "var(--orange)", problems: [
+    {name:"Implement Trie",diff:"medium",key:"nc-ti-1"},{name:"Design Add and Search Words",diff:"medium",key:"nc-ti-2"},
+    {name:"Word Search II",diff:"hard",key:"nc-ti-3"},
+  ]},
+  { group: "Graphs", color: "var(--orange)", problems: [
+    {name:"Number of Islands",diff:"medium",key:"nc-gr-1"},{name:"Clone Graph",diff:"medium",key:"nc-gr-2"},
+    {name:"Max Area of Island",diff:"medium",key:"nc-gr-3"},{name:"Pacific Atlantic Water Flow",diff:"medium",key:"nc-gr-4"},
+    {name:"Surrounded Regions",diff:"medium",key:"nc-gr-5"},{name:"Rotting Oranges",diff:"medium",key:"nc-gr-6"},
+    {name:"Walls and Gates",diff:"medium",key:"nc-gr-7"},{name:"Course Schedule",diff:"medium",key:"nc-gr-8"},
+    {name:"Course Schedule II",diff:"medium",key:"nc-gr-9"},{name:"Redundant Connection",diff:"medium",key:"nc-gr-10"},
+    {name:"Number of Connected Components",diff:"medium",key:"nc-gr-11"},{name:"Graph Valid Tree",diff:"medium",key:"nc-gr-12"},
+    {name:"Word Ladder",diff:"hard",key:"nc-gr-13"},
+  ]},
+  { group: "Advanced Graphs", color: "var(--orange)", problems: [
+    {name:"Reconstruct Itinerary",diff:"hard",key:"nc-ag-1"},{name:"Min Cost to Connect All Points",diff:"medium",key:"nc-ag-2"},
+    {name:"Network Delay Time",diff:"medium",key:"nc-ag-3"},{name:"Swim in Rising Water",diff:"hard",key:"nc-ag-4"},
+    {name:"Alien Dictionary",diff:"hard",key:"nc-ag-5"},{name:"Cheapest Flights Within K Stops",diff:"medium",key:"nc-ag-6"},
+  ]},
+  { group: "1D Dynamic Programming", color: "var(--green)", problems: [
+    {name:"Climbing Stairs",diff:"easy",key:"nc-dp-1"},{name:"Min Cost Climbing Stairs",diff:"easy",key:"nc-dp-2"},
+    {name:"House Robber",diff:"medium",key:"nc-dp-3"},{name:"House Robber II",diff:"medium",key:"nc-dp-4"},
+    {name:"Longest Palindromic Substring",diff:"medium",key:"nc-dp-5"},{name:"Palindromic Substrings",diff:"medium",key:"nc-dp-6"},
+    {name:"Decode Ways",diff:"medium",key:"nc-dp-7"},{name:"Coin Change",diff:"medium",key:"nc-dp-8"},
+    {name:"Maximum Product Subarray",diff:"medium",key:"nc-dp-9"},{name:"Word Break",diff:"medium",key:"nc-dp-10"},
+    {name:"Longest Increasing Subsequence",diff:"medium",key:"nc-dp-11"},{name:"Partition Equal Subset Sum",diff:"medium",key:"nc-dp-12"},
+  ]},
+  { group: "2D Dynamic Programming", color: "var(--green)", problems: [
+    {name:"Unique Paths",diff:"medium",key:"nc-2d-1"},{name:"Longest Common Subsequence",diff:"medium",key:"nc-2d-2"},
+    {name:"Buy/Sell Stock with Cooldown",diff:"medium",key:"nc-2d-3"},{name:"Coin Change II",diff:"medium",key:"nc-2d-4"},
+    {name:"Target Sum",diff:"medium",key:"nc-2d-5"},{name:"Interleaving String",diff:"medium",key:"nc-2d-6"},
+    {name:"Longest Increasing Path in Matrix",diff:"hard",key:"nc-2d-7"},{name:"Distinct Subsequences",diff:"hard",key:"nc-2d-8"},
+    {name:"Edit Distance",diff:"medium",key:"nc-2d-9"},{name:"Burst Balloons",diff:"hard",key:"nc-2d-10"},
+    {name:"Regular Expression Matching",diff:"hard",key:"nc-2d-11"},
+  ]},
+  { group: "Greedy", color: "var(--yellow)", problems: [
+    {name:"Maximum Subarray",diff:"medium",key:"nc-gy-1"},{name:"Jump Game",diff:"medium",key:"nc-gy-2"},
+    {name:"Jump Game II",diff:"medium",key:"nc-gy-3"},{name:"Gas Station",diff:"medium",key:"nc-gy-4"},
+    {name:"Hand of Straights",diff:"medium",key:"nc-gy-5"},{name:"Merge Triplets to Form Target",diff:"medium",key:"nc-gy-6"},
+    {name:"Partition Labels",diff:"medium",key:"nc-gy-7"},{name:"Valid Parenthesis String",diff:"medium",key:"nc-gy-8"},
+  ]},
+  { group: "Intervals", color: "var(--yellow)", problems: [
+    {name:"Insert Interval",diff:"medium",key:"nc-iv-1"},{name:"Merge Intervals",diff:"medium",key:"nc-iv-2"},
+    {name:"Non-overlapping Intervals",diff:"medium",key:"nc-iv-3"},{name:"Meeting Rooms",diff:"easy",key:"nc-iv-4"},
+    {name:"Meeting Rooms II",diff:"medium",key:"nc-iv-5"},{name:"Minimum Interval to Include Each Query",diff:"hard",key:"nc-iv-6"},
+  ]},
+  { group: "Math & Geometry", color: "var(--yellow)", problems: [
+    {name:"Rotate Image",diff:"medium",key:"nc-mg-1"},{name:"Spiral Matrix",diff:"medium",key:"nc-mg-2"},
+    {name:"Set Matrix Zeroes",diff:"medium",key:"nc-mg-3"},{name:"Happy Number",diff:"easy",key:"nc-mg-4"},
+    {name:"Plus One",diff:"easy",key:"nc-mg-5"},{name:"Pow(x, n)",diff:"medium",key:"nc-mg-6"},
+    {name:"Multiply Strings",diff:"medium",key:"nc-mg-7"},{name:"Detect Squares",diff:"medium",key:"nc-mg-8"},
+  ]},
+  { group: "Bit Manipulation", color: "var(--yellow)", problems: [
+    {name:"Single Number",diff:"easy",key:"nc-bm-1"},{name:"Number of 1 Bits",diff:"easy",key:"nc-bm-2"},
+    {name:"Counting Bits",diff:"easy",key:"nc-bm-3"},{name:"Reverse Bits",diff:"easy",key:"nc-bm-4"},
+    {name:"Missing Number",diff:"easy",key:"nc-bm-5"},{name:"Sum of Two Integers",diff:"medium",key:"nc-bm-6"},
+    {name:"Reverse Integer",diff:"medium",key:"nc-bm-7"},
+  ]},
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+function getState() { try { return JSON.parse(localStorage.getItem('rm2-state') || '{}'); } catch { return {}; } }
+function setState(key, val) { const s = getState(); s[key] = val; localStorage.setItem('rm2-state', JSON.stringify(s)); }
+function isChecked(key) { return !!getState()[key]; }
+
+// ─── RENDER TASK GROUPS ────────────────────────────────────────────────────
+function renderTaskSection(containerId, data) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  data.groups.forEach(group => {
+    const tg = document.createElement('div');
+    tg.className = 'task-group';
+    const done = group.items.filter(i => isChecked(i.key)).length;
+    const total = group.items.length;
+    const pct = total ? Math.round(done/total*100) : 0;
+    const header = document.createElement('div');
+    header.className = 'tg-header open';
+    header.innerHTML = `
+      <div class="tg-dot" style="background:${group.color}"></div>
+      <div class="tg-name">${group.name}</div>
+      <div class="tg-prog">
+        <span style="color:${group.color}">${done}/${total}</span>
+        <div class="tg-bar-wrap"><div class="tg-bar-fill" style="background:${group.color};width:${pct}%"></div></div>
+      </div>
+      <div class="tg-chevron">▼</div>
+    `;
+    const body = document.createElement('div');
+    body.className = 'tg-body';
+    group.items.forEach(item => {
+      const checked = isChecked(item.key);
+      const li = document.createElement('div');
+      li.className = 'task-item' + (checked ? ' done' : '');
+      li.dataset.key = item.key;
+      let html = `<div class="task-check">${checked ? '✓' : ''}</div><div class="task-body"><div class="task-text">${item.text}</div>`;
+      if (item.tip) html += `<div class="task-tip tip-${item.tipType||'cyan'}">${item.tip}</div>`;
+      html += '</div>';
+      li.innerHTML = html;
+      li.onclick = () => {
+        const now = !isChecked(item.key);
+        setState(item.key, now);
+        li.classList.toggle('done', now);
+        li.querySelector('.task-check').textContent = now ? '✓' : '';
+        // update group header
+        const grpDone = group.items.filter(i => isChecked(i.key)).length;
+        const grpPct = Math.round(grpDone/total*100);
+        header.querySelector('.tg-prog span').textContent = `${grpDone}/${total}`;
+        header.querySelector('.tg-bar-fill').style.width = grpPct + '%';
+        updateProgress();
+      };
+      body.appendChild(li);
+    });
+    header.onclick = (e) => {
+      if (e.target.closest('.task-item')) return;
+      header.classList.toggle('open');
+      body.style.display = header.classList.contains('open') ? 'block' : 'none';
+    };
+    tg.appendChild(header);
+    tg.appendChild(body);
+    container.appendChild(tg);
+  });
+}
+
+// ─── RENDER NEETCODE ───────────────────────────────────────────────────────
+function renderNC() {
+  const container = document.getElementById('nc-list');
+  NC_DATA.forEach(group => {
+    const state = getState();
+    const done = group.problems.filter(p => state[p.key]).length;
+    const total = group.problems.length;
+    const pct = Math.round(done/total*100);
+    const div = document.createElement('div');
+    div.className = 'nc-group';
+    const header = document.createElement('div');
+    header.className = 'nc-gh';
+    header.innerHTML = `
+      <div class="nc-gh-dot" style="background:${group.color}"></div>
+      <div class="nc-gh-name">${group.group}</div>
+      <div class="nc-gh-right">
+        <span style="color:${group.color}">${done}/${total}</span>
+        <div class="nc-gh-bar"><div class="nc-gh-fill" style="background:${group.color};width:${pct}%"></div></div>
+      </div>
+    `;
+    const body = document.createElement('div');
+    body.className = 'nc-gb';
+    group.problems.forEach(p => {
+      const checked = isChecked(p.key);
+      const item = document.createElement('div');
+      item.className = 'nc-item' + (checked ? ' done' : '');
+      item.dataset.key = p.key;
+      item.innerHTML = `
+        <div class="nc-ck">${checked ? '✓' : ''}</div>
+        <div class="nc-name">${p.name}</div>
+        <span class="diff diff-${p.diff}">${p.diff}</span>
+      `;
+      item.onclick = () => {
+        const now = !isChecked(p.key);
+        setState(p.key, now);
+        item.classList.toggle('done', now);
+        item.querySelector('.nc-ck').textContent = now ? '✓' : '';
+        const grpDone = group.problems.filter(pp => isChecked(pp.key)).length;
+        header.querySelector('.nc-gh-right span').textContent = `${grpDone}/${total}`;
+        header.querySelector('.nc-gh-fill').style.width = Math.round(grpDone/total*100) + '%';
+        updateProgress();
+      };
+      body.appendChild(item);
+    });
+    header.onclick = () => { body.style.display = body.style.display === 'none' ? 'block' : 'none'; };
+    div.appendChild(header); div.appendChild(body);
+    container.appendChild(div);
+  });
+}
+
+// ─── PROGRESS ──────────────────────────────────────────────────────────────
+function countTasks(taskId) {
+  const data = TASKS[taskId];
+  if (!data) return {done:0,total:0};
+  let done=0, total=0;
+  data.groups.forEach(g => { g.items.forEach(i => { total++; if(isChecked(i.key)) done++; }); });
+  return {done, total};
+}
+
+function updateProgress() {
+  const ncTotal = NC_DATA.reduce((s,g)=>s+g.problems.length,0);
+  const ncDone = NC_DATA.reduce((s,g)=>s+g.problems.filter(p=>isChecked(p.key)).length,0);
+  const ncPct = Math.round(ncDone/ncTotal*100);
+  document.getElementById('nc-count').textContent = `${ncDone}/${ncTotal}`;
+  document.getElementById('nc-bar').style.width = ncPct + '%';
+
+  const mlIds = ['tg-ml'];
+  let mlDone=0, mlTotal=0;
+  mlIds.forEach(id => { const c=countTasks(id); mlDone+=c.done; mlTotal+=c.total; });
+  const mlPct = mlTotal ? Math.round(mlDone/mlTotal*100) : 0;
+  document.getElementById('ml-count').textContent = `${mlDone}/${mlTotal}`;
+  document.getElementById('ml-bar').style.width = mlPct + '%';
+
+  const edgeIds = ['tg-inference','tg-hardware','tg-deployment','tg-cuda'];
+  let edgeDone=0, edgeTotal=0;
+  edgeIds.forEach(id => { const c=countTasks(id); edgeDone+=c.done; edgeTotal+=c.total; });
+  const edgePct = edgeTotal ? Math.round(edgeDone/edgeTotal*100) : 0;
+  document.getElementById('edge-count').textContent = `${edgeDone}/${edgeTotal}`;
+  document.getElementById('edge-bar').style.width = edgePct + '%';
+
+  const cppDsaIds = ['tg-cpp','tg-dsa'];
+  let cppDone=0, cppTotal=0;
+  cppDsaIds.forEach(id => { const c=countTasks(id); cppDone+=c.done; cppTotal+=c.total; });
+
+  const allDone = ncDone + mlDone + edgeDone + cppDone;
+  const allTotal = ncTotal + mlTotal + edgeTotal + cppTotal;
+  const allPct = allTotal ? Math.round(allDone/allTotal*100) : 0;
+  document.getElementById('total-pct').textContent = allPct + '%';
+  document.getElementById('total-label').textContent = `${allDone} / ${allTotal}`;
+}
+
+// ─── SCROLL SPY ────────────────────────────────────────────────────────────
+function initScrollSpy() {
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        const t = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+        if (t) t.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(s => observer.observe(s));
+}
+
+function setActive(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  localStorage.removeItem('rm2-state');
+  location.reload();
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  Object.keys(TASKS).forEach(id => renderTaskSection(id, TASKS[id]));
+  renderNC();
+  updateProgress();
+  initScrollSpy();
+});
+</script>
+</body>
+</html>
