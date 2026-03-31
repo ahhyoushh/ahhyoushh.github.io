@@ -585,8 +585,8 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
     <a class="nav-item" href="#ml-foundations" onclick="setActive(this)"><div class="nav-pip"></div>ML Foundations <span class="nav-badge nb-orange">parallel</span></a>
 
     <div class="nav-section-label">Phase 3 — Edge AI</div>
-    <a class="nav-item" href="#inference" onclick="setActive(this)"><div class="nav-pip"></div>Inference Stack</a>
-    <a class="nav-item" href="#hardware" onclick="setActive(this)"><div class="nav-pip"></div>Hardware Project <span class="nav-badge nb-green">Pi + Docker</span></a>
+    <a class="nav-item" href="#inference" onclick="setActive(this)"><div class="nav-pip"></div>RKNN Inference</a>
+    <a class="nav-item" href="#hardware" onclick="setActive(this)"><div class="nav-pip"></div>Industrial Project <span class="nav-badge nb-green">RV1106 NPU</span></a>
     <a class="nav-item" href="#deployment" onclick="setActive(this)"><div class="nav-pip"></div>Deployment Layer</a>
     <a class="nav-item" href="#cuda" onclick="setActive(this)"><div class="nav-pip"></div>CUDA Kernels</a>
 
@@ -732,14 +732,14 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
       <div id="tg-ml" style="margin-top:16px"></div>
     </section>
 
-    <!-- INFERENCE STACK -->
+    <!-- RKNN INFERENCE -->
     <section id="inference">
       <div class="sh">
         <div class="sh-num" style="color:rgba(0,232,122,0.10)">04</div>
         <div class="sh-body">
           <div class="sh-eye" style="color:var(--green)">Phase 3 · Edge AI</div>
-          <div class="sh-title">Inference Stack</div>
-          <div class="sh-sub">ONNX Runtime → TensorRT → pybind11. This is the hireable skill.</div>
+          <div class="sh-title">RKNN Inference Stack</div>
+          <div class="sh-sub">Quantization → .rknn conversion → C++ RKNPU2 API. This is the professional Edge AI workflow.</div>
         </div>
       </div>
       <div id="tg-inference"></div>
@@ -751,44 +751,44 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <div class="sh-num" style="color:rgba(0,232,122,0.08)">05</div>
         <div class="sh-body">
           <div class="sh-eye" style="color:var(--green)">Phase 3 · Build Something Real</div>
-          <div class="sh-title">Hardware Project — Raspberry Pi</div>
-          <div class="sh-sub">The single project that answers 80% of Edge AI interview questions.</div>
+          <div class="sh-title">Industrial Project — Vision Scanner</div>
+          <div class="sh-sub">The visual fingerprint scanner that proves you can build industrial-grade defect detection.</div>
         </div>
       </div>
 
       <div class="alert alert-green">
         <div class="alert-icon">◈</div>
-        <div><strong style="color:var(--green)">Buy list:</strong> Raspberry Pi 5 4GB (~$80) + USB webcam (~$12) + 32GB microSD (~$8). Total under $100. The Pi 5 is noticeably faster than Pi 4 for inference.</div>
+        <div><strong style="color:var(--green)">Industrial Stack:</strong> Luckfox Pico Ultra (~$25) + SC3336 MIPI Camera (~$15) + Stepper Motor Kit (~$5). Total under $50. This stack is 10x more power-efficient than a Pi 5 for AI tasks.</div>
       </div>
 
       <div class="hw-stack" style="margin:20px 0">
         <div class="hw-box">
-          <div class="hw-box-title" style="color:var(--orange)">Input Layer</div>
+          <div class="hw-box-title" style="color:var(--orange)">Capture Layer</div>
           <ul>
-            <li>USB webcam (V4L2)</li>
-            <li>OpenCV frame grab</li>
-            <li>GStreamer pipeline</li>
-            <li>ALSA audio (optional)</li>
+            <li>SC3336 MIPI CSI</li>
+            <li>Rockchip MPP (RKMPI)</li>
+            <li>Zero-copy DMA buffers</li>
+            <li>Hardware scaling (ISP)</li>
           </ul>
         </div>
         <div class="hw-arrow">→</div>
         <div class="hw-box">
           <div class="hw-box-title" style="color:var(--cyan)">Inference Layer</div>
           <ul>
-            <li>ONNX Runtime ARM</li>
-            <li>TFLite INT8 model</li>
-            <li>Bounding box output</li>
-            <li>&lt;50ms latency target</li>
+            <li>RKNPU2 C++ API</li>
+            <li>INT8 MobileNetV2</li>
+            <li>Embedding Vector extraction</li>
+            <li>&lt;30ms latency target</li>
           </ul>
         </div>
         <div class="hw-arrow">→</div>
         <div class="hw-box">
-          <div class="hw-box-title" style="color:var(--green)">Deployment Layer</div>
+          <div class="hw-box-title" style="color:var(--green)">Industrial Logic</div>
           <ul>
-            <li>Dockerized container</li>
-            <li>systemd service</li>
-            <li>Auto-start on boot</li>
-            <li>GitHub + README + benchmarks</li>
+            <li>C++ Stepper Control</li>
+            <li>Cosine Similarity math</li>
+            <li>Defect Detection logic</li>
+            <li>Headless Buildroot OS</li>
           </ul>
         </div>
       </div>
@@ -801,9 +801,9 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
       <div class="sh">
         <div class="sh-num" style="color:rgba(0,232,122,0.07)">06</div>
         <div class="sh-body">
-          <div class="sh-eye" style="color:var(--green)">Phase 3 · New Addition</div>
-          <div class="sh-title">Deployment Layer</div>
-          <div class="sh-sub">Docker, GStreamer, OpenCV, systemd. The glue that makes inference production-grade.</div>
+          <div class="sh-eye" style="color:var(--green)">Phase 3 · Production</div>
+          <div class="sh-title">Deployment & OS</div>
+          <div class="sh-sub">Buildroot, Cross-compilation, and MPP. The glue that turns a script into an industrial product.</div>
         </div>
       </div>
       <div id="tg-deployment"></div>
@@ -916,43 +916,43 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         </a>
       </div>
 
-      <h3 style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Phase 3 — Edge AI</h3>
+      <h3 style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Phase 3 — Edge AI & Luckfox</h3>
       <div class="res-grid" style="margin-bottom:20px">
-        <a class="res-card" href="https://onnxruntime.ai/docs/api/c/" target="_blank">
-          <div class="res-name">ONNX Runtime C++ API</div>
-          <div class="res-url">onnxruntime.ai/docs/api/c</div>
-          <div class="res-desc">Microsoft's cross-platform inference runtime. Load ONNX models, run in C++. Has an ARM build for Pi deployment.</div>
-          <div class="res-phase">Phase 3 · Primary Runtime</div>
+        <a class="res-card" href="https://wiki.luckfox.com" target="_blank">
+          <div class="res-name">Luckfox Official Wiki</div>
+          <div class="res-url">wiki.luckfox.com</div>
+          <div class="res-desc">Authoritative hub for RV1106. Start here for GPIO, MIPI Camera, and SDK environment setup.</div>
+          <div class="res-phase">Phase 3 · Primary Hub</div>
         </a>
-        <a class="res-card" href="https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/" target="_blank">
-          <div class="res-name">TensorRT Developer Guide</div>
-          <div class="res-url">docs.nvidia.com/tensorrt</div>
-          <div class="res-desc">FP16/INT8 quantization, operator fusion, engine serialization. Read Chapters 1–5 before touching code.</div>
-          <div class="res-phase">Phase 3 · GPU Optimization</div>
+        <a class="res-card" href="https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-RKNN" target="_blank">
+          <div class="res-name">RKNN Beginner's Guide</div>
+          <div class="res-url">wiki.luckfox.com/RKNN</div>
+          <div class="res-desc">Step-by-step conversion from ONNX to .rknn. Explains INT8 quantization and calibration datasets.</div>
+          <div class="res-phase">Phase 3 · NPU Inference</div>
         </a>
-        <a class="res-card" href="https://pybind11.readthedocs.io" target="_blank">
-          <div class="res-name">pybind11</div>
-          <div class="res-url">pybind11.readthedocs.io</div>
-          <div class="res-desc">C++↔Python bridge. Write inference in C++, call from Python with numpy. Buffer protocol section = zero-copy transfer.</div>
-          <div class="res-phase">Phase 3 · Python Bridge</div>
+        <a class="res-card" href="https://github.com/rockchip-linux/rknn-toolkit2" target="_blank">
+          <div class="res-name">Rockchip RKNPU2 SDK</div>
+          <div class="res-url">github.com/rknn-toolkit2</div>
+          <div class="res-desc">Check the doc/ folder for the official API PDF. This is the source of truth for the C++ library functions.</div>
+          <div class="res-phase">Phase 3 · SDK Ref</div>
         </a>
-        <a class="res-card" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/" target="_blank">
-          <div class="res-name">CUDA C++ Guide</div>
-          <div class="res-url">docs.nvidia.com/cuda</div>
-          <div class="res-desc">Thread hierarchy, shared vs global memory, warp execution. Start at Chapter 1, implement as you read.</div>
-          <div class="res-phase">Phase 3 · GPU Kernels</div>
+        <a class="res-card" href="https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-RKMPI" target="_blank">
+          <div class="res-name">RKMPI / MPP Guide</div>
+          <div class="res-url">wiki.luckfox.com/RKMPI</div>
+          <div class="res-desc">Using hardware accelerators for zero-copy camera capture. Essential for industrial vision performance.</div>
+          <div class="res-phase">Phase 3 · Media Platform</div>
         </a>
-        <a class="res-card" href="https://gstreamer.freedesktop.org/documentation/" target="_blank">
-          <div class="res-name">GStreamer</div>
-          <div class="res-url">gstreamer.freedesktop.org</div>
-          <div class="res-desc">Camera feed pipeline on Linux edge devices. Harder than the AI itself. Essential for production edge deployments.</div>
-          <div class="res-phase">Phase 3 · New Addition</div>
+        <a class="res-card" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html" target="_blank">
+          <div class="res-name">CMake Toolchain Guide</div>
+          <div class="res-url">cmake.org/docs</div>
+          <div class="res-desc">Official docs on cross-compilation. Learn how to point CMake to your ARM toolchain correctly.</div>
+          <div class="res-phase">Phase 3 · Cross-Compile</div>
         </a>
-        <a class="res-card" href="https://docs.docker.com" target="_blank">
-          <div class="res-name">Docker Docs</div>
-          <div class="res-url">docs.docker.com</div>
-          <div class="res-desc">Every edge AI deployment uses containers. Docker + Docker Compose for multi-service pipelines. ARM builds supported.</div>
-          <div class="res-phase">Phase 3 · New Addition</div>
+        <a class="res-card" href="https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/v4l2.html" target="_blank">
+          <div class="res-name">V4L2 API Reference</div>
+          <div class="res-url">kernel.org/v4l2</div>
+          <div class="res-desc">The Linux standard for camera drivers. Understand buffer types and streaming ioctls.</div>
+          <div class="res-phase">Phase 3 · Kernel API</div>
         </a>
       </div>
 
@@ -964,10 +964,9 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <table class="t">
           <thead><tr><th>Resource</th><th>Why</th></tr></thead>
           <tbody>
-            <tr><td>Udemy / Coursera DSA</td><td>Too slow. Tutorial hell.</td></tr>
-            <tr><td>GeeksforGeeks</td><td>Inconsistent, teaches bad C++ habits.</td></tr>
-            <tr><td>HackerRank</td><td>Gamified, wrong optimization target.</td></tr>
-            <tr><td>YouTube "roadmap" videos</td><td>Meta-content about learning instead of actual learning.</td></tr>
+            <tr><td>Udemy / Coursera AI</td><td>Too abstract. No hardware focus.</td></tr>
+            <tr><td>Native Pi Tutorials</td><td>"Easy mode" habits. Doesn't teach cross-compilation.</td></tr>
+            <tr><td>Generic YT roadmaps</td><td>Entertainment, not technical documentation.</td></tr>
           </tbody>
         </table>
       </div>
@@ -978,50 +977,44 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
       <div class="sh">
         <div class="sh-num">J</div>
         <div class="sh-body">
-          <div class="sh-eye">Taiwan · Bachelor's · No Chinese Required</div>
+          <div class="sh-eye">Taiwan · Bachelor's · Industrial Focus</div>
           <div class="sh-title">Target Jobs</div>
-          <div class="sh-sub">Realistic roles and salaries straight out of NYCU.</div>
+          <div class="sh-sub">Roles that value specialized Rockchip/NPU SDK experience.</div>
         </div>
       </div>
 
       <div class="info-card">
         <table class="t">
-          <thead><tr><th>Title</th><th>Companies</th><th>Salary (NT$/yr)</th><th>Bachelor's?</th></tr></thead>
+          <thead><tr><th>Title</th><th>Companies</th><th>Salary (NT$/yr)</th><th>Key Skill</th></tr></thead>
           <tbody>
             <tr>
               <td style="color:var(--cyan)">Edge AI Software Engineer</td>
-              <td>Foreign AI startups, ADLINK, AAEON</td>
+              <td>Advantech (研華), MediaTek (聯發科)</td>
+              <td>1.2M – 1.8M</td>
+              <td style="color:var(--green)">NPU SDKs (RKNN/NeuroPilot)</td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">Embedded Vision Engineer</td>
+              <td>VIVOTEK (晶睿通訊), Altek (華晶)</td>
               <td>1.0M – 1.5M</td>
-              <td style="color:var(--green)">✅ Yes</td>
+              <td style="color:var(--green)">MPP / MIPI Capture</td>
             </tr>
             <tr>
-              <td style="color:var(--cyan)">AIoT Application Engineer</td>
-              <td>Advantech, VIVOTEK, foreign vision startups</td>
-              <td>800k – 1.2M</td>
-              <td style="color:var(--green)">✅ Yes</td>
+              <td style="color:var(--cyan)">AIoT Solutions Engineer</td>
+              <td>ADLINK (凌華), AAEON (研揚)</td>
+              <td>900k – 1.3M</td>
+              <td style="color:var(--green)">Buildroot / Industrial Protocols</td>
             </tr>
             <tr>
-              <td style="color:var(--cyan)">ML Infrastructure Engineer</td>
-              <td>NVIDIA TW, Qualcomm TW, MediaTek</td>
-              <td>1.3M – 1.8M+</td>
-              <td style="color:var(--green)">✅ Yes (strong projects needed)</td>
-            </tr>
-            <tr>
-              <td style="color:var(--cyan)">Applied ML Engineer (New Grad)</td>
-              <td>Amazon, Microsoft IoT, Logitech TW</td>
-              <td>1.3M – 1.8M+ + equity</td>
-              <td style="color:var(--green)">✅ Yes</td>
-            </tr>
-            <tr>
-              <td style="color:var(--text3)">ML Research Scientist</td>
-              <td>Academic labs, TSMC research</td>
-              <td>High but competitive</td>
-              <td style="color:var(--red)">❌ Usually needs masters</td>
+              <td style="color:var(--cyan)">ML Infrastructure (Compiler)</td>
+              <td>NVIDIA TW, Kneron (耐能)</td>
+              <td>1.5M – 2.2M+</td>
+              <td style="color:var(--green)">Quantization / TVM</td>
             </tr>
           </tbody>
         </table>
         <div style="margin-top:12px;font-size:10.5px;color:var(--text3);line-height:1.7">
-          NT$1.0M/year ≈ $31k USD — sounds low but Taiwan's cost of living (especially Hsinchu near NYCU) makes this equivalent to significantly more in purchasing power. Rent in Hsinchu is ~NT$8–12k/month.
+          Note: Rockchip (Luckfox) experience is a direct proxy for MediaTek's NeuroPilot or Advantech's internal AI stacks. It proves you can handle hardware constraints.
         </div>
       </div>
     </section>
@@ -1039,21 +1032,20 @@ const TASKS = {
       name: "Environment & Toolchain",
       color: "var(--cyan)",
       items: [
-        { key: "cpp-env-1", text: "<strong>Set up GCC on both machines</strong> — Windows (VS Code + MinGW) and Arch Linux.", tip: "Compile with: g++ -std=c++17 -Wall -Wextra -O2. The -Wall -Wextra flags will catch your Python-to-C++ habit bugs immediately.", tipType: "cyan" },
-        { key: "cpp-env-2", text: "<strong>Install clangd</strong> in VS Code — better intellisense than ms-cpp, catches const& violations inline.", tip: null },
-        { key: "cpp-env-3", text: "<strong>Write a hello world</strong> that uses vector, unordered_map, and a range-based for loop — just to verify the toolchain works.", tip: null },
+        { key: "cpp-env-1", text: "<strong>Set up Cross-Compilation</strong> — Install the arm-linux-gnueabihf toolchain for Luckfox RV1106.", tip: "Native compilation on the chip is too slow. Professionals build on x86 for ARM. Use the official toolchain from the Luckfox SDK.", tipType: "cyan" },
+        { key: "cpp-env-2", text: "<strong>Master CMake Toolchains</strong> — Write a CMake toolchain file to manage include/lib paths for the SDK.", tip: "This is the 'interview winner'. If you can explain how a toolchain file redirects CMake to the target sysroot, you own the environment.", tipType: "cyan" },
+        { key: "cpp-env-3", text: "<strong>Write a V4L2 test</strong> — Capture a single frame from /dev/video11 using standard Linux ioctls.", tip: null },
       ]
     }, {
-      name: "Core Concepts to Internalize",
+      name: "Industrial Core Concepts",
       color: "var(--cyan)",
       items: [
-        { key: "cpp-core-1", text: "<strong>Stack vs heap</strong> — know exactly where a local int, a vector, and a new'd pointer live in memory.", tip: "This is the mental model that makes everything else click. Local variables = stack (fast, auto-freed). new/malloc = heap (slow, manual). std::vector stores its data on the heap but the vector object itself is on the stack.", tipType: "cyan" },
-        { key: "cpp-core-2", text: "<strong>const& semantics</strong> — pass every input parameter as const& unless you explicitly need a copy or mutation.", tip: null },
-        { key: "cpp-core-3", text: "<strong>RAII</strong> — understand why you almost never need to call delete manually in modern C++. std::vector, std::unique_ptr, std::shared_ptr handle it.", tip: "unique_ptr = single owner, zero overhead. shared_ptr = reference counted, small overhead. Use unique_ptr by default.", tipType: "cyan" },
-        { key: "cpp-core-4", text: "<strong>Smart pointers</strong> — std::unique_ptr and std::shared_ptr. Understand when each is appropriate.", tip: null },
-        { key: "cpp-core-5", text: "<strong>Iterator invalidation rules</strong> — know when inserting into a vector invalidates all your iterators.", tip: "This kills production code silently. Inserting into vector = potentially reallocates = all iterators invalid. Safe pattern: use indices, not iterators, if you're modifying while iterating.", tipType: "orange" },
-        { key: "cpp-core-6", text: "<strong>Move semantics</strong> (C++11) — understand std::move and why returning a local vector is free (NRVO/move semantics).", tip: null },
-        { key: "cpp-core-7", text: "<strong>STL containers and their tradeoffs</strong> — vector (cache-friendly, O(1) random), unordered_map (O(1) avg hash), map (O(log n) tree), deque (fragmented heap).", tip: "Default to vector unless you have a specific reason not to. 90% of the time vector wins on performance due to cache locality.", tipType: "cyan" },
+        { key: "cpp-core-1", text: "<strong>Bit Manipulation</strong> — Use masks and shifts to read/write hardware registers.", tip: "Required for low-level GPIO and device driver interaction. Understand AND/OR/XOR at the bit level.", tipType: "cyan" },
+        { key: "cpp-core-2", text: "<strong>DMA & Zero-Copy</strong> — Pass memory pointers between camera and NPU without copying buffer data.", tip: "Moving images between CPU and NPU is the bottleneck. DMA-BUF allows the NPU to read directly from the camera buffer.", tipType: "cyan" },
+        { key: "cpp-core-3", text: "<strong>POSIX Threads</strong> — Synchronize camera capture, motor control, and NPU inference.", tip: "Use std::mutex and std::condition_variable to prevent race conditions in the 'Visual Fingerprint' scanner.", tipType: "cyan" },
+        { key: "cpp-core-4", text: "<strong>Smart pointers</strong> — std::unique_ptr for hardware resource handles.", tip: null },
+        { key: "cpp-core-5", text: "<strong>Circular Buffers</strong> — Implement a thread-safe ring buffer for incoming camera frames.", tip: "Required for real-time processing without dropping frames during heavy NPU inference.", tipType: "orange" },
+        { key: "cpp-core-6", text: "<strong>STL containers and their tradeoffs</strong> — vector (cache-friendly) vs deque (fragmented).", tip: null },
       ]
     }]
   },
@@ -1065,46 +1057,37 @@ const TASKS = {
       name: "Pattern 1 — Arrays & Hashing",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-ah-1", text: "Complete all 9 NeetCode Arrays & Hashing problems in C++.", tip: "Hash sets for O(n) duplicate detection. unordered_map for frequency counting. Always reserve() before inserting n elements to avoid rehashing.", tipType: "cyan" },
-        { key: "dsa-ah-2", text: "For each solution: try to eliminate the hash structure and use sorting + scan instead.", tip: "Sort approach = O(n log n) time, O(1) space. Hash approach = O(n) time, O(n) space. Know when to pick which — if interviewer says 'optimize space', sort wins.", tipType: "cyan" },
-        { key: "dsa-ah-3", text: "Benchmark the memory difference between unordered_set and the sort approach on the contains-duplicate problem.", tip: "You already did this empirically. unordered_set = ~149MB. Sort in-place = ~7MB. Now you understand why.", tipType: "orange" },
+        { key: "dsa-ah-1", text: "Complete all 9 NeetCode Arrays & Hashing problems in C++.", tip: "Always reserve() before inserting n elements to avoid rehashing.", tipType: "cyan" },
+        { key: "dsa-ah-2", text: "Optimize for cache locality. Understand how contiguous memory in vector beats linked lists.", tip: null },
+        { key: "dsa-ah-3", text: "Benchmark memory usage. In embedded systems (Luckfox), 128MB RAM is a hard ceiling.", tip: "This is why you pick sort + scan (O(1) space) over hash maps (O(n) space) when possible.", tipType: "orange" },
       ]
     }, {
       name: "Pattern 2 — Two Pointers",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-tp-1", text: "Complete all 5 Two Pointers problems in C++.", tip: "Always sort first if the problem allows it. Two pointers on a sorted array is cache-optimal — sequential access, no hash jumps.", tipType: "cyan" },
-        { key: "dsa-tp-2", text: "Can you write 3Sum from scratch without reference? This is the milestone.", tip: "3Sum is the pattern test. If you can write it clean — sort, outer loop, lo/hi pointers, skip duplicates — you own two pointers.", tipType: "cyan" },
+        { key: "dsa-tp-1", text: "Complete all 5 Two Pointers problems in C++.", tip: null },
+        { key: "dsa-tp-2", text: "3Sum is the pattern test. If you can write it clean, you own two pointers.", tipType: "cyan" },
       ]
     }, {
       name: "Pattern 3 — Sliding Window",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-sw-1", text: "Complete all 6 Sliding Window problems in C++.", tip: "Each element enters and exits the window at most once = O(n). The window variables live in registers. Sequential array access = perfect cache behavior. This is why it beats brute force not just in big-O but in wall time.", tipType: "cyan" },
-        { key: "dsa-sw-2", text: "Minimum Window Substring is the hardest in this set — don't skip it.", tip: "If you get this one clean, you fully understand the shrink/expand pattern. It requires two pointers + a frequency map simultaneously.", tipType: "orange" },
+        { key: "dsa-sw-1", text: "Complete all 6 Sliding Window problems in C++.", tip: null },
+        { key: "dsa-sw-2", text: "Minimum Window Substring — use a fixed-size array (int[256]) instead of unordered_map for performance.", tip: "Fixed arrays are 10-100x faster than hash maps in tight loops.", tipType: "orange" },
       ]
     }, {
       name: "Pattern 4 — Stack",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-st-1", text: "Complete all 7 Stack problems in C++.", tip: "Use stack<int, vector<int>> not the default stack<int>. Default uses deque backend which is heap-fragmented. vector backend is contiguous = cache friendly.", tipType: "cyan" },
-        { key: "dsa-st-2", text: "Largest Rectangle in Histogram — hardest in set. Monotonic stack pattern.", tip: "The monotonic stack pattern shows up in multiple hard problems. Once it clicks here it's immediately transferable.", tipType: "orange" },
+        { key: "dsa-st-1", text: "Complete all 7 Stack problems in C++.", tip: null },
+        { key: "dsa-st-2", text: "Largest Rectangle in Histogram — monotonic stack pattern.", tip: null },
       ]
     }, {
       name: "Pattern 5 — Binary Search",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-bs-1", text: "Complete all 7 Binary Search problems in C++.", tip: "Always use lo + (hi - lo) / 2. Never (lo + hi) / 2. Binary search isn't just sorted arrays — it's a framework for any monotonic answer space.", tipType: "cyan" },
-        { key: "dsa-bs-2", text: "Koko Eating Bananas — the binary search on answer space problem. Own this pattern.", tip: "'Is X feasible?' formulation. Binary search on X. This pattern appears constantly in systems problems — finding optimal batch sizes, memory thresholds, etc.", tipType: "cyan" },
-        { key: "dsa-bs-3", text: "After the first 5 patterns, continue NeetCode 150 independently — Linked Lists, Trees, Heap, Backtracking, Graphs, DP in that order.", tip: null },
-      ]
-    }, {
-      name: "Codeforces — Hobby Track",
-      color: "var(--text3)",
-      items: [
-        { key: "cf-1", text: "Start with Div 4 contests. Goal: solve A and B problems consistently.", tip: "Don't jump to Div 2 until A and B take under 10 minutes. Div 3 is the sweet spot for building speed without needing advanced algorithms.", tipType: "yellow" },
-        { key: "cf-2", text: "Keep CF mentally separate from LeetCode. CF = fun + math. LeetCode = interview prep. Different optimization targets.", tip: null },
-        { key: "cf-3", text: "When CF style clashes with clean C++ habits (e.g. global arrays, no const&) — use CF style for CF, clean style for LeetCode. Don't mix.", tip: "CF solutions are intentionally dirty for speed. That's fine for contests. Just don't let those habits bleed into your interview solutions.", tipType: "orange" },
+        { key: "dsa-bs-1", text: "Complete all 7 Binary Search problems in C++.", tip: null },
+        { key: "dsa-bs-2", text: "Koko Eating Bananas — binary search on answer space.", tip: null },
       ]
     }]
   },
@@ -1113,132 +1096,91 @@ const TASKS = {
     label: "ML Foundations",
     color: "var(--orange)",
     groups: [{
-      name: "fast.ai Part 1",
+      name: "Industrial AI Foundations",
       color: "var(--orange)",
       items: [
-        { key: "ml-fai-1", text: "<strong>Lesson 1</strong> — Train your first image classifier. Get comfortable with Jupyter.", tip: "Top-down approach. You will call functions you don't understand yet. That's the point. Understanding comes after you've used it.", tipType: "orange" },
-        { key: "ml-fai-2", text: "<strong>Lesson 2</strong> — Deployment, data cleaning, production mindset.", tip: null },
-        { key: "ml-fai-3", text: "<strong>Lesson 3</strong> — Neural net foundations. What is a layer actually computing.", tip: null },
-        { key: "ml-fai-4", text: "<strong>Lessons 4–7</strong> — NLP, tabular, CNNs from scratch, putting it together.", tip: null },
+        { key: "ml-fai-1", text: "<strong>Quantization Basics</strong> — Understand FP32 to INT8 conversion.", tip: "NPUs like the RV1106 do math in INT8. Understanding symmetric vs asymmetric quantization is key to keeping accuracy high.", tipType: "orange" },
+        { key: "ml-fai-2", text: "<strong>Fixed-Point Arithmetic</strong> — Implement a dot product using only integers and scaling factors.", tip: "This mimics exactly what happens inside the Luckfox NPU hardware.", tipType: "orange" },
+        { key: "ml-fai-3", text: "<strong>micrograd</strong> — Build backpropagation from scratch (Karpathy).", tip: null },
+        { key: "ml-fai-4", text: "<strong>nanoGPT</strong> — Understand Transformer layers even if you use CNNs on edge.", tip: null },
       ]
     }, {
-      name: "Karpathy — Zero to Hero (CRITICAL)",
+      name: "PyTorch & ONNX",
       color: "var(--orange)",
       items: [
-        { key: "ml-karp-1", text: "<strong>micrograd</strong> — Build backpropagation from scratch in ~100 lines of Python.", tip: "This is the most important exercise in this entire roadmap. When you finish micrograd you understand autograd at the implementation level. Don't skip.", tipType: "orange" },
-        { key: "ml-karp-2", text: "<strong>makemore Parts 1–3</strong> — Bigrams → MLP. Build language models from scratch.", tip: null },
-        { key: "ml-karp-3", text: "<strong>makemore Part 4</strong> — Manual backprop. Derive every gradient by hand.", tip: "Most people skip this video. Don't. Manually deriving gradients is what separates engineers who debug ML from engineers who guess.", tipType: "orange" },
-        { key: "ml-karp-4", text: "<strong>makemore Part 5 + nanoGPT</strong> — WaveNet architecture → full GPT-2 from scratch.", tip: null },
-      ]
-    }, {
-      name: "PyTorch From Scratch",
-      color: "var(--orange)",
-      items: [
-        { key: "ml-pt-1", text: "Write a Linear layer manually — no nn.Linear. Understand weight initialization.", tip: null },
-        { key: "ml-pt-2", text: "Write a full training loop manually — no Trainer. optimizer.step(), zero_grad(), loss.backward().", tip: null },
-        { key: "ml-pt-3", text: "Implement cross-entropy loss manually — understand log-softmax numerical stability.", tip: "Naive softmax overflows with large logits. log-softmax subtracts max first. This is why torch.nn.CrossEntropyLoss takes raw logits not probabilities.", tipType: "cyan" },
-        { key: "ml-pt-4", text: "Train a small CNN on CIFAR-10 end-to-end without a tutorial.", tip: null },
-        { key: "ml-pt-5", text: "Export that trained model to ONNX. Inspect the graph with Netron.", tip: "Netron (netron.app) is a free graph visualizer. Seeing the ONNX graph before you write C++ inference code makes the C++ API much less confusing.", tipType: "cyan" },
+        { key: "ml-pt-1", text: "Train a <strong>MobileNetV2</strong> on a custom dataset of industrial objects (screws, nuts).", tip: "MobileNet is the gold standard for low-power NPU benchmarks.", tipType: "orange" },
+        { key: "ml-pt-2", text: "Export to <strong>ONNX</strong> with fixed input shapes (e.g. 224x224).", tip: "NPUs hate dynamic shapes. Fix everything at export time.", tipType: "cyan" },
+        { key: "ml-pt-3", text: "Use <strong>Netron</strong> to inspect the graph for unsupported ops.", tip: "If your model has a fancy op the NPU doesn't like, it will fall back to the slow CPU. Catch it early.", tipType: "cyan" },
       ]
     }]
   },
 
   "tg-inference": {
-    label: "Inference Stack",
+    label: "RKNN Inference Stack",
     color: "var(--green)",
     groups: [{
-      name: "ONNX Runtime C++ API",
+      name: "RKNN-Toolkit2 (PC Side)",
       color: "var(--green)",
       items: [
-        { key: "inf-onnx-1", text: "Install ONNX Runtime from prebuilt (x86 for dev, ARM for Pi deployment).", tip: null },
-        { key: "inf-onnx-2", text: "Load a PyTorch-exported ONNX model in C++. Run a single inference call.", tip: "ONNX Runtime C++ API is cleaner than TensorRT's. Start here before TensorRT — same concepts, lower barrier.", tipType: "green" },
-        { key: "inf-onnx-3", text: "Understand input/output tensor memory layout — NCHW vs NHWC. Know which your model uses.", tip: "NCHW = (batch, channel, height, width) — PyTorch default. NHWC = (batch, height, width, channel) — TensorFlow default. Wrong layout = garbage output with no error.", tipType: "orange" },
-        { key: "inf-onnx-4", text: "Benchmark inference latency vs Python baseline. Measure the gap.", tip: null },
-        { key: "inf-onnx-5", text: "Profile memory allocation per inference call. Understand where it's going.", tip: null },
+        { key: "inf-rknn-1", text: "Install <strong>RKNN-Toolkit2</strong> on Ubuntu 22.04 (Host).", tip: null },
+        { key: "inf-rknn-2", text: "Convert ONNX to <strong>.rknn</strong> format with INT8 quantization.", tip: "Use a representative dataset (100 images) for calibration to prevent accuracy drop.", tipType: "green" },
+        { key: "inf-rknn-3", text: "Run <strong>rknn.init_runtime</strong> on PC for accuracy verification.", tip: null },
       ]
     }, {
-      name: "TensorRT",
+      name: "RKNPU2 API (Board Side)",
       color: "var(--green)",
       items: [
-        { key: "inf-trt-1", text: "Read TensorRT Developer Guide Chapters 1–4 before writing any code.", tip: "TensorRT has a lot of API surface. Reading first saves hours of debugging opaque errors.", tipType: "green" },
-        { key: "inf-trt-2", text: "Parse your ONNX model with the TensorRT builder API. Serialize to a .plan engine file.", tip: null },
-        { key: "inf-trt-3", text: "Apply FP16 quantization. Measure accuracy vs latency tradeoff on your test set.", tip: "FP16 typically has <0.1% accuracy drop with 2× speedup. INT8 needs calibration but can give 4× speedup. The job description you found used INT8 — that's the more impressive one.", tipType: "green" },
-        { key: "inf-trt-4", text: "Apply INT8 quantization with a calibration dataset.", tip: null },
-        { key: "inf-trt-5", text: "Understand operator fusion — what TensorRT fuses and why (Conv + BN + ReLU is the canonical example).", tip: null },
-      ]
-    }, {
-      name: "pybind11",
-      color: "var(--green)",
-      items: [
-        { key: "inf-pb-1", text: "Write a simple C++ function callable from Python — benchmark the call overhead.", tip: null },
-        { key: "inf-pb-2", text: "Wrap your ONNX Runtime inference pipeline so Python can call it with a numpy array and get results back.", tip: "Zero-copy buffer protocol: pass numpy arrays to C++ without copying. The buffer protocol section of the pybind11 docs is short but critical.", tipType: "green" },
-        { key: "inf-pb-3", text: "Benchmark: pure Python inference vs pybind11 C++ inference. Quantify the speedup.", tip: null },
+        { key: "inf-npu-1", text: "Implement <strong>rknn_init</strong> and model loading in C++.", tip: "Load the .rknn file into a memory buffer and pass it to the NPU.", tipType: "green" },
+        { key: "inf-npu-2", text: "Map input buffers using <strong>rknn_inputs_set</strong>.", tip: "Master the NCHW vs NHWC layout for Rockchip NPUs.", tipType: "orange" },
+        { key: "inf-npu-3", text: "Execute <strong>rknn_run</strong> and process outputs with <strong>rknn_outputs_get</strong>.", tip: null },
+        { key: "inf-npu-4", text: "Implement <strong>Cosine Similarity</strong> in C++ for the Visual Fingerprint.", tip: "Compare the live embedding vector to a 'Golden Vector' stored in memory.", tipType: "green" },
       ]
     }]
   },
 
   "tg-hardware": {
-    label: "Hardware Project",
+    label: "Industrial Vision Project",
     color: "var(--green)",
     groups: [{
-      name: "Setup",
+      name: "Hardware Assembly (BOM)",
       color: "var(--green)",
       items: [
-        { key: "hw-1", text: "Buy Raspberry Pi 5 4GB + USB webcam + 32GB microSD. Flash Ubuntu 24.04 Server (ARM).", tip: "Server image not desktop. Lighter, less memory overhead, better for headless deployment. SSH in from your laptop.", tipType: "green" },
-        { key: "hw-2", text: "Set up SSH access from your laptop. Never plug a monitor into it again after initial setup.", tip: null },
-        { key: "hw-3", text: "Install Docker on the Pi. Verify it runs an ARM container correctly.", tip: "Most Docker Hub images have ARM64 builds now. ONNX Runtime has an official ARM image. Pull and test it.", tipType: "green" },
+        { key: "hw-1", text: "Luckfox Pico Ultra (RV1106) — The NPU-powered core.", tip: null },
+        { key: "hw-2", text: "SC3336 3MP MIPI Camera — Plugs directly into CSI port.", tip: "MIPI is lower latency than USB. Essential for industrial speeds.", tipType: "green" },
+        { key: "hw-3", text: "28BYJ-48 Stepper + ULN2003 — To rotate objects for 360° scan.", tip: null },
+        { key: "hw-4", text: "0.96\" I2C OLED — Real-time similarity score display.", tip: null },
       ]
     }, {
-      name: "The Core Project",
+      name: "The 'Visual Fingerprint' Machine",
       color: "var(--green)",
       items: [
-        { key: "hw-4", text: "Get USB webcam working with OpenCV on the Pi. Capture frames, display FPS.", tip: null },
-        { key: "hw-5", text: "Run a MobileNet or EfficientDet ONNX model on the Pi via ONNX Runtime. Measure inference latency.", tip: "MobileNetV2 is the standard benchmark model for Edge AI. Under 50ms on Pi 5 is achievable with quantization.", tipType: "green" },
-        { key: "hw-6", text: "Draw bounding boxes / classification labels on frames using OpenCV. Write output to a stream.", tip: null },
-        { key: "hw-7", text: "Dockerize the entire pipeline — Dockerfile that installs ONNX Runtime, OpenCV, copies your code.", tip: "Your Dockerfile should be reproducible. Anyone should be able to docker run it on an ARM machine and get the same result. This is what 'production-grade' means.", tipType: "green" },
-        { key: "hw-8", text: "Write a systemd service file that starts the Docker container on boot automatically.", tip: "systemd unit file with Restart=always and After=docker.service. The device should be running inference within 30 seconds of power-on with no manual steps.", tipType: "green" },
-        { key: "hw-9", text: "Benchmark: latency (ms per frame), throughput (FPS), memory usage (MB), CPU/GPU utilization.", tip: null },
-        { key: "hw-10", text: "Write a README with architecture diagram, benchmark table, and setup instructions. Push to GitHub.", tip: "This project + README is what you show in interviews. Make the benchmarks prominent. Numbers like '47ms latency, 21 FPS on Pi 5, 180MB memory footprint' are what interviewers remember.", tipType: "orange" },
+        { key: "hw-5", text: "Write C++ driver to control <strong>Stepper Motor via GPIO</strong>.", tip: null },
+        { key: "hw-6", text: "Capture MIPI camera frames using <strong>Rockchip MPP</strong>.", tip: "MPP uses hardware acceleration to debayer and scale frames, saving CPU for logic.", tipType: "green" },
+        { key: "hw-7", text: "Perform real-time defect detection (<50ms latency).", tip: null },
+        { key: "hw-8", text: "Store 'Golden Embeddings' in a local sqlite or flat file database.", tip: null },
+        { key: "hw-9", text: "Benchmark performance: FPS, NPU Load, and Thermal stats.", tip: "Pi 5 is a heater. Luckfox should stay cool at 21 FPS. Document this gap.", tipType: "orange" },
+        { key: "hw-10", text: "Push to GitHub with a professional industrial README.", tip: null },
       ]
     }]
   },
 
   "tg-deployment": {
-    label: "Deployment Layer",
+    label: "Deployment & OS",
     color: "var(--green)",
     groups: [{
-      name: "Docker",
+      name: "Buildroot & Kernel",
       color: "var(--green)",
       items: [
-        { key: "dep-docker-1", text: "Understand Dockerfile instructions — FROM, RUN, COPY, CMD, ENTRYPOINT, ENV.", tip: null },
-        { key: "dep-docker-2", text: "Write a multi-stage Dockerfile for your C++ inference binary — builder stage + minimal runtime stage.", tip: "Multi-stage builds: compile in a full GCC image, copy only the binary to a minimal runtime image. Reduces final image size from ~2GB to ~200MB.", tipType: "green" },
-        { key: "dep-docker-3", text: "Docker Compose for a two-service pipeline — camera capture service + inference service.", tip: null },
-        { key: "dep-docker-4", text: "Understand ARM64 vs AMD64 Docker image differences. Use buildx for cross-platform builds.", tip: null },
+        { key: "dep-br-1", text: "Understand <strong>Buildroot</strong> — How to add custom packages to the OS image.", tip: "Industrial devices don't use Ubuntu. They use minimal Linux (Buildroot) for <5s boot times.", tipType: "green" },
+        { key: "dep-br-2", text: "Write a <strong>systemd/init script</strong> to auto-start your scanner on boot.", tip: null },
+        { key: "dep-br-3", text: "Cross-compile <strong>OpenCV</strong> for the Luckfox sysroot.", tip: "Don't use the full OpenCV. Strip it down to core/imgproc to save flash space.", tipType: "orange" },
       ]
     }, {
-      name: "GStreamer",
+      name: "Media Platform (MPP)",
       color: "var(--green)",
       items: [
-        { key: "dep-gst-1", text: "Understand the pipeline model — sources, filters, sinks connected by pads.", tip: "GStreamer pipelines are like Unix pipes but for media. gst-launch-1.0 is the CLI tool for testing pipelines before writing code.", tipType: "green" },
-        { key: "dep-gst-2", text: "Build a pipeline: V4L2 camera source → video conversion → JPEG encoder → file sink.", tip: null },
-        { key: "dep-gst-3", text: "Build a pipeline: camera → appsink → your OpenCV/ONNX processing → appsrc → display.", tip: "appsink/appsrc is the bridge between GStreamer and your application code. This is the production pattern for real-time edge AI.", tipType: "green" },
-      ]
-    }, {
-      name: "Linux / systemd",
-      color: "var(--green)",
-      items: [
-        { key: "dep-linux-1", text: "Understand systemd unit files — ExecStart, Restart, After, WantedBy.", tip: null },
-        { key: "dep-linux-2", text: "Monitor CPU, memory, temperature on the Pi — htop, vcgencmd measure_temp, free -h.", tip: "Pi 5 throttles at 85°C. If your inference pipeline is pushing that, you need a heatsink or reduce batch size. Always log temperature in your benchmarks.", tipType: "orange" },
-        { key: "dep-linux-3", text: "ALSA basics — if you're doing audio inference, understand ALSA circular buffering and how to avoid underruns.", tip: "The job description you found explicitly mentioned ALSA circular buffering. This is a differentiating skill.", tipType: "cyan" },
-        { key: "dep-linux-4", text: "GitHub Actions CI/CD — auto-build and test your Docker image on push.", tip: null },
-      ]
-    }, {
-      name: "OpenCV",
-      color: "var(--green)",
-      items: [
-        { key: "dep-cv-1", text: "Capture frames from webcam in Python and C++. Understand the VideoCapture API.", tip: null },
-        { key: "dep-cv-2", text: "Preprocessing pipeline: resize → normalize → convert to float32 → reshape to NCHW. This is what you feed ONNX Runtime.", tip: "Getting the preprocessing exactly right is where most Edge AI bugs live. Wrong normalization = confidently wrong output with no obvious error.", tipType: "orange" },
-        { key: "dep-cv-3", text: "Draw bounding boxes, labels, FPS counter on frames. Display or write to video file.", tip: null },
+        { key: "dep-mpp-1", text: "Understand the <strong>RKMPI</strong> pipeline model.", tip: "Source → Encoder → Sink. This is how IP cameras in Taiwan are built.", tipType: "green" },
+        { key: "dep-mpp-2", text: "Build a zero-copy pipeline from <strong>v4l2src to RKNN</strong>.", tip: null },
       ]
     }]
   },
@@ -1250,18 +1192,8 @@ const TASKS = {
       name: "GPU Mental Model",
       color: "var(--purple)",
       items: [
-        { key: "cuda-1", text: "Read CUDA C++ Programming Guide Chapters 1–4.", tip: "Thread hierarchy: thread → warp (32 threads) → block → grid. Memory hierarchy: registers (fastest) → shared (fast, per-block) → global (slow, all threads). Everything in CUDA optimization is about moving data closer to registers.", tipType: "cyan" },
-        { key: "cuda-2", text: "Understand warp execution — all 32 threads in a warp execute the same instruction simultaneously.", tip: "Branch divergence: if threads in a warp take different branches, both branches execute and results are masked. This is why you avoid if-else inside kernels.", tipType: "cyan" },
-        { key: "cuda-3", text: "Understand memory coalescing — why threads should access contiguous memory addresses.", tip: "If thread 0 reads address 0 and thread 1 reads address 128, that's 2 memory transactions. If they read 0 and 1, that's 1 transaction. Coalesced access = 32× memory bandwidth.", tipType: "cyan" },
-      ]
-    }, {
-      name: "Kernel Implementations",
-      color: "var(--purple)",
-      items: [
-        { key: "cuda-4", text: "Write a vector addition kernel. Understand grid/block/thread indexing.", tip: null },
-        { key: "cuda-5", text: "Write a naive matrix multiply kernel. Benchmark memory bandwidth.", tip: null },
-        { key: "cuda-6", text: "Write a tiled matrix multiply using shared memory. Measure speedup vs naive.", tip: "Tiled matmul is the canonical CUDA optimization exercise. Shared memory tiling reduces global memory reads from O(n³) to O(n³/tile_size). This is the same principle behind tensor cores.", tipType: "purple" },
-        { key: "cuda-7", text: "Profile with nvprof or Nsight Compute. Identify the bottleneck — compute-bound or memory-bound.", tip: "Arithmetic intensity = FLOPS / bytes moved. If your kernel is memory-bound, more cores won't help — you need better memory access patterns.", tipType: "purple" },
+        { key: "cuda-1", text: "Read CUDA C++ Programming Guide Chapters 1–4.", tip: "Warp execution and memory coalescing. Parallel thinking.", tipType: "cyan" },
+        { key: "cuda-2", text: "Tiled Matrix Multiply using Shared Memory.", tip: "This is the 'A-tier' interview question for NVIDIA TW.", tipType: "purple" },
       ]
     }]
   }
