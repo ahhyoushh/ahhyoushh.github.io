@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Main 2026 Physics Practice Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        .dark {
+            color-scheme: dark;
+        }
+        .dark body { background-color: #000000; color: #f9fafb; }
+        .dark header { background-color: #0a0a0a; border-color: #1a1a1a; }
+        .dark .bg-white { background-color: #0a0a0a !important; }
+        .dark .bg-gray-100 { background-color: #000000 !important; }
+        .dark .bg-gray-50 { background-color: #0a0a0a !important; }
+        .dark .bg-blue-50 { background-color: #111111 !important; }
+        .dark .text-gray-800 { color: #f3f4f6 !important; }
+        .dark .text-gray-700 { color: #e5e7eb !important; }
+        .dark .text-gray-600 { color: #d1d5db !important; }
+        .dark .text-gray-500 { color: #9ca3af !important; }
+        .dark .border { border-color: #1a1a1a !important; }
+        .dark .border-b { border-color: #1a1a1a !important; }
+        .dark .border-l { border-color: #1a1a1a !important; }
+        .dark .border-t { border-color: #1a1a1a !important; }
+        .dark .palette-btn { border-color: #262626; color: #f3f4f6; }
+        .dark .status-not-visited { background-color: #171717; color: #f3f4f6; }
+        .dark .nav-btn.bg-gray-100 { background-color: #171717 !important; color: #f3f4f6 !important; border-color: #262626 !important; }
+        .dark .nav-btn.bg-yellow-100 { background-color: #422006 !important; color: #fef08a !important; border-color: #713f12 !important; }
+        .dark #results-overlay .bg-white { background-color: #0a0a0a !important; }
+        .dark .hover\:bg-gray-50:hover { background-color: #171717 !important; }
+        .dark .hover\:bg-blue-50:hover { background-color: #ffffff11 !important; }
+        .dark .text-blue-800 { color: #3b82f6 !important; }
+        .dark .text-blue-900 { color: #60a5fa !important; }
+        .dark .bg-blue-800 { background-color: #1d4ed8 !important; }
+        
+        .status-not-visited { background-color: #f3f4f6; color: #000; }
+        .status-not-answered { background-color: #ef4444; color: #fff; }
+        .status-answered { background-color: #22c55e; color: #fff; }
+        .status-marked { background-color: #8b5cf6; color: #fff; }
+        .status-marked-answered { background-color: #8b5cf6; color: #fff; position: relative; }
+        .status-marked-answered::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+        }
+        .palette-btn {
+            width: 44px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 4px;
+            border: 1px solid #d1d5db;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        .palette-btn.active {
+            border: 2px solid #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+            transform: scale(1.05);
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans h-screen flex flex-col overflow-hidden">
+
+    <!-- Header -->
+    <header class="bg-white border-b px-6 py-3 flex justify-between items-center shadow-sm z-10">
+        <div class="flex items-center space-x-4">
+            <div class="text-xl font-black tracking-tight text-blue-800">JEE MAIN 2026</div>
+            <div class="h-6 w-px bg-gray-300"></div>
+            <div class="text-gray-600 font-semibold uppercase text-sm tracking-wider">Physics Mock Test</div>
+        </div>
+        <div class="flex items-center space-x-6">
+            <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-colors focus:outline-none">
+                <svg id="sun-icon" class="w-6 h-6 text-yellow-500 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+                <svg id="moon-icon" class="w-6 h-6 text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            </button>
+            <div class="flex items-center space-x-3 border-l pl-6">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-800 font-bold shadow-inner">JD</div>
+                <div class="hidden sm:block">
+                    <div class="text-sm font-bold leading-tight">John Doe</div>
+                    <div class="text-xs text-gray-500 font-medium uppercase">Roll No: 20260101</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden">
+        <!-- Question Section -->
+        <section class="flex-1 flex flex-col bg-white overflow-hidden">
+            <div class="p-4 border-b bg-gray-50 flex justify-between items-center shadow-sm z-0">
+                <h2 id="question-number-title" class="text-lg font-bold text-gray-800">Question No. 1</h2>
+                <div class="flex items-center space-x-4 bg-white px-4 py-2 rounded-lg border shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter">Time on this Question</span>
+                    <span id="question-timer" class="text-xl font-mono font-bold text-blue-600">00:00</span>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-8 space-y-8">
+                <div id="question-text" class="text-xl leading-relaxed text-gray-800 font-medium">
+                    <!-- Question text goes here -->
+                </div>
+
+                <div id="question-image-container" class="hidden flex justify-center py-4 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <img id="question-image" src="" alt="Question Diagram" class="max-w-[90%] max-h-[45vh] shadow-lg rounded border border-gray-200 object-contain bg-white p-2">
+                </div>
+
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options go here -->
+                </div>
+            </div>
+
+            <!-- Footer Buttons -->
+            <div class="border-t p-6 flex flex-wrap gap-4 bg-gray-50 z-10">
+                <button id="mark-review-btn" class="nav-btn bg-purple-100 text-purple-800 border border-purple-200 hover:bg-purple-200">Mark for Review & Next</button>
+                <button id="clear-response-btn" class="nav-btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-100">Clear Response</button>
+                <div class="flex-1"></div>
+                <button id="save-next-btn" class="nav-btn bg-blue-600 text-white hover:bg-blue-700 shadow-md transform hover:-translate-y-0.5 active:translate-y-0">Save & Next</button>
+            </div>
+        </section>
+
+        <!-- Sidebar Palette -->
+        <aside class="w-80 border-l bg-white flex flex-col shadow-2xl z-20">
+            <div class="p-5 bg-blue-50 border-b">
+                <h3 class="font-black text-blue-900 uppercase text-xs tracking-widest">Question Palette</h3>
+            </div>
+            
+            <div class="p-5 border-b bg-gray-50">
+                <label for="topic-filter" class="block text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Filter by Topic</label>
+                <select id="topic-filter" class="w-full p-3 border rounded-lg bg-white text-sm font-semibold focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer">
+                    <option value="All">All Topics</option>
+                </select>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-5 scrollbar-hide">
+                <div id="palette-grid" class="grid grid-cols-5 gap-2">
+                    <!-- Question buttons go here -->
+                </div>
+            </div>
+
+            <div class="p-6 border-t bg-gray-50 space-y-6">
+                <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-4 h-4 rounded-sm bg-gray-200 border"></span>
+                        <span class="text-[10px] font-bold text-gray-500 uppercase">Not Visited</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-4 h-4 rounded-sm bg-red-500"></span>
+                        <span class="text-[10px] font-bold text-gray-500 uppercase">Not Answered</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-4 h-4 rounded-sm bg-green-500"></span>
+                        <span class="text-[10px] font-bold text-gray-500 uppercase">Answered</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-4 h-4 rounded-sm bg-purple-500"></span>
+                        <span class="text-[10px] font-bold text-gray-500 uppercase">For Review</span>
+                    </div>
+                </div>
+                <button id="submit-test-btn" class="w-full py-4 bg-gray-900 text-white font-black rounded-xl hover:bg-black transition-all shadow-xl transform hover:-translate-y-1 active:translate-y-0 tracking-widest text-sm uppercase">SUBMIT TEST</button>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Results Modal (Hidden by default) -->
+    <div id="results-overlay" class="fixed inset-0 bg-black bg-opacity-90 z-[100] hidden flex items-center justify-center p-6 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[85vh] overflow-hidden flex flex-col animate-in fade-in zoom-in duration-300">
+            <div class="p-8 border-b bg-gray-50 flex justify-between items-center">
+                <h2 class="text-3xl font-black text-blue-900 tracking-tight">Exam Analysis</h2>
+                <button onclick="document.getElementById('results-overlay').classList.add('hidden')" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-10">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                        <div class="text-[10px] text-blue-400 uppercase font-black tracking-widest mb-1">Total Score</div>
+                        <div id="result-score" class="text-4xl font-black text-blue-600">0</div>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-2xl border border-green-100">
+                        <div class="text-[10px] text-green-400 uppercase font-black tracking-widest mb-1">Correct</div>
+                        <div id="result-correct" class="text-4xl font-black text-green-600">0</div>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-2xl border border-red-100">
+                        <div class="text-[10px] text-red-400 uppercase font-black tracking-widest mb-1">Incorrect</div>
+                        <div id="result-incorrect" class="text-4xl font-black text-red-600">0</div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                        <div class="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-1">Accuracy</div>
+                        <div id="result-accuracy" class="text-4xl font-black text-gray-800">0%</div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-2xl overflow-hidden shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 border-b">
+                                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Q.No</th>
+                                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Status</th>
+                                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Your Ans</th>
+                                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Correct Ans</th>
+                                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Marks</th>
+                                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Time Spent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="analysis-tbody" class="divide-y text-sm">
+                            <!-- Analysis rows go here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
