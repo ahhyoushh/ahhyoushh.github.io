@@ -238,12 +238,23 @@ function calculateResults() {
         tbody.appendChild(tr);
     });
 
+    const attempted = correct + incorrect;
+    const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
     document.getElementById('result-score').textContent = score;
     document.getElementById('result-correct').textContent = correct;
     document.getElementById('result-incorrect').textContent = incorrect;
-    const attempted = correct + incorrect;
-    document.getElementById('result-accuracy').textContent = attempted > 0 ? `${Math.round((correct / attempted) * 100)}%` : '0%';
+    document.getElementById('result-accuracy').textContent = `${accuracy}%`;
     document.getElementById('results-overlay').classList.add('open');
+
+    // Save results locally
+    const testId = document.title.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    const resultData = {
+        score, correct, incorrect, accuracy,
+        date: new Date().toLocaleDateString(),
+        timestamp: Date.now()
+    };
+    localStorage.setItem(`result_${testId}`, JSON.stringify(resultData));
 }
 
 function formatTime(seconds) {

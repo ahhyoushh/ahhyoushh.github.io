@@ -76,35 +76,57 @@
     <p class="heading">Select a test</p>
 
     <div class="cards">
-        <a class="card" href="phy_111.html">
+        <a class="card" href="phy_111.html" id="card-phy-111">
             <div class="card-strip"></div>
             <div class="card-body">
                 <div class="badge">⚛ Physics</div>
                 <div class="card-title">eduniti Top 111 Qs</div>
-                <div class="card-sub">Jan 2026 · JEE Main</div>
+                <div class="card-sub">Jan 2026 · JEE Main · <strong>Author: Eduniti</strong></div>
                 <div class="card-meta">
                     <span><strong>111</strong> questions</span>
                     <span><strong>444</strong> marks</span>
                     <span><strong>+4 / −1</strong></span>
                 </div>
-                <div class="card-footer">
+                <div id="result-phy-111" class="result-box" style="display:none; margin-top:12px; padding:10px; background:var(--surface2); border-radius:8px; font-size:11px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                        <span>Last Score: <strong id="score-111">0</strong></span>
+                        <span id="date-111" style="color:var(--text-muted)">-</span>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <span style="color:#22c55e">C: <span id="correct-111">0</span></span>
+                        <span style="color:#ef4444">I: <span id="incorrect-111">0</span></span>
+                        <span>Acc: <span id="acc-111">0%</span></span>
+                    </div>
+                </div>
+                <div class="card-footer" style="margin-top:14px;">
                     <span class="diff">2026</span>
                     <span class="go-btn">Start →</span>
                 </div>
             </div>
         </a>
-        <a class="card" href="phy_75_nta.html">
+        <a class="card" href="phy_75_nta.html" id="card-phy-75">
             <div class="card-strip" style="background: linear-gradient(90deg, #ef4444, #f59e0b);"></div>
             <div class="card-body">
                 <div class="badge" style="color:#ef4444; background: color-mix(in srgb, #ef4444 10%, var(--surface)); border-color: color-mix(in srgb, #ef4444 22%, var(--surface));">⚛ Physics</div>
                 <div class="card-title">NTA 75Q Part 2</div>
-                <div class="card-sub">2026 · JEE Main</div>
+                <div class="card-sub">2026 · JEE Main · <strong>Author: Eduniti</strong></div>
                 <div class="card-meta">
                     <span><strong>75</strong> questions</span>
                     <span><strong>300</strong> marks</span>
                     <span><strong>+4 / −1</strong></span>
                 </div>
-                <div class="card-footer">
+                <div id="result-phy-75" class="result-box" style="display:none; margin-top:12px; padding:10px; background:var(--surface2); border-radius:8px; font-size:11px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                        <span>Last Score: <strong id="score-75">0</strong></span>
+                        <span id="date-75" style="color:var(--text-muted)">-</span>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <span style="color:#22c55e">C: <span id="correct-75">0</span></span>
+                        <span style="color:#ef4444">I: <span id="incorrect-75">0</span></span>
+                        <span>Acc: <span id="acc-75">0%</span></span>
+                    </div>
+                </div>
+                <div class="card-footer" style="margin-top:14px;">
                     <span class="diff">NTA</span>
                     <span class="go-btn" style="background:#ef4444">Start →</span>
                 </div>
@@ -125,6 +147,28 @@
             btn.textContent = dark ? '☀️' : '🌙';
             localStorage.setItem('theme', dark ? 'dark' : 'light');
         };
+
+        // Load Results
+        function loadSavedResults() {
+            const tests = [
+                { id: '111', storageKey: 'result_eduniti__top_111_qs_jan_2026' },
+                { id: '75', storageKey: 'result_eduniti__nta_75q_part_2' }
+            ];
+
+            tests.forEach(test => {
+                const data = localStorage.getItem(test.storageKey);
+                if (data) {
+                    const result = JSON.parse(data);
+                    document.getElementById(`result-phy-${test.id}`).style.display = 'block';
+                    document.getElementById(`score-${test.id}`).textContent = result.score;
+                    document.getElementById(`correct-${test.id}`).textContent = result.correct;
+                    document.getElementById(`incorrect-${test.id}`).textContent = result.incorrect;
+                    document.getElementById(`acc-${test.id}`).textContent = result.accuracy + '%';
+                    document.getElementById(`date-${test.id}`).textContent = result.date;
+                }
+            });
+        }
+        loadSavedResults();
     </script>
 </body>
 </html>
