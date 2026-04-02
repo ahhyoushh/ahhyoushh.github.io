@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=https://oncbt.vercel.app" />
+    <title>Redirecting to oncbt.vercel.app</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href="https://oncbt.vercel.app">https://oncbt.vercel.app</a></p>
+    <script type="text/javascript">
+      window.location.href = "https://oncbt.vercel.app"
+    </script>
+  </body>
+</html>
