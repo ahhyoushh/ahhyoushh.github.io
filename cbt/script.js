@@ -94,6 +94,16 @@ function renderPalette() {
     });
 }
 
+function updateCheckButton() {
+    const btn = document.getElementById('check-answer-btn');
+    const ans = userAnswers[currentQuestionIndex];
+    if (ans !== null && ans !== '') {
+        btn.style.display = 'inline-flex';
+    } else {
+        btn.style.display = 'none';
+    }
+}
+
 function loadQuestion(index) {
     currentQuestionIndex = index;
     const q = questions[index];
@@ -107,8 +117,9 @@ function loadQuestion(index) {
     const imgEl = document.getElementById('question-image');
     const imageFile = imageMapping[q.id.toString()];
 
+    const baseImagePath = window.baseImagePath || 'assets/diagrams/';
     if (imageFile) {
-        imgEl.src = `assets/diagrams/${imageFile}`;
+        imgEl.src = `${baseImagePath}${imageFile}`;
         imgContainer.classList.remove('hidden');
         textEl.style.display = 'none';
         textEl.textContent = '';
@@ -131,7 +142,11 @@ function loadQuestion(index) {
                 <div class="radio-dot"><div class="radio-inner"></div></div>
                 <span style="font-size:15px;font-weight:500">${opt}</span>
             `;
-            card.onclick = () => { userAnswers[index] = optIdx + 1; loadQuestion(index); };
+            card.onclick = () => { 
+                userAnswers[index] = optIdx + 1; 
+                loadQuestion(index);
+                updateCheckButton();
+            };
             container.appendChild(card);
         });
     } else if (q.type === 'integer') {
@@ -143,14 +158,23 @@ function loadQuestion(index) {
         `;
         container.appendChild(wrap);
         const input = document.getElementById('integer-input');
-        input.oninput = e => { userAnswers[index] = e.target.value; };
+        input.oninput = e => { 
+            userAnswers[index] = e.target.value; 
+            updateCheckButton();
+        };
         setTimeout(() => input.focus(), 50);
     }
 
     questionTimer = 0;
     document.getElementById('question-timer').textContent = '00:00';
     renderPalette();
+    updateCheckButton();
 }
+
+document.getElementById('check-answer-btn').onclick = () => {
+    const q = questions[currentQuestionIndex];
+    alert(`Correct Answer: ${q.answer}`);
+};
 
 document.getElementById('save-next-btn').onclick = () => {
     saveTimeSpent();
