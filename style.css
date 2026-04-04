@@ -917,6 +917,48 @@ body:not(.dev-mode) .rizz-skill:hover .skill-bar-name::after {
   border-top: 1px solid var(--border);
 }
 
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: opacity 0.2s;
+}
+
+.collapsible-header:hover {
+  opacity: 0.8;
+}
+
+.collapsible-header .section-title {
+  margin-bottom: 0;
+}
+
+.toggle-icon {
+  font-size: 1.2rem;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+}
+
+.collapsible-section.expanded .collapsible-content {
+  max-height: 1000px;
+  transition: max-height 0.4s cubic-bezier(1, 0, 1, 0);
+}
+
+.collapsible-section.expanded .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.experience-list {
+  padding-top: 1.5rem;
+}
+
 /* --- About Section --- */
 .about {
   padding: 3.5rem 3rem;

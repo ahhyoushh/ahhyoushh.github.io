@@ -76,6 +76,18 @@ document.addEventListener("DOMContentLoaded", () => {
   showCard(0);
 });
 
+// ================= COLLAPSIBLE EXPERIENCE =================
+document.addEventListener("DOMContentLoaded", () => {
+  const experienceToggle = document.getElementById("experienceToggle");
+  const experienceSection = document.getElementById("experience");
+
+  if (experienceToggle && experienceSection) {
+    experienceToggle.addEventListener("click", () => {
+      experienceSection.classList.toggle("expanded");
+    });
+  }
+});
+
 // ================= RUN =================
 // (removed initIdeas calls)
 
