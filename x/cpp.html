@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>$ ayush — roadmap v2</title>
+<title>$ ayush — roadmap v3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -22,355 +22,127 @@
   --green: #00e87a;
   --green2: rgba(0,232,122,0.08);
   --yellow: #f5c400;
+  --yellow2: rgba(245,196,0,0.08);
   --purple: #b57aff;
   --red: #ff3d55;
   --text: #ebebf0;
   --text2: #8888a0;
   --text3: #444458;
-  --sw: 248px;
+  --sw: 252px;
   --font-mono: 'JetBrains Mono', monospace;
   --font-display: 'Syne', sans-serif;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  line-height: 1.65;
-  overflow-x: hidden;
-}
-
-/* scrollbar */
+body { background: var(--bg); color: var(--text); font-family: var(--font-mono); font-size: 12.5px; line-height: 1.65; overflow-x: hidden; }
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
 /* ── SIDEBAR ── */
-.sidebar {
-  position: fixed; top: 0; left: 0;
-  width: var(--sw); height: 100vh;
-  background: var(--bg2);
-  border-right: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  z-index: 200; overflow-y: auto;
-}
-
-.sb-brand {
-  padding: 22px 20px 18px;
-  border-bottom: 1px solid var(--border);
-}
-
-.sb-logo {
-  font-size: 13px; font-weight: 700;
-  color: var(--cyan); letter-spacing: 0.04em;
-}
+.sidebar { position: fixed; top: 0; left: 0; width: var(--sw); height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 200; overflow-y: auto; }
+.sb-brand { padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+.sb-logo { font-size: 13px; font-weight: 700; color: var(--cyan); letter-spacing: 0.04em; }
 .sb-logo span { color: var(--text3); }
-.sb-sub {
-  font-size: 9.5px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: 0.12em; margin-top: 3px;
-}
-.sb-version {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 9px; color: var(--orange);
-  background: var(--orange2); border: 1px solid rgba(255,107,43,0.2);
-  padding: 1px 7px; border-radius: 10px; margin-top: 8px;
-}
-
-/* progress */
-.sb-progress {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-.prog-label {
-  font-size: 9px; text-transform: uppercase;
-  letter-spacing: 0.12em; color: var(--text3); margin-bottom: 10px;
-}
-
-.prog-stat {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 6px;
-}
+.sb-sub { font-size: 9.5px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 3px; }
+.sb-version { display: inline-flex; align-items: center; gap: 5px; font-size: 9px; color: var(--orange); background: var(--orange2); border: 1px solid rgba(255,107,43,0.2); padding: 1px 7px; border-radius: 10px; margin-top: 8px; }
+.sb-progress { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.prog-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 10px; }
+.prog-stat { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .prog-name { font-size: 10px; color: var(--text2); }
 .prog-count { font-size: 10px; color: var(--text3); }
-
-.prog-bar {
-  height: 2px; background: var(--border);
-  border-radius: 1px; overflow: hidden; margin-bottom: 10px;
-}
+.prog-bar { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; margin-bottom: 10px; }
 .prog-fill { height: 100%; border-radius: 1px; transition: width 0.6s ease; }
-
-.total-prog {
-  display: flex; align-items: center; gap: 10px; margin-top: 4px;
-}
-.total-num {
-  font-family: var(--font-display);
-  font-size: 22px; font-weight: 800;
-  color: var(--cyan); line-height: 1;
-}
+.total-prog { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+.total-num { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--cyan); line-height: 1; }
 .total-label { font-size: 10px; color: var(--text3); line-height: 1.4; }
 .total-label strong { color: var(--text2); display: block; }
-
-/* nav */
 .sb-nav { flex: 1; padding: 8px 0; }
-
-.nav-section-label {
-  font-size: 8.5px; text-transform: uppercase;
-  letter-spacing: 0.14em; color: var(--text3);
-  padding: 10px 20px 4px;
-}
-
-.nav-item {
-  display: flex; align-items: center; gap: 9px;
-  padding: 7px 20px;
-  font-size: 11.5px; color: var(--text2);
-  cursor: pointer; text-decoration: none;
-  border-left: 2px solid transparent;
-  transition: all 0.12s;
-  position: relative;
-}
+.nav-section-label { font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); padding: 10px 20px 4px; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 7px 20px; font-size: 11.5px; color: var(--text2); cursor: pointer; text-decoration: none; border-left: 2px solid transparent; transition: all 0.12s; }
 .nav-item:hover { color: var(--text); background: var(--bg3); }
-.nav-item.active {
-  color: var(--cyan);
-  background: var(--cyan2);
-  border-left-color: var(--cyan);
-}
-
-.nav-pip {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--border2); flex-shrink: 0;
-  transition: all 0.12s;
-}
+.nav-item.active { color: var(--cyan); background: var(--cyan2); border-left-color: var(--cyan); }
+.nav-pip { width: 5px; height: 5px; border-radius: 50%; background: var(--border2); flex-shrink: 0; transition: all 0.12s; }
 .nav-item.active .nav-pip { background: var(--cyan); box-shadow: 0 0 5px var(--cyan); }
-
-.nav-badge {
-  margin-left: auto; font-size: 8.5px;
-  padding: 1px 5px; border-radius: 2px; font-weight: 600;
-}
+.nav-badge { margin-left: auto; font-size: 8.5px; padding: 1px 5px; border-radius: 2px; font-weight: 600; }
 .nb-cyan { background: var(--cyan2); color: var(--cyan); }
 .nb-orange { background: var(--orange2); color: var(--orange); }
 .nb-green { background: var(--green2); color: var(--green); }
+.nb-yellow { background: var(--yellow2); color: var(--yellow); }
 .nb-purple { background: rgba(181,122,255,0.1); color: var(--purple); }
-
-.sb-footer {
-  padding: 14px 20px;
-  border-top: 1px solid var(--border);
-  font-size: 9.5px; color: var(--text3);
-}
+.sb-footer { padding: 14px 20px; border-top: 1px solid var(--border); font-size: 9.5px; color: var(--text3); }
 
 /* ── MAIN ── */
 .main { margin-left: var(--sw); min-height: 100vh; }
-
-.topbar {
-  position: sticky; top: 0;
-  height: 48px;
-  background: rgba(9,9,9,0.9);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center;
-  justify-content: space-between;
-  padding: 0 36px;
-  z-index: 100;
-}
-
+.topbar { position: sticky; top: 0; height: 48px; background: rgba(9,9,9,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 36px; z-index: 100; }
 .breadcrumb { font-size: 11px; color: var(--text3); }
 .breadcrumb .seg { color: var(--text2); }
 .breadcrumb .sep { margin: 0 7px; }
-
 .topbar-right { display: flex; gap: 6px; align-items: center; }
-
-.btn {
-  font-family: var(--font-mono); font-size: 10.5px;
-  padding: 4px 11px; border-radius: 3px;
-  border: none; cursor: pointer; transition: all 0.12s;
-  letter-spacing: 0.02em;
-}
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text2);
-}
+.btn { font-family: var(--font-mono); font-size: 10.5px; padding: 4px 11px; border-radius: 3px; border: none; cursor: pointer; transition: all 0.12s; letter-spacing: 0.02em; }
+.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text2); }
 .btn-ghost:hover { border-color: var(--border2); color: var(--text); }
-.btn-primary {
-  background: var(--cyan); color: #000; font-weight: 700;
-}
+.btn-primary { background: var(--cyan); color: #000; font-weight: 700; }
 .btn-primary:hover { opacity: 0.85; }
 
 /* ── CONTENT ── */
 .content { padding: 36px 40px 80px; max-width: 900px; }
-
 section { scroll-margin-top: 60px; margin-bottom: 72px; }
 
 /* ── HERO ── */
 .hero { padding: 40px 0 48px; }
-
-.hero-eyebrow {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 9.5px; text-transform: uppercase;
-  letter-spacing: 0.16em; color: var(--cyan); margin-bottom: 14px;
-}
-.hero-eyebrow::before {
-  content: ''; width: 24px; height: 1px; background: var(--cyan);
-}
-
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: 48px; font-weight: 800;
-  line-height: 1.04; letter-spacing: -0.025em;
-  margin-bottom: 14px;
-}
+.hero-eyebrow { display: flex; align-items: center; gap: 8px; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--cyan); margin-bottom: 14px; }
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--cyan); }
+.hero h1 { font-family: var(--font-display); font-size: 48px; font-weight: 800; line-height: 1.04; letter-spacing: -0.025em; margin-bottom: 14px; }
 .h1-cyan { color: var(--cyan); }
 .h1-orange { color: var(--orange); }
-
-.hero-desc {
-  font-size: 12px; color: var(--text2);
-  max-width: 540px; line-height: 1.85; margin-bottom: 28px;
-}
-
+.hero-desc { font-size: 12px; color: var(--text2); max-width: 540px; line-height: 1.85; margin-bottom: 28px; }
 .hero-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip {
-  font-size: 10px; padding: 3px 10px;
-  border-radius: 2px; border: 1px solid var(--border2);
-  color: var(--text2);
-}
+.chip { font-size: 10px; padding: 3px 10px; border-radius: 2px; border: 1px solid var(--border2); color: var(--text2); }
 .chip-cyan { border-color: rgba(0,212,255,0.3); color: var(--cyan); background: var(--cyan2); }
 .chip-orange { border-color: rgba(255,107,43,0.3); color: var(--orange); background: var(--orange2); }
 .chip-green { border-color: rgba(0,232,122,0.3); color: var(--green); background: var(--green2); }
+.chip-yellow { border-color: rgba(245,196,0,0.3); color: var(--yellow); background: var(--yellow2); }
 
 /* ── SECTION HEADER ── */
-.sh {
-  display: flex; align-items: flex-start;
-  gap: 14px; margin-bottom: 28px;
-}
-.sh-num {
-  font-family: var(--font-display);
-  font-size: 44px; font-weight: 800;
-  line-height: 1; flex-shrink: 0;
-  padding-top: 2px;
-}
+.sh { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 28px; }
+.sh-num { font-family: var(--font-display); font-size: 44px; font-weight: 800; line-height: 1; flex-shrink: 0; padding-top: 2px; }
 .sh-body { flex: 1; }
-.sh-eye {
-  font-size: 9px; text-transform: uppercase;
-  letter-spacing: 0.15em; margin-bottom: 3px;
-}
-.sh-title {
-  font-family: var(--font-display);
-  font-size: 22px; font-weight: 700; color: var(--text);
-}
+.sh-eye { font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 3px; }
+.sh-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--text); }
 .sh-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
 
 /* ── TASK LIST ── */
 .task-group { margin-bottom: 20px; }
-
-.tg-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 16px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 4px 4px 0 0;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.12s;
-}
+.tg-header { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px 4px 0 0; cursor: pointer; user-select: none; transition: background 0.12s; }
 .tg-header:hover { background: var(--bg4); }
-
-.tg-dot {
-  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-}
-.tg-name {
-  font-family: var(--font-display);
-  font-size: 12.5px; font-weight: 700; color: var(--text); flex: 1;
-}
-.tg-prog {
-  font-size: 9.5px; color: var(--text3);
-  display: flex; align-items: center; gap: 8px;
-}
-.tg-bar-wrap {
-  width: 52px; height: 2px;
-  background: var(--border); border-radius: 1px; overflow: hidden;
-}
+.tg-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.tg-name { font-family: var(--font-display); font-size: 12.5px; font-weight: 700; color: var(--text); flex: 1; }
+.tg-prog { font-size: 9.5px; color: var(--text3); display: flex; align-items: center; gap: 8px; }
+.tg-bar-wrap { width: 52px; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
 .tg-bar-fill { height: 100%; border-radius: 1px; transition: width 0.5s; }
-.tg-chevron {
-  font-size: 9px; color: var(--text3);
-  transition: transform 0.2s;
-}
+.tg-chevron { font-size: 9px; color: var(--text3); transition: transform 0.2s; }
 .tg-header.open .tg-chevron { transform: rotate(180deg); }
-
-.tg-body {
-  border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  overflow: hidden;
-}
-
-.task-item {
-  display: flex; align-items: flex-start;
-  gap: 11px; padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: background 0.1s;
-}
+.tg-body { border: 1px solid var(--border); border-top: none; border-radius: 0 0 4px 4px; overflow: hidden; }
+.task-item { display: flex; align-items: flex-start; gap: 11px; padding: 10px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; }
 .task-item:last-child { border-bottom: none; }
 .task-item:hover { background: var(--bg3); }
 .task-item.done { opacity: 0.45; }
 .task-item.done .task-text { text-decoration: line-through; color: var(--text3); }
-
-.task-check {
-  width: 14px; height: 14px; border-radius: 2px;
-  border: 1px solid var(--border2); flex-shrink: 0;
-  margin-top: 1px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; font-weight: 700;
-  transition: all 0.15s;
-}
-.task-item.done .task-check {
-  background: var(--green); border-color: var(--green); color: #000;
-}
-
+.task-check { width: 14px; height: 14px; border-radius: 2px; border: 1px solid var(--border2); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; transition: all 0.15s; }
+.task-item.done .task-check { background: var(--green); border-color: var(--green); color: #000; }
 .task-body { flex: 1; }
 .task-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
 .task-text strong { color: var(--text); font-weight: 600; }
-
-.task-tip {
-  margin-top: 5px;
-  padding: 7px 10px;
-  background: var(--bg4);
-  border-left: 2px solid var(--border2);
-  border-radius: 0 3px 3px 0;
-  font-size: 10.5px; color: var(--text3);
-  line-height: 1.6;
-}
+.task-tip { margin-top: 5px; padding: 7px 10px; background: var(--bg4); border-left: 2px solid var(--border2); border-radius: 0 3px 3px 0; font-size: 10.5px; color: var(--text3); line-height: 1.6; }
 .task-tip.tip-cyan { border-left-color: var(--cyan); color: rgba(0,212,255,0.6); }
 .task-tip.tip-orange { border-left-color: var(--orange); color: rgba(255,107,43,0.6); }
 .task-tip.tip-green { border-left-color: var(--green); color: rgba(0,232,122,0.6); }
 .task-tip.tip-yellow { border-left-color: var(--yellow); color: rgba(245,196,0,0.6); }
 
-.task-tag {
-  display: inline-flex; align-items: center;
-  font-size: 9px; padding: 1px 6px;
-  border-radius: 2px; font-weight: 600;
-  margin-left: 6px; vertical-align: middle;
-}
-.tt-cyan { background: var(--cyan2); color: var(--cyan); }
-.tt-orange { background: var(--orange2); color: var(--orange); }
-.tt-green { background: var(--green2); color: var(--green); }
-.tt-purple { background: rgba(181,122,255,0.08); color: var(--purple); }
-.tt-red { background: rgba(255,61,85,0.08); color: var(--red); }
-
 /* ── CODE ── */
-.code {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 3px; padding: 14px 16px; margin: 8px 0;
-  overflow-x: auto;
-}
-.code pre {
-  font-family: var(--font-mono); font-size: 11px;
-  line-height: 1.75; color: var(--text2);
-}
+.code { background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; padding: 14px 16px; margin: 8px 0; overflow-x: auto; }
+.code pre { font-family: var(--font-mono); font-size: 11px; line-height: 1.75; color: var(--text2); }
 .kw { color: var(--cyan); }
 .cm { color: var(--text3); font-style: italic; }
 .ok { color: var(--green); }
@@ -378,130 +150,94 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
 .val { color: var(--orange); }
 
 /* ── INFO CARD ── */
-.info-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 5px; padding: 18px 20px; margin-bottom: 12px;
-}
+.info-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 5px; padding: 18px 20px; margin-bottom: 12px; }
 .info-card:hover { border-color: var(--border2); }
-.ic-header {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
-}
-.ic-icon {
-  width: 26px; height: 26px; border-radius: 4px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; flex-shrink: 0;
-}
+.ic-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ic-icon { width: 26px; height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
 .ici-cyan { background: var(--cyan2); color: var(--cyan); }
 .ici-orange { background: var(--orange2); color: var(--orange); }
 .ici-green { background: var(--green2); color: var(--green); }
-.ici-purple { background: rgba(181,122,255,0.08); color: var(--purple); }
-.ic-title {
-  font-family: var(--font-display);
-  font-size: 13px; font-weight: 700; color: var(--text);
-}
+.ici-yellow { background: var(--yellow2); color: var(--yellow); }
+.ic-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text); }
 .ic-meta { margin-left: auto; font-size: 9.5px; color: var(--text3); }
 .ic-body { font-size: 11.5px; color: var(--text2); line-height: 1.75; }
 
 /* ── TABLE ── */
 .t { width: 100%; border-collapse: collapse; }
-.t th {
-  text-align: left; padding: 8px 14px;
-  font-size: 9px; text-transform: uppercase;
-  letter-spacing: 0.1em; color: var(--text3);
-  border-bottom: 1px solid var(--border);
-  background: var(--bg3);
-}
-.t td {
-  padding: 9px 14px; font-size: 11.5px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text2); vertical-align: top;
-}
+.t th { text-align: left; padding: 8px 14px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); border-bottom: 1px solid var(--border); background: var(--bg3); }
+.t td { padding: 9px 14px; font-size: 11.5px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; }
 .t tr:last-child td { border-bottom: none; }
 .t tr:hover td { background: var(--bg3); }
 
 /* ── ALERT ── */
-.alert {
-  display: flex; gap: 11px; align-items: flex-start;
-  padding: 12px 16px; border-radius: 4px;
-  font-size: 11.5px; line-height: 1.7;
-  margin: 12px 0;
-}
+.alert { display: flex; gap: 11px; align-items: flex-start; padding: 12px 16px; border-radius: 4px; font-size: 11.5px; line-height: 1.7; margin: 12px 0; }
 .alert-icon { font-size: 13px; flex-shrink: 0; }
 .alert-cyan { background: var(--cyan2); border-left: 3px solid var(--cyan); color: var(--text2); }
 .alert-orange { background: var(--orange2); border-left: 3px solid var(--orange); color: var(--text2); }
 .alert-green { background: var(--green2); border-left: 3px solid var(--green); color: var(--text2); }
+.alert-yellow { background: var(--yellow2); border-left: 3px solid var(--yellow); color: var(--text2); }
 
 /* ── RESOURCE GRID ── */
 .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-.res-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 5px; padding: 14px 16px;
-  text-decoration: none; display: block;
-  transition: all 0.12s;
-}
-.res-card:hover {
-  border-color: rgba(0,212,255,0.4);
-  background: var(--cyan3);
-  transform: translateY(-1px);
-}
-.res-name {
-  font-family: var(--font-display);
-  font-size: 12.5px; font-weight: 700; color: var(--text); margin-bottom: 2px;
-}
+.res-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 5px; padding: 14px 16px; text-decoration: none; display: block; transition: all 0.12s; }
+.res-card:hover { border-color: rgba(0,212,255,0.4); background: var(--cyan3); transform: translateY(-1px); }
+.res-name { font-family: var(--font-display); font-size: 12.5px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
 .res-url { font-size: 9.5px; color: var(--cyan); margin-bottom: 7px; }
 .res-desc { font-size: 11px; color: var(--text2); line-height: 1.65; }
 .res-phase { font-size: 9px; color: var(--text3); margin-top: 7px; text-transform: uppercase; letter-spacing: 0.08em; }
 
 /* ── NC SECTION ── */
 .nc-group { margin-bottom: 6px; }
-
-.nc-gh {
-  display: flex; align-items: center;
-  padding: 9px 14px;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 4px 4px 0 0; cursor: pointer;
-  transition: background 0.1s;
-}
+.nc-gh { display: flex; align-items: center; padding: 9px 14px; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px 4px 0 0; cursor: pointer; transition: background 0.1s; }
 .nc-gh:hover { background: var(--bg4); }
 .nc-gh-dot { width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; }
-.nc-gh-name {
-  font-family: var(--font-display); font-size: 12.5px; font-weight: 700;
-  color: var(--text); flex: 1;
-}
+.nc-gh-name { font-family: var(--font-display); font-size: 12.5px; font-weight: 700; color: var(--text); flex: 1; }
 .nc-gh-right { display: flex; align-items: center; gap: 8px; font-size: 9.5px; color: var(--text3); }
 .nc-gh-bar { width: 48px; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
 .nc-gh-fill { height: 100%; border-radius: 1px; transition: width 0.5s; }
-
-.nc-gb {
-  border: 1px solid var(--border); border-top: none;
-  border-radius: 0 0 4px 4px; overflow: hidden;
-}
-
-.nc-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 14px; border-bottom: 1px solid var(--border);
-  cursor: pointer; transition: background 0.1s; font-size: 11.5px;
-}
+.nc-gb { border: 1px solid var(--border); border-top: none; border-radius: 0 0 4px 4px; overflow: hidden; }
+.nc-item { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; font-size: 11.5px; }
 .nc-item:last-child { border-bottom: none; }
 .nc-item:hover { background: var(--bg3); }
 .nc-item.done { opacity: 0.4; }
 .nc-item.done .nc-name { text-decoration: line-through; }
-
-.nc-ck {
-  width: 13px; height: 13px; border-radius: 2px;
-  border: 1px solid var(--border2); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 8px; font-weight: 700; transition: all 0.12s;
-}
+.nc-ck { width: 13px; height: 13px; border-radius: 2px; border: 1px solid var(--border2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; transition: all 0.12s; }
 .nc-item.done .nc-ck { background: var(--green); border-color: var(--green); color: #000; }
-
 .nc-name { flex: 1; color: var(--text2); }
-
 .diff { font-size: 8.5px; padding: 1px 5px; border-radius: 2px; font-weight: 600; }
 .diff-easy { background: var(--green2); color: var(--green); }
 .diff-medium { background: rgba(245,196,0,0.08); color: var(--yellow); }
 .diff-hard { background: rgba(255,61,85,0.08); color: var(--red); }
+
+/* ── MILESTONE CARD ── */
+.milestone-card {
+  background: linear-gradient(135deg, rgba(245,196,0,0.05), rgba(245,196,0,0.01));
+  border: 1px solid rgba(245,196,0,0.2);
+  border-radius: 6px; padding: 20px 22px; margin-bottom: 20px;
+  position: relative; overflow: hidden;
+}
+.milestone-card::before {
+  content: ''; position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(245,196,0,0.03);
+}
+.ms-top { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 18px; }
+.ms-rating-big {
+  font-family: var(--font-display); font-size: 58px; font-weight: 800;
+  color: var(--yellow); line-height: 1; flex-shrink: 0;
+}
+.ms-meta { padding-top: 6px; }
+.ms-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.ms-deadline { font-size: 10px; color: rgba(245,196,0,0.7); letter-spacing: 0.08em; }
+.ms-deadline span { color: var(--yellow); font-weight: 700; }
+.ms-stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.ms-stage {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 4px; padding: 10px 8px; text-align: center;
+}
+.ms-stage-num { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--yellow); }
+.ms-stage-label { font-size: 8.5px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+.ms-stage-time { font-size: 9.5px; color: var(--text2); margin-top: 3px; }
 
 /* ── DIVIDER ── */
 .divider { height: 1px; background: var(--border); margin: 32px 0; }
@@ -511,28 +247,16 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
 .content > section { animation: fadeUp 0.35s ease both; }
 
 /* ── HARDWARE PROJECT ── */
-.hw-stack {
-  display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
-  align-items: center; margin: 16px 0;
-}
-.hw-box {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 4px; padding: 14px;
-}
-.hw-box-title {
-  font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
-  margin-bottom: 8px;
-}
+.hw-stack { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: center; margin: 16px 0; }
+.hw-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 14px; }
+.hw-box-title { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
 .hw-box ul { list-style: none; }
-.hw-box ul li {
-  font-size: 11px; color: var(--text2); padding: 2px 0;
-  display: flex; align-items: center; gap: 6px;
-}
+.hw-box ul li { font-size: 11px; color: var(--text2); padding: 2px 0; display: flex; align-items: center; gap: 6px; }
 .hw-box ul li::before { content: '→'; color: var(--text3); font-size: 10px; }
-.hw-arrow {
-  display: flex; align-items: center; justify-content: center;
-  padding: 0 12px; color: var(--text3); font-size: 16px;
-}
+.hw-arrow { display: flex; align-items: center; justify-content: center; padding: 0 12px; color: var(--text3); font-size: 16px; }
+
+/* learncpp reference pill */
+.lc-ref { display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; padding: 1px 7px; border-radius: 10px; background: var(--cyan2); color: var(--cyan); border: 1px solid rgba(0,212,255,0.15); margin-left: 6px; vertical-align: middle; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -542,11 +266,17 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
   <div class="sb-brand">
     <div class="sb-logo"><span>$ </span>ayush</div>
     <div class="sb-sub">Edge AI · ML Infra Roadmap</div>
-    <div class="sb-version">v2.0 — updated</div>
+    <div class="sb-version">v3.0 — complete</div>
   </div>
 
   <div class="sb-progress">
     <div class="prog-label">Overall Progress</div>
+
+    <div class="prog-stat">
+      <span class="prog-name">C++ & Linux</span>
+      <span class="prog-count" id="cpp-count">0/43</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="cpp-bar" style="background:var(--cyan);width:0%"></div></div>
 
     <div class="prog-stat">
       <span class="prog-name">DSA (NeetCode 150)</span>
@@ -555,8 +285,14 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
     <div class="prog-bar"><div class="prog-fill" id="nc-bar" style="background:var(--cyan);width:0%"></div></div>
 
     <div class="prog-stat">
+      <span class="prog-name">Codeforces → 1200</span>
+      <span class="prog-count" id="cf-count">0/19</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="cf-bar" style="background:var(--yellow);width:0%"></div></div>
+
+    <div class="prog-stat">
       <span class="prog-name">ML Foundations</span>
-      <span class="prog-count" id="ml-count">0/14</span>
+      <span class="prog-count" id="ml-count">0/26</span>
     </div>
     <div class="prog-bar"><div class="prog-fill" id="ml-bar" style="background:var(--orange);width:0%"></div></div>
 
@@ -568,7 +304,7 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
 
     <div class="total-prog" style="margin-top:10px">
       <div class="total-num" id="total-pct">0%</div>
-      <div class="total-label"><strong id="total-label">0 / 184</strong>total tasks done</div>
+      <div class="total-label"><strong id="total-label">0 / 258</strong>total tasks done</div>
     </div>
   </div>
 
@@ -576,22 +312,29 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
     <div class="nav-section-label">Overview</div>
     <a class="nav-item active" href="#overview" onclick="setActive(this)"><div class="nav-pip"></div>Overview</a>
 
+    <div class="nav-section-label">Phase 0 — Linux First</div>
+    <a class="nav-item" href="#linux" onclick="setActive(this)"><div class="nav-pip"></div>Linux & Toolchain <span class="nav-badge nb-yellow">do this first</span></a>
+
     <div class="nav-section-label">Phase 1 — C++ & DSA</div>
-    <a class="nav-item" href="#cpp-foundations" onclick="setActive(this)"><div class="nav-pip"></div>C++ Foundations <span class="nav-badge nb-cyan">start here</span></a>
+    <a class="nav-item" href="#cpp-basics" onclick="setActive(this)"><div class="nav-pip"></div>C++ Language Basics <span class="nav-badge nb-cyan">start here</span></a>
+    <a class="nav-item" href="#cpp-systems" onclick="setActive(this)"><div class="nav-pip"></div>C++ Systems Depth</a>
     <a class="nav-item" href="#dsa-patterns" onclick="setActive(this)"><div class="nav-pip"></div>DSA Patterns</a>
     <a class="nav-item" href="#neetcode" onclick="setActive(this)"><div class="nav-pip"></div>NeetCode 150</a>
+    <a class="nav-item" href="#codeforces" onclick="setActive(this)"><div class="nav-pip"></div>Codeforces → 1200 <span class="nav-badge nb-yellow">Sept goal</span></a>
 
     <div class="nav-section-label">Phase 2 — ML</div>
-    <a class="nav-item" href="#ml-foundations" onclick="setActive(this)"><div class="nav-pip"></div>ML Foundations <span class="nav-badge nb-orange">parallel</span></a>
+    <a class="nav-item" href="#ml-math" onclick="setActive(this)"><div class="nav-pip"></div>ML Math Foundations</a>
+    <a class="nav-item" href="#ml-core" onclick="setActive(this)"><div class="nav-pip"></div>ML Core Concepts <span class="nav-badge nb-orange">parallel</span></a>
+    <a class="nav-item" href="#ml-torch" onclick="setActive(this)"><div class="nav-pip"></div>PyTorch & ONNX</a>
 
     <div class="nav-section-label">Phase 3 — Edge AI</div>
     <a class="nav-item" href="#inference" onclick="setActive(this)"><div class="nav-pip"></div>RKNN Inference</a>
     <a class="nav-item" href="#hardware" onclick="setActive(this)"><div class="nav-pip"></div>Industrial Project <span class="nav-badge nb-green">RV1106 NPU</span></a>
     <a class="nav-item" href="#deployment" onclick="setActive(this)"><div class="nav-pip"></div>Deployment Layer</a>
-    <a class="nav-item" href="#cuda" onclick="setActive(this)"><div class="nav-pip"></div>CUDA Kernels</a>
+    <a class="nav-item" href="#cuda" onclick="setActive(this)"><div class="nav-pip"></div>CUDA Kernels <span class="nav-badge nb-purple">stretch</span></a>
 
     <div class="nav-section-label">Reference</div>
-    <a class="nav-item" href="#cpp-habits" onclick="setActive(this)"><div class="nav-pip"></div>C++ Habits</a>
+    <a class="nav-item" href="#cpp-habits" onclick="setActive(this)"><div class="nav-pip"></div>C++ Anti-Patterns</a>
     <a class="nav-item" href="#resources" onclick="setActive(this)"><div class="nav-pip"></div>Resources</a>
     <a class="nav-item" href="#jobs" onclick="setActive(this)"><div class="nav-pip"></div>Target Jobs</a>
   </nav>
@@ -603,7 +346,7 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
 <main class="main">
   <div class="topbar">
     <div class="breadcrumb">
-      <span class="seg">$ ayush</span><span class="sep">/</span><span class="seg">roadmap</span><span class="sep">/</span><span style="color:var(--orange)">v2</span>
+      <span class="seg">$ ayush</span><span class="sep">/</span><span class="seg">roadmap</span><span class="sep">/</span><span style="color:var(--orange)">v3</span>
     </div>
     <div class="topbar-right">
       <button class="btn btn-ghost" onclick="resetAll()">reset</button>
@@ -619,20 +362,17 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <div class="hero-eyebrow">Edge AI · ML Infrastructure · Taiwan</div>
         <h1>The <span class="h1-cyan">Plan.</span><br>No fluff, <span class="h1-orange">just tasks.</span></h1>
         <p class="hero-desc">
-          Updated roadmap based on actual job descriptions, NYCU curriculum, and Taiwan's
-          semiconductor job market. No timetables. Just what to learn, in order, with tips on what actually matters.
-          Progress saves locally.
+          v3 — fully updated. Now includes a proper C++ learning path from zero, a Linux/toolchain section, expanded ML track with math and training fundamentals, and a structured Codeforces path to 1200 before September. Progress saves locally.
         </p>
         <div class="hero-chips">
-          <span class="chip chip-cyan">C++ primary</span>
-          <span class="chip chip-cyan">Python ML interface</span>
+          <span class="chip chip-cyan">learncpp.com chapters cited</span>
+          <span class="chip chip-cyan">C++ → Systems depth</span>
+          <span class="chip chip-yellow">CF 1200 by Sept 2026</span>
           <span class="chip chip-orange">fast.ai + Karpathy</span>
           <span class="chip chip-orange">PyTorch → ONNX</span>
-          <span class="chip chip-green">TensorRT</span>
-          <span class="chip chip-green">Raspberry Pi 5</span>
-          <span class="chip chip-green">Docker + systemd</span>
+          <span class="chip chip-green">TensorRT · RKNN</span>
+          <span class="chip chip-green">Luckfox RV1106 NPU</span>
           <span class="chip">NeetCode 150</span>
-          <span class="chip">Codeforces (fun)</span>
         </div>
       </div>
 
@@ -644,66 +384,82 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <table class="t">
           <thead><tr><th>Layer</th><th>Language</th><th>What you're actually doing</th><th>Target companies</th></tr></thead>
           <tbody>
-            <tr>
-              <td style="color:var(--cyan)">Systems Thinking</td>
-              <td>C++</td>
-              <td>DSA, memory model, cache, STL internals, inference runtimes</td>
-              <td>Qualcomm TW, NVIDIA TW</td>
-            </tr>
-            <tr>
-              <td style="color:var(--orange)">ML Interface</td>
-              <td>Python</td>
-              <td>Training, ONNX export, evaluation, quantization scripts</td>
-              <td>All of the above + startups</td>
-            </tr>
-            <tr>
-              <td style="color:var(--green)">Edge Deployment</td>
-              <td>C++ / Bash / Docker</td>
-              <td>ONNX Runtime, TensorRT, GStreamer, systemd services on ARM Linux</td>
-              <td>MediaTek, Advantech, ADLINK</td>
-            </tr>
+            <tr><td style="color:var(--cyan)">Systems Thinking</td><td>C++</td><td>DSA, memory model, cache, STL internals, inference runtimes</td><td>Qualcomm TW, NVIDIA TW</td></tr>
+            <tr><td style="color:var(--orange)">ML Interface</td><td>Python</td><td>Training, ONNX export, evaluation, quantization scripts</td><td>All of the above + startups</td></tr>
+            <tr><td style="color:var(--green)">Edge Deployment</td><td>C++ / Bash / Docker</td><td>ONNX Runtime, TensorRT, GStreamer, systemd on ARM Linux</td><td>MediaTek, Advantech, ADLINK</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- CPP FOUNDATIONS -->
-    <section id="cpp-foundations">
+    <!-- LINUX BASICS -->
+    <section id="linux">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(0,212,255,0.12)">01</div>
+        <div class="sh-num" style="color:rgba(245,196,0,0.15)">00</div>
         <div class="sh-body">
-          <div class="sh-eye" style="color:var(--cyan)">Phase 1 · Start Here</div>
-          <div class="sh-title">C++ Foundations</div>
-          <div class="sh-sub">Build the mental model before touching DSA problems.</div>
+          <div class="sh-eye" style="color:var(--yellow)">Phase 0 · Do This Before Anything Else</div>
+          <div class="sh-title">Linux & Toolchain</div>
+          <div class="sh-sub">Everything in Phase 3 runs on Linux. Cross-compilation, SSH into the Luckfox, serial debugging — none of it works if you're scared of a terminal.</div>
         </div>
       </div>
+      <div class="alert alert-yellow">
+        <div class="alert-icon">⚠</div>
+        <div><strong style="color:var(--yellow)">Do this in parallel with C++ Week 1.</strong> You don't need to master Linux before starting C++. But you need to be comfortable enough to compile and run code from a terminal — not an IDE.</div>
+      </div>
+      <div id="tg-linux" style="margin-top:16px"></div>
+    </section>
 
-      <div id="tg-cpp"></div>
+    <!-- CPP BASICS -->
+    <section id="cpp-basics">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,212,255,0.14)">01</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--cyan)">Phase 1 · Week by Week</div>
+          <div class="sh-title">C++ Language Basics</div>
+          <div class="sh-sub">Four weeks. Every concept referenced to learncpp.com chapter. Do not skip Week 2 — RAII is the entire philosophy of safe C++.</div>
+        </div>
+      </div>
+      <div class="alert alert-cyan">
+        <div class="alert-icon">◈</div>
+        <div>Primary resource: <strong style="color:var(--cyan)">learncpp.com</strong>. Use it as a reference, not a textbook. Read the relevant chapter when you hit a concept. Compile and run every code example yourself.</div>
+      </div>
+      <div id="tg-cpp-basics" style="margin-top:16px"></div>
+    </section>
+
+    <!-- CPP SYSTEMS -->
+    <section id="cpp-systems">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(0,212,255,0.10)">02</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--cyan)">Phase 1 · After Basics are Solid</div>
+          <div class="sh-title">C++ Systems Depth</div>
+          <div class="sh-sub">Industrial C++. What separates embedded engineers from application developers.</div>
+        </div>
+      </div>
+      <div id="tg-cpp-systems"></div>
     </section>
 
     <!-- DSA PATTERNS -->
     <section id="dsa-patterns">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(0,212,255,0.10)">02</div>
+        <div class="sh-num" style="color:rgba(0,212,255,0.08)">03</div>
         <div class="sh-body">
           <div class="sh-eye" style="color:var(--cyan)">Phase 1 · Core DSA</div>
           <div class="sh-title">DSA Patterns</div>
           <div class="sh-sub">Five patterns. Everything else is a variation of these five.</div>
         </div>
       </div>
-
       <div class="alert alert-cyan">
         <div class="alert-icon">⚡</div>
         <div>Solve every problem twice. First: brute force, get it accepted. Second: eliminate the allocation. If you can't explain the memory tradeoff, you don't own the solution yet.</div>
       </div>
-
       <div id="tg-dsa" style="margin-top:16px"></div>
     </section>
 
     <!-- NEETCODE 150 -->
     <section id="neetcode">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(0,212,255,0.08)">NC</div>
+        <div class="sh-num" style="color:rgba(0,212,255,0.06)">NC</div>
         <div class="sh-body">
           <div class="sh-eye" style="color:var(--cyan)">Full Checklist</div>
           <div class="sh-title">NeetCode 150</div>
@@ -713,33 +469,95 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
       <div id="nc-list"></div>
     </section>
 
-    <!-- ML FOUNDATIONS -->
-    <section id="ml-foundations">
+    <!-- CODEFORCES -->
+    <section id="codeforces">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(255,107,43,0.12)">03</div>
+        <div class="sh-num" style="color:rgba(245,196,0,0.15)">CF</div>
         <div class="sh-body">
-          <div class="sh-eye" style="color:var(--orange)">Phase 2 · Parallel Track</div>
-          <div class="sh-title">ML Foundations</div>
-          <div class="sh-sub">Start once Two Pointers clicks. Run parallel to DSA.</div>
+          <div class="sh-eye" style="color:var(--yellow)">Phase 1 · Weekly · Sept 2026 Deadline</div>
+          <div class="sh-title">Codeforces → 1200</div>
+          <div class="sh-sub">One rated contest per week. Upsolve every problem you couldn't finish. 1200 before your first day at NYCU.</div>
         </div>
       </div>
 
-      <div class="alert alert-orange">
-        <div class="alert-icon">⚠</div>
-        <div><strong style="color:var(--orange)">Anti-pattern:</strong> Watching ML videos without writing code. Run every notebook. Break things on purpose. 80% code, 20% video.</div>
+      <div class="milestone-card">
+        <div class="ms-top">
+          <div class="ms-rating-big">1200</div>
+          <div class="ms-meta">
+            <div class="ms-title">Target Rating — Codeforces</div>
+            <div class="ms-deadline">Deadline: <span>September 2026</span> · ~22 contests available · 1 per week</div>
+            <div style="margin-top:8px;font-size:10.5px;color:var(--text2);line-height:1.7">
+              1200 puts you in the top 40% of rated users globally. For a CS freshman it signals real problem-solving ability — not just tutorial-following.
+            </div>
+          </div>
+        </div>
+        <div class="ms-stages">
+          <div class="ms-stage"><div class="ms-stage-num">800</div><div class="ms-stage-label">Month 1</div><div class="ms-stage-time">A+B every contest</div></div>
+          <div class="ms-stage"><div class="ms-stage-num">1000</div><div class="ms-stage-label">Month 2–3</div><div class="ms-stage-time">A+B+C attempts</div></div>
+          <div class="ms-stage"><div class="ms-stage-num">1100</div><div class="ms-stage-label">Month 4</div><div class="ms-stage-time">Consistent C solves</div></div>
+          <div class="ms-stage"><div class="ms-stage-num" style="color:var(--green)">1200</div><div class="ms-stage-label" style="color:rgba(0,232,122,0.5)">Sept 2026</div><div class="ms-stage-time">Target hit ✓</div></div>
+        </div>
       </div>
 
-      <div id="tg-ml" style="margin-top:16px"></div>
+      <div class="alert alert-yellow" style="margin-top:12px">
+        <div class="alert-icon">◈</div>
+        <div><strong style="color:var(--yellow)">The one rule:</strong> After every contest, upsolve every problem you didn't solve. No exceptions. The upsolve session is 3× more valuable than the contest itself.</div>
+      </div>
+
+      <div id="tg-codeforces" style="margin-top:16px"></div>
+    </section>
+
+    <!-- ML MATH -->
+    <section id="ml-math">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(255,107,43,0.14)">04</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--orange)">Phase 2 · Start Once Two Pointers Clicks</div>
+          <div class="sh-title">ML Math Foundations</div>
+          <div class="sh-sub">Not a math course. Just the four concepts that make ML code readable instead of magical.</div>
+        </div>
+      </div>
+      <div id="tg-ml-math"></div>
+    </section>
+
+    <!-- ML CORE -->
+    <section id="ml-core">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(255,107,43,0.10)">05</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--orange)">Phase 2 · Karpathy First</div>
+          <div class="sh-title">ML Core Concepts</div>
+          <div class="sh-sub">Build it from scratch before using a framework. micrograd first, fast.ai second.</div>
+        </div>
+      </div>
+      <div class="alert alert-orange">
+        <div class="alert-icon">⚠</div>
+        <div><strong style="color:var(--orange)">Anti-pattern:</strong> Watching ML videos without writing code. Run every notebook. Break things. 80% code, 20% video. If you've spent more than 2 hours watching without running a training loop, stop and write code.</div>
+      </div>
+      <div id="tg-ml-core" style="margin-top:16px"></div>
+    </section>
+
+    <!-- ML TORCH -->
+    <section id="ml-torch">
+      <div class="sh">
+        <div class="sh-num" style="color:rgba(255,107,43,0.08)">06</div>
+        <div class="sh-body">
+          <div class="sh-eye" style="color:var(--orange)">Phase 2 · Practical</div>
+          <div class="sh-title">PyTorch & ONNX Export</div>
+          <div class="sh-sub">Train MobileNetV2 on your own data. Export to ONNX. Verify numerically. This is the full pipeline.</div>
+        </div>
+      </div>
+      <div id="tg-ml-torch"></div>
     </section>
 
     <!-- RKNN INFERENCE -->
     <section id="inference">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(0,232,122,0.10)">04</div>
+        <div class="sh-num" style="color:rgba(0,232,122,0.12)">07</div>
         <div class="sh-body">
           <div class="sh-eye" style="color:var(--green)">Phase 3 · Edge AI</div>
           <div class="sh-title">RKNN Inference Stack</div>
-          <div class="sh-sub">Quantization → .rknn conversion → C++ RKNPU2 API. This is the professional Edge AI workflow.</div>
+          <div class="sh-sub">Quantization → .rknn conversion → C++ RKNPU2 API. The professional Edge AI workflow.</div>
         </div>
       </div>
       <div id="tg-inference"></div>
@@ -748,19 +566,17 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
     <!-- HARDWARE PROJECT -->
     <section id="hardware">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(0,232,122,0.08)">05</div>
+        <div class="sh-num" style="color:rgba(0,232,122,0.08)">08</div>
         <div class="sh-body">
           <div class="sh-eye" style="color:var(--green)">Phase 3 · Build Something Real</div>
           <div class="sh-title">Industrial Project — Vision Scanner</div>
-          <div class="sh-sub">The visual fingerprint scanner that proves you can build industrial-grade defect detection.</div>
+          <div class="sh-sub">Luckfox Pico Ultra + SC3336 MIPI + Stepper. Under $50. Industrial-grade defect detection.</div>
         </div>
       </div>
-
       <div class="alert alert-green">
         <div class="alert-icon">◈</div>
-        <div><strong style="color:var(--green)">Industrial Stack:</strong> Luckfox Pico Ultra (~$25) + SC3336 MIPI Camera (~$15) + Stepper Motor Kit (~$5). Total under $50. This stack is 10x more power-efficient than a Pi 5 for AI tasks.</div>
+        <div><strong style="color:var(--green)">Resume line:</strong> "Industrial Vision Inspection System — INT8 MobileNetV2 on RV1106 NPU, &lt;30ms latency, cosine similarity matching, $50 BOM." That sentence gets an interview at VIVOTEK and Altek.</div>
       </div>
-
       <div class="hw-stack" style="margin:20px 0">
         <div class="hw-box">
           <div class="hw-box-title" style="color:var(--orange)">Capture Layer</div>
@@ -777,7 +593,7 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
           <ul>
             <li>RKNPU2 C++ API</li>
             <li>INT8 MobileNetV2</li>
-            <li>Embedding Vector extraction</li>
+            <li>Embedding extraction</li>
             <li>&lt;30ms latency target</li>
           </ul>
         </div>
@@ -792,14 +608,13 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
           </ul>
         </div>
       </div>
-
       <div id="tg-hardware"></div>
     </section>
 
     <!-- DEPLOYMENT LAYER -->
     <section id="deployment">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(0,232,122,0.07)">06</div>
+        <div class="sh-num" style="color:rgba(0,232,122,0.06)">09</div>
         <div class="sh-body">
           <div class="sh-eye" style="color:var(--green)">Phase 3 · Production</div>
           <div class="sh-title">Deployment & OS</div>
@@ -812,14 +627,18 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
     <!-- CUDA -->
     <section id="cuda">
       <div class="sh">
-        <div class="sh-num" style="color:rgba(181,122,255,0.12)">07</div>
+        <div class="sh-num" style="color:rgba(181,122,255,0.12)">10</div>
         <div class="sh-body">
-          <div class="sh-eye" style="color:var(--purple)">Phase 3 · Advanced</div>
+          <div class="sh-eye" style="color:var(--purple)">Phase 3 · Stretch Goal</div>
           <div class="sh-title">CUDA Kernels</div>
-          <div class="sh-sub">GPU fundamentals. Needed for NVIDIA TW roles and custom op writing.</div>
+          <div class="sh-sub">GPU fundamentals. Start only after the hardware project is complete. Needed for NVIDIA TW roles.</div>
         </div>
       </div>
-      <div id="tg-cuda"></div>
+      <div class="alert" style="background:rgba(181,122,255,0.06);border-left:3px solid var(--purple);color:var(--text2)">
+        <div class="alert-icon">◈</div>
+        <div>This is explicitly a stretch goal. Do not touch it before the hardware project is deployed. If you complete it, your resume covers every major Taiwan semiconductor employer.</div>
+      </div>
+      <div id="tg-cuda" style="margin-top:16px"></div>
     </section>
 
     <!-- CPP HABITS -->
@@ -842,8 +661,10 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
             <tr><td style="color:var(--red)">cout &lt;&lt; endl</td><td style="color:var(--green)">cout &lt;&lt; "\n"</td><td>endl flushes the buffer. "\n" doesn't. Slow in loops.</td></tr>
             <tr><td style="color:var(--red)">i &lt; v.size() with int i</td><td style="color:var(--green)">i &lt; (int)v.size()</td><td>size() is unsigned. Comparing signed/unsigned causes subtle underflow bugs.</td></tr>
             <tr><td style="color:var(--red)">unordered_set for everything</td><td style="color:var(--green)">sort + two pointers when space matters</td><td>unordered_set has ~150MB overhead on large inputs.</td></tr>
-            <tr><td style="color:var(--red)">stack&lt;int&gt; default backend</td><td style="color:var(--green)">stack&lt;int, vector&lt;int&gt;&gt;</td><td>Default deque backend is heap-fragmented. vector = contiguous = cache friendly.</td></tr>
+            <tr><td style="color:var(--red)">stack&lt;int&gt; default backend</td><td style="color:var(--green)">stack&lt;int, vector&lt;int&gt;&gt;</td><td>Default deque is heap-fragmented. vector = contiguous = cache friendly.</td></tr>
             <tr><td style="color:var(--red)">unordered_set without reserve</td><td style="color:var(--green)">seen.reserve(nums.size())</td><td>Multiple rehashes without reserve. Reserve eliminates them entirely.</td></tr>
+            <tr><td style="color:var(--red)">new/delete raw pointers</td><td style="color:var(--green)">std::unique_ptr / std::make_unique</td><td>Raw new/delete is the source of most memory leaks in C++ code. unique_ptr makes leaks impossible.</td></tr>
+            <tr><td style="color:var(--red)">Copy constructor not considered</td><td style="color:var(--green)">Rule of Three / Five / Zero</td><td>If you write a destructor, you probably need a copy constructor and copy-assignment operator too.</td></tr>
           </tbody>
         </table>
       </div>
@@ -860,12 +681,28 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         </div>
       </div>
 
+      <h3 style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Phase 0 — Linux</h3>
+      <div class="res-grid" style="margin-bottom:20px">
+        <a class="res-card" href="https://linuxcommand.org/tlcl.php" target="_blank">
+          <div class="res-name">The Linux Command Line</div>
+          <div class="res-url">linuxcommand.org (free PDF)</div>
+          <div class="res-desc">Best free Linux book. Chapters 1–10 cover everything you need for the Luckfox workflow. Don't read past Chapter 15.</div>
+          <div class="res-phase">Phase 0 · Primary Reference</div>
+        </a>
+        <a class="res-card" href="https://missing.csail.mit.edu" target="_blank">
+          <div class="res-name">MIT Missing Semester</div>
+          <div class="res-url">missing.csail.mit.edu</div>
+          <div class="res-desc">Shell, Vim, Git, debugging — the tools CS curricula never teach. Lectures 1–5 are mandatory. Takes one weekend.</div>
+          <div class="res-phase">Phase 0 · Critical Weekend</div>
+        </a>
+      </div>
+
       <h3 style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Phase 1 — C++ & DSA</h3>
       <div class="res-grid" style="margin-bottom:20px">
         <a class="res-card" href="https://learncpp.com" target="_blank">
           <div class="res-name">learncpp.com</div>
           <div class="res-url">learncpp.com</div>
-          <div class="res-desc">Best free C++ resource. Don't read linearly — use as reference when stuck on a concept while solving problems.</div>
+          <div class="res-desc">Best free C++ resource. Don't read linearly — use as reference chapter-by-chapter as you hit concepts in the task list above.</div>
           <div class="res-phase">Phase 1 · Primary Reference</div>
         </a>
         <a class="res-card" href="https://neetcode.io" target="_blank">
@@ -883,8 +720,8 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <a class="res-card" href="https://codeforces.com" target="_blank">
           <div class="res-name">Codeforces</div>
           <div class="res-url">codeforces.com</div>
-          <div class="res-desc">Start Div 3/4. Keep it as a hobby — separate mental bucket from LeetCode interview prep. Don't let it eat DSA time.</div>
-          <div class="res-phase">Phase 1 · Fun / Hobby</div>
+          <div class="res-desc">Div 3 and Div 4 contests weekly. Filter problems by rating 800–1200. Goal is 1200 before September 2026.</div>
+          <div class="res-phase">Phase 1 · Weekly · Sept Goal</div>
         </a>
       </div>
 
@@ -893,25 +730,25 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <a class="res-card" href="https://fast.ai" target="_blank">
           <div class="res-name">fast.ai</div>
           <div class="res-url">practical-dl.fast.ai</div>
-          <div class="res-desc">Top-down practical ML. Train models before understanding math. Run every notebook, don't just watch.</div>
-          <div class="res-phase">Phase 2 · Weeks 1–4</div>
+          <div class="res-desc">Top-down practical ML. Train models before understanding math. Run every notebook. Don't just watch. Lessons 1–4 first.</div>
+          <div class="res-phase">Phase 2 · Start Here</div>
         </a>
         <a class="res-card" href="https://youtube.com/@AndrejKarpathy" target="_blank">
           <div class="res-name">Karpathy — Zero to Hero</div>
           <div class="res-url">youtube.com/@AndrejKarpathy</div>
-          <div class="res-desc">Build autograd, language models, GPT from scratch. The best ML curriculum that exists. Do NOT skip makemore Part 4.</div>
+          <div class="res-desc">Build autograd, language models, GPT from scratch. Do NOT skip makemore Part 4 — it's the debugging lecture.</div>
           <div class="res-phase">Phase 2 · CRITICAL</div>
         </a>
         <a class="res-card" href="https://pytorch.org/docs" target="_blank">
           <div class="res-name">PyTorch Docs</div>
           <div class="res-url">pytorch.org/docs</div>
-          <div class="res-desc">API reference. Go straight to torch.nn, torch.optim, torch.onnx. The source code is more useful than the docs.</div>
+          <div class="res-desc">Go straight to torch.nn, torch.optim, torch.onnx. The source code on GitHub is more useful than the docs.</div>
           <div class="res-phase">Phase 2 · Reference</div>
         </a>
         <a class="res-card" href="https://onnx.ai" target="_blank">
           <div class="res-name">ONNX</div>
           <div class="res-url">onnx.ai · onnxruntime.ai</div>
-          <div class="res-desc">The bridge between PyTorch training and C++ inference. Understand the graph format before starting TensorRT.</div>
+          <div class="res-desc">The bridge between PyTorch training and C++ inference. Understand the graph format before starting TensorRT or RKNN.</div>
           <div class="res-phase">Phase 2→3 · Bridge</div>
         </a>
       </div>
@@ -933,26 +770,14 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <a class="res-card" href="https://github.com/rockchip-linux/rknn-toolkit2" target="_blank">
           <div class="res-name">Rockchip RKNPU2 SDK</div>
           <div class="res-url">github.com/rknn-toolkit2</div>
-          <div class="res-desc">Check the doc/ folder for the official API PDF. This is the source of truth for the C++ library functions.</div>
-          <div class="res-phase">Phase 3 · SDK Ref</div>
-        </a>
-        <a class="res-card" href="https://wiki.luckfox.com/Luckfox-Pico/Luckfox-Pico-RKMPI" target="_blank">
-          <div class="res-name">RKMPI / MPP Guide</div>
-          <div class="res-url">wiki.luckfox.com/RKMPI</div>
-          <div class="res-desc">Using hardware accelerators for zero-copy camera capture. Essential for industrial vision performance.</div>
-          <div class="res-phase">Phase 3 · Media Platform</div>
+          <div class="res-desc">Check the doc/ folder for the official API PDF. Source of truth for the C++ library functions.</div>
+          <div class="res-phase">Phase 3 · SDK Reference</div>
         </a>
         <a class="res-card" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html" target="_blank">
           <div class="res-name">CMake Toolchain Guide</div>
           <div class="res-url">cmake.org/docs</div>
-          <div class="res-desc">Official docs on cross-compilation. Learn how to point CMake to your ARM toolchain correctly.</div>
+          <div class="res-desc">Official docs on cross-compilation. Learn how to point CMake to your ARM toolchain sysroot correctly.</div>
           <div class="res-phase">Phase 3 · Cross-Compile</div>
-        </a>
-        <a class="res-card" href="https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/v4l2.html" target="_blank">
-          <div class="res-name">V4L2 API Reference</div>
-          <div class="res-url">kernel.org/v4l2</div>
-          <div class="res-desc">The Linux standard for camera drivers. Understand buffer types and streaming ioctls.</div>
-          <div class="res-phase">Phase 3 · Kernel API</div>
         </a>
       </div>
 
@@ -964,9 +789,10 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
         <table class="t">
           <thead><tr><th>Resource</th><th>Why</th></tr></thead>
           <tbody>
-            <tr><td>Udemy / Coursera AI</td><td>Too abstract. No hardware focus.</td></tr>
-            <tr><td>Native Pi Tutorials</td><td>"Easy mode" habits. Doesn't teach cross-compilation.</td></tr>
+            <tr><td>Udemy / Coursera AI</td><td>Too abstract. No hardware focus. You'll learn theory without being able to deploy anything.</td></tr>
+            <tr><td>Native Pi Tutorials</td><td>"Easy mode" habits. Doesn't teach cross-compilation or real embedded constraints.</td></tr>
             <tr><td>Generic YT roadmaps</td><td>Entertainment, not technical documentation.</td></tr>
+            <tr><td>Reading learncpp.com linearly</td><td>600 chapters. Use it as a reference when you hit a specific concept, not as a textbook to finish.</td></tr>
           </tbody>
         </table>
       </div>
@@ -982,39 +808,18 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
           <div class="sh-sub">Roles that value specialized Rockchip/NPU SDK experience.</div>
         </div>
       </div>
-
       <div class="info-card">
         <table class="t">
           <thead><tr><th>Title</th><th>Companies</th><th>Salary (NT$/yr)</th><th>Key Skill</th></tr></thead>
           <tbody>
-            <tr>
-              <td style="color:var(--cyan)">Edge AI Software Engineer</td>
-              <td>Advantech (研華), MediaTek (聯發科)</td>
-              <td>1.2M – 1.8M</td>
-              <td style="color:var(--green)">NPU SDKs (RKNN/NeuroPilot)</td>
-            </tr>
-            <tr>
-              <td style="color:var(--cyan)">Embedded Vision Engineer</td>
-              <td>VIVOTEK (晶睿通訊), Altek (華晶)</td>
-              <td>1.0M – 1.5M</td>
-              <td style="color:var(--green)">MPP / MIPI Capture</td>
-            </tr>
-            <tr>
-              <td style="color:var(--cyan)">AIoT Solutions Engineer</td>
-              <td>ADLINK (凌華), AAEON (研揚)</td>
-              <td>900k – 1.3M</td>
-              <td style="color:var(--green)">Buildroot / Industrial Protocols</td>
-            </tr>
-            <tr>
-              <td style="color:var(--cyan)">ML Infrastructure (Compiler)</td>
-              <td>NVIDIA TW, Kneron (耐能)</td>
-              <td>1.5M – 2.2M+</td>
-              <td style="color:var(--green)">Quantization / TVM</td>
-            </tr>
+            <tr><td style="color:var(--cyan)">Edge AI Software Engineer</td><td>Advantech (研華), MediaTek (聯發科)</td><td>1.2M – 1.8M</td><td style="color:var(--green)">NPU SDKs (RKNN/NeuroPilot)</td></tr>
+            <tr><td style="color:var(--cyan)">Embedded Vision Engineer</td><td>VIVOTEK (晶睿通訊), Altek (華晶)</td><td>1.0M – 1.5M</td><td style="color:var(--green)">MPP / MIPI Capture</td></tr>
+            <tr><td style="color:var(--cyan)">AIoT Solutions Engineer</td><td>ADLINK (凌華), AAEON (研揚)</td><td>900k – 1.3M</td><td style="color:var(--green)">Buildroot / Industrial Protocols</td></tr>
+            <tr><td style="color:var(--cyan)">ML Infrastructure (Compiler)</td><td>NVIDIA TW, Kneron (耐能)</td><td>1.5M – 2.2M+</td><td style="color:var(--green)">Quantization / TVM / CUDA</td></tr>
           </tbody>
         </table>
         <div style="margin-top:12px;font-size:10.5px;color:var(--text3);line-height:1.7">
-          Note: Rockchip (Luckfox) experience is a direct proxy for MediaTek's NeuroPilot or Advantech's internal AI stacks. It proves you can handle hardware constraints.
+          Rockchip (Luckfox) experience is a direct proxy for MediaTek's NeuroPilot or Advantech's internal AI stacks. It proves you can handle hardware constraints — something no course certificate demonstrates.
         </div>
       </div>
     </section>
@@ -1023,33 +828,113 @@ section { scroll-margin-top: 60px; margin-bottom: 72px; }
 </main>
 
 <script>
-// ─── TASK DATA ─────────────────────────────────────────────────────────────
+// ─── TASK DATA ──────────────────────────────────────────────────────────────
+
 const TASKS = {
-  "tg-cpp": {
-    label: "C++ Foundations",
-    color: "var(--cyan)",
+
+  // ── LINUX ──────────────────────────────────────────────────────────────
+  "tg-linux": {
+    label: "Linux & Toolchain",
+    color: "var(--yellow)",
     groups: [{
-      name: "Environment & Toolchain",
-      color: "var(--cyan)",
+      name: "Shell Survival (Weekend 1)",
+      color: "var(--yellow)",
       items: [
-        { key: "cpp-env-1", text: "<strong>Set up Cross-Compilation</strong> — Install the arm-linux-gnueabihf toolchain for Luckfox RV1106.", tip: "Native compilation on the chip is too slow. Professionals build on x86 for ARM. Use the official toolchain from the Luckfox SDK.", tipType: "cyan" },
-        { key: "cpp-env-2", text: "<strong>Master CMake Toolchains</strong> — Write a CMake toolchain file to manage include/lib paths for the SDK.", tip: "This is the 'interview winner'. If you can explain how a toolchain file redirects CMake to the target sysroot, you own the environment.", tipType: "cyan" },
-        { key: "cpp-env-3", text: "<strong>Write a V4L2 test</strong> — Capture a single frame from /dev/video11 using standard Linux ioctls.", tip: null },
+        { key:"lx-sh-1", text:"<strong>Filesystem navigation</strong> — ls, find, pwd, cd, mkdir, rm, cp, mv, chmod. Understand paths.", tip:"learncpp.com doesn't cover this. MIT Missing Semester Lecture 1 does. Takes 2 hours.", tipType:"yellow" },
+        { key:"lx-sh-2", text:"<strong>Text processing</strong> — grep, cat, head, tail, wc, sort, uniq, pipe chaining (|).", tip:"These are how you read log files on the Luckfox over serial. grep 'ERROR' /var/log/scanner.log is a daily command.", tipType:"green" },
+        { key:"lx-sh-3", text:"<strong>Process management</strong> — ps aux, top/htop, kill, pkill, running processes in background (&), nohup.", tip:null },
+        { key:"lx-sh-4", text:"<strong>SSH & SCP workflow</strong> — ssh user@192.168.x.x, scp file board:/path. Set up key-based auth.", tip:"You will SSH into the Luckfox 100+ times. Set up SSH keys on day one. Never type a password again.", tipType:"cyan" },
+        { key:"lx-sh-5", text:"<strong>Bash scripting basics</strong> — Variables, if/else, for loops, exit codes, shebang (#!).", tip:"Your cross-compile + deploy script should be a single bash command. Write it early.", tipType:"orange" },
       ]
     }, {
-      name: "Industrial Core Concepts",
-      color: "var(--cyan)",
+      name: "Build System (Week 1)",
+      color: "var(--yellow)",
       items: [
-        { key: "cpp-core-1", text: "<strong>Bit Manipulation</strong> — Use masks and shifts to read/write hardware registers.", tip: "Required for low-level GPIO and device driver interaction. Understand AND/OR/XOR at the bit level.", tipType: "cyan" },
-        { key: "cpp-core-2", text: "<strong>DMA & Zero-Copy</strong> — Pass memory pointers between camera and NPU without copying buffer data.", tip: "Moving images between CPU and NPU is the bottleneck. DMA-BUF allows the NPU to read directly from the camera buffer.", tipType: "cyan" },
-        { key: "cpp-core-3", text: "<strong>POSIX Threads</strong> — Synchronize camera capture, motor control, and NPU inference.", tip: "Use std::mutex and std::condition_variable to prevent race conditions in the 'Visual Fingerprint' scanner.", tipType: "cyan" },
-        { key: "cpp-core-4", text: "<strong>Smart pointers</strong> — std::unique_ptr for hardware resource handles.", tip: null },
-        { key: "cpp-core-5", text: "<strong>Circular Buffers</strong> — Implement a thread-safe ring buffer for incoming camera frames.", tip: "Required for real-time processing without dropping frames during heavy NPU inference.", tipType: "orange" },
-        { key: "cpp-core-6", text: "<strong>STL containers and their tradeoffs</strong> — vector (cache-friendly) vs deque (fragmented).", tip: null },
+        { key:"lx-bld-1", text:"<strong>gcc/g++ command line</strong> — -O2, -std=c++17, -I, -L, -l flags. Compile a multi-file project manually.", tip:"Do this before using CMake. If you understand raw compilation, CMake is just automation. If you don't, CMake is magic.", tipType:"yellow" },
+        { key:"lx-bld-2", text:"<strong>CMake fundamentals</strong> — CMakeLists.txt, cmake_minimum_required, add_executable, target_link_libraries.", tip:"Write a CMakeLists.txt for a two-file C++ project. Build it with mkdir build && cd build && cmake .. && make.", tipType:"cyan" },
+        { key:"lx-bld-3", text:"<strong>CMake Toolchain file for ARM</strong> — Set CMAKE_C_COMPILER, CMAKE_SYSROOT for the Luckfox SDK.", tip:"This single file is what makes cross-compilation work. Master it once, reuse for every embedded project.", tipType:"orange" },
+        { key:"lx-bld-4", text:"<strong>Static vs shared libraries</strong> — .a vs .so. When to link statically for deployment on the board.", tip:"Nothing worse than deploying to the Luckfox and getting 'librknn.so: not found'. Static linking eliminates this.", tipType:"orange" },
+      ]
+    }, {
+      name: "Debugging & Git (Week 2)",
+      color: "var(--yellow)",
+      items: [
+        { key:"lx-dbg-1", text:"<strong>GDB basics</strong> — break, run, next, step, print, backtrace. Cross-debugging with gdbserver.", tip:"gdbserver on Luckfox + GDB on host = full source-level debugger over SSH. Set this up before writing complex board code.", tipType:"cyan" },
+        { key:"lx-dbg-2", text:"<strong>Serial console debugging</strong> — minicom/screen for UART output. printf-debug over /dev/ttyUSB0.", tip:"Before SSH works, UART is your only window into the board. Learn it on day one.", tipType:"orange" },
+        { key:"lx-dbg-3", text:"<strong>NPU & system monitoring</strong> — cat /sys/kernel/debug/rknpu/load, top, thermal sensors.", tip:"Document FPS, NPU load, and temperature numbers. The RV1106 vs Pi 5 performance gap is your interview talking point.", tipType:"green" },
+        { key:"lx-dbg-4", text:"<strong>Git workflow for embedded</strong> — Branch per feature, .gitignore for build artifacts, meaningful commits.", tip:"Your GitHub README is your resume item. Write commit messages like a senior engineer would read them.", tipType:"cyan" },
       ]
     }]
   },
 
+  // ── C++ BASICS ──────────────────────────────────────────────────────────
+  "tg-cpp-basics": {
+    label: "C++ Language Basics",
+    color: "var(--cyan)",
+    groups: [{
+      name: "Week 1 — The Language Core",
+      color: "var(--cyan)",
+      items: [
+        { key:"cpb-1", text:"<strong>Types & Variables</strong> — int, long long, double, char, bool. sizeof(). Overflow. <a class='lc-ref' href='https://learncpp.com/cpp-tutorial/introduction-to-fundamental-data-types/' target='_blank'>ch 4</a>", tip:"Most bugs in competitive programming are int overflow. int maxes at ~2×10⁹. long long holds ~9×10¹⁸. Know when to use which.", tipType:"orange" },
+        { key:"cpb-2", text:"<strong>Functions</strong> — pass by value, pass by reference, pass by const reference. Return types. <a class='lc-ref' href='https://learncpp.com/cpp-tutorial/introduction-to-functions/' target='_blank'>ch 2</a>", tip:"Passing a vector<int> by value silently copies the whole thing. This is the #1 hidden performance bug beginners write.", tipType:"orange" },
+        { key:"cpb-3", text:"<strong>Pointers vs References</strong> — int* vs int&. Null pointer. Dereferencing. Address-of. <a class='lc-ref' href='https://learncpp.com/cpp-tutorial/introduction-to-pointers/' target='_blank'>ch 9</a>", tip:"References are safer aliases. Pointers are addresses you can do arithmetic on. Know both — hardware programming uses raw pointers for register access.", tipType:"cyan" },
+        { key:"cpb-4", text:"<strong>Arrays & std::array</strong> — Stack arrays. std::array<int,N>. Fixed size at compile time.", tip:"Stack arrays are the fastest possible storage. No heap allocation. Perfect for lookup tables in embedded systems.", tipType:"green" },
+        { key:"cpb-5", text:"<strong>Conditionals & Loops</strong> — for, while, range-based for (for auto& x : v). Switch.", tip:null },
+        { key:"cpb-6", text:"<strong>std::string basics</strong> — Constructing, concatenating, substr(), find(), size().", tip:null },
+      ]
+    }, {
+      name: "Week 2 — OOP & Memory",
+      color: "var(--cyan)",
+      items: [
+        { key:"cpo-1", text:"<strong>Classes & Structs</strong> — Constructor, destructor, member functions. Access: public/private. <a class='lc-ref' href='https://learncpp.com/cpp-tutorial/introduction-to-object-oriented-programming/' target='_blank'>ch 13</a>", tip:"Always write a destructor when your class owns a resource like a file handle or hardware context.", tipType:"cyan" },
+        { key:"cpo-2", text:"<strong>RAII Pattern</strong> — Resource Acquisition Is Initialization. Wrap hardware handles in RAII classes.", tip:"This is the most important C++ pattern for embedded work. When the object is destroyed, hardware is released automatically. No leaks possible.", tipType:"orange" },
+        { key:"cpo-3", text:"<strong>Copy vs Move Semantics</strong> — Copy constructor, move constructor, std::move. <a class='lc-ref' href='https://learncpp.com/cpp-tutorial/introduction-to-smart-pointers-move-semantics/' target='_blank'>ch 22</a>", tip:"Move semantics transfer ownership without copying. Essential for large image buffers on memory-constrained devices like the Luckfox.", tipType:"cyan" },
+        { key:"cpo-4", text:"<strong>std::unique_ptr</strong> — make_unique. Single ownership. Cannot copy, only move.", tip:"Use for every hardware handle: camera context, NPU context, GPIO pin. Destructor runs automatically when scope ends. No leaks.", tipType:"green" },
+        { key:"cpo-5", text:"<strong>Stack vs Heap allocation</strong> — new/delete vs automatic storage. Why stack is faster.", tip:"Stack allocation is a single instruction. Heap allocation calls the OS allocator. On RV1106 with 256MB RAM, prefer stack for fixed-size buffers.", tipType:"orange" },
+        { key:"cpo-6", text:"<strong>Rule of Three / Five / Zero</strong> — If you define a destructor, you probably need the copy and move operations too.", tip:"The most common source of memory corruption bugs in beginner C++. Memorize this rule.", tipType:"orange" },
+      ]
+    }, {
+      name: "Week 3 — Modern C++17",
+      color: "var(--cyan)",
+      items: [
+        { key:"cm17-1", text:"<strong>auto & Type Deduction</strong> — auto, decltype. Use to reduce verbosity, never to hide types.", tip:null },
+        { key:"cm17-2", text:"<strong>Structured Bindings</strong> — for(auto& [key, val] : map). Clean iteration over maps and pairs.", tip:"Critical for working with RKNN output maps and paired data structures in the inference pipeline.", tipType:"cyan" },
+        { key:"cm17-3", text:"<strong>Lambda Expressions</strong> — [capture](params){body}. Use in std::sort, thread callbacks, std::find_if.", tip:"Lambdas are the modern replacement for function pointers. Capture by reference [&] for local variables. Capture by value [=] when in doubt.", tipType:"cyan" },
+        { key:"cm17-4", text:"<strong>std::optional</strong> — Return value or nothing without a raw pointer or sentinel value.", tip:null },
+        { key:"cm17-5", text:"<strong>constexpr & if constexpr</strong> — Compile-time constants. Zero runtime cost.", tip:"Use constexpr for model input dimensions (224, 224), buffer sizes, calibration values. They become compile-time constants.", tipType:"green" },
+      ]
+    }, {
+      name: "Week 4 — STL Mastery",
+      color: "var(--cyan)",
+      items: [
+        { key:"cst-1", text:"<strong>std::vector internals</strong> — capacity vs size, reserve(), push_back amortized cost, iterator invalidation.", tip:"vector.reserve(n) before inserting n elements. Prevents 3–4 realloc+copy cycles. Single most impactful STL habit.", tipType:"orange" },
+        { key:"cst-2", text:"<strong>std::unordered_map vs std::map</strong> — O(1) average vs O(log n). Load factor, worst case, when to choose each.", tip:"unordered_map can degrade to O(n) on adversarial inputs. For CF, sometimes safer to use map. For embedded, unordered_map's cache misses matter.", tipType:"cyan" },
+        { key:"cst-3", text:"<strong>std::sort, std::lower_bound, std::upper_bound</strong> — Custom comparators. Binary search on sorted vectors.", tip:"lower_bound = first element >= target. upper_bound = first element > target. Master these for interval problems in CF.", tipType:"cyan" },
+        { key:"cst-4", text:"<strong>std::priority_queue</strong> — Max-heap by default. Min-heap: negate values or use greater<int>.", tip:null },
+        { key:"cst-5", text:"<strong>std::string_view</strong> — Non-owning string reference. Zero-copy string parsing.", tip:"When parsing camera metadata or RKNN output labels, string_view avoids heap allocation entirely.", tipType:"green" },
+      ]
+    }]
+  },
+
+  // ── C++ SYSTEMS ─────────────────────────────────────────────────────────
+  "tg-cpp-systems": {
+    label: "C++ Systems Depth",
+    color: "var(--cyan)",
+    groups: [{
+      name: "Hardware & Industrial Patterns",
+      color: "var(--cyan)",
+      items: [
+        { key:"cps-1", text:"<strong>Bit Manipulation</strong> — Use masks and shifts to read/write hardware registers. AND/OR/XOR/NOT.", tip:"Required for GPIO interaction and device register access. e.g. reg |= (1 << PIN) to set a bit, reg &= ~(1 << PIN) to clear.", tipType:"cyan" },
+        { key:"cps-2", text:"<strong>DMA & Zero-Copy</strong> — Pass memory pointers between camera and NPU without copying buffer data.", tip:"Moving images between CPU and NPU is the bottleneck. DMA-BUF lets the NPU read directly from the camera buffer.", tipType:"cyan" },
+        { key:"cps-3", text:"<strong>POSIX Threads</strong> — std::thread, std::mutex, std::condition_variable. Synchronize capture + inference.", tip:"Use a mutex to protect the frame buffer shared between the camera thread and the NPU inference thread.", tipType:"cyan" },
+        { key:"cps-4", text:"<strong>Circular Buffer</strong> — Thread-safe ring buffer for incoming camera frames.", tip:"Required for real-time processing without dropping frames during heavy NPU inference.", tipType:"orange" },
+        { key:"cps-5", text:"<strong>Memory alignment</strong> — alignas(), aligned_alloc(). Why NPUs need 16/32-byte aligned input buffers.", tip:"Misaligned input to the NPU either crashes or silently produces wrong outputs. Always check SDK docs for alignment requirements.", tipType:"orange" },
+        { key:"cps-6", text:"<strong>Write a V4L2 test</strong> — Capture a single frame from /dev/video11 using standard Linux ioctls.", tip:"This proves you can talk to the camera at the kernel driver level — not just through a high-level wrapper.", tipType:"cyan" },
+      ]
+    }]
+  },
+
+  // ── DSA PATTERNS ────────────────────────────────────────────────────────
   "tg-dsa": {
     label: "DSA Patterns",
     color: "var(--cyan)",
@@ -1057,143 +942,239 @@ const TASKS = {
       name: "Pattern 1 — Arrays & Hashing",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-ah-1", text: "Complete all 9 NeetCode Arrays & Hashing problems in C++.", tip: "Always reserve() before inserting n elements to avoid rehashing.", tipType: "cyan" },
-        { key: "dsa-ah-2", text: "Optimize for cache locality. Understand how contiguous memory in vector beats linked lists.", tip: null },
-        { key: "dsa-ah-3", text: "Benchmark memory usage. In embedded systems (Luckfox), 128MB RAM is a hard ceiling.", tip: "This is why you pick sort + scan (O(1) space) over hash maps (O(n) space) when possible.", tipType: "orange" },
+        { key:"dsa-ah-1", text:"Complete all 9 NeetCode Arrays & Hashing problems in C++.", tip:"Always reserve() before inserting n elements into an unordered_map or unordered_set to avoid rehashing.", tipType:"cyan" },
+        { key:"dsa-ah-2", text:"Optimize for cache locality. Understand why contiguous vector beats linked list for small N.", tip:null },
+        { key:"dsa-ah-3", text:"Benchmark memory. In embedded systems (Luckfox 256MB RAM), O(n) extra space has real consequences.", tip:"This is why you pick sort + scan (O(1) space) over hash maps (O(n) space) when possible on the board.", tipType:"orange" },
       ]
     }, {
       name: "Pattern 2 — Two Pointers",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-tp-1", text: "Complete all 5 Two Pointers problems in C++.", tip: null },
-        { key: "dsa-tp-2", text: "3Sum is the pattern test. If you can write it clean, you own two pointers.", tipType: "cyan" },
+        { key:"dsa-tp-1", text:"Complete all 5 Two Pointers problems in C++.", tip:null },
+        { key:"dsa-tp-2", text:"3Sum is the pattern test. If you can write it clean and fast, you own two pointers.", tip:"Sort first, then fix one pointer and run two-pointer scan on the rest. O(n²) total.", tipType:"cyan" },
       ]
     }, {
       name: "Pattern 3 — Sliding Window",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-sw-1", text: "Complete all 6 Sliding Window problems in C++.", tip: null },
-        { key: "dsa-sw-2", text: "Minimum Window Substring — use a fixed-size array (int[256]) instead of unordered_map for performance.", tip: "Fixed arrays are 10-100x faster than hash maps in tight loops.", tipType: "orange" },
+        { key:"dsa-sw-1", text:"Complete all 6 Sliding Window problems in C++.", tip:null },
+        { key:"dsa-sw-2", text:"Minimum Window Substring — use int[256] instead of unordered_map for the frequency count.", tip:"Fixed arrays are 10–100x faster than hash maps in tight loops. On CF this can be the difference between AC and TLE.", tipType:"orange" },
       ]
     }, {
       name: "Pattern 4 — Stack",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-st-1", text: "Complete all 7 Stack problems in C++.", tip: null },
-        { key: "dsa-st-2", text: "Largest Rectangle in Histogram — monotonic stack pattern.", tip: null },
+        { key:"dsa-st-1", text:"Complete all 7 Stack problems in C++.", tip:null },
+        { key:"dsa-st-2", text:"Largest Rectangle in Histogram — monotonic stack. This is the hardest stack problem.", tip:null },
       ]
     }, {
       name: "Pattern 5 — Binary Search",
       color: "var(--cyan)",
       items: [
-        { key: "dsa-bs-1", text: "Complete all 7 Binary Search problems in C++.", tip: null },
-        { key: "dsa-bs-2", text: "Koko Eating Bananas — binary search on answer space.", tip: null },
+        { key:"dsa-bs-1", text:"Complete all 7 Binary Search problems in C++.", tip:null },
+        { key:"dsa-bs-2", text:"Koko Eating Bananas — binary search on the answer space, not the array. Key insight.", tip:null },
       ]
     }]
   },
 
-  "tg-ml": {
-    label: "ML Foundations",
-    color: "var(--orange)",
+  // ── CODEFORCES ──────────────────────────────────────────────────────────
+  "tg-codeforces": {
+    label: "Codeforces → 1200",
+    color: "var(--yellow)",
     groups: [{
-      name: "Industrial AI Foundations",
-      color: "var(--orange)",
+      name: "Pre-Contest Foundation (Before First Rated)",
+      color: "var(--yellow)",
       items: [
-        { key: "ml-fai-1", text: "<strong>Quantization Basics</strong> — Understand FP32 to INT8 conversion.", tip: "NPUs like the RV1106 do math in INT8. Understanding symmetric vs asymmetric quantization is key to keeping accuracy high.", tipType: "orange" },
-        { key: "ml-fai-2", text: "<strong>Fixed-Point Arithmetic</strong> — Implement a dot product using only integers and scaling factors.", tip: "This mimics exactly what happens inside the Luckfox NPU hardware.", tipType: "orange" },
-        { key: "ml-fai-3", text: "<strong>micrograd</strong> — Build backpropagation from scratch (Karpathy).", tip: null },
-        { key: "ml-fai-4", text: "<strong>nanoGPT</strong> — Understand Transformer layers even if you use CNNs on edge.", tip: null },
+        { key:"cf-pre-1", text:"<strong>Fast I/O template</strong> — ios_base::sync_with_stdio(false); cin.tie(NULL); at the top of every file.", tip:"Saves 1–2 seconds on large input test cases. Without this, simple solutions get TLE. Make it muscle memory.", tipType:"yellow" },
+        { key:"cf-pre-2", text:"<strong>Time complexity estimation</strong> — 10⁸ ops/sec rule. Estimate before writing a single line.", tip:"The most important CF skill. n=10⁵ with O(n²) = 10¹⁰ ops = TLE. Estimate first, code second, always.", tipType:"orange" },
+        { key:"cf-pre-3", text:"<strong>Solve 25 Div 4 A/B problems offline</strong> — No time pressure. Build pattern recognition first.", tip:"Filter codeforces.com/problemset by difficulty 800–1000. 25 problems, one sitting each day.", tipType:"cyan" },
+        { key:"cf-pre-4", text:"<strong>25-minute rule</strong> — If stuck after 25 min, read the editorial. Implement yourself from scratch.", tip:"Grinding the same problem for 3 hours teaches nothing. Read, understand, close it, rewrite from memory. That's the rep that sticks.", tipType:"orange" },
       ]
     }, {
-      name: "PyTorch & ONNX",
-      color: "var(--orange)",
+      name: "Rating 0 → 800 · Month 1",
+      color: "var(--yellow)",
       items: [
-        { key: "ml-pt-1", text: "Train a <strong>MobileNetV2</strong> on a custom dataset of industrial objects (screws, nuts).", tip: "MobileNet is the gold standard for low-power NPU benchmarks.", tipType: "orange" },
-        { key: "ml-pt-2", text: "Export to <strong>ONNX</strong> with fixed input shapes (e.g. 224x224).", tip: "NPUs hate dynamic shapes. Fix everything at export time.", tipType: "cyan" },
-        { key: "ml-pt-3", text: "Use <strong>Netron</strong> to inspect the graph for unsupported ops.", tip: "If your model has a fancy op the NPU doesn't like, it will fall back to the slow CPU. Catch it early.", tipType: "cyan" },
+        { key:"cf-800-1", text:"<strong>Participate in 4 rated contests</strong> — Div 3 or Div 4 only. Target: solve A + B every single contest.", tip:"Don't attempt C until you're solving A and B with 30+ minutes to spare. Speed on A/B is the foundation.", tipType:"cyan" },
+        { key:"cf-800-2", text:"<strong>Upsolve every contest</strong> — After each contest, solve every problem you couldn't. Read editorial for D+.", tip:"Upsolving is where 80% of rating growth happens. The contest is just data collection about your weaknesses.", tipType:"orange" },
+        { key:"cf-800-3", text:"<strong>Pattern: ad-hoc / simulation</strong> — Implement exactly what the problem statement describes. No tricks.", tip:null },
+        { key:"cf-800-4", text:"<strong>Pattern: basic math</strong> — Modulo, GCD with Euclidean algorithm, LCM, prime checking, integer division.", tip:"GCD appears in 30% of A/B problems. Implement it once, memorize it.", tipType:"cyan" },
+      ]
+    }, {
+      name: "Rating 800 → 1000 · Month 2–3",
+      color: "var(--yellow)",
+      items: [
+        { key:"cf-1000-1", text:"<strong>8 more rated contests</strong> — Weekly. Consistently attempt C problems.", tip:null },
+        { key:"cf-1000-2", text:"<strong>Pattern: greedy</strong> — Sort, then make the locally optimal choice. Prove it's correct or find a counterexample.", tip:"Most CF problems rated 1000–1200 are greedy. The skill is recognizing when greedy is safe vs when it fails.", tipType:"cyan" },
+        { key:"cf-1000-3", text:"<strong>Pattern: prefix sums</strong> — prefix[i] = prefix[i-1] + a[i]. Answer range sum queries in O(1).", tip:"Sum from l to r = prefix[r] - prefix[l-1]. Appears in ~20% of B/C problems. Memorize the formula.", tipType:"cyan" },
+        { key:"cf-1000-4", text:"<strong>Solve 40 problems rated 900–1100</strong> — From the problemset, not just contests.", tip:"Filter by rating and tag. Build total solved count toward 100+.", tipType:"orange" },
+        { key:"cf-1000-5", text:"<strong>Keep a mistake log</strong> — After each contest, one line: what mistake cost you the most time.", tip:"After 15 contests you'll see a pattern. Off-by-one? Wrong data type? Wrong complexity estimate? Fix it systematically.", tipType:"orange" },
+      ]
+    }, {
+      name: "Rating 1000 → 1200 · Month 4–5 (before September)",
+      color: "var(--yellow)",
+      items: [
+        { key:"cf-1200-1", text:"<strong>8 more rated contests</strong> — Target: A + B + C solved in under 90 minutes.", tip:"At 1200, this is the benchmark. Three problems in 90 minutes in a Div 3 contest.", tipType:"cyan" },
+        { key:"cf-1200-2", text:"<strong>Pattern: 1D DP</strong> — Fibonacci-style, coin change, house robber variants at CF difficulty.", tip:"CF DP at 1200 level uses one state variable. Simpler than LeetCode medium. Master the tabulation approach.", tipType:"orange" },
+        { key:"cf-1200-3", text:"<strong>Pattern: basic BFS/DFS</strong> — Connected components, shortest path in unweighted graphs.", tip:null },
+        { key:"cf-1200-4", text:"<strong>Reach 1200 before September 2026</strong> — The deadline. One contest per week, non-negotiable.", tip:"April to September = ~22 contests. Realistic if you upsolve every time. Miss upsolves and you'll plateau at 900.", tipType:"green" },
+        { key:"cf-1200-5", text:"<strong>Virtual contests</strong> — Use CF's virtual contest feature to simulate past contests under time pressure.", tip:"Virtual contests train the mental stamina needed for rated contests. Do 2 per month minimum.", tipType:"yellow" },
       ]
     }]
   },
 
+  // ── ML MATH ─────────────────────────────────────────────────────────────
+  "tg-ml-math": {
+    label: "ML Math Foundations",
+    color: "var(--orange)",
+    groups: [{
+      name: "Math You Actually Need",
+      color: "var(--orange)",
+      items: [
+        { key:"mlm-1", text:"<strong>Linear Algebra Essentials</strong> — Vectors, matrices, dot product, matrix multiply. Shape arithmetic.", tip:"(batch, channels, H, W) — every tensor has a shape. Matrix multiply requires shapes to align. This is 80% of debugging PyTorch shape errors.", tipType:"orange" },
+        { key:"mlm-2", text:"<strong>Derivatives & Chain Rule (intuition)</strong> — dy/dx, partial derivatives, what gradient descent does geometrically.", tip:"You don't need to derive backprop by hand. You need to know: gradient = slope = direction of steepest increase. That's the intuition.", tipType:"cyan" },
+        { key:"mlm-3", text:"<strong>Statistics basics</strong> — Mean, variance, normal distribution, what normalization means and why.", tip:"Normalization (subtract mean, divide by std) is in every model. Know why: unnormalized inputs cause gradient explosions.", tipType:"orange" },
+        { key:"mlm-4", text:"<strong>Cosine Similarity</strong> — dot(A,B) / (|A| × |B|). Ranges −1 to 1. Implement in C++ for the scanner project.", tip:"This is literally the core math of your Visual Fingerprint project. Understand it deeply before writing the C++ code.", tipType:"green" },
+      ]
+    }]
+  },
+
+  // ── ML CORE ─────────────────────────────────────────────────────────────
+  "tg-ml-core": {
+    label: "ML Core Concepts",
+    color: "var(--orange)",
+    groups: [{
+      name: "Build From Scratch — Karpathy",
+      color: "var(--orange)",
+      items: [
+        { key:"mlc-1", text:"<strong>micrograd</strong> — Build the autograd engine from scratch. Value class with .backward().", tip:"The most important ML exercise that exists. If you can build backprop from scratch, you understand every framework. Takes one weekend.", tipType:"orange" },
+        { key:"mlc-2", text:"<strong>makemore Part 1–3</strong> — Bigram model → MLP language model. Understand how the training loop works.", tip:null },
+        { key:"mlc-3", text:"<strong>makemore Part 4</strong> — BatchNorm, initialization, activations. DO NOT SKIP THIS ONE.", tip:"This is where Karpathy explains why neural nets fail to train. The most practical debugging knowledge in ML. Watch it twice.", tipType:"orange" },
+        { key:"mlc-4", text:"<strong>nanoGPT</strong> — Transformer from scratch. Understand attention even if you deploy CNNs on edge.", tip:null },
+      ]
+    }, {
+      name: "Training Fundamentals",
+      color: "var(--orange)",
+      items: [
+        { key:"mlc-5", text:"<strong>Loss functions</strong> — CrossEntropyLoss for classification. MSE for regression. Why log probabilities.", tip:null },
+        { key:"mlc-6", text:"<strong>Optimizers</strong> — SGD vs Adam. Learning rate. What momentum physically does.", tip:"Adam adapts the learning rate per parameter. It almost always trains faster than SGD. Use it. But know why it works.", tipType:"orange" },
+        { key:"mlc-7", text:"<strong>Overfitting vs Underfitting</strong> — Train/val/test split. Dropout, weight decay. Reading learning curves.", tip:"A model that's 99% train but 60% val accuracy is useless on the Luckfox. Val accuracy is the only number that matters during training.", tipType:"cyan" },
+        { key:"mlc-8", text:"<strong>Precision, Recall, F1 for defect detection</strong> — Why accuracy is wrong for rare defects.", tip:"If 99% of parts are fine, a model that always outputs 'fine' has 99% accuracy and 0% usefulness. This is why you use F1.", tipType:"orange" },
+        { key:"mlc-9", text:"<strong>Data Augmentation</strong> — Random crop, horizontal flip, brightness jitter, rotation. Doubles effective dataset.", tip:"You won't have 10k industrial images. Augmentation is how you train on 200 images without overfitting.", tipType:"green" },
+      ]
+    }]
+  },
+
+  // ── ML TORCH ────────────────────────────────────────────────────────────
+  "tg-ml-torch": {
+    label: "PyTorch & ONNX Export",
+    color: "var(--orange)",
+    groups: [{
+      name: "PyTorch Practical",
+      color: "var(--orange)",
+      items: [
+        { key:"mlt-1", text:"<strong>fast.ai Lessons 1–4</strong> — Train a classifier in 20 min. Top-down. Run every notebook.", tip:"Do fast.ai Lesson 1 before any Karpathy. It shows you what a trained model looks like before you understand the internals.", tipType:"orange" },
+        { key:"mlt-2", text:"<strong>Tensors & autograd</strong> — torch.Tensor shapes, requires_grad, .backward(), .grad.", tip:null },
+        { key:"mlt-3", text:"<strong>Custom Dataset & DataLoader</strong> — Inherit from torch.utils.data.Dataset. Implement __getitem__ and __len__.", tip:"For the scanner project your dataset is 50–200 images per class. Write a clean Dataset class first, before any model code.", tipType:"orange" },
+        { key:"mlt-4", text:"<strong>Transfer Learning with MobileNetV2</strong> — Freeze backbone, replace the final classifier head, fine-tune.", tip:"MobileNetV2 pretrained on ImageNet + fine-tuned on 200 of your images beats training from scratch on 10k images. Always use transfer learning for small datasets.", tipType:"orange" },
+        { key:"mlt-5", text:"<strong>Training loop from scratch</strong> — zero_grad(), loss.backward(), optimizer.step(). Log train and val loss.", tip:null },
+        { key:"mlt-6", text:"<strong>Model evaluation</strong> — confusion_matrix, classification_report (sklearn). Inspect every wrong prediction.", tip:"Look at the wrong predictions. The model is telling you something about your data collection or augmentation strategy.", tipType:"cyan" },
+      ]
+    }, {
+      name: "Export Pipeline",
+      color: "var(--orange)",
+      items: [
+        { key:"mlt-7", text:"<strong>ONNX export with fixed shapes</strong> — torch.onnx.export, opset_version=11, fixed batch size = 1.", tip:"opset 11 is the sweet spot for RKNN compatibility. Higher opsets have ops the NPU cannot run.", tipType:"orange" },
+        { key:"mlt-8", text:"<strong>Netron graph inspection</strong> — Visualize the ONNX graph. Hunt for unsupported ops before RKNN conversion.", tip:"Download Netron (desktop app). If you see unusual op names in your graph, the NPU will silently fall back to slow CPU execution.", tipType:"cyan" },
+        { key:"mlt-9", text:"<strong>Validate ONNX numerically</strong> — Run onnxruntime on same input, compare to PyTorch: numpy.allclose(atol=1e-4).", tip:"If the outputs don't match, your export has a bug. Catch it here, not after flashing the board.", tipType:"cyan" },
+      ]
+    }]
+  },
+
+  // ── INFERENCE ───────────────────────────────────────────────────────────
   "tg-inference": {
     label: "RKNN Inference Stack",
     color: "var(--green)",
     groups: [{
-      name: "RKNN-Toolkit2 (PC Side)",
+      name: "RKNN-Toolkit2 (PC Host Side)",
       color: "var(--green)",
       items: [
-        { key: "inf-rknn-1", text: "Install <strong>RKNN-Toolkit2</strong> on Ubuntu 22.04 (Host).", tip: null },
-        { key: "inf-rknn-2", text: "Convert ONNX to <strong>.rknn</strong> format with INT8 quantization.", tip: "Use a representative dataset (100 images) for calibration to prevent accuracy drop.", tipType: "green" },
-        { key: "inf-rknn-3", text: "Run <strong>rknn.init_runtime</strong> on PC for accuracy verification.", tip: null },
+        { key:"inf-rknn-1", text:"Install <strong>RKNN-Toolkit2</strong> on Ubuntu 22.04 host.", tip:null },
+        { key:"inf-rknn-2", text:"Convert ONNX to <strong>.rknn</strong> format with INT8 quantization.", tip:"Use a calibration dataset of 100 representative images. Without calibration, INT8 accuracy drops significantly.", tipType:"green" },
+        { key:"inf-rknn-3", text:"Run <strong>rknn.init_runtime</strong> on PC for accuracy verification before flashing.", tip:null },
       ]
     }, {
       name: "RKNPU2 API (Board Side)",
       color: "var(--green)",
       items: [
-        { key: "inf-npu-1", text: "Implement <strong>rknn_init</strong> and model loading in C++.", tip: "Load the .rknn file into a memory buffer and pass it to the NPU.", tipType: "green" },
-        { key: "inf-npu-2", text: "Map input buffers using <strong>rknn_inputs_set</strong>.", tip: "Master the NCHW vs NHWC layout for Rockchip NPUs.", tipType: "orange" },
-        { key: "inf-npu-3", text: "Execute <strong>rknn_run</strong> and process outputs with <strong>rknn_outputs_get</strong>.", tip: null },
-        { key: "inf-npu-4", text: "Implement <strong>Cosine Similarity</strong> in C++ for the Visual Fingerprint.", tip: "Compare the live embedding vector to a 'Golden Vector' stored in memory.", tipType: "green" },
+        { key:"inf-npu-1", text:"Implement <strong>rknn_init</strong> and model loading in C++.", tip:"Load the .rknn file into a memory buffer. Pass buffer pointer to rknn_init.", tipType:"green" },
+        { key:"inf-npu-2", text:"Map input buffers using <strong>rknn_inputs_set</strong>. Understand NCHW vs NHWC layout.", tip:"Rockchip NPUs often prefer NHWC. Getting this wrong produces garbage output with no error message.", tipType:"orange" },
+        { key:"inf-npu-3", text:"Execute <strong>rknn_run</strong> and retrieve outputs with <strong>rknn_outputs_get</strong>.", tip:null },
+        { key:"inf-npu-4", text:"Implement <strong>Cosine Similarity</strong> in C++ to compare live embedding vs golden vector.", tip:"Golden vector = embedding of a known-good part, stored in a flat file. cosine_sim = dot(a,b)/(norm(a)*norm(b)).", tipType:"green" },
       ]
     }]
   },
 
+  // ── HARDWARE ────────────────────────────────────────────────────────────
   "tg-hardware": {
     label: "Industrial Vision Project",
     color: "var(--green)",
     groups: [{
-      name: "Hardware Assembly (BOM)",
+      name: "Hardware Assembly (BOM ~$50)",
       color: "var(--green)",
       items: [
-        { key: "hw-1", text: "Luckfox Pico Ultra (RV1106) — The NPU-powered core.", tip: null },
-        { key: "hw-2", text: "SC3336 3MP MIPI Camera — Plugs directly into CSI port.", tip: "MIPI is lower latency than USB. Essential for industrial speeds.", tipType: "green" },
-        { key: "hw-3", text: "28BYJ-48 Stepper + ULN2003 — To rotate objects for 360° scan.", tip: null },
-        { key: "hw-4", text: "0.96\" I2C OLED — Real-time similarity score display.", tip: null },
+        { key:"hw-1", text:"Luckfox Pico Ultra (RV1106) — 1 TOPS NPU, 256MB DDR3, ~$25.", tip:null },
+        { key:"hw-2", text:"SC3336 3MP MIPI Camera (~$15) — Plugs directly into CSI port.", tip:"MIPI is lower latency than USB. Essential for sub-30ms total pipeline latency.", tipType:"green" },
+        { key:"hw-3", text:"28BYJ-48 Stepper + ULN2003 driver (~$4) — Rotate objects for 360° scan.", tip:null },
+        { key:"hw-4", text:"0.96\" I2C OLED (~$3) — Real-time similarity score display.", tip:null },
       ]
     }, {
-      name: "The 'Visual Fingerprint' Machine",
+      name: "The Vision Scanner Build",
       color: "var(--green)",
       items: [
-        { key: "hw-5", text: "Write C++ driver to control <strong>Stepper Motor via GPIO</strong>.", tip: null },
-        { key: "hw-6", text: "Capture MIPI camera frames using <strong>Rockchip MPP</strong>.", tip: "MPP uses hardware acceleration to debayer and scale frames, saving CPU for logic.", tipType: "green" },
-        { key: "hw-7", text: "Perform real-time defect detection (<50ms latency).", tip: null },
-        { key: "hw-8", text: "Store 'Golden Embeddings' in a local sqlite or flat file database.", tip: null },
-        { key: "hw-9", text: "Benchmark performance: FPS, NPU Load, and Thermal stats.", tip: "Pi 5 is a heater. Luckfox should stay cool at 21 FPS. Document this gap.", tipType: "orange" },
-        { key: "hw-10", text: "Push to GitHub with a professional industrial README.", tip: null },
+        { key:"hw-5", text:"Write C++ GPIO driver to control <strong>stepper motor</strong> step sequence.", tip:null },
+        { key:"hw-6", text:"Capture MIPI camera frames using <strong>Rockchip MPP</strong> hardware accelerator.", tip:"MPP uses ISP hardware to debayer and scale frames, saving CPU cycles for inference logic.", tipType:"green" },
+        { key:"hw-7", text:"Full pipeline: capture → inference → cosine similarity → pass/fail in <strong>&lt;50ms total</strong>.", tip:null },
+        { key:"hw-8", text:"Store 'Golden Embeddings' in a local sqlite or flat binary file.", tip:null },
+        { key:"hw-9", text:"Benchmark and document: FPS, NPU load %, CPU load %, temperature at steady state.", tip:"This performance data is your interview talking point. Document it precisely. The story is 'industrial performance on a $50 chip'.", tipType:"orange" },
+        { key:"hw-10", text:"Push to GitHub with a professional industrial README — architecture diagram, BOM, performance numbers.", tip:null },
       ]
     }]
   },
 
+  // ── DEPLOYMENT ──────────────────────────────────────────────────────────
   "tg-deployment": {
     label: "Deployment & OS",
     color: "var(--green)",
     groups: [{
-      name: "Buildroot & Kernel",
+      name: "Buildroot & System",
       color: "var(--green)",
       items: [
-        { key: "dep-br-1", text: "Understand <strong>Buildroot</strong> — How to add custom packages to the OS image.", tip: "Industrial devices don't use Ubuntu. They use minimal Linux (Buildroot) for <5s boot times.", tipType: "green" },
-        { key: "dep-br-2", text: "Write a <strong>systemd/init script</strong> to auto-start your scanner on boot.", tip: null },
-        { key: "dep-br-3", text: "Cross-compile <strong>OpenCV</strong> for the Luckfox sysroot.", tip: "Don't use the full OpenCV. Strip it down to core/imgproc to save flash space.", tipType: "orange" },
+        { key:"dep-br-1", text:"Understand <strong>Buildroot</strong> — How to add custom packages, configure kernel, build a minimal OS image.", tip:"Industrial devices don't run Ubuntu. They run minimal Linux (Buildroot) for <5s boot times and predictable behavior.", tipType:"green" },
+        { key:"dep-br-2", text:"Write a <strong>systemd/init script</strong> to auto-start the scanner on boot.", tip:null },
+        { key:"dep-br-3", text:"Cross-compile <strong>OpenCV</strong> for the Luckfox sysroot — strip to core + imgproc modules only.", tip:"Full OpenCV is 80MB. Stripped for embedded it's 12MB. Flash space is limited on the RV1106.", tipType:"orange" },
       ]
     }, {
       name: "Media Platform (MPP)",
       color: "var(--green)",
       items: [
-        { key: "dep-mpp-1", text: "Understand the <strong>RKMPI</strong> pipeline model.", tip: "Source → Encoder → Sink. This is how IP cameras in Taiwan are built.", tipType: "green" },
-        { key: "dep-mpp-2", text: "Build a zero-copy pipeline from <strong>v4l2src to RKNN</strong>.", tip: null },
+        { key:"dep-mpp-1", text:"Understand the <strong>RKMPI pipeline model</strong> — Source → Channel → Sink. How IP cameras in Taiwan are built.", tip:"This is the architecture behind every VIVOTEK camera. Understanding it makes you hireable.", tipType:"green" },
+        { key:"dep-mpp-2", text:"Build a zero-copy pipeline from <strong>v4l2 capture to RKNN input buffer</strong>.", tip:null },
       ]
     }]
   },
 
+  // ── CUDA ────────────────────────────────────────────────────────────────
   "tg-cuda": {
     label: "CUDA Kernels",
     color: "var(--purple)",
     groups: [{
-      name: "GPU Mental Model",
+      name: "GPU Mental Model — Stretch Goal",
       color: "var(--purple)",
       items: [
-        { key: "cuda-1", text: "Read CUDA C++ Programming Guide Chapters 1–4.", tip: "Warp execution and memory coalescing. Parallel thinking.", tipType: "cyan" },
-        { key: "cuda-2", text: "Tiled Matrix Multiply using Shared Memory.", tip: "This is the 'A-tier' interview question for NVIDIA TW.", tipType: "purple" },
+        { key:"cuda-1", text:"Read CUDA C++ Programming Guide Chapters 1–4.", tip:"Warp execution, thread blocks, global vs shared memory. The GPU parallel thinking model.", tipType:"cyan" },
+        { key:"cuda-2", text:"Implement vector addition kernel. Understand grid/block/thread indexing.", tip:"The 'Hello World' of CUDA. Gets the toolchain working and the mental model anchored.", tipType:"cyan" },
+        { key:"cuda-3", text:"Tiled Matrix Multiply using Shared Memory.", tip:"The canonical CUDA optimization problem. This is the A-tier interview question for NVIDIA TW.", tipType:"purple" },
+        { key:"cuda-4", text:"Custom CUDA kernel for a simple neural net operation (e.g. ReLU, softmax).", tip:"Demonstrates you can write custom ops — the actual job description skill for ML compiler roles.", tipType:"purple" },
       ]
     }]
   }
@@ -1201,36 +1182,36 @@ const TASKS = {
 
 // ─── NEETCODE DATA ──────────────────────────────────────────────────────────
 const NC_DATA = [
-  { group: "Arrays & Hashing", color: "var(--cyan)", problems: [
+  { group:"Arrays & Hashing", color:"var(--cyan)", problems:[
     {name:"Contains Duplicate",diff:"easy",key:"nc-ah-1"},{name:"Valid Anagram",diff:"easy",key:"nc-ah-2"},
     {name:"Two Sum",diff:"easy",key:"nc-ah-3"},{name:"Group Anagrams",diff:"medium",key:"nc-ah-4"},
     {name:"Top K Frequent Elements",diff:"medium",key:"nc-ah-5"},{name:"Encode and Decode Strings",diff:"medium",key:"nc-ah-6"},
     {name:"Product of Array Except Self",diff:"medium",key:"nc-ah-7"},{name:"Valid Sudoku",diff:"medium",key:"nc-ah-8"},
     {name:"Longest Consecutive Sequence",diff:"medium",key:"nc-ah-9"},
   ]},
-  { group: "Two Pointers", color: "var(--cyan)", problems: [
+  { group:"Two Pointers", color:"var(--cyan)", problems:[
     {name:"Valid Palindrome",diff:"easy",key:"nc-tp-1"},{name:"Two Sum II",diff:"medium",key:"nc-tp-2"},
     {name:"3Sum",diff:"medium",key:"nc-tp-3"},{name:"Container With Most Water",diff:"medium",key:"nc-tp-4"},
     {name:"Trapping Rain Water",diff:"hard",key:"nc-tp-5"},
   ]},
-  { group: "Sliding Window", color: "var(--cyan)", problems: [
+  { group:"Sliding Window", color:"var(--cyan)", problems:[
     {name:"Best Time to Buy and Sell Stock",diff:"easy",key:"nc-sw-1"},{name:"Longest Substring Without Repeating Characters",diff:"medium",key:"nc-sw-2"},
     {name:"Longest Repeating Character Replacement",diff:"medium",key:"nc-sw-3"},{name:"Permutation in String",diff:"medium",key:"nc-sw-4"},
     {name:"Minimum Window Substring",diff:"hard",key:"nc-sw-5"},{name:"Sliding Window Maximum",diff:"hard",key:"nc-sw-6"},
   ]},
-  { group: "Stack", color: "var(--cyan)", problems: [
+  { group:"Stack", color:"var(--cyan)", problems:[
     {name:"Valid Parentheses",diff:"easy",key:"nc-st-1"},{name:"Min Stack",diff:"medium",key:"nc-st-2"},
     {name:"Evaluate Reverse Polish Notation",diff:"medium",key:"nc-st-3"},{name:"Generate Parentheses",diff:"medium",key:"nc-st-4"},
     {name:"Daily Temperatures",diff:"medium",key:"nc-st-5"},{name:"Car Fleet",diff:"medium",key:"nc-st-6"},
     {name:"Largest Rectangle in Histogram",diff:"hard",key:"nc-st-7"},
   ]},
-  { group: "Binary Search", color: "var(--cyan)", problems: [
+  { group:"Binary Search", color:"var(--cyan)", problems:[
     {name:"Binary Search",diff:"easy",key:"nc-bs-1"},{name:"Search a 2D Matrix",diff:"medium",key:"nc-bs-2"},
     {name:"Koko Eating Bananas",diff:"medium",key:"nc-bs-3"},{name:"Find Minimum in Rotated Sorted Array",diff:"medium",key:"nc-bs-4"},
     {name:"Search in Rotated Sorted Array",diff:"medium",key:"nc-bs-5"},{name:"Time Based Key-Value Store",diff:"medium",key:"nc-bs-6"},
     {name:"Median of Two Sorted Arrays",diff:"hard",key:"nc-bs-7"},
   ]},
-  { group: "Linked List", color: "#c792ea", problems: [
+  { group:"Linked List", color:"#c792ea", problems:[
     {name:"Reverse Linked List",diff:"easy",key:"nc-ll-1"},{name:"Merge Two Sorted Lists",diff:"easy",key:"nc-ll-2"},
     {name:"Reorder List",diff:"medium",key:"nc-ll-3"},{name:"Remove Nth Node From End",diff:"medium",key:"nc-ll-4"},
     {name:"Copy List with Random Pointer",diff:"medium",key:"nc-ll-5"},{name:"Add Two Numbers",diff:"medium",key:"nc-ll-6"},
@@ -1238,7 +1219,7 @@ const NC_DATA = [
     {name:"LRU Cache",diff:"medium",key:"nc-ll-9"},{name:"Merge K Sorted Lists",diff:"hard",key:"nc-ll-10"},
     {name:"Reverse Nodes in K-Group",diff:"hard",key:"nc-ll-11"},
   ]},
-  { group: "Trees", color: "#c792ea", problems: [
+  { group:"Trees", color:"#c792ea", problems:[
     {name:"Invert Binary Tree",diff:"easy",key:"nc-tr-1"},{name:"Maximum Depth of Binary Tree",diff:"easy",key:"nc-tr-2"},
     {name:"Diameter of Binary Tree",diff:"easy",key:"nc-tr-3"},{name:"Balanced Binary Tree",diff:"easy",key:"nc-tr-4"},
     {name:"Same Tree",diff:"easy",key:"nc-tr-5"},{name:"Subtree of Another Tree",diff:"easy",key:"nc-tr-6"},
@@ -1248,24 +1229,24 @@ const NC_DATA = [
     {name:"Construct Binary Tree from Preorder and Inorder",diff:"medium",key:"nc-tr-13"},{name:"Binary Tree Maximum Path Sum",diff:"hard",key:"nc-tr-14"},
     {name:"Serialize and Deserialize Binary Tree",diff:"hard",key:"nc-tr-15"},
   ]},
-  { group: "Heap / Priority Queue", color: "#c792ea", problems: [
+  { group:"Heap / Priority Queue", color:"#c792ea", problems:[
     {name:"Kth Largest Element in a Stream",diff:"easy",key:"nc-hp-1"},{name:"Last Stone Weight",diff:"easy",key:"nc-hp-2"},
     {name:"K Closest Points to Origin",diff:"medium",key:"nc-hp-3"},{name:"Kth Largest Element in an Array",diff:"medium",key:"nc-hp-4"},
     {name:"Task Scheduler",diff:"medium",key:"nc-hp-5"},{name:"Design Twitter",diff:"medium",key:"nc-hp-6"},
     {name:"Find Median from Data Stream",diff:"hard",key:"nc-hp-7"},
   ]},
-  { group: "Backtracking", color: "var(--orange)", problems: [
+  { group:"Backtracking", color:"var(--orange)", problems:[
     {name:"Subsets",diff:"medium",key:"nc-bt-1"},{name:"Combination Sum",diff:"medium",key:"nc-bt-2"},
     {name:"Permutations",diff:"medium",key:"nc-bt-3"},{name:"Subsets II",diff:"medium",key:"nc-bt-4"},
     {name:"Combination Sum II",diff:"medium",key:"nc-bt-5"},{name:"Word Search",diff:"medium",key:"nc-bt-6"},
     {name:"Palindrome Partitioning",diff:"medium",key:"nc-bt-7"},{name:"Letter Combinations of a Phone Number",diff:"medium",key:"nc-bt-8"},
     {name:"N-Queens",diff:"hard",key:"nc-bt-9"},
   ]},
-  { group: "Tries", color: "var(--orange)", problems: [
+  { group:"Tries", color:"var(--orange)", problems:[
     {name:"Implement Trie",diff:"medium",key:"nc-ti-1"},{name:"Design Add and Search Words",diff:"medium",key:"nc-ti-2"},
     {name:"Word Search II",diff:"hard",key:"nc-ti-3"},
   ]},
-  { group: "Graphs", color: "var(--orange)", problems: [
+  { group:"Graphs", color:"var(--orange)", problems:[
     {name:"Number of Islands",diff:"medium",key:"nc-gr-1"},{name:"Clone Graph",diff:"medium",key:"nc-gr-2"},
     {name:"Max Area of Island",diff:"medium",key:"nc-gr-3"},{name:"Pacific Atlantic Water Flow",diff:"medium",key:"nc-gr-4"},
     {name:"Surrounded Regions",diff:"medium",key:"nc-gr-5"},{name:"Rotting Oranges",diff:"medium",key:"nc-gr-6"},
@@ -1274,12 +1255,12 @@ const NC_DATA = [
     {name:"Number of Connected Components",diff:"medium",key:"nc-gr-11"},{name:"Graph Valid Tree",diff:"medium",key:"nc-gr-12"},
     {name:"Word Ladder",diff:"hard",key:"nc-gr-13"},
   ]},
-  { group: "Advanced Graphs", color: "var(--orange)", problems: [
+  { group:"Advanced Graphs", color:"var(--orange)", problems:[
     {name:"Reconstruct Itinerary",diff:"hard",key:"nc-ag-1"},{name:"Min Cost to Connect All Points",diff:"medium",key:"nc-ag-2"},
     {name:"Network Delay Time",diff:"medium",key:"nc-ag-3"},{name:"Swim in Rising Water",diff:"hard",key:"nc-ag-4"},
     {name:"Alien Dictionary",diff:"hard",key:"nc-ag-5"},{name:"Cheapest Flights Within K Stops",diff:"medium",key:"nc-ag-6"},
   ]},
-  { group: "1D Dynamic Programming", color: "var(--green)", problems: [
+  { group:"1D Dynamic Programming", color:"var(--green)", problems:[
     {name:"Climbing Stairs",diff:"easy",key:"nc-dp-1"},{name:"Min Cost Climbing Stairs",diff:"easy",key:"nc-dp-2"},
     {name:"House Robber",diff:"medium",key:"nc-dp-3"},{name:"House Robber II",diff:"medium",key:"nc-dp-4"},
     {name:"Longest Palindromic Substring",diff:"medium",key:"nc-dp-5"},{name:"Palindromic Substrings",diff:"medium",key:"nc-dp-6"},
@@ -1287,7 +1268,7 @@ const NC_DATA = [
     {name:"Maximum Product Subarray",diff:"medium",key:"nc-dp-9"},{name:"Word Break",diff:"medium",key:"nc-dp-10"},
     {name:"Longest Increasing Subsequence",diff:"medium",key:"nc-dp-11"},{name:"Partition Equal Subset Sum",diff:"medium",key:"nc-dp-12"},
   ]},
-  { group: "2D Dynamic Programming", color: "var(--green)", problems: [
+  { group:"2D Dynamic Programming", color:"var(--green)", problems:[
     {name:"Unique Paths",diff:"medium",key:"nc-2d-1"},{name:"Longest Common Subsequence",diff:"medium",key:"nc-2d-2"},
     {name:"Buy/Sell Stock with Cooldown",diff:"medium",key:"nc-2d-3"},{name:"Coin Change II",diff:"medium",key:"nc-2d-4"},
     {name:"Target Sum",diff:"medium",key:"nc-2d-5"},{name:"Interleaving String",diff:"medium",key:"nc-2d-6"},
@@ -1295,24 +1276,24 @@ const NC_DATA = [
     {name:"Edit Distance",diff:"medium",key:"nc-2d-9"},{name:"Burst Balloons",diff:"hard",key:"nc-2d-10"},
     {name:"Regular Expression Matching",diff:"hard",key:"nc-2d-11"},
   ]},
-  { group: "Greedy", color: "var(--yellow)", problems: [
+  { group:"Greedy", color:"var(--yellow)", problems:[
     {name:"Maximum Subarray",diff:"medium",key:"nc-gy-1"},{name:"Jump Game",diff:"medium",key:"nc-gy-2"},
     {name:"Jump Game II",diff:"medium",key:"nc-gy-3"},{name:"Gas Station",diff:"medium",key:"nc-gy-4"},
     {name:"Hand of Straights",diff:"medium",key:"nc-gy-5"},{name:"Merge Triplets to Form Target",diff:"medium",key:"nc-gy-6"},
     {name:"Partition Labels",diff:"medium",key:"nc-gy-7"},{name:"Valid Parenthesis String",diff:"medium",key:"nc-gy-8"},
   ]},
-  { group: "Intervals", color: "var(--yellow)", problems: [
+  { group:"Intervals", color:"var(--yellow)", problems:[
     {name:"Insert Interval",diff:"medium",key:"nc-iv-1"},{name:"Merge Intervals",diff:"medium",key:"nc-iv-2"},
     {name:"Non-overlapping Intervals",diff:"medium",key:"nc-iv-3"},{name:"Meeting Rooms",diff:"easy",key:"nc-iv-4"},
     {name:"Meeting Rooms II",diff:"medium",key:"nc-iv-5"},{name:"Minimum Interval to Include Each Query",diff:"hard",key:"nc-iv-6"},
   ]},
-  { group: "Math & Geometry", color: "var(--yellow)", problems: [
+  { group:"Math & Geometry", color:"var(--yellow)", problems:[
     {name:"Rotate Image",diff:"medium",key:"nc-mg-1"},{name:"Spiral Matrix",diff:"medium",key:"nc-mg-2"},
     {name:"Set Matrix Zeroes",diff:"medium",key:"nc-mg-3"},{name:"Happy Number",diff:"easy",key:"nc-mg-4"},
     {name:"Plus One",diff:"easy",key:"nc-mg-5"},{name:"Pow(x, n)",diff:"medium",key:"nc-mg-6"},
     {name:"Multiply Strings",diff:"medium",key:"nc-mg-7"},{name:"Detect Squares",diff:"medium",key:"nc-mg-8"},
   ]},
-  { group: "Bit Manipulation", color: "var(--yellow)", problems: [
+  { group:"Bit Manipulation", color:"var(--yellow)", problems:[
     {name:"Single Number",diff:"easy",key:"nc-bm-1"},{name:"Number of 1 Bits",diff:"easy",key:"nc-bm-2"},
     {name:"Counting Bits",diff:"easy",key:"nc-bm-3"},{name:"Reverse Bits",diff:"easy",key:"nc-bm-4"},
     {name:"Missing Number",diff:"easy",key:"nc-bm-5"},{name:"Sum of Two Integers",diff:"medium",key:"nc-bm-6"},
@@ -1320,12 +1301,12 @@ const NC_DATA = [
   ]},
 ];
 
-// ─── STATE ─────────────────────────────────────────────────────────────────
-function getState() { try { return JSON.parse(localStorage.getItem('rm2-state') || '{}'); } catch { return {}; } }
-function setState(key, val) { const s = getState(); s[key] = val; localStorage.setItem('rm2-state', JSON.stringify(s)); }
+// ─── STATE ──────────────────────────────────────────────────────────────────
+function getState() { try { return JSON.parse(localStorage.getItem('rm3-state') || '{}'); } catch { return {}; } }
+function setState(key, val) { const s = getState(); s[key] = val; localStorage.setItem('rm3-state', JSON.stringify(s)); }
 function isChecked(key) { return !!getState()[key]; }
 
-// ─── RENDER TASK GROUPS ────────────────────────────────────────────────────
+// ─── RENDER TASK GROUPS ──────────────────────────────────────────────────────
 function renderTaskSection(containerId, data) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -1337,15 +1318,7 @@ function renderTaskSection(containerId, data) {
     const pct = total ? Math.round(done/total*100) : 0;
     const header = document.createElement('div');
     header.className = 'tg-header open';
-    header.innerHTML = `
-      <div class="tg-dot" style="background:${group.color}"></div>
-      <div class="tg-name">${group.name}</div>
-      <div class="tg-prog">
-        <span style="color:${group.color}">${done}/${total}</span>
-        <div class="tg-bar-wrap"><div class="tg-bar-fill" style="background:${group.color};width:${pct}%"></div></div>
-      </div>
-      <div class="tg-chevron">▼</div>
-    `;
+    header.innerHTML = `<div class="tg-dot" style="background:${group.color}"></div><div class="tg-name">${group.name}</div><div class="tg-prog"><span style="color:${group.color}">${done}/${total}</span><div class="tg-bar-wrap"><div class="tg-bar-fill" style="background:${group.color};width:${pct}%"></div></div></div><div class="tg-chevron">▼</div>`;
     const body = document.createElement('div');
     body.className = 'tg-body';
     group.items.forEach(item => {
@@ -1362,7 +1335,6 @@ function renderTaskSection(containerId, data) {
         setState(item.key, now);
         li.classList.toggle('done', now);
         li.querySelector('.task-check').textContent = now ? '✓' : '';
-        // update group header
         const grpDone = group.items.filter(i => isChecked(i.key)).length;
         const grpPct = Math.round(grpDone/total*100);
         header.querySelector('.tg-prog span').textContent = `${grpDone}/${total}`;
@@ -1382,7 +1354,7 @@ function renderTaskSection(containerId, data) {
   });
 }
 
-// ─── RENDER NEETCODE ───────────────────────────────────────────────────────
+// ─── RENDER NEETCODE ─────────────────────────────────────────────────────────
 function renderNC() {
   const container = document.getElementById('nc-list');
   NC_DATA.forEach(group => {
@@ -1394,14 +1366,7 @@ function renderNC() {
     div.className = 'nc-group';
     const header = document.createElement('div');
     header.className = 'nc-gh';
-    header.innerHTML = `
-      <div class="nc-gh-dot" style="background:${group.color}"></div>
-      <div class="nc-gh-name">${group.group}</div>
-      <div class="nc-gh-right">
-        <span style="color:${group.color}">${done}/${total}</span>
-        <div class="nc-gh-bar"><div class="nc-gh-fill" style="background:${group.color};width:${pct}%"></div></div>
-      </div>
-    `;
+    header.innerHTML = `<div class="nc-gh-dot" style="background:${group.color}"></div><div class="nc-gh-name">${group.group}</div><div class="nc-gh-right"><span style="color:${group.color}">${done}/${total}</span><div class="nc-gh-bar"><div class="nc-gh-fill" style="background:${group.color};width:${pct}%"></div></div></div>`;
     const body = document.createElement('div');
     body.className = 'nc-gb';
     group.problems.forEach(p => {
@@ -1409,11 +1374,7 @@ function renderNC() {
       const item = document.createElement('div');
       item.className = 'nc-item' + (checked ? ' done' : '');
       item.dataset.key = p.key;
-      item.innerHTML = `
-        <div class="nc-ck">${checked ? '✓' : ''}</div>
-        <div class="nc-name">${p.name}</div>
-        <span class="diff diff-${p.diff}">${p.diff}</span>
-      `;
+      item.innerHTML = `<div class="nc-ck">${checked ? '✓' : ''}</div><div class="nc-name">${p.name}</div><span class="diff diff-${p.diff}">${p.diff}</span>`;
       item.onclick = () => {
         const now = !isChecked(p.key);
         setState(p.key, now);
@@ -1432,7 +1393,7 @@ function renderNC() {
   });
 }
 
-// ─── PROGRESS ──────────────────────────────────────────────────────────────
+// ─── PROGRESS ────────────────────────────────────────────────────────────────
 function countTasks(taskId) {
   const data = TASKS[taskId];
   if (!data) return {done:0,total:0};
@@ -1442,19 +1403,36 @@ function countTasks(taskId) {
 }
 
 function updateProgress() {
+  // C++ & Linux
+  const cppIds = ['tg-linux','tg-cpp-basics','tg-cpp-systems','tg-dsa'];
+  let cppDone=0, cppTotal=0;
+  cppIds.forEach(id => { const c=countTasks(id); cppDone+=c.done; cppTotal+=c.total; });
+  const cppPct = cppTotal ? Math.round(cppDone/cppTotal*100) : 0;
+  document.getElementById('cpp-count').textContent = `${cppDone}/${cppTotal}`;
+  document.getElementById('cpp-bar').style.width = cppPct + '%';
+
+  // NeetCode
   const ncTotal = NC_DATA.reduce((s,g)=>s+g.problems.length,0);
   const ncDone = NC_DATA.reduce((s,g)=>s+g.problems.filter(p=>isChecked(p.key)).length,0);
   const ncPct = Math.round(ncDone/ncTotal*100);
   document.getElementById('nc-count').textContent = `${ncDone}/${ncTotal}`;
   document.getElementById('nc-bar').style.width = ncPct + '%';
 
-  const mlIds = ['tg-ml'];
+  // Codeforces
+  const cfC = countTasks('tg-codeforces');
+  const cfPct = cfC.total ? Math.round(cfC.done/cfC.total*100) : 0;
+  document.getElementById('cf-count').textContent = `${cfC.done}/${cfC.total}`;
+  document.getElementById('cf-bar').style.width = cfPct + '%';
+
+  // ML
+  const mlIds = ['tg-ml-math','tg-ml-core','tg-ml-torch'];
   let mlDone=0, mlTotal=0;
   mlIds.forEach(id => { const c=countTasks(id); mlDone+=c.done; mlTotal+=c.total; });
   const mlPct = mlTotal ? Math.round(mlDone/mlTotal*100) : 0;
   document.getElementById('ml-count').textContent = `${mlDone}/${mlTotal}`;
   document.getElementById('ml-bar').style.width = mlPct + '%';
 
+  // Edge AI
   const edgeIds = ['tg-inference','tg-hardware','tg-deployment','tg-cuda'];
   let edgeDone=0, edgeTotal=0;
   edgeIds.forEach(id => { const c=countTasks(id); edgeDone+=c.done; edgeTotal+=c.total; });
@@ -1462,18 +1440,15 @@ function updateProgress() {
   document.getElementById('edge-count').textContent = `${edgeDone}/${edgeTotal}`;
   document.getElementById('edge-bar').style.width = edgePct + '%';
 
-  const cppDsaIds = ['tg-cpp','tg-dsa'];
-  let cppDone=0, cppTotal=0;
-  cppDsaIds.forEach(id => { const c=countTasks(id); cppDone+=c.done; cppTotal+=c.total; });
-
-  const allDone = ncDone + mlDone + edgeDone + cppDone;
-  const allTotal = ncTotal + mlTotal + edgeTotal + cppTotal;
+  // Total
+  const allDone = cppDone + ncDone + cfC.done + mlDone + edgeDone;
+  const allTotal = cppTotal + ncTotal + cfC.total + mlTotal + edgeTotal;
   const allPct = allTotal ? Math.round(allDone/allTotal*100) : 0;
   document.getElementById('total-pct').textContent = allPct + '%';
   document.getElementById('total-label').textContent = `${allDone} / ${allTotal}`;
 }
 
-// ─── SCROLL SPY ────────────────────────────────────────────────────────────
+// ─── SCROLL SPY ──────────────────────────────────────────────────────────────
 function initScrollSpy() {
   const sections = document.querySelectorAll('section[id]');
   const observer = new IntersectionObserver(entries => {
@@ -1484,7 +1459,7 @@ function initScrollSpy() {
         if (t) t.classList.add('active');
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.2 });
   sections.forEach(s => observer.observe(s));
 }
 
@@ -1494,12 +1469,12 @@ function setActive(el) {
 }
 
 function resetAll() {
-  if (!confirm('Reset all progress?')) return;
-  localStorage.removeItem('rm2-state');
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  localStorage.removeItem('rm3-state');
   location.reload();
 }
 
-// ─── INIT ──────────────────────────────────────────────────────────────────
+// ─── INIT ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   Object.keys(TASKS).forEach(id => renderTaskSection(id, TASKS[id]));
   renderNC();
