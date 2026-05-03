@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Exam Prep Guide 2026 — BITSAT · COMEDK · MHT CET</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090E;
+    --surface: #0E1018;
+    --surface2: #13161F;
+    --border: #1C2030;
+    --border2: #252A3A;
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+    --dim: #4B5563;
+    --bitsat: #A3E635;
+    --bitsat-bg: #111A04;
+    --bitsat-border: #3A5212;
+    --comedk: #60A5FA;
+    --comedk-bg: #050F1F;
+    --comedk-border: #1E3A5F;
+    --mhtcet: #C084FC;
+    --mhtcet-bg: #120A1F;
+    --mhtcet-border: #4C1D95;
+    --safe: #34D399;
+    --safe-bg: #052E1A;
+    --target: #60A5FA;
+    --target-bg: #051220;
+    --possible: #FBBF24;
+    --possible-bg: #1F1205;
+    --hard: #F87171;
+    --hard-bg: #200808;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 14px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 10px;
+  }
+  .site-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); line-height: 1.2; }
+  .site-sub { font-size: 10px; color: var(--dim); margin-top: 2px; }
+  .jee-badge { background: #1A1030; border: 1px solid #6D28D9; color: #A78BFA; padding: 4px 10px; border-radius: 99px; font-size: 10px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+
+  /* ── EXAM TABS ── */
+  .exam-switcher { display: flex; gap: 5px; }
+  .exam-btn {
+    flex: 1; padding: 8px 6px; border-radius: 10px; border: 1px solid var(--border); background: none;
+    cursor: pointer; text-align: left; transition: all 0.2s; color: var(--dim); min-height: 52px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .exam-btn-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; display: block; }
+  .exam-btn-date { font-size: 9px; display: block; margin-top: 2px; }
+  .exam-btn.active-b { background: var(--bitsat-bg); border-color: var(--bitsat); color: var(--bitsat); }
+  .exam-btn.active-c { background: var(--comedk-bg); border-color: var(--comedk); color: var(--comedk); }
+  .exam-btn.active-m { background: var(--mhtcet-bg); border-color: var(--mhtcet); color: var(--mhtcet); }
+
+  /* ── INNER TABS ── */
+  .inner-nav { display: flex; gap: 3px; padding: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 12px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .inner-nav::-webkit-scrollbar { display: none; }
+  .inner-btn { flex: 1; min-width: 56px; padding: 8px 5px; border: none; background: none; cursor: pointer; font-size: 11px; font-weight: 600; color: var(--dim); border-radius: 7px; transition: all 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; min-height: 36px; -webkit-tap-highlight-color: transparent; }
+  .inner-btn.active { background: var(--surface2); color: var(--text); }
+
+  /* ── PANELS ── */
+  .panel { display: none; animation: fadeIn 0.2s ease; }
+  .panel.show { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── CARDS ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+  .card-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 12px; }
+
+  /* ── ASSESSMENT BANNER ── */
+  .assess-banner { border-radius: 14px; padding: 14px; margin-bottom: 12px; border: 1px solid; }
+  .assess-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  .assess-text { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .assess-text strong { color: var(--text); }
+
+  /* ── FORMAT TABLE ── */
+  .fmt-table { width: 100%; border-collapse: collapse; }
+  .fmt-table td { padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+  .fmt-table tr:last-child td { border-bottom: none; }
+  .fmt-table .fmt-key { color: var(--dim); width: 42%; padding-right: 10px; }
+  .fmt-table .fmt-val { color: var(--text); font-weight: 500; }
+  .tag { display: inline-block; border-radius: 99px; padding: 2px 9px; font-size: 10px; font-weight: 700; }
+
+  /* ── SUBJECT BARS ── */
+  .subj-row { margin-bottom: 14px; }
+  .subj-row:last-child { margin-bottom: 0; }
+  .subj-header { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; gap: 8px; }
+  .subj-name { font-weight: 600; flex-shrink: 0; }
+  .subj-meta { color: var(--dim); font-size: 11px; text-align: right; }
+  .bar-track { height: 6px; background: var(--border2); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; }
+
+  /* ── STRATEGY ITEMS ── */
+  .strat-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .strat-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .strat-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .strat-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .strat-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ── CUTOFF ROWS ── */
+  .cutoff-row { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .cutoff-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .cutoff-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+  .cutoff-college { font-size: 13px; font-weight: 700; color: var(--text); }
+  .cutoff-branch { font-size: 11px; color: var(--dim); margin-top: 2px; }
+  .cutoff-nums { display: flex; gap: 10px; font-size: 12px; margin-top: 6px; flex-wrap: wrap; }
+  .cutoff-num-block .label { color: var(--dim); font-size: 10px; margin-bottom: 2px; }
+  .cutoff-num-block .val { font-weight: 700; font-size: 13px; }
+
+  /* ── TOPIC LIST ── */
+  .topic-item { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; gap: 8px; }
+  .topic-item:last-child { border-bottom: none; }
+  .topic-name { flex: 1; }
+  .topic-stars { color: #FBBF24; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+  .topic-stars.dim { color: var(--dim); }
+
+  /* ── MARKS TABLE ── */
+  .marks-row { padding: 11px 14px; border-bottom: 1px solid var(--border); position: relative; display: flex; flex-direction: column; gap: 4px; }
+  .marks-row:last-child { border-bottom: none; }
+  .marks-row.highlight { background: #130F20; }
+  .marks-score { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; }
+  .marks-meta { display: flex; gap: 14px; font-size: 12px; flex-wrap: wrap; }
+  .marks-desc { font-size: 12px; color: var(--dim); }
+  .you-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--mhtcet); border-radius: 0 3px 3px 0; }
+
+  /* ── NOTE BOX ── */
+  .note-box { border-radius: 12px; padding: 13px 14px; font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; border: 1px solid; }
+  .note-box strong { color: var(--text); }
+  .note-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+
+  /* ── PILL LEGEND ── */
+  .legend { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px; }
+  .legend span { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 99px; border: 1px solid; }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 400px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* ── WRAPPER ── */
+  .wrapper { max-width: 680px; margin: 0 auto; padding: 12px 12px 50px; }
+
+  /* ── EXAM PAGES ── */
+  .exam-page { display: none; }
+  .exam-page.active { display: block; }
+
+  /* ── BONUS / NO PENALTY BOXES ── */
+  .bonus-box { background: #0A1A08; border: 1px solid #1A3A14; border-radius: 10px; padding: 11px 13px; font-size: 13px; color: #86EFAC; line-height: 1.6; margin-top: 10px; }
+  .no-penalty-box { background: #081808; border: 1px solid #14451A; border-radius: 10px; padding: 11px 13px; font-size: 13px; color: #4ADE80; line-height: 1.6; margin-top: 10px; }
+  .calc-box { background: #051220; border: 1px solid #1E4A7F; border-radius: 10px; padding: 11px 13px; font-size: 13px; color: #7DD3FC; line-height: 1.6; margin-top: 10px; }
+  .warn-box { background: #120A1F; border: 1px solid #4C1D95; border-radius: 10px; padding: 11px 13px; font-size: 13px; color: #C084FC; line-height: 1.6; margin-top: 10px; }
+
+  /* ── MSC SECTION HEADING ── */
+  .section-heading { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; padding-top: 4px; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
+
+  /* ── MOBILE SAFE OVERRIDES ── */
+  @media (max-width: 480px) {
+    .site-title { font-size: 15px; }
+    .exam-btn-name { font-size: 12px; }
+    .cutoff-nums { gap: 8px; }
+    .cutoff-num-block .val { font-size: 12px; }
+    .marks-score { font-size: 15px; }
+    .card { padding: 12px; }
+    .fmt-table .fmt-key { width: 44%; font-size: 12px; }
+    .fmt-table .fmt-val { font-size: 12px; }
+    .strat-desc { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="site-title">Exam Prep Guide 2026</div>
+      <div class="site-sub">BITSAT · COMEDK · MHT CET — Updated May 2026</div>
+    </div>
+    <div class="jee-badge">87th %ile JEE</div>
+  </div>
+  <div class="exam-switcher">
+    <button class="exam-btn active-b" onclick="switchExam('bitsat')">
+      <span class="exam-btn-name">BITSAT</span>
+      <span class="exam-btn-date">May 24–26</span>
+    </button>
+    <button class="exam-btn" onclick="switchExam('comedk')">
+      <span class="exam-btn-name">COMEDK</span>
+      <span class="exam-btn-date">May 9</span>
+    </button>
+    <button class="exam-btn" onclick="switchExam('mhtcet')">
+      <span class="exam-btn-name">MHT CET</span>
+      <span class="exam-btn-date">May 12–16</span>
+    </button>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════ BITSAT ══════════════════════════════════════════ -->
+<div class="exam-page active" id="page-bitsat">
+  <div class="assess-banner" style="background:var(--bitsat-bg);border-color:var(--bitsat-border)">
+    <div class="assess-label" style="color:var(--bitsat)">🎯 Your Target: EEE · MSc Physics · MSc Math · MSc Semiconductors</div>
+    <div class="assess-text">At 87th %ile JEE, your PCM base is solid. BITSAT adds <strong>English + Logical Reasoning</strong> and punishes slow speed. At a score of ~265–290/390, MSc Physics (248), MSc Math (249), MSc Semiconductors (239) are <strong>very achievable</strong>. EEE Goa (275) is realistic. EEE Pilani (278) is a stretch. B.E. MnC Hyderabad (~290) is a target if you love CS/Maths.</div>
+  </div>
+
+  <div class="inner-nav" id="nav-bitsat">
+    <button class="inner-btn active" onclick="switchTab('bitsat','format')">📋 Format</button>
+    <button class="inner-btn" onclick="switchTab('bitsat','subjects')">📚 Subjects</button>
+    <button class="inner-btn" onclick="switchTab('bitsat','strategy')">🎯 Strategy</button>
+    <button class="inner-btn" onclick="switchTab('bitsat','cutoffs')">🏛️ Cutoffs</button>
+    <button class="inner-btn" onclick="switchTab('bitsat','topics')">📖 Topics</button>
+  </div>
+
+  <!-- FORMAT -->
+  <div class="panel show" id="bitsat-format">
+    <div class="card">
+      <div class="card-title">Exam Format — BITSAT 2026 Session 2</div>
+      <table class="fmt-table">
+        <tr><td class="fmt-key">Mode</td><td class="fmt-val">Online CBT</td></tr>
+        <tr><td class="fmt-key">Duration</td><td class="fmt-val">3 Hours (180 min)</td></tr>
+        <tr><td class="fmt-key">Total Questions</td><td class="fmt-val">130 MCQs + 12 Bonus</td></tr>
+        <tr><td class="fmt-key">Max Score</td><td class="fmt-val">390 marks (+36 bonus)</td></tr>
+        <tr><td class="fmt-key">Correct Answer</td><td class="fmt-val"><span class="tag" style="background:#0E2E0E;color:#4ADE80;border:1px solid #166534">+3 marks</span></td></tr>
+        <tr><td class="fmt-key">Wrong Answer</td><td class="fmt-val"><span class="tag" style="background:#2E0E0E;color:#F87171;border:1px solid #7F1D1D">−1 mark ⚠️</span></td></tr>
+        <tr><td class="fmt-key">Physical Calculator</td><td class="fmt-val">❌ Strictly prohibited</td></tr>
+        <tr><td class="fmt-key">On-Screen Calc</td><td class="fmt-val">❌ Not provided</td></tr>
+        <tr><td class="fmt-key">Medium</td><td class="fmt-val">English only</td></tr>
+        <tr><td class="fmt-key">Syllabus</td><td class="fmt-val">NCERT Class 11 & 12</td></tr>
+        <tr><td class="fmt-key">Sectional Limits</td><td class="fmt-val">None — navigate freely</td></tr>
+        <tr><td class="fmt-key">Difficulty</td><td class="fmt-val">JEE Main level + speed pressure</td></tr>
+      </table>
+      <div class="bonus-box">
+        ⭐ <strong>Bonus Rule:</strong> Finish all 130 questions before time → unlocks 12 extra questions (3 per section). Once you start bonus, you <strong>cannot go back</strong>. No negative marking on bonus questions — always attempt them all.
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBJECTS -->
+  <div class="panel" id="bitsat-subjects">
+    <div class="card">
+      <div class="card-title">Subject Distribution (130 Questions · 390 Marks)</div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Mathematics</span><span class="subj-meta">40 Qs · 120 marks · 31%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--bitsat)"></div></div>
+      </div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Physics</span><span class="subj-meta">30 Qs · 90 marks · 23%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:23%;background:var(--bitsat)"></div></div>
+      </div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Chemistry</span><span class="subj-meta">30 Qs · 90 marks · 23%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:23%;background:var(--bitsat)"></div></div>
+      </div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Logical Reasoning</span><span class="subj-meta">20 Qs · 60 marks · 15%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:15%;background:#6B7280"></div></div>
+      </div>
+      <div class="subj-row" style="margin-bottom:0">
+        <div class="subj-header"><span class="subj-name">English Proficiency</span><span class="subj-meta">10 Qs · 30 marks · 8%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:8%;background:#6B7280"></div></div>
+      </div>
+    </div>
+    <div class="note-box" style="background:#0E1A08;border-color:#1A3A14">
+      <div class="note-label" style="color:var(--bitsat)">Time Budget (~83 sec/question)</div>
+      Maths ~55 min · Physics ~42 min · Chemistry ~42 min · English+LR ~21 min. <strong>English & Reasoning = 90 marks total</strong> — most JEE students massively under-prepare for this. Two focused weeks locks in 70+ out of 90 here.
+    </div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div class="panel" id="bitsat-strategy">
+    <div class="card">
+      <div class="card-title">Strategy</div>
+      <div class="strat-item">
+        <div class="strat-icon">⚡</div>
+        <div><div class="strat-title">Speed is the entire game</div><div class="strat-desc">80–85 seconds per question. No calculator at all. Mental math, approximation, and elimination are your tools. Drill timed mocks daily — speed is a skill, not a trait.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">🏆</div>
+        <div><div class="strat-title">Go for the bonus 12</div><div class="strat-desc">12 bonus questions with no negative marking = up to +36 marks. That's the difference between EEE Goa and EEE Hyderabad. Aim to finish 130 questions with 15+ min to spare.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">📖</div>
+        <div><div class="strat-title">English + Reasoning = free 90 marks</div><div class="strat-desc">Most JEE students ignore these sections and lose 20–30 marks. Vocabulary, synonyms/antonyms, grammar, analogies, number series — 2 weeks of daily practice locks most of this in.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">⚠️</div>
+        <div><div class="strat-title">Respect the −1 penalty</div><div class="strat-desc">Only guess when you've eliminated 2+ options. Random guess math: 75% wrong × −1 = −0.75, 25% right × +3 = +0.75 → expected value = 0. With 2 options eliminated: EV turns positive. Guess only then.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">⏱️</div>
+        <div><div class="strat-title">90-second hard rule</div><div class="strat-desc">Not solved in 90 sec? Mark and move. Never lose 3 easy questions chasing one stubborn hard one. You can revisit freely — no sectional lock.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">📚</div>
+        <div><div class="strat-title">BITSAT Maths ≠ JEE Maths style</div><div class="strat-desc">Coordinate Geometry (Circles, Straight Lines) has the highest single-chapter weightage in BITSAT Maths — far more than JEE. Recalibrate. Use BITSAT-specific question banks, not just JEE DPPs.</div></div>
+      </div>
+    </div>
+    <div class="note-box" style="background:#0E1218;border-color:var(--border)">
+      <div class="note-label" style="color:var(--dim)">MSc Strategy: Branch Change is Real</div>
+      MSc Physics/Math/Semiconductors → BITS campus entry → <strong>branch change after Semester 1</strong> based on CGPA. Students regularly move from MSc to EEE/ECE this way. So even at 255, getting into Pilani MSc is a legitimate route to engineering branches.
+    </div>
+  </div>
+
+  <!-- CUTOFFS -->
+  <div class="panel" id="bitsat-cutoffs">
+    <div class="legend">
+      <span style="background:var(--safe-bg);color:var(--safe);border-color:#065F46">✅ Safe</span>
+      <span style="background:var(--target-bg);color:var(--target);border-color:#1E3A5F">🎯 Target</span>
+      <span style="background:var(--possible-bg);color:var(--possible);border-color:#78350F">⚡ Stretch</span>
+      <span style="background:var(--hard-bg);color:var(--hard);border-color:#7F1D1D">🔥 Reach</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Cutoff Scores /390 — 2025 Actual Data (careerplanb / Phodu)</div>
+
+      <!-- EEE -->
+      <div style="margin-bottom:18px">
+        <div class="section-heading" style="color:var(--bitsat)">Electrical & Electronics Engineering (EEE)</div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Pilani</div><div class="cutoff-branch">EEE — flagship campus</div></div>
+            <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--possible)">278</div></div>
+            <div class="cutoff-num-block"><div class="label">You need</div><div class="val">281+</div></div>
+            <div class="cutoff-num-block"><div class="label">Gap</div><div class="val" style="color:var(--hard)">~20 marks</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Goa</div><div class="cutoff-branch">EEE — great campus, strong placements</div></div>
+            <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--target)">275</div></div>
+            <div class="cutoff-num-block"><div class="label">You need</div><div class="val">278+</div></div>
+            <div class="cutoff-num-block"><div class="label">Status</div><div class="val" style="color:var(--target)">Realistic</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Hyderabad</div><div class="cutoff-branch">EEE — most accessible campus</div></div>
+            <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--target)">251</div></div>
+            <div class="cutoff-num-block"><div class="label">You need</div><div class="val">255+</div></div>
+            <div class="cutoff-num-block"><div class="label">Status</div><div class="val" style="color:var(--safe)">Best shot</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ECE -->
+      <div style="margin-bottom:18px">
+        <div class="section-heading" style="color:var(--bitsat)">Electronics & Communication (ECE)</div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Pilani</div><div class="cutoff-branch">ECE</div></div>
+            <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--hard)">287</div></div>
+            <div class="cutoff-num-block"><div class="label">Gap</div><div class="val" style="color:var(--hard)">~30 marks</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Goa</div><div class="cutoff-branch">ECE</div></div>
+            <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--possible)">284</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Hyderabad</div><div class="cutoff-branch">ECE</div></div>
+            <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--possible)">~260</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- B.E. Mathematics & Computing -->
+      <div style="margin-bottom:18px">
+        <div class="section-heading" style="color:var(--bitsat)">B.E. Mathematics & Computing (MnC) — CS-flavoured</div>
+        <div class="note-box" style="background:#0A0E1A;border-color:#1E3A5F;margin-bottom:10px">
+          <div class="note-label" style="color:var(--comedk)">Why MnC?</div>
+          Strong mix of CS theory + Math. Top placements almost on par with CSE. Popular choice for students who want CS but with a mathematical depth. Easier to get than CSE, harder than EEE.
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Pilani</div><div class="cutoff-branch">B.E. Mathematics & Computing</div></div>
+            <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--hard)">295</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Goa</div><div class="cutoff-branch">B.E. Mathematics & Computing</div></div>
+            <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--hard)">293</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Hyderabad</div><div class="cutoff-branch">B.E. Mathematics & Computing</div></div>
+            <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--possible)">~288</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MSc Physics -->
+      <div style="margin-bottom:18px">
+        <div class="section-heading" style="color:var(--bitsat)">MSc Physics (Integrated 5-yr) — Your Best Entry Point</div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Pilani</div><div class="cutoff-branch">MSc Physics · Branch change eligible</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--safe)">248</div></div>
+            <div class="cutoff-num-block"><div class="label">Status</div><div class="val" style="color:var(--safe)">Very achievable</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Goa</div><div class="cutoff-branch">MSc Physics</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">Est. Cutoff</div><div class="val" style="color:var(--safe)">~245</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Hyderabad</div><div class="cutoff-branch">MSc Physics</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">Est. Cutoff</div><div class="val" style="color:var(--safe)">~240</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MSc Mathematics -->
+      <div style="margin-bottom:18px">
+        <div class="section-heading" style="color:var(--bitsat)">MSc Mathematics (Integrated) — Ideal for CS/Stats Path</div>
+        <div class="note-box" style="background:#0A0E1A;border-color:#1E3A5F;margin-bottom:10px">
+          <div class="note-label" style="color:var(--comedk)">Why MSc Maths?</div>
+          Feeds into careers in data science, quantitative finance, ML research, and academia. Dual degree path gives you MSc + optional B.E. Great for analytical thinkers. Slightly harder to get than MSc Physics.
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Pilani</div><div class="cutoff-branch">MSc Mathematics</div></div>
+            <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--target)">249</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Goa / Hyderabad</div><div class="cutoff-branch">MSc Mathematics</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">Est. Cutoff</div><div class="val" style="color:var(--safe)">~243–247</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MSc Semiconductor & Nanoscience -->
+      <div style="margin-bottom:18px">
+        <div class="section-heading" style="color:var(--bitsat)">MSc Semiconductor & Nanoscience — New, Emerging</div>
+        <div class="note-box" style="background:#0A1208;border-color:#1A3A14;margin-bottom:10px">
+          <div class="note-label" style="color:var(--bitsat)">Why MSc Semiconductors?</div>
+          Directly relevant for chip design, fab, VLSI, and the global semiconductor boom. India's semiconductor push (CHIPS act, ISMC fab in Mysore) makes this degree increasingly valuable. Moderate competition — cutoffs below MSc Economics/Maths.
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Pilani</div><div class="cutoff-branch">MSc Semiconductor & Nanoscience</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--safe)">239</div></div>
+            <div class="cutoff-num-block"><div class="label">Status</div><div class="val" style="color:var(--safe)">Achievable</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Goa</div><div class="cutoff-branch">MSc Semiconductor & Nanoscience</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--safe)">~225</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Hyderabad</div><div class="cutoff-branch">MSc Semiconductor & Nanoscience</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--safe)">~225</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MSc Chemistry -->
+      <div>
+        <div class="section-heading" style="color:var(--bitsat)">MSc Chemistry — Lowest Entry, Dual Degree Viable</div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Pilani</div><div class="cutoff-branch">MSc Chemistry · 5-yr dual degree option</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--safe)">236</div></div>
+          </div>
+        </div>
+        <div class="cutoff-row">
+          <div class="cutoff-top">
+            <div><div class="cutoff-college">BITS Goa / Hyderabad</div><div class="cutoff-branch">MSc Chemistry</div></div>
+            <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+          </div>
+          <div class="cutoff-nums">
+            <div class="cutoff-num-block"><div class="label">2025 Cutoff</div><div class="val" style="color:var(--safe)">~235</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="background:#120C04;border-color:#3A2A08">
+      <div class="note-label" style="color:#FBBF24">The MSc → Branch Change Strategy</div>
+      Get into any MSc at BITS. After Semester 1, if CGPA qualifies (~8.5+), you can apply for a <strong>dual degree</strong> in an engineering branch. EEE and ECE are the most accessible via this route. Many students enter as MSc Physics/Math/Semiconductors and graduate with a B.E. + MSc dual degree. The extra year = worth it.
+    </div>
+  </div>
+
+  <!-- TOPICS -->
+  <div class="panel" id="bitsat-topics">
+    <div class="note-box" style="background:#0E1A08;border-color:#1A3A14">
+      <div class="note-label" style="color:var(--bitsat)">Weightage Source: 2020–2025 Paper Analysis + Phodu.club + Scribd Report</div>
+      Physics: Mechanics ~20%, others 8–10% each. Chemistry: Organic ~30%, Inorganic ~25%, Physical ~25%. Maths: Coordinate Geometry (Circles + Lines) is the single biggest area in BITSAT — far more than JEE.
+    </div>
+    <div class="card">
+      <div class="card-title">Physics — Chapter-wise Weightage (2020–2025 avg)</div>
+      <div class="topic-item"><span class="topic-name">Mechanics (Kinematics, Newton, WEP, Rotation)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name" style="color:#94A3B8;font-size:12px;padding-left:10px">→ Single largest chunk, ~20% of Physics. Don't underweight this.</span><span></span></div>
+      <div class="topic-item"><span class="topic-name">Modern Physics (Dual Nature, Photoelectric, Atoms, Nuclei)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Current Electricity & Circuits</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Electrostatics & Capacitors</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Heat & Thermodynamics (Laws, KTG, Radiation)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Optics (Ray + Wave)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Magnetism & EMI (Faraday, AC, LCR)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Waves & Sound (SHM, Doppler)</span><span class="topic-stars dim">★</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Chemistry — Chapter-wise Weightage (2020–2025 avg)</div>
+      <div class="topic-item"><span class="topic-name">Organic Chemistry — GOC, Reactions, Named Rxns, Mechanisms</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name" style="color:#94A3B8;font-size:12px;padding-left:10px">→ ~30% of Chemistry section. Highest single sub-area.</span><span></span></div>
+      <div class="topic-item"><span class="topic-name">Inorganic Chemistry (s, p, d, f-block elements, compounds)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Physical Chemistry (Kinetics, Thermodynamics, Electrochemistry)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Chemical Bonding & Molecular Structure</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Chemical & Ionic Equilibrium</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Coordination Compounds</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Biomolecules (Carbohydrates, Proteins) + Polymers</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Surface Chemistry & General Chemistry</span><span class="topic-stars dim">★</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Mathematics — Chapter-wise Weightage (from Scribd analysis)</div>
+      <div class="topic-item"><span class="topic-name">Coordinate Geometry — Circles (~11% alone!)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Coordinate Geometry — Straight Lines + Pair (~14% combined)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name" style="color:#94A3B8;font-size:12px;padding-left:10px">→ Conic sections + lines dominate BITSAT Maths. JEE students often neglect this.</span><span></span></div>
+      <div class="topic-item"><span class="topic-name">Calculus — Definite/Indefinite Integration, Limits, Continuity</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Vectors (3D Geometry) — Dot, Cross, Lines, Planes</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Differential Equations</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Complex Numbers</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Probability & Statistics</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Matrices & Determinants</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Binomial Theorem, Sequences & Series</span><span class="topic-stars dim">★</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">English & Reasoning — Don't Skip! (90 marks combined)</div>
+      <div class="topic-item"><span class="topic-name">Vocabulary — Synonyms, Antonyms, One-Word Substitution</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Number Series & Pattern Recognition</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Sentence Completion & Rearrangement (Jumbled words)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Logical Deduction & Syllogisms</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Grammar & Sentence Correction</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Analogies & Odd-One-Out</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Reading Comprehension</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Spatial / Figure Reasoning</span><span class="topic-stars dim">★</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ COMEDK ══════════════════════════════════════════ -->
+<div class="exam-page" id="page-comedk">
+  <div class="assess-banner" style="background:var(--comedk-bg);border-color:var(--comedk-border)">
+    <div class="assess-label" style="color:var(--comedk)">🎯 Your Target: CSE at MSRIT / ECE at RVCE</div>
+    <div class="assess-text">COMEDK is <strong>significantly easier than JEE Mains</strong> — NCERT-moderate level. Your JEE prep puts you well above average. Target score: <strong>130–150/180</strong>. This puts you in range for <strong>ECE at RVCE</strong> or <strong>CSE at MSRIT/BMSCE</strong>. Zero negative marking means always attempt every single question. You have an onscreen basic-calculator too.</div>
+  </div>
+
+  <div class="inner-nav" id="nav-comedk">
+    <button class="inner-btn active" onclick="switchTab('comedk','format')">📋 Format</button>
+    <button class="inner-btn" onclick="switchTab('comedk','subjects')">📚 Subjects</button>
+    <button class="inner-btn" onclick="switchTab('comedk','strategy')">🎯 Strategy</button>
+    <button class="inner-btn" onclick="switchTab('comedk','cutoffs')">🏛️ Cutoffs</button>
+    <button class="inner-btn" onclick="switchTab('comedk','topics')">📖 Topics</button>
+  </div>
+
+  <!-- FORMAT -->
+  <div class="panel show" id="comedk-format">
+    <div class="card">
+      <div class="card-title">Exam Format — COMEDK UGET 2026 (May 9)</div>
+      <table class="fmt-table">
+        <tr><td class="fmt-key">Mode</td><td class="fmt-val">Online CBT</td></tr>
+        <tr><td class="fmt-key">Duration</td><td class="fmt-val">3 Hours (180 min)</td></tr>
+        <tr><td class="fmt-key">Total Questions</td><td class="fmt-val">180 MCQs</td></tr>
+        <tr><td class="fmt-key">Max Score</td><td class="fmt-val">180 marks (+1 per correct)</td></tr>
+        <tr><td class="fmt-key">Correct Answer</td><td class="fmt-val"><span class="tag" style="background:#0E2E0E;color:#4ADE80;border:1px solid #166534">+1 mark</span></td></tr>
+        <tr><td class="fmt-key">Wrong Answer</td><td class="fmt-val"><span class="tag" style="background:#0E2E0E;color:#4ADE80;border:1px solid #166534">✅ ZERO — no penalty</span></td></tr>
+        <tr><td class="fmt-key">Physical Calculator</td><td class="fmt-val">❌ Strictly prohibited</td></tr>
+        <tr><td class="fmt-key">On-Screen Calculator</td><td class="fmt-val"><span class="tag" style="background:#051220;color:#7DD3FC;border:1px solid #1E4A7F">✅ Virtual scientific calculator provided</span></td></tr>
+        <tr><td class="fmt-key">Sectional Time Limits</td><td class="fmt-val">❌ None — switch between subjects freely</td></tr>
+        <tr><td class="fmt-key">Medium</td><td class="fmt-val">English only</td></tr>
+        <tr><td class="fmt-key">Syllabus</td><td class="fmt-val">CBSE Class 11 & 12 (33% Class 11, 67% Class 12)</td></tr>
+        <tr><td class="fmt-key">Difficulty</td><td class="fmt-val">Moderate — easier than JEE Mains</td></tr>
+        <tr><td class="fmt-key">Colleges</td><td class="fmt-val">200+ private engineering colleges in Karnataka</td></tr>
+      </table>
+      <div class="calc-box">
+        🖥️ <strong>On-Screen Scientific Calculator:</strong> The COMEDK CBT interface provides a virtual scientific calculator for Physics/Maths computations. Physical calculators are strictly banned but you can use the on-screen one. Use it for complex calculations — don't waste time on mental arithmetic when the tool is right there.
+      </div>
+      <div class="no-penalty-box" style="margin-top:8px">
+        ✅ <strong>Zero negative marking</strong> — this completely changes your strategy. Attempt EVERY single question. A blank answer is 0. A guess is a 25% chance of +1. Always guess on unknowns.
+      </div>
+    </div>
+    <div class="note-box" style="background:var(--comedk-bg);border-color:var(--comedk-border)">
+      <div class="note-label" style="color:var(--comedk)">Tiebreaker (4-stage hierarchy)</div>
+      When scores are equal: <strong>(1)</strong> Higher Maths score → <strong>(2)</strong> Higher Physics score → <strong>(3)</strong> Higher Maths + Physics combined → <strong>(4)</strong> Older by date of birth. Maths is the most critical tiebreaker — always maximise Maths first.
+    </div>
+  </div>
+
+  <!-- SUBJECTS -->
+  <div class="panel" id="comedk-subjects">
+    <div class="card">
+      <div class="card-title">Subject Distribution (180 Questions · 180 Marks)</div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Physics</span><span class="subj-meta">60 Qs · 60 marks · 33%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--comedk)"></div></div>
+      </div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Chemistry</span><span class="subj-meta">60 Qs · 60 marks · 33%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--comedk)"></div></div>
+      </div>
+      <div class="subj-row" style="margin-bottom:0">
+        <div class="subj-header"><span class="subj-name">Mathematics</span><span class="subj-meta">60 Qs · 60 marks · 33%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--comedk)"></div></div>
+      </div>
+    </div>
+    <div class="note-box" style="background:var(--comedk-bg);border-color:var(--comedk-border)">
+      <div class="note-label" style="color:var(--comedk)">Perfect Balance — But Maths Decides Ranks</div>
+      Equal 60-60-60 split. No English, no Reasoning. Pure PCM. <strong>Maths is the tiebreaker</strong> at Stage 1 — when scores tie (very common at 130–140), Maths marks separate you. Invest extra time in Maths. Use the on-screen calculator for Physics numericals to save time.
+    </div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div class="panel" id="comedk-strategy">
+    <div class="card">
+      <div class="card-title">Strategy</div>
+      <div class="strat-item">
+        <div class="strat-icon">📖</div>
+        <div><div class="strat-title">NCERT is your bible</div><div class="strat-desc">COMEDK is heavily CBSE Class 11 & 12 based. Every NCERT concept, example, and exercise is fair game. Master NCERT before going anywhere else — it covers 80%+ of what's asked.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">🖥️</div>
+        <div><div class="strat-title">Use the on-screen calculator smartly</div><div class="strat-desc">The virtual calculator is your edge. For multi-step Physics/Maths numericals, use it for final computation. Don't waste 30 seconds on mental arithmetic when the calc saves you in 5 seconds.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">✅</div>
+        <div><div class="strat-title">Attempt every single question</div><div class="strat-desc">Zero negative marking = zero downside to guessing. Finish all sections and return to blanks. Every unanswered question is a free mark you're leaving on the table.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">📐</div>
+        <div><div class="strat-title">Maths = tiebreaker, so dominate it</div><div class="strat-desc">In tied scores, Maths separates ranks. Score 50+/60 in Maths to cut through the crowd. Use your JEE calc prep — COMEDK Maths is significantly easier than JEE.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">🔁</div>
+        <div><div class="strat-title">Switch subjects freely — no time limits</div><div class="strat-desc">Unlike BITSAT or MHT CET, COMEDK has no sectional locks. If you're stuck in Physics, jump to Maths, finish that, then return. Maximise your total score tactically.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">📝</div>
+        <div><div class="strat-title">Do 5+ COMEDK past papers</div><div class="strat-desc">COMEDK repeats topic patterns very predictably. Past papers from 2020–2025 will prep you better than any coaching material. The format is far more predictable than JEE.</div></div>
+      </div>
+    </div>
+    <div class="note-box" style="background:#0E1218;border-color:var(--border)">
+      <div class="note-label" style="color:var(--dim)">Your JEE 87th %ile → COMEDK</div>
+      COMEDK is much easier than JEE. You should score 130–150+ comfortably. The risk: overconfidence → silly errors. 2 weeks of NCERT revision + 5 full mocks = MSRIT CSE / RVCE ECE range. Also remember: Maths tiebreaker matters a lot at ~130–145 band where many cluster.
+    </div>
+  </div>
+
+  <!-- CUTOFFS -->
+  <div class="panel" id="comedk-cutoffs">
+    <div class="legend">
+      <span style="background:var(--safe-bg);color:var(--safe);border-color:#065F46">✅ Safe</span>
+      <span style="background:var(--target-bg);color:var(--target);border-color:#1E3A5F">🎯 Target</span>
+      <span style="background:var(--possible-bg);color:var(--possible);border-color:#78350F">⚡ Stretch</span>
+      <span style="background:var(--hard-bg);color:var(--hard);border-color:#7F1D1D">🔥 Reach</span>
+    </div>
+    <div class="card">
+      <div class="card-title">CSE Cutoffs — Rank & Score /180 (2025 Data)</div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">RVCE Bangalore</div><div class="cutoff-branch">B.E. Computer Science · NIRF #89 · Top Bangalore private</div></div>
+          <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--hard)">~500–700</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">155+/180</div></div>
+          <div class="cutoff-num-block"><div class="label">Avg CTC</div><div class="val">₹10 LPA</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">MS Ramaiah (MSRIT)</div><div class="cutoff-branch">B.E. Computer Science · Strong Bangalore name</div></div>
+          <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--possible)">~3000–4500</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">135+/180</div></div>
+          <div class="cutoff-num-block"><div class="label">Avg CTC</div><div class="val">₹6.5 LPA</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">BMS College of Engineering</div><div class="cutoff-branch">B.E. Computer Science · Autonomous, 1946</div></div>
+          <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--target)">~5000–7500</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">128+/180</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">PES University</div><div class="cutoff-branch">B.E. Computer Science · Good placements</div></div>
+          <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--target)">~10000–15000</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">118+/180</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">Dayananda Sagar / CMR / BNM</div><div class="cutoff-branch">B.E. Computer Science</div></div>
+          <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--safe)">~15000–30000</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">105–120/180</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">ECE Cutoffs — Rank & Score /180 (2025 Data)</div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">RVCE Bangalore</div><div class="cutoff-branch">B.E. Electronics & Communication</div></div>
+          <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--possible)">~5000–8000</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">132+/180</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">MSRIT / BMS College</div><div class="cutoff-branch">B.E. Electronics & Communication</div></div>
+          <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--target)">~10000–18000</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">120+/180</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">Mid-tier Bangalore colleges</div><div class="cutoff-branch">ECE — solid options</div></div>
+          <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Closing Rank</div><div class="val" style="color:var(--safe)">~20000–50000</div></div>
+          <div class="cutoff-num-block"><div class="label">Score needed</div><div class="val">100–115/180</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="note-box" style="background:var(--comedk-bg);border-color:var(--comedk-border)">
+      <div class="note-label" style="color:var(--comedk)">Score → Rank Quick Guide</div>
+      <strong>150+</strong> → Top 1000 (RVCE CSE territory) · <strong>135–150</strong> → 1000–5000 (MSRIT CSE, RVCE ECE) · <strong>120–135</strong> → 5000–18000 (BMSCE CSE, MSRIT ECE) · <strong>105–120</strong> → 18000–35000 · <strong>Below 100</strong> → 35000+
+    </div>
+  </div>
+
+  <!-- TOPICS -->
+  <div class="panel" id="comedk-topics">
+    <div class="card">
+      <div class="card-title">Physics — Most Asked (from 2020–2025 COMEDK PYQs)</div>
+      <div class="topic-item"><span class="topic-name">Current Electricity (Kirchhoff's, Wheatstone, Potentiometer)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Electrostatics & Capacitors</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Semiconductor Devices (Diode, Transistor, Logic Gates)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Electromagnetic Induction & AC Circuits (LCR, Resonance)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Ray Optics & Wave Optics</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Modern Physics (Photoelectric, Atoms, Nuclei, Radiation)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Rotational Motion & Gravitation</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Waves & Simple Harmonic Motion</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Kinematics & Newton's Laws</span><span class="topic-stars dim">★</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Chemistry — Most Asked</div>
+      <div class="topic-item"><span class="topic-name">Chemical Kinetics (Rate, Order, Activation Energy)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Coordination Compounds (IUPAC, Isomerism, Crystal Field)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Electrochemistry (Cell, EMF, Nernst, Electrolysis)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">p-Block Elements (Groups 15–18, Allotropy)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Organic Reactions (Aldehydes, Ketones, Amines, GOC)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Chemical Bonding & Molecular Structure (VSEPR, Hybridisation)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Polymers & Biomolecules</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Thermodynamics & Solutions</span><span class="topic-stars">★★</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Mathematics — Most Asked</div>
+      <div class="topic-item"><span class="topic-name">Definite & Indefinite Integration</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Probability (Conditional, Bayes, Distribution)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">3D Geometry (Lines, Planes, Distance Formula)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Vectors (Dot, Cross, Scalar Triple Product)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Matrices & Determinants (Properties, System of Equations)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Application of Derivatives (Maxima, Tangent, Rate of Change)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Differential Equations</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Complex Numbers & Quadratic Equations</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Binomial Theorem & Sequences</span><span class="topic-stars dim">★</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MHT CET ══════════════════════════════════════════ -->
+<div class="exam-page" id="page-mhtcet">
+  <div class="assess-banner" style="background:var(--mhtcet-bg);border-color:var(--mhtcet-border)">
+    <div class="assess-label" style="color:var(--mhtcet)">🎯 Your Target: COEP Electrical · DJSCE ECE · WCE CSE</div>
+    <div class="assess-text">87th %ile JEE ≈ <strong>138–150 marks</strong> in MHT CET (~97.5–98.8 percentile). COEP/VJTI CSE (165+) is a genuine stretch. But <strong>COEP Electrical, DJSCE ECE, WCE CSE, MIT-WPU CSE</strong> are real targets. 3–4 focused weeks on Maharashtra Board-specific chapters + Maths drilling can push to 150–158, opening COEP ECE. Maths = 50% of your score. Everything flows from Maths.</div>
+  </div>
+
+  <div class="inner-nav" id="nav-mhtcet">
+    <button class="inner-btn active" onclick="switchTab('mhtcet','format')">📋 Format</button>
+    <button class="inner-btn" onclick="switchTab('mhtcet','subjects')">📚 Subjects</button>
+    <button class="inner-btn" onclick="switchTab('mhtcet','strategy')">🎯 Strategy</button>
+    <button class="inner-btn" onclick="switchTab('mhtcet','cutoffs')">🏛️ Cutoffs</button>
+    <button class="inner-btn" onclick="switchTab('mhtcet','topics')">📖 Topics</button>
+  </div>
+
+  <!-- FORMAT -->
+  <div class="panel show" id="mhtcet-format">
+    <div class="card">
+      <div class="card-title">Exam Format — MHT CET 2026 (May 12–16)</div>
+      <table class="fmt-table">
+        <tr><td class="fmt-key">Mode</td><td class="fmt-val">Online CBT</td></tr>
+        <tr><td class="fmt-key">Paper 1</td><td class="fmt-val">Physics + Chemistry · 100 Qs · 90 minutes</td></tr>
+        <tr><td class="fmt-key">Paper 2</td><td class="fmt-val">Mathematics · 50 Qs · 90 minutes</td></tr>
+        <tr><td class="fmt-key">Max Score</td><td class="fmt-val">200 marks total</td></tr>
+        <tr><td class="fmt-key">Maths Marking</td><td class="fmt-val"><span class="tag" style="background:#1A0E2E;color:#A78BFA;border:1px solid #4C1D95">+2 marks per correct</span></td></tr>
+        <tr><td class="fmt-key">Phy / Chem Marking</td><td class="fmt-val"><span class="tag" style="background:#0E2E0E;color:#4ADE80;border:1px solid #166534">+1 mark per correct</span></td></tr>
+        <tr><td class="fmt-key">Negative Marking</td><td class="fmt-val"><span class="tag" style="background:#0E2E0E;color:#4ADE80;border:1px solid #166534">✅ NONE — attempt all</span></td></tr>
+        <tr><td class="fmt-key">Physical Calculator</td><td class="fmt-val">❌ Not allowed</td></tr>
+        <tr><td class="fmt-key">On-Screen Calc</td><td class="fmt-val">❌ Not provided</td></tr>
+        <tr><td class="fmt-key">Medium</td><td class="fmt-val">English / Marathi / Urdu</td></tr>
+        <tr><td class="fmt-key">Syllabus</td><td class="fmt-val">Maharashtra Board · 80% Class 12 · 20% Class 11</td></tr>
+        <tr><td class="fmt-key">Difficulty</td><td class="fmt-val">JEE Main level (Maths), moderate (Phy/Chem)</td></tr>
+      </table>
+      <div class="warn-box">
+        ⚠️ <strong>Critical structure:</strong> Paper 1 (Phy+Chem) auto-locks after 90 min. Paper 2 (Maths) then opens. You <strong>cannot switch between papers</strong>. Treat them as two completely separate exams. Don't bleed time.
+      </div>
+    </div>
+    <div class="note-box" style="background:#120A1F;border-color:#4C1D95">
+      <div class="note-label" style="color:var(--mhtcet)">Maharashtra vs All India Quota</div>
+      <strong>Maharashtra domicile:</strong> Compete for 85% seats (State quota). <strong>Non-Maharashtra:</strong> Only 15% seats (AI quota) — cutoffs are 5–10 marks higher for AI quota. Knowing which category you fall in significantly changes your target score.
+    </div>
+  </div>
+
+  <!-- SUBJECTS -->
+  <div class="panel" id="mhtcet-subjects">
+    <div class="card">
+      <div class="card-title">Subject Distribution & Marks Weight</div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Mathematics</span><span class="subj-meta">50 Qs · 100 marks · 50%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--mhtcet)"></div></div>
+      </div>
+      <div class="subj-row">
+        <div class="subj-header"><span class="subj-name">Physics</span><span class="subj-meta">50 Qs · 50 marks · 25%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--comedk)"></div></div>
+      </div>
+      <div class="subj-row" style="margin-bottom:0">
+        <div class="subj-header"><span class="subj-name">Chemistry</span><span class="subj-meta">50 Qs · 50 marks · 25%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--bitsat)"></div></div>
+      </div>
+    </div>
+    <div class="note-box" style="background:var(--mhtcet-bg);border-color:var(--mhtcet-border)">
+      <div class="note-label" style="color:var(--mhtcet)">Maths = Half Your Score</div>
+      100 out of 200 marks at +2 per question. Every extra Maths question correct = 2 marks. To go from 140→155, fix Maths first — getting 7–8 more Maths questions right = +14–16 marks. Physics and Chemistry are +1 each. Always prioritise Maths drilling.
+    </div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div class="panel" id="mhtcet-strategy">
+    <div class="card">
+      <div class="card-title">Strategy</div>
+      <div class="strat-item">
+        <div class="strat-icon">📐</div>
+        <div><div class="strat-title">Maths first — always</div><div class="strat-desc">100/200 marks. Each question = 2 marks. Get 5 extra Maths right = +10 marks = the same as getting 10 more Physics correct. Maximise Maths before anything else.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">⏰</div>
+        <div><div class="strat-title">Paper 1 timing is a trap</div><div class="strat-desc">Phy+Chem locks after 90 min. Move quickly at ~54 sec/question. Don't drift into Maths-style deep thinking during Paper 1. Get it done, then give full 90 min to Maths (+2 per question).</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">✅</div>
+        <div><div class="strat-title">Attempt every question</div><div class="strat-desc">No negative marking. Blank = 0. A guess = 25% chance of +1 or +2. Eliminate what you can and pick. Never leave blank.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">📗</div>
+        <div><div class="strat-title">Fill Maharashtra Board gaps NOW</div><div class="strat-desc">MHT CET uses the Maharashtra State Board syllabus. Chapters like Linear Programming, Mathematical Logic, Circular Motion, Wave Motion, Halogen Derivatives — these aren't in NCERT/JEE. Get state board books for these specifically (see Topics tab).</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">📝</div>
+        <div><div class="strat-title">Practice actual MHT CET PYQs</div><div class="strat-desc">Question style differs from JEE — more formula-application, fewer derivations. 5 full MHT CET papers before exam day. The style shift from JEE is real — don't skip this calibration.</div></div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-icon">🏃</div>
+        <div><div class="strat-title">Speed in Phy+Chem (54 sec/question)</div><div class="strat-desc">1-mark questions. Move fast. Don't spend 2 min on a 1-mark Physics question when Maths questions are worth double. Single-mark questions get ~40 seconds max; move on.</div></div>
+      </div>
+    </div>
+    <div class="note-box" style="background:#0E1218;border-color:var(--border)">
+      <div class="note-label" style="color:var(--dim)">To reach COEP ECE (155+ marks)</div>
+      You need: <strong>Maths 78+/100 · Physics 40+/50 · Chemistry 37+/50</strong>. Your JEE base gets you ~65–70 in Maths and ~75/100 combined in Phy+Chem. Closing the gap = state board chapters + mocks + more Maths drilling.
+    </div>
+  </div>
+
+  <!-- CUTOFFS -->
+  <div class="panel" id="mhtcet-cutoffs">
+    <div class="legend">
+      <span style="background:var(--safe-bg);color:var(--safe);border-color:#065F46">✅ Safe</span>
+      <span style="background:var(--target-bg);color:var(--target);border-color:#1E3A5F">🎯 Target</span>
+      <span style="background:var(--possible-bg);color:var(--possible);border-color:#78350F">⚡ Stretch</span>
+      <span style="background:var(--hard-bg);color:var(--hard);border-color:#7F1D1D">🔥 Reach</span>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:10px">
+      <div style="padding:12px 14px 10px;border-bottom:1px solid var(--border)">
+        <div class="card-title" style="margin:0">Marks → Percentile → What You Get</div>
+      </div>
+      <div class="marks-row">
+        <div class="marks-score" style="color:var(--hard)">165–200</div>
+        <div class="marks-meta"><span style="color:#F87171">99.7–100 %ile</span><span style="color:var(--dim)">Rank Top 500</span></div>
+        <div class="marks-desc">COEP/VJTI CSE · IT · Top branch top college</div>
+      </div>
+      <div class="marks-row">
+        <div class="marks-score" style="color:var(--possible)">155–165</div>
+        <div class="marks-meta"><span style="color:var(--possible)">99.2–99.7 %ile</span><span style="color:var(--dim)">Rank 500–2000</span></div>
+        <div class="marks-desc">COEP ECE · VJTI ECE · SPIT/PICT CSE</div>
+      </div>
+      <div class="marks-row">
+        <div class="marks-score" style="color:#A78BFA">148–158</div>
+        <div class="marks-meta"><span style="color:#A78BFA">98.5–99.2 %ile</span><span style="color:var(--dim)">Rank 2000–6000</span></div>
+        <div class="marks-desc">DJSCE CSE · WCE CSE · SPIT ECE</div>
+      </div>
+      <div class="marks-row highlight">
+        <div class="you-stripe"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="marks-score" style="color:var(--mhtcet)">138–150</div>
+          <span class="tag" style="background:#4C1D9520;color:var(--mhtcet);border:1px solid #4C1D95">YOUR RANGE</span>
+        </div>
+        <div class="marks-meta"><span style="color:var(--mhtcet)">~97.5–98.8 %ile</span><span style="color:var(--dim)">Rank ~3500–10000</span></div>
+        <div class="marks-desc">COEP Electrical · DJSCE ECE · MIT-WPU CSE · VJTI Electrical</div>
+      </div>
+      <div class="marks-row">
+        <div class="marks-score" style="color:var(--target)">125–138</div>
+        <div class="marks-meta"><span style="color:var(--target)">95–97.5 %ile</span><span style="color:var(--dim)">Rank 10k–20k</span></div>
+        <div class="marks-desc">Good private CSE/ECE in Mumbai/Pune</div>
+      </div>
+      <div class="marks-row">
+        <div class="marks-score" style="color:var(--safe)">108–125</div>
+        <div class="marks-meta"><span style="color:var(--safe)">90–95 %ile</span><span style="color:var(--dim)">Rank 20k–40k</span></div>
+        <div class="marks-desc">Mid-tier private colleges — CSE/ECE accessible</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">College-Wise Cutoff (General/Open · State Quota) — 2024–25 Data</div>
+
+      <div class="section-heading" style="color:var(--mhtcet)">Government / Premier Colleges</div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">COEP Tech University, Pune</div><div class="cutoff-branch">CSE / IT</div></div>
+          <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--hard)">165–178</div></div>
+          <div class="cutoff-num-block"><div class="label">Rank</div><div class="val">Top 600</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">COEP Tech University, Pune</div><div class="cutoff-branch">ECE / E&TC</div></div>
+          <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--possible)">155–165</div></div>
+          <div class="cutoff-num-block"><div class="label">Rank</div><div class="val">1000–2500</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">COEP Tech University, Pune</div><div class="cutoff-branch">Electrical Engineering</div></div>
+          <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--target)">128–140</div></div>
+          <div class="cutoff-num-block"><div class="label">Rank</div><div class="val">8000–14000</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">VJTI, Mumbai</div><div class="cutoff-branch">CSE / IT</div></div>
+          <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--hard)">165–180</div></div>
+          <div class="cutoff-num-block"><div class="label">Rank</div><div class="val">Top 500</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">VJTI, Mumbai</div><div class="cutoff-branch">ECE / Electronics Engg</div></div>
+          <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--possible)">155–168</div></div>
+          <div class="cutoff-num-block"><div class="label">Rank</div><div class="val">800–2000</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">VJTI, Mumbai</div><div class="cutoff-branch">Electrical Engineering</div></div>
+          <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--target)">132–145</div></div>
+          <div class="cutoff-num-block"><div class="label">Rank</div><div class="val">7000–12000</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">WCE Sangli</div><div class="cutoff-branch">CSE / IT</div></div>
+          <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--possible)">148–158</div></div>
+          <div class="cutoff-num-block"><div class="label">Rank</div><div class="val">3000–6000</div></div>
+        </div>
+      </div>
+
+      <div class="section-heading" style="color:var(--mhtcet);margin-top:16px">Private Autonomous Colleges</div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">SPIT Mumbai</div><div class="cutoff-branch">CSE / IT</div></div>
+          <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--hard)">158–168</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">SPIT Mumbai</div><div class="cutoff-branch">ECE / E&TC</div></div>
+          <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--possible)">145–158</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">PICT Pune</div><div class="cutoff-branch">CSE / IT</div></div>
+          <span class="tag" style="background:var(--hard-bg);color:var(--hard);border:1px solid #7F1D1D">🔥 Reach</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--hard)">158–168</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">DJSCE Mumbai</div><div class="cutoff-branch">CSE / IT</div></div>
+          <span class="tag" style="background:var(--possible-bg);color:var(--possible);border:1px solid #78350F">⚡ Stretch</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--possible)">148–160</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">DJSCE Mumbai</div><div class="cutoff-branch">ECE / E&TC</div></div>
+          <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--target)">138–150</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">MIT-WPU / PCCOE Pune</div><div class="cutoff-branch">CSE / AI-ML</div></div>
+          <span class="tag" style="background:var(--target-bg);color:var(--target);border:1px solid #1E3A5F">🎯 Target</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--target)">138–150</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">MIT-WPU / PCCOE Pune</div><div class="cutoff-branch">ECE</div></div>
+          <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--safe)">125–138</div></div>
+        </div>
+      </div>
+      <div class="cutoff-row">
+        <div class="cutoff-top">
+          <div><div class="cutoff-college">Thadomal Shahani / Vidyalankar</div><div class="cutoff-branch">CSE / IT — Mumbai private</div></div>
+          <span class="tag" style="background:var(--safe-bg);color:var(--safe);border:1px solid #065F46">✅ Safe</span>
+        </div>
+        <div class="cutoff-nums">
+          <div class="cutoff-num-block"><div class="label">Marks /200</div><div class="val" style="color:var(--safe)">130–145</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPICS -->
+  <div class="panel" id="mhtcet-topics">
+    <div class="note-box" style="background:#0D1A0D;border-color:#1A3A14">
+      <div class="note-label" style="color:var(--safe)">⚠️ State Board Chapters Not in JEE (Fill These Gaps!)</div>
+      <strong>Maths:</strong> Linear Programming, Mathematical Logic, Trigonometric Functions (Maharashtra Board treatment differs)<br>
+      <strong>Physics:</strong> Circular Motion (standalone chapter), Rotational Dynamics, Wave Motion<br>
+      <strong>Chemistry:</strong> Halogen Derivatives & Amines (Maharashtra Board depth), Solid State
+    </div>
+    <div class="card">
+      <div class="card-title">Mathematics — Top Weightage (+2 marks each!)</div>
+      <div class="topic-item"><span class="topic-name">Definite Integration & Area Under Curves</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">3D Geometry (Lines, Planes, Distance Formula)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Vectors (Dot, Cross, Scalar Triple Product)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Probability (Conditional, Bayes, Distribution)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Matrices & Determinants (Properties, System)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Differential Equations (Methods, Applications)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Application of Derivatives (Maxima, Tangent, Rate)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Continuity & Differentiability</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Linear Programming ⚠️ State board specific</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Mathematical Logic ⚠️ State board specific</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Trigonometric Functions ⚠️ MH Board treatment</span><span class="topic-stars">★★</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Physics — Most Asked Topics</div>
+      <div class="topic-item"><span class="topic-name">Current Electricity (Kirchhoff's, Potentiometer)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Electrostatics & Capacitors</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Electromagnetic Induction (Faraday, Lenz's Law)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Semiconductor Devices (Diode, Transistor, Logic Gates)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Circular Motion ⚠️ Separate standalone chapter</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Rotational Dynamics ⚠️ MH Board focus</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Ray Optics & Wave Optics</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Magnetic Effects of Current (Torque, Galvanometer)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">AC Circuits (LCR, Resonance)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Wave Motion ⚠️ State board chapter</span><span class="topic-stars dim">★</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Chemistry — Most Asked Topics</div>
+      <div class="topic-item"><span class="topic-name">Chemical Kinetics (Rate Law, Order, Arrhenius)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Coordination Compounds (IUPAC, Isomerism, CFT)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Electrochemistry (Cell EMF, Nernst Eq., Faraday's Laws)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">p-Block Elements (Groups 15, 16, 17, 18)</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Halogen Derivatives ⚠️ MH Board depth</span><span class="topic-stars">★★★</span></div>
+      <div class="topic-item"><span class="topic-name">Amines (Classification, Reactions) ⚠️ Board-specific</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Biomolecules (Carbohydrates, Proteins, Nucleic Acids)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Polymers (Types, Addition, Condensation)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Solid State (Crystal Systems, Defects)</span><span class="topic-stars">★★</span></div>
+      <div class="topic-item"><span class="topic-name">Chemical Thermodynamics (Hess's Law, Free Energy)</span><span class="topic-stars">★★</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<script>
+  const examData = {
+    bitsat: { tabClass: 'active-b' },
+    comedk: { tabClass: 'active-c' },
+    mhtcet: { tabClass: 'active-m' },
+  };
+
+  function switchExam(exam) {
+    document.querySelectorAll('.exam-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + exam).classList.add('active');
+    document.querySelectorAll('.exam-btn').forEach(btn => btn.className = 'exam-btn');
+    const idx = ['bitsat','comedk','mhtcet'].indexOf(exam);
+    document.querySelectorAll('.exam-btn')[idx].classList.add(examData[exam].tabClass);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchTab(exam, tab) {
+    document.querySelectorAll('#page-' + exam + ' .panel').forEach(p => p.classList.remove('show'));
+    document.getElementById(exam + '-' + tab).classList.add('show');
+    document.querySelectorAll('#nav-' + exam + ' .inner-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    // Scroll to content
+    const wrapper = document.querySelector('.wrapper');
+    const banner = document.querySelector('#page-' + exam + ' .assess-banner');
+    if (banner) { banner.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+</script>
+</body>
+</html>
