@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "making a prediction markets",
+    "description": "deep dive into engineering a serverless prediction market for jee shifts.",
+    "link": "betjee.html",
+    "date": "feb 2026"
+  },
+  {
+    "id": 2,
+    "title": "effect of diwali on aqi",
+    "description": "analyzing how the diwali festival impacts air quality and what my ml model reveals.",
+    "link": "DiwaliAQI.html",
+    "date": "dec 2025"
+  },
+  {
+    "id": 3,
+    "title": "understanding machine learning",
+    "description": "my journey learning ml: practical insights, lessons learned, and key takeaways.",
+    "link": "UnderstandingML.html",
+    "date": "nov 2024"
+  }
+]

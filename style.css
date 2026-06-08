@@ -479,6 +479,7 @@ nav {
 
 .project-desc a i {
   text-decoration: none;
+  display: inline-block;
 }
 
 .project-desc a:hover {

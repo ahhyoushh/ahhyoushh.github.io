@@ -1,0 +1,81 @@
+[
+  {
+    "id": 1,
+    "title": "betjee: virtual prediction market",
+    "description": "built a virtual prediction market for jee shifts, <a href=\"https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/\" target=\"_blank\">loved on <i class=\"fab fa-reddit-alien\"></i> r/jeeneetards</a>. reached 1.2m requests, 2.3k users — mostly from reddit. documented some dumb decisions that blew past the free tier.",
+    "link": "betjee.html",
+    "tags": ["supabase", "postgresql", "serverless system design"]
+  },
+  {
+    "id": 2,
+    "title": "no-cursor",
+    "description": "CLI-first code editor built for completely local experience with llama.cpp integration.",
+    "link": "nc.html",
+    "tags": ["python", "automation", "dev-tool", "llama.cpp / ollama", "QWEN /Deepseek models"]
+  },
+  {
+    "id": 3,
+    "title": "filesense",
+    "description": "Local file organizer that groups documents using semantic similarity and user feedback.",
+    "link": "FileSense",
+    "tags": ["python", "sentence-embeddings", "reinforcement-learning", "faiss", "SBERT / BERT", "automation"]
+  },
+  {
+    "id": 4,
+    "title": "threads@alphajee.online",
+    "description": "High-availability Q&A social platform with a 4-layer moderation pipeline. Dockerized Node.js on Google Cloud Run.",
+    "link": "https://threads.alphajee.online",
+    "external": true,
+    "tags": ["serverless functions", "nextjs", "google cloud", "docker", "cloud sql"]
+  },
+  {
+    "id": 5,
+    "title": "air quality index prediction",
+    "description": "Predicts next-day AQI values using historical air quality data and machine learning.",
+    "link": "aqi.html",
+    "tags": ["machine-learning", "Random Forest", "pandas", "scikit-learn", "seaborn/matplotlib", "data-analysis"]
+  },
+  {
+    "id": 6,
+    "title": "e-waste recycling platform",
+    "description": "Web platform that identifies electronic waste categories and suggests nearby recycling centers.",
+    "link": "ewsenku.html",
+    "tags": ["python", "flask", "api-integration", "postman", "vuejs", "firebase"]
+  },
+  {
+    "id": 7,
+    "title": "face detection doorcam",
+    "description": "Real-time face detection system using OpenCV for basic monitoring and alerts.",
+    "link": "face_detection.html",
+    "tags": ["opencv", "haarCascadeClassifier", "python"]
+  },
+  {
+    "id": 8,
+    "title": "cli chat application",
+    "description": "Command-line chat program implementing basic client–server communication.",
+    "link": "clichat.html",
+    "tags": ["python", "requests", "cli", "network-protocols"]
+  },
+  {
+    "id": 9,
+    "title": "discord moderator bot",
+    "description": "Discord bot that detects similar phrases using text vectorization for basic moderation.",
+    "link": "dcbot.html",
+    "tags": ["python", "text-similarity", "discord.py"]
+  },
+  {
+    "id": 10,
+    "title": "movies crud api",
+    "description": "REST API for managing movie records built using Go.",
+    "link": "goapi.html",
+    "tags": ["go", "rest-api", "Gorilla/mux"]
+  },
+  {
+    "id": 11,
+    "title": "trash collector cli",
+    "description": "Simple CLI tool to store and track ideas or tasks from the terminal.",
+    "link": "https://github.com/ahhyoushh/trash-collector-cli",
+    "external": true,
+    "tags": ["python", "cli", "automation", "sql", "dev-tool", "deprecated"]
+  }
+]

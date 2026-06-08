@@ -55,22 +55,7 @@
 
   <section class="blogs" style="border-top: none;">
     <h2 class="section-title">blogs</h2>
-    <ul class="blog-list">
-      <li class="blog-item">
-        <div class="blog-date">feb 2026</div>
-        <div class="blog-title"><a href="../betjee.html">making a prediction markets</a></div>
-        <p class="blog-desc">deep dive into engineering a serverless prediction market for jee shifts.</p>
-      </li>
-      <li class="blog-item">
-        <div class="blog-date">dec 2025</div>
-        <div class="blog-title"><a href="../DiwaliAQI.html">effect of diwali on aqi</a></div>
-        <p class="blog-desc">analyzing how the diwali festival impacts air quality and what my ml model reveals.</p>
-      </li>
-      <li class="blog-item">
-        <div class="blog-date">nov 2024</div>
-        <div class="blog-title"><a href="../UnderstandingML.html">understanding machine learning</a></div>
-        <p class="blog-desc">my journey learning ml: practical insights, lessons learned, and key takeaways.</p>
-      </li>
+    <ul class="blog-list" id="blog-list-all" data-prefix="../">
     </ul>
   </section>
 
@@ -87,6 +72,7 @@
     <p class="footer-text"><a href="/">← back home</a></p>
   </footer>
 
+  <script src="../script.js"></script>
   <script>
     window.addEventListener("load", () => {
       document.body.classList.add("loaded");
