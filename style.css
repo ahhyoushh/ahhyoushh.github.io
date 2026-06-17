@@ -36,7 +36,6 @@ a:hover {
 /* --- Page Entry Animation --- */
 .hero,
 .stats,
-.experience,
 .about,
 .projects,
 .blogs,
@@ -52,10 +51,6 @@ a:hover {
 
 .stats {
   animation-delay: 0.15s;
-}
-
-.experience {
-  animation-delay: 0.2s;
 }
 
 .about {
@@ -385,18 +380,6 @@ nav {
   object-fit: contain;
   margin-bottom: 0.5rem;
   filter: invert(1) hue-rotate(180deg);
-}
-
-/* --- Experience Section --- */
-.experience {
-  padding: 2.5rem 3rem;
-  max-width: 800px;
-  margin: 0 auto;
-  border-top: 1px solid var(--border);
-}
-
-.experience-list {
-  padding-top: 0.8rem;
 }
 
 /* --- About Section --- */
@@ -812,7 +795,6 @@ footer {
   }
 
   .about,
-  .experience,
   .projects,
   .blogs,
   .stats,
@@ -958,66 +940,6 @@ body.dev-mode #todo-list .todo-done::after {
   color: #6ee7b7;
 }
 
-.experience-item {
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 1rem;
-}
-
-.experience-logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
-  object-fit: contain;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
-.experience-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.experience-title {
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.1rem;
-}
-
-.experience-title a {
-  color: var(--text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.experience-title a:hover {
-  color: var(--accent-hover);
-}
-
-.experience-date {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-bottom: 0.3rem;
-}
-
-.experience-content {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-.experience-content a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.experience-content a:hover {
-  color: var(--accent-hover);
-}
-
 .project-desc {
   color: var(--text-muted);
   font-size: 0.88rem;
@@ -1029,16 +951,6 @@ body.dev-mode #todo-list .todo-done::after {
   color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.6;
-}
-
-.experience-content a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.experience-content a:hover {
-  color: var(--accent-hover);
 }
 
 /* --- Dev Toast --- */

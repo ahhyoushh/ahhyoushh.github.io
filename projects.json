@@ -9,7 +9,7 @@
   {
     "id": 2,
     "title": "no-cursor",
-    "description": "CLI-first code editor built for completely local experience with llama.cpp integration.",
+    "description": "CLI-first code editor with llama.cpp integration for fully local operation.",
     "link": "nc.html",
     "tags": ["python", "automation", "dev-tool", "llama.cpp / ollama", "QWEN /Deepseek models"]
   },
@@ -22,9 +22,9 @@
   },
   {
     "id": 4,
-    "title": "threads@alphajee.online",
+    "title": "threads",
     "description": "High-availability Q&A social platform with a 4-layer moderation pipeline. Dockerized Node.js on Google Cloud Run.",
-    "link": "https://threads.alphajee.online",
+    "link": "https://threads.ayushbhalerao.dev",
     "external": true,
     "tags": ["serverless functions", "nextjs", "google cloud", "docker", "cloud sql"]
   },
