@@ -1,14 +1,20 @@
 [
   {
-    "title": "making a prediction markets",
-    "description": "deep dive into engineering a serverless prediction market for jee shifts.",
-    "link": "betjee.html",
+    "title": "making an actual realtime prediction market",
+    "description": "understanding realtime,the evolution from polling to websockets, and from sigmoid functions to binary lmsr",
+    "link": "/blogs/betjee_v2",
+    "date": "mar 2026"
+  },
+  {
+    "title": "making a prediction market",
+    "description": "how i made a prediction market for jee shifts withing 24hours and realisation how trash it was",
+    "link": "/blogs/betjee",
     "date": "feb 2026"
   },
   {
     "title": "effect of diwali on aqi",
-    "description": "analyzing how the diwali festival impacts air quality and what my ml model reveals.",
-    "link": "DiwaliAQI.html",
+    "description": "made a simple aqi predicting linear regression model and accidentally found out how bad diwali affects AQI",
+    "link": "/blogs/DiwaliAQI",
     "date": "dec 2025"
   }
 ]

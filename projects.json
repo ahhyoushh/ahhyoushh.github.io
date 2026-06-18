@@ -1,70 +1,105 @@
 [
   {
     "title": "betjee: virtual prediction market",
-    "description": "built a virtual prediction market for jee shifts, <a href=\"https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/\" target=\"_blank\">loved on <i class=\"fab fa-reddit-alien\"></i> r/jeeneetards</a>. reached 1.2m requests, 2.3k users — mostly from reddit. documented some dumb decisions that blew past the free tier.",
-    "link": "betjee.html",
+    "description": "built a virtual prediction market for jee shifts, <a href=\"https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/\" target=\"_blank\">loved on  <img src=\"https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://reddit.com&size=32\" class=\"icon-inline\" alt=\"\"/>  r/jeeneetards</a>. reached 1.2m requests, 2.3k users — mostly from reddit. documented some dumb decisions that blew past the free tier.",
+    "link": "blogs/betjee/",
+    "highlight": true,
     "tags": ["supabase", "postgresql", "serverless system design"]
   },
   {
     "title": "no-cursor",
     "description": "CLI-first code editor with llama.cpp integration for fully local operation.",
-    "link": "nc.html",
-    "tags": ["python", "automation", "dev-tool", "llama.cpp / ollama", "QWEN /Deepseek models"]
+    "link": "https://github.com/ahhyoushh/no-cursor",
+    "highlight": true,
+    "tags": [
+      "python",
+      "automation",
+      "dev-tool",
+      "llama.cpp / ollama",
+      "QWEN /Deepseek models"
+    ]
   },
   {
     "title": "filesense",
     "description": "Local file organizer that groups documents using semantic similarity and user feedback.",
-    "link": "FileSense",
-    "tags": ["python", "sentence-embeddings", "reinforcement-learning", "faiss", "SBERT / BERT", "automation"]
+    "link": "/projects/filesense",
+    "highlight": true,
+    "tags": [
+      "python",
+      "sentence-embeddings",
+      "reinforcement-learning",
+      "faiss",
+      "SBERT / BERT",
+      "automation"
+    ]
   },
   {
     "title": "threads",
     "description": "High-availability Q&A social platform with a 4-layer moderation pipeline. Dockerized Node.js on Google Cloud Run.",
     "link": "https://threads.ayushbhalerao.dev",
-    "external": true,
-    "tags": ["serverless functions", "nextjs", "google cloud", "docker", "cloud sql"]
+    "highlight": true,
+    "tags": [
+      "serverless functions",
+      "nextjs",
+      "google cloud",
+      "docker",
+      "cloud sql"
+    ]
   },
   {
     "title": "air quality index prediction",
     "description": "Predicts next-day AQI values using historical air quality data and machine learning.",
-    "link": "aqi.html",
-    "tags": ["machine-learning", "Random Forest", "pandas", "scikit-learn", "seaborn/matplotlib", "data-analysis"]
+    "link": "https://github.com/ahhyoushh/AQI-Predictor",
+    "tags": [
+      "machine-learning",
+      "Random Forest",
+      "pandas",
+      "scikit-learn",
+      "seaborn/matplotlib",
+      "data-analysis"
+    ]
   },
   {
     "title": "e-waste recycling platform",
     "description": "Web platform that identifies electronic waste categories and suggests nearby recycling centers.",
-    "link": "ewsenku.html",
-    "tags": ["python", "flask", "api-integration", "postman", "vuejs", "firebase"]
+    "link": "https://github.com/ahhyoushh/Senku",
+    "tags": [
+      "python",
+      "flask",
+      "api-integration",
+      "postman",
+      "vuejs",
+      "firebase"
+    ]
   },
   {
     "title": "face detection doorcam",
     "description": "Real-time face detection system using OpenCV for basic monitoring and alerts.",
-    "link": "face_detection.html",
+    "link": "https://github.com/ahhyoushh/opencv-facedetection-python",
     "tags": ["opencv", "haarCascadeClassifier", "python"]
   },
   {
     "title": "cli chat application",
     "description": "Command-line chat program implementing basic client–server communication.",
-    "link": "clichat.html",
+    "link": "https://github.com/ahhyoushh/cli-chat",
     "tags": ["python", "requests", "cli", "network-protocols"]
   },
   {
     "title": "discord moderator bot",
     "description": "Discord bot that detects similar phrases using text vectorization for basic moderation.",
-    "link": "dcbot.html",
+    "link": "https://github.com/ahhyoushh/Chad-bot",
     "tags": ["python", "text-similarity", "discord.py"]
   },
   {
     "title": "movies crud api",
     "description": "REST API for managing movie records built using Go.",
-    "link": "goapi.html",
+    "link": "https://github.com/ahhyoushh/movies-crud-api-go",
     "tags": ["go", "rest-api", "Gorilla/mux"]
   },
   {
     "title": "trash collector cli",
     "description": "Simple CLI tool to store and track ideas or tasks from the terminal.",
     "link": "https://github.com/ahhyoushh/trash-collector-cli",
-    "external": true,
     "tags": ["python", "cli", "automation", "sql", "dev-tool", "deprecated"]
   }
 ]
