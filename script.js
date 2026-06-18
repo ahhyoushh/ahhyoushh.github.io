@@ -1,4 +1,3 @@
-// ================= DATA RENDERER =================
 async function loadJSON(url) {
   const res = await fetch(url);
   return res.json();
@@ -6,14 +5,16 @@ async function loadJSON(url) {
 
 function renderProjects(projects, container, limit) {
   const items = limit ? projects.filter(p => p.highlight).slice(0, limit) : projects;
-  const prefix = container.dataset.prefix || "";
   container.innerHTML = items.map(p => {
-    const href = p.link.startsWith("http") ? p.link : prefix + p.link;
-    const external = p.link.startsWith("http");
+    const href = p.link;
+    const external = href.startsWith("http");
     return `
     <li class="project-item">
-      <div class="project-title">
-        <a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${p.title}</a>
+      <div class="project-meta-row">
+        <div class="project-title">
+          <a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${p.title}</a>
+        </div>
+        ${p.date ? `<span class="project-date">${p.date}</span>` : ''}
       </div>
       <p class="project-desc">${p.description}</p>
       <div class="project-tags">
@@ -25,60 +26,57 @@ function renderProjects(projects, container, limit) {
 
 function renderBlogs(blogs, container, limit) {
   const items = limit ? blogs.slice(0, limit) : blogs;
-  const prefix = container.dataset.prefix || "";
   container.innerHTML = items.map(b => `
     <li class="blog-item">
-      <div class="blog-date">${b.date}</div>
-      <div class="blog-title"><a href="${prefix}${b.link}">${b.title}</a></div>
+      <div class="blog-meta-row">
+        <div class="blog-title">
+          <a href="${b.link}">${b.title}</a>
+        </div>
+        ${b.date ? `<span class="blog-date">${b.date}</span>` : ''}
+      </div>
       <p class="blog-desc">${b.description}</p>
     </li>
   `).join('');
 }
 
-// ================= MARKDOWN RENDERER =================
-
-const inlineMathExtension = {
-  name: 'inlineMath',
-  level: 'inline',
-  start(src) { return src.match(/\$/)?.index; },
-  tokenizer(src) {
-    const match = src.match(/^\$([^\n$]+?)\$/);
-    if (match) return { type: 'inlineMath', raw: match[0], text: match[1].trim() };
-  },
-  renderer(token) {
-    try {
-      return `<span class="math-inline">${kern.renderToString(token.text)}</span>`;
-    } catch {
-      return `<span class="math-inline">${token.text}</span>`;
-    }
-  }
-};
-
-const blockMathExtension = {
-  name: 'blockMath',
-  level: 'block',
-  start(src) { return src.match(/^\$\$/m)?.index; },
-  tokenizer(src) {
-    const match = src.match(/^\$\$([\s\S]*?)\$\$/);
-    if (match) return { type: 'blockMath', raw: match[0], text: match[1].trim() };
-  },
-  renderer(token) {
-    try {
-      return `<div class="math-block">${kern.renderToString(token.text)}</div>`;
-    } catch {
-      return `<div class="math-block">${token.text}</div>`;
-    }
-  }
-};
-
 async function renderMarkdown(url, container) {
   const res = await fetch(url);
   let md = await res.text();
   md = md.replace(/^---[\s\S]*?---\s*/, "");
-  const html = marked.parse(md, {
-    extensions: [blockMathExtension, inlineMathExtension]
+
+  const blocks = [];
+  md = md.replace(/\$\$([\s\S]*?)\$\$/g, (_, m) => {
+    const i = blocks.length;
+    blocks.push(m.trim());
+    return `<!--MB${i}-->`;
   });
+
+  const inlines = [];
+  md = md.replace(/\$([^\n$]+?)\$/g, (_, m) => {
+    const i = inlines.length;
+    inlines.push(m.trim());
+    return `<!--MI${i}-->`;
+  });
+
+  let html = marked.parse(md);
+
+  html = html.replace(/<!--MB(\d+)-->/g, (_, i) => {
+    try { return katex.renderToString(blocks[+i], { displayMode: true, throwOnError: false }); }
+    catch { return `<div class="math-block">${blocks[+i]}</div>`; }
+  });
+
+  html = html.replace(/<!--MI(\d+)-->/g, (_, i) => {
+    try { return katex.renderToString(inlines[+i], { displayMode: false, throwOnError: false }); }
+    catch { return `<span class="math-inline">${inlines[+i]}</span>`; }
+  });
+
   container.innerHTML = html;
+
+  if (window.hljs) {
+    container.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightElement(block);
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -112,42 +110,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mdUrl = mdContainer.dataset.md;
     if (mdUrl) renderMarkdown(mdUrl, mdContainer);
   }
-
-  // ================= DEV MODE =================
-  const toast = document.getElementById("dev-toast");
-  if (!toast) return;
-
-  let devMode = false;
-
-  const showToast = (msg, duration = 2000) => {
-    toast.querySelector("#dev-toast-text").textContent = msg;
-    toast.style.opacity = 1;
-    toast.style.pointerEvents = "auto";
-    setTimeout(() => {
-      toast.style.opacity = 0;
-      toast.style.pointerEvents = "none";
-    }, duration);
-  };
-
-  showToast("DEV MODE READY: ctrl+shift+D", 8000);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.ctrlKey && e.code === "KeyD") {
-      e.preventDefault();
-    }
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.ctrlKey && e.shiftKey && e.code === "KeyD") {
-      e.preventDefault();
-      devMode = !devMode;
-      if (devMode) {
-        document.body.classList.add("dev-mode");
-        showToast("DEV MODE: ON");
-      } else {
-        document.body.classList.remove("dev-mode");
-        showToast("DEV MODE: OFF");
-      }
-    }
-  });
 });

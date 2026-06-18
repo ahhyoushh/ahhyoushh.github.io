@@ -4,7 +4,7 @@ date: "Feb 2026"
 category: "Systems Engineering"
 ---
 
-The journey from a viral weekend prototype to a professional realtime exchange.
+# The journey from a viral weekend prototype to a professional realtime exchange.
 
 ## Select Platform Version
 
@@ -146,15 +146,15 @@ I pivoted to a **Sigmoid Bonding Curve**. This acts as an Automated Market Maker
 To model this, I utilized the logistic function. The price $P$ as a function of remaining supply $x$ is defined as:
 
 $$
-P(x) = P_(min) + (P_(max) - P_(min)) / (1 + e^(-k(x - x_0)))
+P(x) = P_{\min} + \frac{P_{\max} - P_{\min}}{1 + e^{-k(x - x_0)}}
 $$
 
 Where:
 - $k$ is the **steepness** (volatility).
 - $x_0$ is the **midpoint** (where price action is most volatile).
-- $P_(min)$ and $P_(max)$ are the hard floors and caps.
+- $P_{\min}$ and $P_{\max}$ are the hard floors and caps.
 
-This formula ensures that as shares become scarce ($x -> 0$), the price exponentially approaches the maximum, making it mathematically impossible to corner the entire market.
+This formula ensures that as shares become scarce ($x \to 0$), the price exponentially approaches the maximum, making it mathematically impossible to corner the entire market.
 
 ### The Implementation (PL/pgSQL)
 

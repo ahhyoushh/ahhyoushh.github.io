@@ -4,7 +4,7 @@ date: "March 2026"
 status: "Active / Version 2"
 ---
 
-The evolution from polling to WebSockets, and from sigmoid curves to Binary LMSR.
+# The evolution from polling to WebSockets, and from sigmoid curves to Binary LMSR.
 
 | Stack | Realtime | Latency | Engine | Language |
 |-------|----------|---------|--------|----------|
@@ -26,10 +26,10 @@ v_price_yes := exp(v_q / v_b) / (1 + exp(v_q / v_b));
 ```
 
 $$
-"Price(YES)" = e^(q/b) / (1 + e^(q/b))
+\text{Price(YES)} = \frac{e^{q/b}}{1 + e^{q/b}}
 $$
 
-This ensures mathematical fairness: prices asymptotically approach 0 or 1 but never reach them, and the house loss is strictly bounded to $b dot ln(2)$ per market.
+This ensures mathematical fairness: prices asymptotically approach 0 or 1 but never reach them, and the house loss is strictly bounded to $b \cdot \ln(2)$ per market.
 
 ## 3. Algo Trading: The BetJeeScript Compiler
 

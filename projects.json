@@ -1,9 +1,10 @@
 [
   {
     "title": "betjee: virtual prediction market",
-    "description": "built a virtual prediction market for jee shifts, <a href=\"https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/\" target=\"_blank\">loved on  <img src=\"https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://reddit.com&size=32\" class=\"icon-inline\" alt=\"\"/>  r/jeeneetards</a>. reached 1.2m requests, 2.3k users — mostly from reddit. documented some dumb decisions that blew past the free tier.",
-    "link": "blogs/betjee/",
+    "description": "built a virtual prediction market for jee shifts, loved on <a href=\"https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/\" target=\"_blank\">r/jeeneetards</a>. reached 1.2m requests, 2.3k users — mostly from reddit. documented some dumb decisions that blew past the free tier.",
+    "link": "/blogs/betjee",
     "highlight": true,
+    "date": "Feb 2026",
     "tags": ["supabase", "postgresql", "serverless system design"]
   },
   {
@@ -11,6 +12,7 @@
     "description": "CLI-first code editor with llama.cpp integration for fully local operation.",
     "link": "https://github.com/ahhyoushh/no-cursor",
     "highlight": true,
+    "date": "Jan 2026",
     "tags": [
       "python",
       "automation",
@@ -22,8 +24,9 @@
   {
     "title": "filesense",
     "description": "Local file organizer that groups documents using semantic similarity and user feedback.",
-    "link": "/projects/filesense",
+    "link": "/FileSense",
     "highlight": true,
+    "date": "Dec 2025",
     "tags": [
       "python",
       "sentence-embeddings",
@@ -38,6 +41,7 @@
     "description": "High-availability Q&A social platform with a 4-layer moderation pipeline. Dockerized Node.js on Google Cloud Run.",
     "link": "https://threads.ayushbhalerao.dev",
     "highlight": true,
+    "date": "Nov 2025",
     "tags": [
       "serverless functions",
       "nextjs",
@@ -50,6 +54,7 @@
     "title": "air quality index prediction",
     "description": "Predicts next-day AQI values using historical air quality data and machine learning.",
     "link": "https://github.com/ahhyoushh/AQI-Predictor",
+    "date": "Oct 2025",
     "tags": [
       "machine-learning",
       "Random Forest",
@@ -63,6 +68,7 @@
     "title": "e-waste recycling platform",
     "description": "Web platform that identifies electronic waste categories and suggests nearby recycling centers.",
     "link": "https://github.com/ahhyoushh/Senku",
+    "date": "Sep 2025",
     "tags": [
       "python",
       "flask",
@@ -76,30 +82,35 @@
     "title": "face detection doorcam",
     "description": "Real-time face detection system using OpenCV for basic monitoring and alerts.",
     "link": "https://github.com/ahhyoushh/opencv-facedetection-python",
+    "date": "Jun 2025",
     "tags": ["opencv", "haarCascadeClassifier", "python"]
   },
   {
     "title": "cli chat application",
     "description": "Command-line chat program implementing basic client–server communication.",
     "link": "https://github.com/ahhyoushh/cli-chat",
+    "date": "Mar 2025",
     "tags": ["python", "requests", "cli", "network-protocols"]
   },
   {
     "title": "discord moderator bot",
     "description": "Discord bot that detects similar phrases using text vectorization for basic moderation.",
     "link": "https://github.com/ahhyoushh/Chad-bot",
+    "date": "Jan 2025",
     "tags": ["python", "text-similarity", "discord.py"]
   },
   {
     "title": "movies crud api",
     "description": "REST API for managing movie records built using Go.",
     "link": "https://github.com/ahhyoushh/movies-crud-api-go",
+    "date": "Nov 2024",
     "tags": ["go", "rest-api", "Gorilla/mux"]
   },
   {
     "title": "trash collector cli",
     "description": "Simple CLI tool to store and track ideas or tasks from the terminal.",
     "link": "https://github.com/ahhyoushh/trash-collector-cli",
+    "date": "Aug 2024",
     "tags": ["python", "cli", "automation", "sql", "dev-tool", "deprecated"]
   }
 ]
