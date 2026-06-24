@@ -5,7 +5,11 @@
     "link": "/blogs/betjee",
     "highlight": true,
     "date": "Feb 2026",
-    "tags": ["supabase", "postgresql", "serverless system design"]
+    "tags": [
+      "supabase",
+      "postgresql",
+      "serverless system design"
+    ]
   },
   {
     "title": "no-cursor",
@@ -24,7 +28,7 @@
   {
     "title": "filesense",
     "description": "Local file organizer that groups documents using semantic similarity and user feedback.",
-    "link": "/FileSense",
+    "link": "/FileSense/wiki",
     "highlight": true,
     "date": "Dec 2025",
     "tags": [
@@ -83,34 +87,58 @@
     "description": "Real-time face detection system using OpenCV for basic monitoring and alerts.",
     "link": "https://github.com/ahhyoushh/opencv-facedetection-python",
     "date": "Jun 2025",
-    "tags": ["opencv", "haarCascadeClassifier", "python"]
+    "tags": [
+      "opencv",
+      "haarCascadeClassifier",
+      "python"
+    ]
   },
   {
     "title": "cli chat application",
     "description": "Command-line chat program implementing basic client–server communication.",
     "link": "https://github.com/ahhyoushh/cli-chat",
     "date": "Mar 2025",
-    "tags": ["python", "requests", "cli", "network-protocols"]
+    "tags": [
+      "python",
+      "requests",
+      "cli",
+      "network-protocols"
+    ]
   },
   {
     "title": "discord moderator bot",
     "description": "Discord bot that detects similar phrases using text vectorization for basic moderation.",
     "link": "https://github.com/ahhyoushh/Chad-bot",
     "date": "Jan 2025",
-    "tags": ["python", "text-similarity", "discord.py"]
+    "tags": [
+      "python",
+      "text-similarity",
+      "discord.py"
+    ]
   },
   {
     "title": "movies crud api",
     "description": "REST API for managing movie records built using Go.",
     "link": "https://github.com/ahhyoushh/movies-crud-api-go",
     "date": "Nov 2024",
-    "tags": ["go", "rest-api", "Gorilla/mux"]
+    "tags": [
+      "go",
+      "rest-api",
+      "Gorilla/mux"
+    ]
   },
   {
     "title": "trash collector cli",
     "description": "Simple CLI tool to store and track ideas or tasks from the terminal.",
     "link": "https://github.com/ahhyoushh/trash-collector-cli",
     "date": "Aug 2024",
-    "tags": ["python", "cli", "automation", "sql", "dev-tool", "deprecated"]
+    "tags": [
+      "python",
+      "cli",
+      "automation",
+      "sql",
+      "dev-tool",
+      "deprecated"
+    ]
   }
 ]
