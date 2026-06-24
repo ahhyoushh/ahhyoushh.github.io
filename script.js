@@ -108,6 +108,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (mdContainer) {
     const mdUrl = mdContainer.dataset.md;
-    if (mdUrl) renderMarkdown(mdUrl, mdContainer);
+    if (mdUrl) {
+      await renderMarkdown(mdUrl, mdContainer);
+      if (typeof hljs !== 'undefined') hljs.highlightAll();
+    }
   }
 });

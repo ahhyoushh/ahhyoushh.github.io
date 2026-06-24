@@ -8,10 +8,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <link rel="stylesheet" href="/style.css" />
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <style>
+    body { opacity: 0; transition: opacity 0.4s ease-in-out; }
+    body.loaded { opacity: 1; }
+  </style>
 </head>
 <body>
   <nav>
-    <a href="/blogs" style="color:var(--text-muted);font-size:0.85rem;font-family:'Fira Code',monospace;">← blogs</a>
+    <div class="nav-brand"><a href="/">$ ayush</a></div>
+    <a href="/blogs" class="nav-back">← blogs</a>
   </nav>
 
   <section class="md-content" id="md-content" data-md="../DiwaliAQI.md"></section>
@@ -25,5 +30,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="/script.js"></script>
+  <script>
+    window.addEventListener("load", () => { document.body.classList.add("loaded"); });
+  </script>
 </body>
 </html>

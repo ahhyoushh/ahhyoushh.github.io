@@ -107,6 +107,16 @@ nav {
   font-size: 1.2rem;
 }
 
+.nav-back {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.nav-back:hover {
+  color: var(--accent-hover);
+}
+
 .hero {
   padding: 2rem 3rem 1.5rem;
   max-width: 800px;
