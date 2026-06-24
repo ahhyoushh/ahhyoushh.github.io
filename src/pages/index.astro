@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import projects from '../data/projects.json';
+
+const blogs = (await getCollection('blogs')).sort((a, b) => {
+  const pa = a.data.date?.match(/(\w{3})\s+(\d{4})/i) || [];
+  const pb = b.data.date?.match(/(\w{3})\s+(\d{4})/i) || [];
+  if (!pa[2] && !pb[2]) return 0;
+  if (!pa[2]) return 1;
+  if (!pb[2]) return -1;
+  const monthOrd = (s) => 'janfebmaraprmayjunjulaugsepoctnovdec'.indexOf(s.slice(0,3).toLowerCase()) / 3;
+  const da = +pa[2] * 12 + monthOrd(pa[1]);
+  const db = +pb[2] * 12 + monthOrd(pb[1]);
+  return db - da;
+});
+
+const highlightProjects = projects.filter(p => p.highlight).slice(0, 5);
+const recentBlogs = blogs.slice(0, 3);
+---
+<Base title="ayush bhalerao">
+  <section class="hero">
+    <div class="hero-inner">
+      <img
+        src="https://github.com/ahhyoushh.png"
+        alt="ayush bhalerao"
+        class="hero-pfp"
+      />
+      <div class="hero-body">
+        <h1 class="hero-name">ayush bhalerao</h1>
+        <div class="hero-social">
+          <a href="https://github.com/ahhyoushh" target="_blank"><i class="fab fa-github"></i> <span>github</span></a>
+          <a href="https://linkedin.com/in/ayushbhalerao" target="_blank"><i class="fab fa-linkedin"></i> <span>linkedin</span></a>
+          <a href="mailto:iush.wrk@gmail.com"><i class="fas fa-envelope"></i> <span>email</span></a>
+          <a href="https://x.com/i_u_sh" target="_blank"><i class="fab fa-x-twitter"></i> <span>twitter</span></a>
+          <a href="https://www.reddit.com/user/Few-Blueberry-1015/" target="_blank"><i class="fab fa-reddit-alien"></i> <span>reddit</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="github-section">
+      <a
+        href="https://github.com/ahhyoushh"
+        target="_blank"
+        class="github-link-wrapper"
+      >
+        <img
+          src="https://ghchart.rshah.org/888888/ahhyoushh"
+          alt="Github Activity"
+          class="github-chart-wide"
+        />
+      </a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2 class="section-title">about</h2>
+    <div class="about-content">
+      <p class="about-text">
+        high school student, cs/iot geek. likes to explore stuff.
+      </p>
+      <p class="about-text">
+        my current interests are cybersec, edge ai, ml, rl, iot, football and larping.
+      </p>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <h2 class="section-title">projects</h2>
+    <ul class="project-list" id="project-list">
+      {
+        highlightProjects.map(p => {
+          const href = p.link;
+          const external = href.startsWith("http");
+          return (
+            <li class="project-item">
+              <div class="project-meta-row">
+                <div class="project-title">
+                  <a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}>{p.title}</a>
+                </div>
+                {p.date ? <span class="project-date">{p.date}</span> : null}
+              </div>
+              <p class="project-desc" set:html={p.description} />
+              {p.tags ? (
+                <div class="project-tags">
+                  {p.tags.map(t => (
+                    <span class={`tag${t === 'deprecated' ? ' tag-deprecated' : ''}`}>{t}</span>
+                  ))}
+                </div>
+              ) : null}
+            </li>
+          );
+        })
+      }
+    </ul>
+    <p class="section-footer"><a href="/projects">view all projects →</a></p>
+  </section>
+
+  <section class="blogs" id="blogs">
+    <h2 class="section-title">blogs</h2>
+    <ul class="blog-list" id="blog-list">
+      {
+        recentBlogs.map(b => (
+          <li class="blog-item">
+            <div class="blog-meta-row">
+              <div class="blog-title">
+                <a href={b.data.link}>{b.data.title}</a>
+              </div>
+              {b.data.date ? <span class="blog-date">{b.data.date}</span> : null}
+            </div>
+            <p class="blog-desc">{b.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="section-footer"><a href="/blogs">view all blogs →</a></p>
+  </section>
+
+  <section class="webring">
+    <h2>webring</h2>
+    <div class="webring-row">
+      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=prev">←</a>
+      <a href="https://ring.seggs.lol/"
+        ><img
+          src="https://0xmukesh.github.io/images/threadlocked.png"
+          alt="webring"
+      /></a>
+      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=next">→</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+
+    <style is:inline>
+      body {
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      body.loaded {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <slot name="nav">
+      <nav>
+        <div class="nav-brand">$ ayush</div>
+        <ul class="nav-links">
+          <li><a href="#about">about</a></li>
+          <li><a href="/projects">projects</a></li>
+          <li><a href="/blogs">blogs</a></li>
+        </ul>
+        <div class="nav-social">
+          <a href="https://github.com/ahhyoushh" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/ayushbhalerao" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:iush.wrk@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </nav>
+    </slot>
+
+    <slot />
+
+    <slot name="footer">
+      <footer>
+        <p class="footer-text">© 2025 ayush bhalerao</p>
+      </footer>
+    </slot>
+
+    <script data-goatcounter="https://ayush.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+    <script>
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".md-content pre.astro-code").forEach((pre) => {
+          const btn = document.createElement("button");
+          btn.className = "copy-btn";
+          btn.textContent = "copy";
+          btn.addEventListener("click", async () => {
+            const code = pre.querySelector("code");
+            if (!code) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              btn.textContent = "copied!";
+              btn.classList.add("copied");
+              setTimeout(() => {
+                btn.textContent = "copy";
+                btn.classList.remove("copied");
+              }, 2000);
+            } catch {
+              btn.textContent = "failed";
+            }
+          });
+          pre.appendChild(btn);
+        });
+      });
+    </script>
+  </body>
+</html>

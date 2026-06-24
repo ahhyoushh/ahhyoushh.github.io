@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>making a prediction market</title><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><link rel="icon" type="image/png" href="/assets/favicon.png"><style>
+      body {
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      body.loaded {
+        opacity: 1;
+      }
+    </style><link rel="stylesheet" href="/_astro/_slug_.DjgdxEYR.css"></head> <body>  <nav> <div class="nav-brand"><a href="/">$ ayush</a></div> <a href="/blogs" class="nav-back">← blogs</a> </nav>    <section class="md-content">  <h1 id="the-journey-from-a-viral-weekend-prototype-to-a-professional-realtime-exchange">The journey from a viral weekend prototype to a professional realtime exchange.</h1>
+<h2 id="select-platform-version">Select Platform Version</h2>
+<h3 id="version-10-legacy--the-viral-prototype">Version 1.0 (Legacy) — The Viral Prototype</h3>
+<p>Serverless architecture, sigmoid bonding curves, and the lesson of the 1.2 million request “hug of death.”</p>
+<p><a href="#v1-report">Read V1 Deep-Dive</a></p>
+<h3 id="version-20-current--the-realtime-exchange">Version 2.0 (Current) — The Realtime Exchange</h3>
+<p>WebSocket architecture via Durable Objects, Binary LMSR engine, and integrated Algo Trading Studio.</p>
+<p><a href="/blogs/betjee_v2">Explore V2 Features</a></p>
+<hr>
+<div class="note">
+<p>Showing Legacy V1 Report below. For the latest architecture, see V2.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Project</th><th>Uptime</th><th>Requests</th><th>Views</th><th>Users</th><th>Egress</th></tr></thead><tbody><tr><td>BetJee</td><td>48 Hours</td><td>1.2 Million</td><td>11k</td><td>2.4k</td><td>13GB (264%)</td></tr></tbody></table>
+<h2 id="1-introduction-the-meme-economy">1. Introduction: The “Meme” Economy</h2>
+<p>In the Indian engineering ecosystem, the <strong>Joint Entrance Examination (JEE)</strong> is the ultimate arbiter of fate. As the exam happens across multiple days and shifts, the difficulty varies. Students obsess over which shift was the “hardest”, often betting that their shift was the toughest by human nature (since it’s a percentile-based exam).</p>
+<p><img src="/assets/betjee/google_analytics.png" alt="Google Analytics Overview">
+<em>Fig 1. Performance Overview: 11k views in 48 hours (<a href="https://analytics.google.com/analytics/web/#/a249287112p523693725/reports/dashboard?r=13601545908&#x26;params=_u.comparisonOption%3Ddisabled%26_u.date00%3D20260208%26_u.date01%3D20260212&#x26;discardConfirmed=true">Google Analytics</a>)</em></p>
+<p>It started as a meme on <strong>r/JEENEETARDS</strong> (<a href="https://www.reddit.com/r/JEENEETards">https://www.reddit.com/r/JEENEETards</a>).</p>
+<p>Post made:</p>
+<p><a href="https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/">https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/</a></p>
+<p>I realized this was a perfect use case for a <strong>Prediction Market</strong>—an exchange where the price of an asset (a specific shift) reflects the collective belief of the crowd. I built <strong>BetJee</strong> to test this hypothesis. It spiraled from a weekend project into a distributed system handling <strong>1.2 million requests</strong>.</p>
+<p><img src="/assets/betjee/active_user_count.png" alt="Realtime Active Users">
+<em>Fig 2. Realtime Traffic: ~200 concurrent users constantly betting</em></p>
+<p>This is a deep dive into the architecture, the math behind the economy, and why I had to shut it down due to database egress limits (264% of quota) and my upcoming <strong>12th-grade Board Exams</strong> eating up my time.</p>
+<h2 id="2-database-architecture-the-ledger">2. Database Architecture: The Ledger</h2>
+<p>Because this was a financial system (even with fake currency), data integrity was crucial. I designed a normalized PostgreSQL schema.</p>
+<p>All schemas, policies and trade_rpc queries are available on <a href="https://github.com/ahhyoushh/BetJee">GitHub</a></p>
+<h3 id="a-schema-definitions">A. Schema Definitions</h3>
+<p>I separated user identity (<code>users</code>) from authentication secrets (<code>accounts</code>) to ensure security.</p>
+<p><strong>The Market State:</strong>
+This table held the live state of every shift. I used an integer for <code>remaining_shares</code> to represent the liquidity pool. Markets were fixed to be 21s1, 21s2, 22s1, 22s2, 23s1, 23s2, 24s1, 24s2, 28s1 and 28s2.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> markets</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  shift_id </span><span style="color:#F97583">INTEGER</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  code </span><span style="color:#F97583">TEXT</span><span style="color:#F97583"> NOT NULL</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">-- e.g., "27 JAN S1"</span></span>
+<span class="line"><span style="color:#E1E4E8">  remaining_shares </span><span style="color:#F97583">INTEGER</span><span style="color:#F97583"> NOT NULL</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">-- The liquidity pool</span></span>
+<span class="line"><span style="color:#E1E4E8">  updated_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<p><strong>The Immutable Ledger:</strong>
+Every trade was recorded here. This allowed me to reconstruct the entire market history if the state ever corrupted. I enforced an immutable record using <code>GENERATED ALWAYS AS IDENTITY</code>.</p>
+<p><em>Note on Short Selling:</em> The schema supports negative integers for shares. This enabled <strong>Short Selling</strong>—allowing users to bet <em>against</em> a shift being hard. If a user sold shares they didn’t own, they entered a negative position (e.g., -10 shares), effectively increasing the liquidity pool and driving the price down.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> transactions</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  id </span><span style="color:#F97583">BIGINT</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#F97583"> GENERATED</span><span style="color:#F97583"> ALWAYS</span><span style="color:#F97583"> AS</span><span style="color:#F97583"> IDENTITY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  user_id </span><span style="color:#F97583">TEXT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> users(id),</span></span>
+<span class="line"><span style="color:#E1E4E8">  shift_id </span><span style="color:#F97583">INTEGER</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> markets(shift_id),</span></span>
+<span class="line"><span style="color:#E1E4E8">  shares </span><span style="color:#F97583">INTEGER</span><span style="color:#F97583"> NOT NULL</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">-- Positive for Buy, Negative for Sell</span></span>
+<span class="line"><span style="color:#E1E4E8">  price </span><span style="color:#F97583">NUMERIC</span><span style="color:#F97583"> NOT NULL</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">-- Execution price</span></span>
+<span class="line"><span style="color:#F97583">  type</span><span style="color:#F97583"> TEXT</span><span style="color:#F97583"> CHECK</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">type</span><span style="color:#F97583"> IN</span><span style="color:#E1E4E8"> (</span><span style="color:#9ECBFF">'buy'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'sell'</span><span style="color:#E1E4E8">)),</span></span>
+<span class="line"><span style="color:#F97583">  timestamp</span><span style="color:#F97583"> TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<p><strong>The Defense Layer:</strong>
+There were around 800 bot accounts created on the initial Linear-bonding curve model, manipulating the market. To fight botnets, I tracked IP addresses in a Redis-like structure within Postgres to rate-limit trades.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> ip_limits</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  ip_address </span><span style="color:#F97583">TEXT</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  last_username </span><span style="color:#F97583">TEXT</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  last_trade_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<h3 id="b-row-level-security-rls-policies">B. Row Level Security (RLS) Policies</h3>
+<p>I implemented a <strong>“Service-Role Only”</strong> write architecture. While the public (<code>anon</code>) could <em>read</em> the market data to render charts, they could effectively <em>never</em> write to the database directly. All writes had to go through the Edge Functions (RPC).</p>
+<p><strong>Policy: Public Read Access</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> POLICY</span><span style="color:#9ECBFF"> "public read markets"</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> markets</span></span>
+<span class="line"><span style="color:#F97583">FOR</span><span style="color:#F97583"> SELECT</span></span>
+<span class="line"><span style="color:#F97583">TO</span><span style="color:#E1E4E8"> anon</span></span>
+<span class="line"><span style="color:#F97583">USING</span><span style="color:#E1E4E8"> (true);</span></span></code></pre>
+<p><strong>Policy: Service-Only Write Access</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> POLICY</span><span style="color:#9ECBFF"> "service only users"</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">FOR</span><span style="color:#E1E4E8"> ALL</span></span>
+<span class="line"><span style="color:#F97583">TO</span><span style="color:#E1E4E8"> service_role</span></span>
+<span class="line"><span style="color:#F97583">USING</span><span style="color:#E1E4E8"> (true)</span></span>
+<span class="line"><span style="color:#F97583">WITH</span><span style="color:#F97583"> CHECK</span><span style="color:#E1E4E8"> (true);</span></span></code></pre>
+<h2 id="3-the-pricing-engine-solving-the-whale-problem">3. The Pricing Engine: Solving the “Whale” Problem</h2>
+<p><strong>The Problem:</strong>
+My initial prototype used a <strong>Linear Bonding Curve</strong> (Price = k * Supply). This failed immediately. A single “whale” (a user with high capital, mostly a bot-manipulated user) bought 500 shares, pushing the price linearly to infinity and crashing the market liquidity.</p>
+<p><img src="/assets/betjee/initial_linear_market.png" alt="Initial Market State (Linear Curve)">
+<em>Fig 3. Early prototype using Linear Bonding Curve (Highly Volatile and bot sensitive)</em></p>
+<p><strong>The Solution:</strong>
+I pivoted to a <strong>Sigmoid Bonding Curve</strong>. This acts as an Automated Market Maker (AMM).</p>
+<ul>
+<li><strong>Low Demand:</strong> Price increases slowly.</li>
+<li><strong>Mid Demand:</strong> Price accelerates (high volatility).</li>
+<li><strong>High Demand:</strong> Price plateaus as it approaches the cap.</li>
+</ul>
+<p><img src="/assets/betjee/sigmoid_curve.png" alt="Sigmoid Curve Implementation">
+<em>Fig 4. Stabilized Market after Sigmoid Update</em></p>
+<h3 id="the-mathematics">The Mathematics</h3>
+<p>To model this, I utilized the logistic function. The price <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span></span></span></span> as a function of remaining supply <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is defined as:</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>P</mi><mi>min</mi><mo>⁡</mo></msub><mo>+</mo><mfrac><mrow><msub><mi>P</mi><mi>max</mi><mo>⁡</mo></msub><mo>−</mo><msub><mi>P</mi><mi>min</mi><mo>⁡</mo></msub></mrow><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>k</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(x) = P_{\min} + \frac{P_{\max} - P_{\min}}{1 + e^{-k(x - x_0)}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">i</span><span class="mtight">n</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1477em;vertical-align:-0.7873em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.296em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.814em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">i</span><span class="mtight">n</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7873em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+<p>Where:</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span></span></span></span> is the <strong>steepness</strong> (volatility).</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">x_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is the <strong>midpoint</strong> (where price action is most volatile).</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>min</mi><mo>⁡</mo></msub></mrow><annotation encoding="application/x-tex">P_{\min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3175em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">i</span><span class="mtight">n</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>max</mi><mo>⁡</mo></msub></mrow><annotation encoding="application/x-tex">P_{\max}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> are the hard floors and caps.</li>
+</ul>
+<p>This formula ensures that as shares become scarce (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x \to 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>), the price exponentially approaches the maximum, making it mathematically impossible to corner the entire market.</p>
+<h3 id="the-implementation-plpgsql">The Implementation (PL/pgSQL)</h3>
+<p>I moved the pricing logic <em>inside</em> the database using a Postgres RPC function (<code>handle_trade</code>) to ensure it executed atomically.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Calculate Price at Start</span></span>
+<span class="line"><span style="color:#E1E4E8">v_price_start :</span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> v_price_min </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> (v_price_max </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> v_price_min) </span><span style="color:#F97583">/</span></span>
+<span class="line"><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#F97583"> +</span><span style="color:#79B8FF"> EXP</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">v_sigmoid_steepness </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> (((p_total_shares_cap </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> v_remaining_shares) </span><span style="color:#F97583">/</span><span style="color:#E1E4E8"> v_max_tradable_shares) </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> v_sigmoid_mid_point)));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Calculate Price at End (After shares are removed)</span></span>
+<span class="line"><span style="color:#E1E4E8">v_price_end :</span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> v_price_min </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> (v_price_max </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> v_price_min) </span><span style="color:#F97583">/</span></span>
+<span class="line"><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#F97583"> +</span><span style="color:#79B8FF"> EXP</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">v_sigmoid_steepness </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> (((p_total_shares_cap </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> (v_remaining_shares </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> p_shares)) </span><span style="color:#F97583">/</span><span style="color:#E1E4E8"> v_max_tradable_shares) </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> v_sigmoid_mid_point)));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Execution Price = Average of Start and End</span></span>
+<span class="line"><span style="color:#E1E4E8">v_avg_price :</span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> (v_price_start </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> v_price_end) </span><span style="color:#F97583">/</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h2 id="4-advanced-features-stop-loss--recursive-execution">4. Advanced Features: Stop Loss &#x26; Recursive Execution</h2>
+<p>A major challenge was implementing <strong>Stop Losses</strong> in a serverless environment. Since I couldn’t afford to run a 24/7 background worker to check prices, I used an <strong>Event-Driven Recursive Trigger</strong>.</p>
+<p><img src="/assets/betjee/short%20selling%20stop%20loss.webp" alt="Short Selling and Stop Loss Interface">
+<em>Fig 5. Short Selling &#x26; Stop Loss Interface (<a href="https://www.reddit.com/r/betjee/comments/1r0zrf6/stop_loss_and_short_selling_live_please_report/?utm_source=share&#x26;utm_medium=web3x&#x26;utm_name=web3xcss&#x26;utm_term=1&#x26;utm_content=share_button">Reddit Update</a>)</em></p>
+<p><strong>The Logic:</strong>
+Inside the <code>handle_trade</code> SQL function, after a trade executes and the price shifts, the system immediately checks the <code>stop_losses</code> table. If the new price crosses a user’s trigger threshold, the function <strong>recursively calls itself</strong> to execute the stop-loss order within the same transaction block.</p>
+<p>This ensured that stop losses were executed instantly with zero latency, purely within the database layer.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- 8. TRIGGER STOP LOSSES (Recursion)</span></span>
+<span class="line"><span style="color:#F97583">FOR</span><span style="color:#E1E4E8"> v_sl_record </span><span style="color:#F97583">IN</span></span>
+<span class="line"><span style="color:#F97583">  DELETE</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> stop_losses</span></span>
+<span class="line"><span style="color:#F97583">  WHERE</span><span style="color:#E1E4E8"> shift_id </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> p_shift_id</span></span>
+<span class="line"><span style="color:#F97583">  AND</span><span style="color:#E1E4E8"> ((shares </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 0</span><span style="color:#F97583"> AND</span><span style="color:#E1E4E8"> trigger_price </span><span style="color:#F97583">>=</span><span style="color:#E1E4E8"> v_price_end) </span><span style="color:#F97583">OR</span><span style="color:#E1E4E8"> (shares </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#F97583"> AND</span><span style="color:#E1E4E8"> trigger_price </span><span style="color:#F97583">&#x3C;=</span><span style="color:#E1E4E8"> v_price_end))</span></span>
+<span class="line"><span style="color:#E1E4E8">  RETURNING </span><span style="color:#F97583">*</span></span>
+<span class="line"><span style="color:#F97583">LOOP</span></span>
+<span class="line"><span style="color:#6A737D">  -- Execute force trade</span></span>
+<span class="line"><span style="color:#E1E4E8">  PERFORM handle_trade(</span><span style="color:#79B8FF">v_sl_record</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">user_id</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">v_sl_record</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">shift_id</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">v_sl_record</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">shares</span><span style="color:#E1E4E8">, ... </span><span style="color:#9ECBFF">'SYSTEM'</span><span style="color:#E1E4E8">, TRUE);</span></span>
+<span class="line"><span style="color:#F97583">END</span><span style="color:#F97583"> LOOP</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h2 id="5-concurrency-the-double-spend-race-condition">5. Concurrency: The “Double Spend” Race Condition</h2>
+<p><strong>The Problem:</strong>
+With 200 trades per minute, Race Conditions were inevitable. If User A and User B buy the last 10 shares at the exact same millisecond, a standard <code>SELECT</code> then <code>UPDATE</code> would result in negative inventory (a double spend).</p>
+<p><strong>The Fix:</strong>
+I enforced <strong>Pessimistic Locking</strong> using the <code>FOR UPDATE</code> clause.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- LOCK ROWS (Concurrency Safety)</span></span>
+<span class="line"><span style="color:#6A737D">-- This line halts any other transaction trying to touch this specific market</span></span>
+<span class="line"><span style="color:#6A737D">-- until the current transaction commits or rolls back.</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> remaining_shares </span><span style="color:#F97583">INTO</span><span style="color:#E1E4E8"> v_remaining_shares</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> markets</span></span>
+<span class="line"><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> shift_id </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> p_shift_id </span><span style="color:#F97583">FOR</span><span style="color:#F97583"> UPDATE</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- LIQUIDITY CHECK (Atomic)</span></span>
+<span class="line"><span style="color:#F97583">IF</span><span style="color:#E1E4E8"> p_shares </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#F97583"> AND</span><span style="color:#E1E4E8"> (v_remaining_shares </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> p_shares) </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> p_min_market_shares </span><span style="color:#F97583">THEN</span></span>
+<span class="line"><span style="color:#E1E4E8">    RAISE EXCEPTION </span><span style="color:#9ECBFF">'Liquidity Limit: Cannot buy, market is dry.'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">END</span><span style="color:#F97583"> IF</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h2 id="6-security-the-bot-war-and-the-wipe">6. Security: The Bot War and “The Wipe”</h2>
+<p>As the platform trended, botnets arrived. They created thousands of accounts to farm the signup bonus and manipulate prices.</p>
+<p><strong>Evidence of bot manipulation:</strong></p>
+<ul>
+<li><a href="https://www.reddit.com/r/betjee/comments/1r0i8iw/comment/o4jtiz5/">Reddit Post 1 (Bot Manipulation)</a></li>
+<li><a href="https://www.reddit.com/r/JEENEETards/comments/1r0f85y/harshad_mehta/">Reddit Post 2 (Harshad Mehta Pump)</a></li>
+<li><a href="https://www.reddit.com/r/JEENEETards/comments/1r0fit1/boosting_24s2_be_ready/">Reddit Post 3 (Market Boosting)</a></li>
+</ul>
+<p><strong>The Problem:</strong>
+Banning an account wasn’t enough; they would just create more. Furthermore, if I banned a bot that held 50% of the shares, those shares would be “frozen,” destroying the market liquidity.</p>
+<p><strong>The Fix: “Scorched Earth” Protocol</strong>
+I wrote a <code>wipeUserCompletely</code> function in Deno. It utilized heuristic analysis (e.g., >3 accounts created on one IP in &#x3C;15 seconds).</p>
+<p><strong>Code Segment: The Deflationary Wipe</strong>
+This function deletes the user and their positions but <strong>does not refund the shares to the market pool</strong>. The shares are effectively “burned.” This prevents the price from crashing, preserving value for legitimate investors.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// Deno Edge Function</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> wipeUserCompletely</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">supa</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">usernames</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">[], </span><span style="color:#FFAB70">ip</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`[WIPE] Wiping users: ${</span><span style="color:#E1E4E8">usernames</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">join</span><span style="color:#9ECBFF">(</span><span style="color:#9ECBFF">", "</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">} on IP ${</span><span style="color:#E1E4E8">ip</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // 1. Delete Transactions (Erase history)</span></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> supa.</span><span style="color:#B392F0">from</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"transactions"</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">delete</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">in</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"user_id"</span><span style="color:#E1E4E8">, usernames);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // 2. Delete Positions (The "Burn")</span></span>
+<span class="line"><span style="color:#6A737D">  // We delete the ownership record, but we DO NOT increment 'remaining_shares'</span></span>
+<span class="line"><span style="color:#6A737D">  // in the markets table. The supply stays constricted.</span></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> supa.</span><span style="color:#B392F0">from</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"positions"</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">delete</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">in</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"user_id"</span><span style="color:#E1E4E8">, usernames);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // 3. Delete Authentication</span></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> supa.</span><span style="color:#B392F0">from</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"accounts"</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">delete</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">in</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"username"</span><span style="color:#E1E4E8">, usernames);</span></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> supa.</span><span style="color:#B392F0">from</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"users"</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">delete</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">in</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"id"</span><span style="color:#E1E4E8">, usernames);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="7-architecture--scalability-challenges">7. Architecture &#x26; Scalability Challenges</h2>
+<h3 id="the-realtime-illusion">The “Realtime” Illusion</h3>
+<p>Supabase offers Realtime (WebSockets), but the free tier has concurrent connection limits. With 2,300+ users, I couldn’t use it.</p>
+<p><img src="/assets/betjee/supabase_report.png" alt="API Calls Report">
+<em>Fig 6. API Traffic Spike: 1.2M+ calls in 48 hours</em></p>
+<p><strong>The Solution:</strong>
+I implemented an optimized <strong>Polling Architecture</strong>. The client requested <code>delta</code> (changes since the last timestamp) every 3 seconds.</p>
+<ul>
+<li><strong>Pros:</strong> Stateless, simple, worked within standard HTTP request quotas.</li>
+<li><strong>Cons:</strong> Created massive egress traffic (13GB+), hitting <strong>264%</strong> of my Supabase limit.</li>
+</ul>
+<p><img src="/assets/betjee/egrees_limit.png" alt="Supabase Egress Limit">
+<em>Fig 7. Consequence of Polling: 264% Egress Limit Reached</em></p>
+<h3 id="the-frontend-tax-bug">The Frontend Tax Bug</h3>
+<p>To reduce server load, I calculated the estimated tax (1.67%) on the client side using Vanilla JS.</p>
+<p><strong>The Mistake:</strong> I updated the Sigmoid <code>steepness</code> parameter on the backend SQL but forgot to push the update to the frontend <code>app.js</code>.</p>
+<p><strong>The Result:</strong> Users saw one price on the UI, but the trade executed at a slightly different price.</p>
+<p><strong>The Lesson:</strong> Never duplicate business logic. The database should be the <strong>Single Source of Truth</strong>.</p>
+<h2 id="8-the-community-irony">8. The Community Irony</h2>
+<p>Perhaps the most educational aspect of this project wasn’t the code, but the sociology.</p>
+<p>One of the users created a subreddit, <strong>r/betjee</strong> (<a href="https://www.reddit.com/r/betjee/">link</a>), for me to gather feedback and bug reports. It grew to over 30 active members quickly. However, as I focused entirely on fixing critical backend scaling issues (and studying for Physics), I was unable to moderate the community actively.</p>
+<p>In a twist of irony, the creator of the subreddit, removed me from the moderation team. The community I built to discuss the algorithm and errors actively, is now, to my knowledge, being used for unrelated promotions.</p>
+<p>It was a harsh lesson: <strong>Decentralized systems are great for code, but communities require centralized and trustworthy leadership.</strong></p>
+<h2 id="9-conclusion">9. Conclusion</h2>
+<p>BetJee was a crash course in high-frequency system design. I went from knowing nothing about what the stock market is to managing a trading engine with over 200 transactions a minute.</p>
+<p>However, the reality of cloud costs and the imminent reality of my <strong>12th-grade Board Exams</strong> forced me to shut it down.</p>
+<p>Final reddit post:</p>
+<p><a href="https://www.reddit.com/r/betjee/comments/1r18jkc/and_it_ends/">https://www.reddit.com/r/betjee/comments/1r18jkc/and_it_ends/</a></p>  </section>   <footer> <p class="footer-text">© 2025 ayush bhalerao</p> </footer>  <script data-goatcounter="https://ayush.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> <script type="module">document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".md-content pre.astro-code").forEach(e=>{const t=document.createElement("button");t.className="copy-btn",t.textContent="copy",t.addEventListener("click",async()=>{const n=e.querySelector("code");if(n)try{await navigator.clipboard.writeText(n.textContent),t.textContent="copied!",t.classList.add("copied"),setTimeout(()=>{t.textContent="copy",t.classList.remove("copied")},2e3)}catch{t.textContent="failed"}}),e.appendChild(t)})});</script> <script type="module">window.addEventListener("load",()=>{document.body.classList.add("loaded")});</script> </body> </html>

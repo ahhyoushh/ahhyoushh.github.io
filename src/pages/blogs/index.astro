@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const monthOrd = (s) => 'janfebmaraprmayjunjulaugsepoctnovdec'.indexOf(s.slice(0,3).toLowerCase()) / 3;
+const byDate = (a, b) => {
+  const pa = a.data.date?.match(/(\w{3})\s+(\d{4})/i) || [];
+  const pb = b.data.date?.match(/(\w{3})\s+(\d{4})/i) || [];
+  if (!pa[2] && !pb[2]) return 0;
+  if (!pa[2]) return 1;
+  if (!pb[2]) return -1;
+  const da = +pa[2] * 12 + monthOrd(pa[1]);
+  const db = +pb[2] * 12 + monthOrd(pb[1]);
+  return db - da;
+};
+
+const blogs = (await getCollection('blogs')).sort(byDate);
+---
+<Base title="blogs — ayush bhalerao">
+  <Fragment slot="nav">
+    <nav>
+      <div class="nav-brand"><a href="/">$ ayush</a></div>
+      <ul class="nav-links">
+        <li><a href="/#about">about</a></li>
+        <li><a href="/projects">projects</a></li>
+        <li><a href="/blogs">blogs</a></li>
+      </ul>
+      <div class="nav-social">
+        <a href="https://github.com/ahhyoushh" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/ayushbhalerao" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:iush.wrk@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </nav>
+  </Fragment>
+
+  <section class="hero" style="padding-bottom: 1rem">
+    <div class="hero-inner">
+      <img
+        src="https://github.com/ahhyoushh.png"
+        alt="ayush bhalerao"
+        class="hero-pfp"
+      />
+      <div class="hero-body">
+        <h1 class="hero-name">ayush bhalerao</h1>
+        <div class="hero-social">
+          <a href="https://github.com/ahhyoushh" target="_blank"><i class="fab fa-github"></i> <span>github</span></a>
+          <a href="https://linkedin.com/in/ayushbhalerao" target="_blank"><i class="fab fa-linkedin"></i> <span>linkedin</span></a>
+          <a href="mailto:iush.wrk@gmail.com"><i class="fas fa-envelope"></i> <span>email</span></a>
+          <a href="https://x.com/i_u_sh" target="_blank"><i class="fab fa-x-twitter"></i> <span>twitter</span></a>
+          <a href="https://www.reddit.com/user/Few-Blueberry-1015/" target="_blank"><i class="fab fa-reddit-alien"></i> <span>reddit</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blogs" style="border-top: none">
+    <h2 class="section-title">blogs</h2>
+    <ul class="blog-list" id="blog-list-all">
+      {
+        blogs.map(b => (
+          <li class="blog-item">
+            <div class="blog-meta-row">
+              <div class="blog-title">
+                <a href={b.data.link}>{b.data.title}</a>
+              </div>
+              {b.data.date ? <span class="blog-date">{b.data.date}</span> : null}
+            </div>
+            <p class="blog-desc">{b.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="webring">
+    <h2>webring</h2>
+    <div class="webring-row">
+      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=prev">←</a>
+      <a href="https://ring.seggs.lol/"
+        ><img
+          src="https://0xmukesh.github.io/images/threadlocked.png"
+          alt="webring"
+      /></a>
+      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=next">→</a>
+    </div>
+  </section>
+
+  <Fragment slot="footer">
+    <footer>
+      <p class="footer-text"><a href="/">← back home</a></p>
+    </footer>
+  </Fragment>
+</Base>
