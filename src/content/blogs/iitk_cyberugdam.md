@@ -24,7 +24,7 @@ Link for the x thread is [here](https://x.com/i_u_sh/status/2070457857074688395?
 
 *Demonstration of the OTP bypass vulnerability.*
 
-I decided to shoot my shot and apply for B. Cyber programme (knowing I would just be shortlisted based of my jeem %ile considering how bad it was and the general qualifications for these IIT BS programmes being JEE Mains qualified). After filling the registration form, the first thing I noticed was re-generating captcha was instant. Opened up the network tab and expectedly it was fully client-side jQuery plugin which generated a character-matrix client-side and validated it client-side as well. I found where the plugin was located, and it was of course just an algorithmic captcha generator called realperson.js.
+I decided to shoot my shot and apply for B. Cyber programme (knowing I would not be shortlisted because of how bad my jeem %ile is). After filling the registration form, the first thing I noticed was re-generating captcha was instant. Opened up the network tab and expectedly it was fully client-side jQuery plugin which generated a character-matrix client-side and validated it client-side as well. I found where the plugin was located, and it was of course just an algorithmic captcha generator called realperson.js.
 
 they removed the references of this plugin and use a Image-based captcha now but they did not delete it yet, still publicly visible at [plugins/form-validator/jquery.realperson.js](https://pingala.iitk.ac.in/CYBER_UGADM/resources/theme/AdminLTEE/plugins/form-validator/jquery.realperson.js)
 
@@ -300,4 +300,3 @@ decode();
 And ofcourse, i got otp rate-limited. But, to my suprise, this ratelimit was a simlpe JSESSIONID created for my browser and stored as a cookie context. lmao.
 
 i made a simple python script with playwright to create multiple sessions, bypassing the JSESSIONID cookie by clearing context for each session. Basically, now i could just spam create registration sessions till they either their server goes OOM holding all these otps in memory or their email server starts flagging. Ofcourse, me being a responsible man, i did not do any of those and responsibly report them to <pingala@iitk.ac.in> , would have applied for B.Cyber if i would have got my acknowledgement mail atleast. (they fixed the captcha with an image-based captcha, and server-side verification as i suggested them in the email)
-
