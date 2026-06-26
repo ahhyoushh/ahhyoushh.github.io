@@ -1,5 +1,5 @@
 ---
-title: "finding minor vulnerabilities on IITK B.Cyber registration portal without any prior cybersec inclination(ironic)"
+title: "finding minor vulnerabilities on IITK B.Cyber registration portal without any prior cybersec inclination  (ironic)"
 description: "non-existent captcha (basically a client-side gen/validate plugin), how i found a way to exploit it, & reported it"
 link: "/blogs/iitk_cyberugdam"
 date: "jun 2026"
