@@ -1,5 +1,13 @@
 [
   {
+    "title": "sakurafetch",
+    "description": "Falling cherry blossom petals + neofetch-style system info in your terminal. Curses-based TUI with multiple themes, wind simulation, and falling petal accumulation.",
+    "link": "https://github.com/ahhyoushh/sakurafetch",
+    "highlight": true,
+    "date": "Jun 2026",
+    "tags": ["python", "curses", "cli", "ricing/linux"]
+  },
+  {
     "title": "betjee: virtual prediction market",
     "description": "built a virtual prediction market for jee shifts, loved on <a href=\"https://www.reddit.com/r/JEENEETards/comments/1r04qpp/so_i_made_it/\" target=\"_blank\">r/jeeneetards</a>. reached 1.2m requests, 2.3k users — mostly from reddit. documented some dumb decisions that blew past the free tier.",
     "link": "/blogs/betjee",
