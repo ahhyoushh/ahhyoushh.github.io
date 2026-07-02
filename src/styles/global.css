@@ -765,3 +765,29 @@ footer {
   overflow-x: auto;
   text-align: center;
 }
+
+/* About Languages Inline Section */
+.lang-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-muted);
+}
+
+.lang-inline i {
+  font-size: 0.95rem;
+  vertical-align: middle;
+  transition: color 0.2s ease;
+}
+
+/* Hover colors for inline icons */
+.lang-inline:hover {
+  color: var(--text);
+}
+.lang-inline:hover i.devicon-python-plain { color: #3776ab; }
+.lang-inline:hover i.devicon-go-plain { color: #00add8; }
+.lang-inline:hover i.devicon-javascript-plain { color: #f7df1e; }
+.lang-inline:hover i.devicon-typescript-plain { color: #3178c6; }
+.lang-inline:hover i.devicon-postgresql-plain { color: #4169e1; }
+.lang-inline:hover i.devicon-c-plain { color: #a8b9cc; }
+.lang-inline:hover i.devicon-rust-plain { color: #b7410e; }

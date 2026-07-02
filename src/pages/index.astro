@@ -9,7 +9,7 @@ const blogs = (await getCollection('blogs')).sort((a, b) => {
   if (!pa[2] && !pb[2]) return 0;
   if (!pa[2]) return 1;
   if (!pb[2]) return -1;
-  const monthOrd = (s) => 'janfebmaraprmayjunjulaugsepoctnovdec'.indexOf(s.slice(0,3).toLowerCase()) / 3;
+  const monthOrd = (s: string) => 'janfebmaraprmayjunjulaugsepoctnovdec'.indexOf(s.slice(0,3).toLowerCase()) / 3;
   const da = +pa[2] * 12 + monthOrd(pa[1]);
   const db = +pb[2] * 12 + monthOrd(pb[1]);
   return db - da;
@@ -59,7 +59,16 @@ const recentBlogs = blogs.slice(0, 3);
     <h2 class="section-title">about</h2>
     <div class="about-content">
       <p class="about-text">
-      high school student, i like building things that seems interesting to me (at first)
+      17, i like to build cool (imo) things.
+      </p>
+      <p class="about-text">
+      languages i know:  
+      <span class="lang-inline"><i class="devicon-python-plain"></i> python</span>, 
+      <span class="lang-inline"><i class="devicon-go-plain"></i> go</span>, 
+      <span class="lang-inline"><i class="devicon-typescript-plain"></i> js/ts</span>, 
+      <span class="lang-inline"><i class="devicon-postgresql-plain"></i> pgsql</span>, 
+      <span class="lang-inline"><i class="devicon-c-plain"></i> c</span>, 
+      <span class="lang-inline"><i class="devicon-rust-plain"></i> rust</span>
       </p>
     </div>
   </section>
