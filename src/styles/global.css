@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 :root {
@@ -83,10 +85,25 @@ nav {
 .nav-links a {
   font-size: 0.85rem;
   color: var(--text-muted);
-  transition: color 0.2s;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.25s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-hover);
+  transition: width 0.25s ease;
 }
 
 .nav-links a:hover { color: var(--accent-hover); }
+.nav-links a:hover::after { width: 100%; }
 
 .nav-social {
   display: flex;
@@ -96,12 +113,12 @@ nav {
 
 .nav-social a {
   font-size: 1rem;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s ease;
   display: inline-flex;
   align-items: center;
 }
 
-.nav-social a:hover { opacity: 0.75; }
+.nav-social a:hover { opacity: 0.75; transform: scale(1.15); }
 
 .nav-social .fab,
 .nav-social .fas {
@@ -112,11 +129,26 @@ nav {
   color: var(--text-muted);
   font-size: 0.85rem;
   transition: color 0.2s;
+  position: relative;
+  padding-bottom: 2px;
 }
 
 .nav-back:hover {
   color: var(--accent-hover);
 }
+
+.nav-back::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-hover);
+  transition: width 0.25s ease;
+}
+
+.nav-back:hover::before { width: 100%; }
 
 .hero {
   padding: 2rem 3rem 1.5rem;
@@ -163,11 +195,13 @@ nav {
   text-decoration: none;
 }
 
-.hero-social a:hover { opacity: 0.75; }
+.hero-social a:hover { opacity: 0.85; }
+.hero-social a:hover span { text-decoration-color: var(--accent-hover); }
 
 .hero-social a span {
   text-decoration: underline;
   text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
 }
 
 .hero-social .fab,
@@ -201,10 +235,10 @@ nav {
   width: 100%;
   text-decoration: none;
   opacity: 0.7;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.github-link-wrapper:hover { opacity: 1; }
+.github-link-wrapper:hover { opacity: 1; transform: scale(1.01); }
 
 .github-chart-wide {
   width: 100%;
@@ -220,7 +254,6 @@ nav {
   padding: 2.5rem 3rem;
   max-width: 800px;
   margin: 0 auto;
-  border-top: 1px solid var(--border);
 }
 
 .about-content { margin-bottom: 0; }
@@ -250,6 +283,17 @@ nav {
 .project-item {
   padding-bottom: 1.2rem;
   border-bottom: 1px solid var(--border);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.project-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+  transform: translateX(4px);
 }
 
 .project-item:last-child {
@@ -262,7 +306,8 @@ nav {
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 0.3rem;
-  gap: 1rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .project-date {
@@ -291,6 +336,8 @@ nav {
   font-size: 0.88rem;
   margin-bottom: 0.5rem;
   line-height: 1.6;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .project-desc a {
@@ -318,7 +365,9 @@ nav {
   text-underline-offset: 3px;
 }
 
-.section-footer a:hover { color: var(--accent-hover); }
+.section-footer a:hover {
+  color: var(--accent-hover);
+}
 
 .project-tags {
   display: flex;
@@ -333,8 +382,16 @@ nav {
   padding: 0.2rem 0.4rem;
   border: 1px solid var(--border);
   border-radius: 2px;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   background-color: rgba(136, 136, 136, 0.05);
+  cursor: default;
+}
+
+.tag:hover {
+  border-color: var(--accent-hover);
+  color: var(--accent-hover);
+  background-color: rgba(208, 208, 208, 0.08);
+  transform: translateY(-1px);
 }
 
 .tag-deprecated {
@@ -366,6 +423,17 @@ nav {
 .blog-item {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.blog-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+  transform: translateX(4px);
 }
 
 .blog-item:last-child {
@@ -378,7 +446,8 @@ nav {
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 0.3rem;
-  gap: 1rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .blog-title {
@@ -408,6 +477,8 @@ nav {
   color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.6;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .webring {
@@ -437,8 +508,9 @@ nav {
 .webring-row a {
   color: var(--text-muted);
   font-size: 1.1rem;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s ease;
   line-height: 1;
+  display: inline-block;
 }
 
 .webring-row a:hover { color: var(--accent-hover); }
@@ -449,10 +521,15 @@ nav {
   image-rendering: pixelated;
   display: block;
   opacity: 0.8;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s ease;
 }
 
-.webring-row a:hover img { opacity: 1; }
+.webring-row a:hover img {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.webring-row a:hover { transform: scale(1.15); }
 
 footer {
   padding: 1.5rem 3rem;
@@ -469,24 +546,168 @@ footer {
 
 @media (max-width: 768px) {
   nav {
-    flex-direction: column;
-    gap: 0.6rem;
-    padding: 0.8rem 1.2rem;
+    padding: 0.7rem 1.2rem;
+    gap: 0.5rem;
   }
 
-  .nav-links { gap: 0.8rem; justify-content: center; }
+  .nav-links { gap: 0.8rem; }
+  .nav-links a { font-size: 0.75rem; }
   .nav-social { gap: 0.6rem; }
+  .nav-social a { font-size: 0.85rem; }
+  .nav-brand { font-size: 0.85rem; letter-spacing: 1px; }
 
   .hero { padding: 1.5rem 1.2rem 1rem; }
   .hero-name { font-size: 2.2rem; }
   .hero-pfp { width: 64px; height: 64px; }
 
+  .hero-social {
+    gap: 0.8rem;
+  }
+
+  .hero-social a {
+    font-size: 0.78rem;
+  }
+
+  .hero-social .fab,
+  .hero-social .fas {
+    font-size: 0.85rem;
+  }
+
   .about,
   .projects,
   .blogs,
   .stats {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .webring {
+    padding: 1.5rem 1.2rem 1rem;
+  }
+
+  .project-title { font-size: 0.95rem; }
+  .project-desc { font-size: 0.82rem; }
+  .blog-title { font-size: 0.9rem; }
+  .blog-desc { font-size: 0.82rem; }
+  .project-date { font-size: 0.72rem; }
+  .blog-date { font-size: 0.7rem; }
+
+  .md-content {
     padding: 2rem 1.2rem;
   }
+
+  .md-content h1 { font-size: 1.8rem; }
+  .md-content h2 { font-size: 1.25rem; }
+  .md-content h3 { font-size: 1.05rem; }
+  .md-content p { font-size: 0.9rem; }
+  .md-content li { font-size: 0.9rem; }
+  .md-content pre { padding: 1rem; font-size: 0.8rem; }
+  .md-content table { font-size: 0.75rem; }
+  .md-content th,
+  .md-content td { padding: 0.4rem 0.5rem; }
+
+  .github-chart-wide {
+    max-width: 100%;
+    min-height: 30px;
+  }
+
+  .code-block-header { padding: 0.3rem 0.6rem; }
+
+  .section-footer { font-size: 0.8rem; }
+
+  .tag { font-size: 0.65rem; padding: 0.15rem 0.35rem; }
+
+  footer { padding: 1.2rem; }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 0.6rem 0.8rem;
+    gap: 0.35rem;
+  }
+
+  .nav-brand { font-size: 0.75rem; letter-spacing: 0.5px; flex-shrink: 1; }
+  .nav-links { gap: 0.45rem; flex: 0 1 auto; }
+  .nav-links a { font-size: 0.7rem; padding-bottom: 1px; }
+  .nav-social { gap: 0.35rem; }
+  .nav-social a { font-size: 0.75rem; }
+
+  .hero {
+    padding: 1.2rem 0.8rem 0.8rem;
+  }
+
+  .hero-inner {
+    gap: 1rem;
+  }
+
+  .hero-name {
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+  }
+
+  .hero-pfp {
+    width: 52px;
+    height: 52px;
+  }
+
+  .hero-social {
+    gap: 0.5rem;
+  }
+
+  .hero-social a {
+    font-size: 0.72rem;
+    gap: 0.25rem;
+  }
+
+  .hero-social a span {
+    text-underline-offset: 2px;
+  }
+
+  .hero-social .fab,
+  .hero-social .fas {
+    font-size: 0.78rem;
+  }
+
+  .about,
+  .projects,
+  .blogs,
+  .stats {
+    padding: 1.2rem 0.8rem;
+  }
+
+  .section-title { font-size: 1.2rem; }
+
+  .project-meta-row { gap: 0.3rem; }
+  .project-title { font-size: 0.88rem; }
+  .project-date { font-size: 0.68rem; }
+  .project-desc { font-size: 0.78rem; }
+
+  .blog-title { font-size: 0.85rem; }
+  .blog-date { font-size: 0.65rem; }
+  .blog-desc { font-size: 0.78rem; }
+
+  .webring {
+    padding: 1.2rem 0.8rem 0.8rem;
+  }
+
+  .webring h2 { font-size: 0.7rem; }
+  .webring-row { gap: 0.8rem; }
+  .webring-row a { font-size: 0.9rem; }
+  .webring-row img { width: 72px; height: 26px; }
+
+  .md-content {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .md-content h1 { font-size: 1.5rem; }
+  .md-content h2 { font-size: 1.1rem; }
+  .md-content h3 { font-size: 0.95rem; }
+  .md-content p { font-size: 0.85rem; }
+  .md-content li { font-size: 0.85rem; }
+  .md-content pre { padding: 0.8rem; font-size: 0.75rem; }
+
+  .tag { font-size: 0.6rem; padding: 0.12rem 0.3rem; }
+
+  footer { padding: 1rem 0.8rem; font-size: 0.72rem; }
 }
 
 .md-content {
@@ -598,17 +819,20 @@ footer {
   font-family: 'Fira Code', monospace;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s, transform 0.2s ease;
   line-height: 1;
 }
 
-.md-content pre:hover .copy-btn {
-  opacity: 1;
-}
+@media (hover: hover) {
+  .md-content pre:hover .copy-btn {
+    opacity: 1;
+  }
 
-.md-content pre .copy-btn:hover {
-  color: var(--accent-hover);
-  border-color: var(--accent-hover);
+  .md-content pre .copy-btn:hover {
+    color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: scale(1.05);
+  }
 }
 
 .md-content pre .copy-btn.copied {
@@ -722,6 +946,9 @@ footer {
   border-collapse: collapse;
   margin: 2rem 0;
   font-family: 'Fira Code', monospace;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .md-content th,
@@ -781,8 +1008,13 @@ footer {
 }
 
 /* Hover colors for inline icons */
+.lang-inline {
+  transition: all 0.2s ease;
+}
+
 .lang-inline:hover {
   color: var(--text);
+  transform: translateY(-1px);
 }
 .lang-inline:hover i.devicon-python-plain { color: #3776ab; }
 .lang-inline:hover i.devicon-go-plain { color: #00add8; }
