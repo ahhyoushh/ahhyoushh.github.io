@@ -32,14 +32,6 @@
     "tags": ["sentence-embedding models", "reinforcement-learning"]
   },
   {
-    "title": "threads",
-    "description": "High-availability Q&A social platform with a 4-layer moderation pipeline. Dockerized Node.js on Google Cloud Run.",
-    "link": "https://threads.ayushbhalerao.dev",
-    "highlight": true,
-    "date": "Nov 2025",
-    "tags": ["serverless functions","nextjs-ts", "docker", "cloud sql"]
-  },
-  {
     "title": "air quality index prediction",
     "description": "Predicts next-day AQI values using historical air quality data and machine learning.",
     "link": "https://github.com/ahhyoushh/AQI-Predictor",
