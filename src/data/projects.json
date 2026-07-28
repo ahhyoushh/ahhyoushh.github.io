@@ -21,7 +21,7 @@
     "link": "https://github.com/ahhyoushh/no-cursor",
     "highlight": true,
     "date": "Jan 2026",
-    "tags": ["llama.cpp(local ai)", "tui"]
+    "tags": ["llama.cpp(local ai)", "tui", "git & hashing algos"]
   },
   {
     "title": "filesense",
@@ -29,7 +29,7 @@
     "link": "/FileSense/wiki",
     "highlight": true,
     "date": "Dec 2025",
-    "tags": ["sentence-embedding models", "reinforcement-learning"]
+    "tags": ["sentence-embeddings","FAISS(vector dbs)","epsilon-greedy rl"]
   },
   {
     "title": "air quality index prediction",
