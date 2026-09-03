@@ -46,6 +46,3 @@ The Next.js frontend uses **Zustand** for state management. To handle high-frequ
 
 V1's IP-based rate limiting moved to **In-Memory Cooldowns** within the Durable Object. Instead of hitting KV (which has slow write propagation), the DO tracks `botId -> lastTrade` in a private Map. This provides **atomic check-and-set** logic, preventing race conditions from high-frequency bots.
 
-## 6. Conclusion
-
-BetJee v2 represents a shift from "viral prototype" to "financial system." It combines the atomicity of Postgres with the low-latency of the Edge, creating a robust platform for community-driven belief aggregation.
