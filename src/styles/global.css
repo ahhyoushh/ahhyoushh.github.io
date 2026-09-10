@@ -40,6 +40,7 @@ a:hover {
 .stats,
 .about,
 .projects,
+.contributions,
 .blogs {
   animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   opacity: 0;
@@ -48,6 +49,7 @@ a:hover {
 
 .hero { animation-delay: 0.1s; }
 .stats { animation-delay: 0.15s; }
+.contributions { animation-delay: 0.2s; }
 .about { animation-delay: 0.4s; }
 .projects { animation-delay: 0.5s; }
 .blogs { animation-delay: 0.6s; }
@@ -251,7 +253,7 @@ nav {
 }
 
 .about {
-  padding: 2.5rem 3rem;
+  padding: 0.5rem 3rem 2.5rem;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -264,6 +266,287 @@ nav {
   line-height: 1.7;
   max-width: 700px;
   font-size: 0.95rem;
+}
+
+.about-term {
+  color: var(--text);
+  font-style: italic;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.about-term:hover,
+.about-term.is-active {
+  color: var(--accent-hover);
+}
+
+.about-term-plain {
+  font-weight: 400;
+}
+
+.about-term-regular {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.about-term-normal {
+  font-style: normal;
+}
+
+.about-term-dotted {
+  text-decoration: none;
+  border-bottom: 1.5px dotted var(--text);
+}
+
+.about-popup {
+  position: absolute;
+  z-index: 99999;
+  background: var(--bg-alt);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+  padding: 0.5rem 0.6rem;
+  min-width: 170px;
+  max-width: 300px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.about-popup-label {
+  display: block;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.about-popup-text {
+  display: block;
+}
+
+.about-popup a {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.22rem 0;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.15s ease;
+}
+
+.about-popup a:hover { color: var(--accent-hover); }
+
+.about-popup a span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.about-popup a i {
+  width: 14px;
+  text-align: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.about-popup a svg {
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+.about-popup a:hover svg {
+  opacity: 0.8;
+}
+
+.about-popup-wiki {
+  margin-top: 0.3rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.3rem;
+}
+
+.contributions {
+  padding: 0 3rem 0.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.contrib-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.contrib-org {
+  position: relative;
+}
+
+.contrib-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.25rem 0.55rem 0.25rem 0.25rem;
+  cursor: pointer;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  transition: border-color 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.contrib-trigger:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.contrib-org.open .contrib-trigger {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.contrib-avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.contrib-count {
+  font-size: 0.65rem;
+  color: var(--accent);
+  margin-left: 0.1rem;
+}
+
+.contrib-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 380px;
+  max-width: 480px;
+  background: var(--bg-alt);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  z-index: 9999;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.contrib-org.open .contrib-panel {
+  display: block;
+}
+
+.contrib-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--accent);
+}
+
+.contrib-panel-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 2px;
+}
+
+.contrib-panel-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.15s;
+}
+
+.contrib-panel-link:hover {
+  color: #fff;
+}
+
+.contrib-panel-link svg {
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+.contrib-panel-link:hover svg {
+  opacity: 0.8;
+}
+
+.contrib-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.1s;
+  cursor: pointer;
+}
+
+.contrib-link:hover {
+  background: var(--bg-alt);
+}
+
+.contrib-link:not(:last-child) {
+  border-bottom: 1px solid var(--accent);
+}
+
+.contrib-id {
+  color: var(--accent);
+  font-size: 0.72rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.contrib-text {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+
+.contrib-link:hover .contrib-text {
+  color: var(--text);
+}
+
+.contrib-badge {
+  font-size: 0.58rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.contrib-badge-merged {
+  color: #3fb950;
+  background: rgba(63, 185, 80, 0.15);
+}
+
+.contrib-badge-closed {
+  color: #f85149;
+  background: rgba(248, 81, 73, 0.12);
+}
+
+.contrib-badge-open {
+  color: #58a6ff;
+  background: rgba(88, 166, 255, 0.12);
 }
 
 .projects {
@@ -575,6 +858,7 @@ footer {
 
   .about,
   .projects,
+  .contributions,
   .blogs,
   .stats {
     padding: 1.5rem 1.2rem;
@@ -590,6 +874,11 @@ footer {
   .blog-desc { font-size: 0.82rem; }
   .project-date { font-size: 0.72rem; }
   .blog-date { font-size: 0.7rem; }
+
+  .contributions { padding: 0 1.2rem 0.3rem; }
+  .contrib-trigger { font-size: 0.72rem; padding: 0.2rem 0.45rem 0.2rem 0.2rem; }
+  .contrib-avatar { width: 14px; height: 14px; }
+  .contrib-panel { min-width: 300px; max-width: calc(100vw - 2.4rem); }
 
   .md-content {
     padding: 2rem 1.2rem;
@@ -669,6 +958,7 @@ footer {
 
   .about,
   .projects,
+  .contributions,
   .blogs,
   .stats {
     padding: 1.2rem 0.8rem;
@@ -684,6 +974,12 @@ footer {
   .blog-title { font-size: 0.85rem; }
   .blog-date { font-size: 0.65rem; }
   .blog-desc { font-size: 0.78rem; }
+
+  .contributions { padding: 0 0.8rem 0.2rem; }
+  .contrib-trigger { font-size: 0.68rem; gap: 0.25rem; }
+  .contrib-avatar { width: 13px; height: 13px; }
+  .contrib-panel { min-width: 0; width: calc(100vw - 1.6rem); }
+  .contrib-text { font-size: 0.72rem; }
 
   .webring {
     padding: 1.2rem 0.8rem 0.8rem;

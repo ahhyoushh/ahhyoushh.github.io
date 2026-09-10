@@ -1,5 +1,8 @@
 import { colorsNames, colorsProps, colorsShortNames } from './_collections.js';
-import { includesUrlReference } from '../lib/svgo/tools.js';
+import {
+  includesCssVarReference,
+  includesUrlReference,
+} from '../lib/svgo/tools.js';
 
 /**
  * @typedef ConvertColorsParams
@@ -73,6 +76,7 @@ const convertRgbToHex = ([r, g, b]) => {
  * @author Kir Belevich
  *
  * @type {import('../lib/types.js').Plugin<ConvertColorsParams>}
+ * @since 0.0.1
  */
 export const fn = (_root, params) => {
   const {
@@ -139,6 +143,7 @@ export const fn = (_root, params) => {
             if (
               convertCase &&
               !includesUrlReference(val) &&
+              !includesCssVarReference(val) &&
               val !== 'currentColor'
             ) {
               if (convertCase === 'lower') {

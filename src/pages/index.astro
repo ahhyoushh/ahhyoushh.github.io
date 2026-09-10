@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import projects from '../data/projects.json';
+import contributions from '../data/contributions.json';
 
 const blogs = (await getCollection('blogs')).sort((a, b) => {
   const pa = a.data.date?.match(/(\w{3})\s+(\d{4})/i) || [];
@@ -55,14 +56,165 @@ const recentBlogs = blogs.slice(0, 3);
     </div>
   </section>
 
+  {contributions.length > 0 && (
+    <section class="contributions">
+      <div class="contrib-row">
+        {contributions.map(org => (
+          <div class="contrib-org" data-contrib-org>
+            <button class="contrib-trigger" data-contrib-toggle type="button">
+              <img src={org.avatar} alt="" class="contrib-avatar" loading="lazy" />
+              <span>{org.login}</span>
+              <span class="contrib-count">{org.repos.reduce((s, r) => s + r.pulls.length, 0)}</span>
+            </button>
+            <div class="contrib-panel">
+              <div class="contrib-panel-head">
+                <img src={org.avatar} alt="" class="contrib-panel-avatar" />
+                <a href={`https://github.com/${org.login}`} target="_blank" rel="noopener noreferrer" class="contrib-panel-link" onclick="event.stopPropagation()">
+                  {org.login}
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+              {org.repos.flatMap(repo => repo.pulls).sort((a, b) => b.number - a.number).map(pr => (
+                <a href={pr.url} target="_blank" rel="noopener noreferrer" class="contrib-link" onclick="event.stopPropagation()">
+                  <span class="contrib-id">#{pr.number}</span>
+                  <span class="contrib-text">{pr.title}</span>
+                  <span class={`contrib-badge contrib-badge-${pr.status}`}>{pr.status}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const orgs = document.querySelectorAll('[data-contrib-org]');
+        orgs.forEach(org => {
+          const btn = org.querySelector('[data-contrib-toggle]');
+          const panel = org.querySelector('.contrib-panel');
+          btn.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            const wasOpen = org.classList.contains('open');
+            orgs.forEach(o => o.classList.remove('open'));
+            if (!wasOpen) org.classList.add('open');
+          });
+          panel.addEventListener('click', e => e.stopPropagation());
+        });
+        document.addEventListener('click', () => orgs.forEach(o => o.classList.remove('open')));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') orgs.forEach(o => o.classList.remove('open')); });
+      });
+    </script>
+  )}
+
   <section class="about" id="about">
     <h2 class="section-title">about</h2>
     <div class="about-content">
       <p class="about-text">
-      i like to build cool (imo) things
+        hi, i'm <span class="about-term about-term-regular about-term-dotted" data-term="socials">ayush</span>, an <span class="about-term about-term-plain about-term-normal about-term-dotted" data-term="entc">entc</span> freshmen. i build some build some cool(imo) <span class="about-term" data-term="projects">things</span>, and ocassionally <span class="about-term" data-term="blogs">write</span> about some. say hi back <span class="about-term about-term-normal" data-term="contact">here</span>
       </p>
 
+      <template data-term-popup="socials">
+        <span class="about-popup-label">socials</span>
+        <a href="https://github.com/ahhyoushh" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> <span>github</span></a>
+        <a href="https://linkedin.com/in/ayushbhalerao" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> <span>linkedin</span></a>
+        <a href="mailto:iush.wrk@gmail.com"><i class="fas fa-envelope"></i> <span>email</span></a>
+        <a href="https://x.com/i_u_sh" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i> <span>x</span></a>
+        <a href="https://www.reddit.com/user/Few-Blueberry-1015/" target="_blank" rel="noopener noreferrer"><i class="fab fa-reddit-alien"></i> <span>reddit</span></a>
+      </template>
+
+      <template data-term-popup="projects">
+        <span class="about-popup-label">projects</span>
+        <a href="/projects"><i class="fas fa-folder-open"></i> <span>view my projects</span></a>
+      </template>
+
+      <template data-term-popup="blogs">
+        <span class="about-popup-label">blogs</span>
+        <a href="/blogs"><i class="fas fa-pen"></i> <span>read my blogs</span></a>
+      </template>
+
+      <template data-term-popup="entc">
+        <span class="about-popup-label">entc</span>
+        <span class="about-popup-text">electronics and telecommunication</span>
+        <a class="about-popup-wiki" href="https://en.wikipedia.org/wiki/Electronics_and_Communication_Engineering" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-wikipedia-w"></i> <span>wikipedia</span>
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </template>
+
+      <template data-term-popup="contact">
+        <span class="about-popup-label">reach me</span>
+        <a href="mailto:iush.wrk@gmail.com"><i class="fas fa-envelope"></i> <span>email</span></a>
+        <a href="https://x.com/i_u_sh" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i> <span>x</span></a>
+        <a href="https://linkedin.com/in/ayushbhalerao" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> <span>linkedin</span></a>
+        <a href="https://www.reddit.com/user/Few-Blueberry-1015/" target="_blank" rel="noopener noreferrer"><i class="fab fa-reddit-alien"></i> <span>reddit</span></a>
+      </template>
+
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const popup = document.createElement('div');
+        popup.className = 'about-popup';
+        popup.hidden = true;
+        document.body.appendChild(popup);
+
+        const terms = Array.from(document.querySelectorAll('[data-term]'));
+        const templates = new Map(
+          Array.from(document.querySelectorAll('template[data-term-popup]'))
+            .map(t => [t.dataset.termPopup, t])
+        );
+
+        let openTerm = null;
+
+        const hide = () => {
+          popup.hidden = true;
+          popup.replaceChildren();
+          terms.forEach(t => t.classList.remove('is-active'));
+          openTerm = null;
+        };
+
+        const show = term => {
+          const tpl = templates.get(term.dataset.term);
+          if (!tpl) return;
+          popup.replaceChildren(tpl.content.cloneNode(true));
+          popup.hidden = false;
+
+          const rect = term.getBoundingClientRect();
+          const gap = 8;
+          const pr = popup.getBoundingClientRect();
+          const vw = document.documentElement.clientWidth;
+          const left = Math.max(gap, Math.min(rect.left + rect.width / 2 - pr.width / 2, vw - pr.width - gap));
+          let top = rect.bottom + gap;
+          if (top + pr.height > window.innerHeight - gap && rect.top - pr.height - gap > 0) {
+            top = rect.top - pr.height - gap;
+          }
+          popup.style.left = left + 'px';
+          popup.style.top = top + 'px';
+
+          terms.forEach(t => t.classList.toggle('is-active', t === term));
+          openTerm = term;
+        };
+
+        terms.forEach(term => {
+          term.addEventListener('click', e => {
+            e.stopPropagation();
+            if (openTerm === term) { hide(); return; }
+            show(term);
+          });
+        });
+
+        document.addEventListener('click', e => {
+          if (!openTerm) return;
+          if (popup.contains(e.target)) return;
+          if (openTerm.contains(e.target)) return;
+          hide();
+        });
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+        ['scroll', 'resize'].forEach(ev => window.addEventListener(ev, hide, { passive: true }));
+      });
+    </script>
   </section>
 
   <section class="projects" id="projects">
@@ -122,7 +274,7 @@ const recentBlogs = blogs.slice(0, 3);
       <a href="https://ring.seggs.lol/redirect?from=ayush&dir=prev">←</a>
       <a href="https://ring.seggs.lol"
         ><img
-          src="https://0xmukesh.github.io/images/threadlocked.png"
+          src="/assets/threadlocked.png"
           alt="webring"
       /></a>
       <a href="https://ring.seggs.lol/redirect?from=ayush&dir=next">→</a>

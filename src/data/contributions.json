@@ -1,0 +1,70 @@
+[
+  {
+    "login": "amd",
+    "avatar": "https://github.com/amd.png",
+    "repos": [
+      {
+        "name": "amd/xdna-driver",
+        "pulls": [
+          {
+            "number": 1560,
+            "title": "build: detect available cmake executable",
+            "url": "https://github.com/amd/xdna-driver/pull/1560",
+            "status": "merged",
+            "date": "2026-08-05"
+          },
+          {
+            "number": 1559,
+            "title": "build: use cmake on fedora, fixes #1558",
+            "url": "https://github.com/amd/xdna-driver/pull/1559",
+            "status": "closed",
+            "date": "2026-08-05"
+          },
+          {
+            "number": 1557,
+            "title": "docs: add Fedora build instructions",
+            "url": "https://github.com/amd/xdna-driver/pull/1557",
+            "status": "merged",
+            "date": "2026-08-05"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "login": "Xilinx",
+    "avatar": "https://github.com/Xilinx.png",
+    "repos": [
+      {
+        "name": "Xilinx/XRT",
+        "pulls": [
+          {
+            "number": 9976,
+            "title": "build: improve CMake3/CMake detection across build scripts",
+            "url": "https://github.com/Xilinx/XRT/pull/9976",
+            "status": "merged",
+            "date": "2026-08-10"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "login": "fish-shell",
+    "avatar": "https://github.com/fish-shell.png",
+    "repos": [
+      {
+        "name": "fish-shell/fish-shell",
+        "pulls": [
+          {
+            "number": 12875,
+            "title": "add(highlight, complete): suggest/complete cd commands in mkdir && cd chains",
+            "url": "https://github.com/fish-shell/fish-shell/pull/12875",
+            "status": "open",
+            "date": "2026-07-16"
+          }
+        ]
+      }
+    ]
+  }
+]
