@@ -111,7 +111,7 @@ const recentBlogs = blogs.slice(0, 3);
     <h2 class="section-title">about</h2>
     <div class="about-content">
       <p class="about-text">
-        hi, i'm <span class="about-term about-term-regular about-term-dotted" data-term="socials">ayush</span>, an <span class="about-term about-term-plain about-term-normal about-term-dotted" data-term="entc">entc</span> freshmen. i build some build some cool(imo) <span class="about-term" data-term="projects">things</span>, and ocassionally <span class="about-term" data-term="blogs">write</span> about some. say hi back <span class="about-term about-term-normal" data-term="contact">here</span>
+        hi, i'm <span class="about-term about-term-regular about-term-dotted" data-term="socials">ayush</span>, an <span class="about-term about-term-plain about-term-normal about-term-dotted" data-term="entc">entc</span> freshmen. i build some build some cool(imo) <a class="about-term" href="/projects">things</a>, and ocassionally <a class="about-term" href="/blogs">write</a> about some. say hi back <span class="about-term about-term-normal" data-term="contact">here</span>
       </p>
 
       <template data-term-popup="socials">
@@ -121,16 +121,6 @@ const recentBlogs = blogs.slice(0, 3);
         <a href="mailto:iush.wrk@gmail.com"><i class="fas fa-envelope"></i> <span>email</span></a>
         <a href="https://x.com/i_u_sh" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i> <span>x</span></a>
         <a href="https://www.reddit.com/user/Few-Blueberry-1015/" target="_blank" rel="noopener noreferrer"><i class="fab fa-reddit-alien"></i> <span>reddit</span></a>
-      </template>
-
-      <template data-term-popup="projects">
-        <span class="about-popup-label">projects</span>
-        <a href="/projects"><i class="fas fa-folder-open"></i> <span>view my projects</span></a>
-      </template>
-
-      <template data-term-popup="blogs">
-        <span class="about-popup-label">blogs</span>
-        <a href="/blogs"><i class="fas fa-pen"></i> <span>read my blogs</span></a>
       </template>
 
       <template data-term-popup="entc">
