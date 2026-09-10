@@ -111,7 +111,7 @@ const recentBlogs = blogs.slice(0, 3);
     <h2 class="section-title">about</h2>
     <div class="about-content">
       <p class="about-text">
-        hi, i'm <span class="about-term about-term-regular about-term-dotted" data-term="socials">ayush</span>, an <span class="about-term about-term-plain about-term-normal about-term-dotted" data-term="entc">entc</span> freshmen. i build some build some cool(imo) <a class="about-term" href="/projects">things</a>, and ocassionally <a class="about-term" href="/blogs">write</a> about some. say hi back <span class="about-term about-term-normal" data-term="contact">here</span>
+        hi, i'm <span class="about-term about-term-regular about-term-dotted" data-term="socials">ayush</span>, an <span class="about-term about-term-plain about-term-normal about-term-dotted" data-term="entc">engineering</span> freshmen. i build some cool(imo) <a class="about-term" href="/projects">things</a>, and ocassionally <a class="about-term" href="/blogs">write</a> about some. say hi <span class="about-term about-term-normal" data-term="contact">back</span>
       </p>
 
       <template data-term-popup="socials">
@@ -124,12 +124,8 @@ const recentBlogs = blogs.slice(0, 3);
       </template>
 
       <template data-term-popup="entc">
-        <span class="about-popup-label">entc</span>
-        <span class="about-popup-text">electronics and telecommunication</span>
-        <a class="about-popup-wiki" href="https://en.wikipedia.org/wiki/Electronics_and_Communication_Engineering" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-wikipedia-w"></i> <span>wikipedia</span>
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5L8.5 3.5M8.5 3.5H4.5M8.5 3.5V7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+        <span class="about-popup-text">Electronics and TeleCommunication Engineering</span>
+        <span class="about-popup-small">though i prolly study more that just that</span>
       </template>
 
       <template data-term-popup="contact">
@@ -170,17 +166,25 @@ const recentBlogs = blogs.slice(0, 3);
           popup.replaceChildren(tpl.content.cloneNode(true));
           popup.hidden = false;
 
-          const rect = term.getBoundingClientRect();
           const gap = 8;
-          const pr = popup.getBoundingClientRect();
           const vw = document.documentElement.clientWidth;
-          const left = Math.max(gap, Math.min(rect.left + rect.width / 2 - pr.width / 2, vw - pr.width - gap));
+          const vh = window.innerHeight;
+          const rect = term.getBoundingClientRect();
+          const width = popup.offsetWidth;
+          const height = popup.offsetHeight;
+
+          let left = rect.left + rect.width / 2 - width / 2;
+          left = Math.max(gap, Math.min(left, vw - width - gap));
+
           let top = rect.bottom + gap;
-          if (top + pr.height > window.innerHeight - gap && rect.top - pr.height - gap > 0) {
-            top = rect.top - pr.height - gap;
+          const fitsBelow = top + height <= vh - gap;
+          const fitsAbove = rect.top - height - gap >= 0;
+          if (!fitsBelow) {
+            top = fitsAbove ? rect.top - height - gap : Math.max(gap, Math.min(rect.bottom + gap, vh - height - gap));
           }
-          popup.style.left = left + 'px';
-          popup.style.top = top + 'px';
+
+          popup.style.left = left + window.scrollX + 'px';
+          popup.style.top = top + window.scrollY + 'px';
 
           terms.forEach(t => t.classList.toggle('is-active', t === term));
           openTerm = term;
@@ -202,7 +206,7 @@ const recentBlogs = blogs.slice(0, 3);
         });
 
         document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
-        ['scroll', 'resize'].forEach(ev => window.addEventListener(ev, hide, { passive: true }));
+        ['scroll', 'resize', 'orientationchange'].forEach(ev => window.addEventListener(ev, hide, { passive: true }));
       });
     </script>
   </section>

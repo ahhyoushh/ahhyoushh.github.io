@@ -355,6 +355,14 @@ nav {
   display: block;
 }
 
+.about-popup-small {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--accent);
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
 .about-popup a {
   display: flex;
   align-items: center;
