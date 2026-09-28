@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
 import projects from '../../data/projects.json';
 ---
 <Base
@@ -56,22 +57,7 @@ import projects from '../../data/projects.json';
     </ul>
   </section>
 
-  <section class="webring">
-    <h2>webring</h2>
-    <div class="webring-row">
-      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=prev">←</a>
-      <a href="https://ring.seggs.lol/"
-        ><img
-          src="https://0xmukesh.github.io/images/threadlocked.png"
-          alt="webring"
-      /></a>
-      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=next">→</a>
-    </div>
-  </section>
-
   <Fragment slot="footer">
-    <footer>
-      <p class="footer-text"><a href="/">← back home</a></p>
-    </footer>
+    <SiteFooter webring><a href="/">&larr; back home</a></SiteFooter>
   </Fragment>
 </Base>
