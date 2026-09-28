@@ -38,7 +38,7 @@ const blogs = (await getCollection('blogs')).sort(byDate);
   </Fragment>
 
   <section class="page-top">
-    <a class="back-btn" href="/">&larr; back home</a>
+    <a class="back-btn" href="/">&larr; back</a>
   </section>
 
   <section class="blogs" style="border-top: none">
@@ -61,6 +61,6 @@ const blogs = (await getCollection('blogs')).sort(byDate);
   </section>
 
   <Fragment slot="footer">
-    <SiteFooter webring><a href="/">&larr; back home</a></SiteFooter>
+    <SiteFooter webring />
   </Fragment>
 </Base>
