@@ -12,7 +12,22 @@ export async function getStaticPaths() {
 
 const { blog } = Astro.props;
 const { Content } = await render(blog);
+
+const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
+const publishedTime = (() => {
+  const m = blog.data.date?.match(/(\w{3})\s+(\d{4})/i);
+  if (!m) return undefined;
+  const month = MONTHS.indexOf(m[1].slice(0, 3).toLowerCase());
+  if (month === -1) return undefined;
+  return `${m[2]}-${String(month + 1).padStart(2, '0')}-01`;
+})();
 ---
-<BlogPost title={blog.data.title}>
+<BlogPost
+  title={blog.data.title}
+  description={blog.data.description}
+  image={blog.data.image}
+  publishedTime={publishedTime}
+>
   <Content />
 </BlogPost>

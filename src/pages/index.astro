@@ -16,10 +16,13 @@ const blogs = (await getCollection('blogs')).sort((a, b) => {
   return db - da;
 });
 
-const highlightProjects = projects.filter(p => p.highlight).slice(0, 5);
+const highlightProjects = projects.filter(p => p.highlight).slice(0, 3);
 const recentBlogs = blogs.slice(0, 3);
 ---
-<Base title="ayush bhalerao">
+<Base
+  title="Ayush Bhalerao"
+  description="ayush bhalerao — entc student building small things for the web. projects, write-ups, and the occasional breakdown."
+>
   <section class="hero">
     <div class="hero-inner">
       <img
@@ -28,7 +31,7 @@ const recentBlogs = blogs.slice(0, 3);
         class="hero-pfp"
       />
       <div class="hero-body">
-        <h1 class="hero-name">ayush bhalerao</h1>
+        <h1 class="hero-name">Ayush Bhalerao</h1>
         <div class="hero-social">
           <a href="https://github.com/ahhyoushh" target="_blank"><i class="fab fa-github"></i> <span>github</span></a>
           <a href="https://linkedin.com/in/ayushbhalerao" target="_blank"><i class="fab fa-linkedin"></i> <span>linkedin</span></a>
@@ -111,7 +114,7 @@ const recentBlogs = blogs.slice(0, 3);
     <h2 class="section-title">about</h2>
     <div class="about-content">
       <p class="about-text">
-        hi, i'm <span class="about-term about-term-regular about-term-dotted" data-term="socials">ayush</span>, an <span class="about-term about-term-plain about-term-normal about-term-dotted" data-term="entc">engineering</span> freshmen. i build some cool(imo) <a class="about-term" href="/projects">things</a>, and ocassionally <a class="about-term" href="/blogs">write</a> about some. say hi <span class="about-term about-term-normal" data-term="contact">back</span>
+        hi, i'm <span class="about-term about-term-regular about-term-dotted" data-term="socials">ayush</span>, an <span class="about-term about-term-plain about-term-normal about-term-dotted" data-term="entc">entc</span> freshmen. i build some cool(imo) <a class="about-term" href="/projects">things</a>, and ocassionally <a class="about-term" href="/blogs">write</a> about some. say hi <span class="about-term about-term-normal" data-term="contact">back</span>
       </p>
 
       <template data-term-popup="socials">
