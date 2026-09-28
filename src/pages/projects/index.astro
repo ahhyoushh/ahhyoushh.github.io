@@ -2,7 +2,10 @@
 import Base from '../../layouts/Base.astro';
 import projects from '../../data/projects.json';
 ---
-<Base title="projects — ayush bhalerao">
+<Base
+  title="projects // Ayush Bhalerao"
+  description="every project i've shipped — prediction markets, local-ai tools, terminal toys, and a few things that stayed in the repo."
+>
   <Fragment slot="nav">
     <nav>
       <div class="nav-brand"><a href="/">$ ayush</a></div>
@@ -19,24 +22,8 @@ import projects from '../../data/projects.json';
     </nav>
   </Fragment>
 
-  <section class="hero" style="padding-bottom: 1rem">
-    <div class="hero-inner">
-      <img
-        src="https://github.com/ahhyoushh.png"
-        alt="ayush bhalerao"
-        class="hero-pfp"
-      />
-      <div class="hero-body">
-        <h1 class="hero-name">ayush bhalerao</h1>
-        <div class="hero-social">
-          <a href="https://github.com/ahhyoushh" target="_blank"><i class="fab fa-github"></i> <span>github</span></a>
-          <a href="https://linkedin.com/in/ayushbhalerao" target="_blank"><i class="fab fa-linkedin"></i> <span>linkedin</span></a>
-          <a href="mailto:iush.wrk@gmail.com"><i class="fas fa-envelope"></i> <span>email</span></a>
-          <a href="https://x.com/i_u_sh" target="_blank"><i class="fab fa-x-twitter"></i> <span>twitter</span></a>
-          <a href="https://www.reddit.com/user/Few-Blueberry-1015/" target="_blank"><i class="fab fa-reddit-alien"></i> <span>reddit</span></a>
-        </div>
-      </div>
-    </div>
+  <section class="page-top">
+    <a class="back-btn" href="/">&larr; back home</a>
   </section>
 
   <section class="projects" style="border-top: none">

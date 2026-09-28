@@ -3,10 +3,19 @@ import Base from './Base.astro';
 
 export interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  publishedTime?: string;
 }
-const { title } = Astro.props;
+const { title, description, image, publishedTime } = Astro.props;
 ---
-<Base title={title}>
+<Base
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  publishedTime={publishedTime}
+>
   <Fragment slot="nav">
     <nav>
       <div class="nav-brand"><a href="/">$ ayush</a></div>

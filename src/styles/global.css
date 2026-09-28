@@ -41,13 +41,15 @@ a:hover {
 .about,
 .projects,
 .contributions,
-.blogs {
+.blogs,
+.page-top {
   animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   opacity: 0;
   transform: translateY(20px);
 }
 
 .hero { animation-delay: 0.1s; }
+.page-top { animation-delay: 0.1s; }
 .stats { animation-delay: 0.15s; }
 .contributions { animation-delay: 0.2s; }
 .about { animation-delay: 0.4s; }
@@ -151,6 +153,44 @@ nav {
 }
 
 .nav-back:hover::before { width: 100%; }
+
+.page-top {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.4rem 3rem 0;
+}
+
+.page-top + .projects,
+.page-top + .blogs {
+  padding-top: 1.4rem;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.25s ease;
+}
+
+.back-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-hover);
+  transition: width 0.25s ease;
+}
+
+.back-btn:hover { color: var(--accent-hover); }
+.back-btn:hover::after { width: 100%; }
 
 .hero {
   padding: 2rem 3rem 1.5rem;
@@ -873,6 +913,7 @@ footer {
   .nav-brand { font-size: 0.85rem; letter-spacing: 1px; }
 
   .hero { padding: 1.5rem 1.2rem 1rem; }
+  .page-top { padding: 1rem 1.2rem 0; }
   .hero-name { font-size: 2.2rem; }
   .hero-pfp { width: 64px; height: 64px; }
 
