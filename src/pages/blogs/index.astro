@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 
 const monthOrd = (s) => 'janfebmaraprmayjunjulaugsepoctnovdec'.indexOf(s.slice(0,3).toLowerCase()) / 3;
@@ -59,22 +60,7 @@ const blogs = (await getCollection('blogs')).sort(byDate);
     </ul>
   </section>
 
-  <section class="webring">
-    <h2>webring</h2>
-    <div class="webring-row">
-      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=prev">←</a>
-      <a href="https://ring.seggs.lol/"
-        ><img
-          src="https://github-production-user-asset-6210df.s3.amazonaws.com/90365542/604070407-86fc434f-8b29-4628-b0a3-33cdf4d487c0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260903%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260903T180817Z&X-Amz-Expires=300&X-Amz-Signature=8d30ccb7763f46588df42febd0da9762e26bcd6ec4b02a12f292ef35e0ebc5af&X-Amz-SignedHeaders=host&response-content-type=image%2Fpng"
-          alt="webring"
-      /></a>
-      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=next">→</a>
-    </div>
-  </section>
-
   <Fragment slot="footer">
-    <footer>
-      <p class="footer-text"><a href="/">← back home</a></p>
-    </footer>
+    <SiteFooter webring><a href="/">&larr; back home</a></SiteFooter>
   </Fragment>
 </Base>

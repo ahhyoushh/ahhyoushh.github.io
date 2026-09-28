@@ -838,11 +838,9 @@ nav {
 }
 
 .webring {
-  padding: 2rem 3rem 1rem;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 auto 1.4rem;
   text-align: center;
-  border-top: 1px solid var(--border);
 }
 
 .webring h2 {
@@ -880,6 +878,11 @@ nav {
   transition: opacity 0.2s, transform 0.2s ease;
 }
 
+.webring-row picture {
+  display: block;
+  line-height: 0;
+}
+
 .webring-row a:hover img {
   opacity: 1;
   transform: scale(1.05);
@@ -888,7 +891,7 @@ nav {
 .webring-row a:hover { transform: scale(1.15); }
 
 footer {
-  padding: 1.5rem 3rem;
+  padding: 2.2rem 3rem 1.6rem;
   text-align: center;
   border-top: 1px solid var(--border);
   color: var(--text-muted);
@@ -898,6 +901,7 @@ footer {
 .footer-text {
   font-family: 'Fira Code', monospace;
   letter-spacing: 0.5px;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -936,10 +940,6 @@ footer {
   .blogs,
   .stats {
     padding: 1.5rem 1.2rem;
-  }
-
-  .webring {
-    padding: 1.5rem 1.2rem 1rem;
   }
 
   .project-title { font-size: 0.95rem; }
@@ -1056,7 +1056,7 @@ footer {
   .contrib-text { font-size: 0.72rem; }
 
   .webring {
-    padding: 1.2rem 0.8rem 0.8rem;
+    margin-bottom: 1.1rem;
   }
 
   .webring h2 { font-size: 0.7rem; }
@@ -1077,7 +1077,7 @@ footer {
 
   .tag { font-size: 0.6rem; padding: 0.12rem 0.3rem; }
 
-  footer { padding: 1rem 0.8rem; font-size: 0.72rem; }
+  footer { padding: 1.6rem 0.8rem 1.2rem; font-size: 0.72rem; }
 }
 
 .md-content {

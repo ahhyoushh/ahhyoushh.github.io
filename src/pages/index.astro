@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 import projects from '../data/projects.json';
 import contributions from '../data/contributions.json';
@@ -265,16 +266,7 @@ const recentBlogs = blogs.slice(0, 3);
     <p class="section-footer"><a href="/blogs">view all blogs →</a></p>
   </section>
 
-  <section class="webring">
-    <h2>webring</h2>
-    <div class="webring-row">
-      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=prev">←</a>
-      <a href="https://ring.seggs.lol"
-        ><img
-          src="/assets/threadlocked.png"
-          alt="webring"
-      /></a>
-      <a href="https://ring.seggs.lol/redirect?from=ayush&dir=next">→</a>
-    </div>
-  </section>
+  <Fragment slot="footer">
+    <SiteFooter webring />
+  </Fragment>
 </Base>
