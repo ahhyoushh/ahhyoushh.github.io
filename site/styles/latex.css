@@ -1,0 +1,1479 @@
+/*!
+ * LaTeX.css (https://latex.vercel.app/)
+ *
+ * Source: https://github.com/vincentdoerig/latex-css
+ * Licensed under MIT (https://github.com/vincentdoerig/latex-css/blob/master/LICENSE)
+ *
+ * ---------------------------------------------------------------------------
+ * VENDORED COPY - do not edit the block below by hand.
+ *
+ * To update: download https://latex.vercel.app/style.css, replace everything
+ * from the first @font-face up to (and including) the closing line of the
+ * upstream block, then re-append the site layer at the bottom of this file.
+ *
+ * Local changes vs upstream:
+ *   - Libertinus @font-face rules removed. They are gated behind
+ *     `body.libertinus`, a class this site never sets, so the browser never
+ *     fetched them. The 6 Libertinus font files are therefore not vendored.
+ *   - Latin Modern `src:` trimmed to woff2 only (the woff/ttf fallbacks are
+ *     dead weight; woff2 is universally supported).
+ *   - Site layer (this site's chrome + Markdown gap-fillers + Shiki theme
+ *     switching) appended at the bottom.
+ * ---------------------------------------------------------------------------
+ */
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url('./fonts/LM-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: italic;
+  font-weight: normal;
+  font-display: swap;
+  src: url('./fonts/LM-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url('./fonts/LM-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: italic;
+  font-weight: bold;
+  font-display: swap;
+  src: url('./fonts/LM-bold-italic.woff2') format('woff2');
+}
+
+
+
+
+
+
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Always dark — #0A0A0A base */
+  --body-color: #D9D9D6;
+  --body-bg-color: #0A0A0A;
+  --rule: #2E2E2C;
+  --rule-strong: #464644;
+  --muted: #9A9A96;
+  --link: #7CB7F0;
+  --link-visited: #7CB7F0;
+  --link-hover: #A8CCEE;
+  --link-focus-outline: #7CB7F0;
+  --pre-bg-color: #161615;
+  --code-bg: #161615;
+  --kbd-bg-color: #111111;
+  --kbd-border-color: #2E2E2C;
+  --table-border-color: #D9D9D6;
+  --border-width-thin: 1px;
+  --border-width-thick: 2px;
+  --sidenote-target-border-color: #7CB7F0;
+  --footnotes-border-color: #464644;
+  --proof-symbol-filter: invert(80%);
+  --text-indent-size: 1.463rem;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Light theme override (only when explicitly chosen) */
+.latex-light {
+  --body-color: #17171A;
+  --body-bg-color: #fafaf9;
+  --rule: #D4D4D4;
+  --rule-strong: #A8A8A2;
+  --muted: #5A5A5F;
+  --link: #175E8C;
+  --link-visited: #6B4E9B;
+  --link-hover: #0E4C74;
+  --link-focus-outline: #175E8C;
+  --pre-bg-color: #EEEEEC;
+  --code-bg: #EEEEEC;
+  --kbd-bg-color: #ffffff;
+  --kbd-border-color: #D4D4D4;
+  --table-border-color: #17171A;
+  --sidenote-target-border-color: #ca8a04;
+  --footnotes-border-color: #A8A8A2;
+  --proof-symbol-filter: none;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Make default font-size 1rem and add smooth scrolling to anchors */
+html {
+  font-size: 1rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body.libertinus {
+  font-family: 'Libertinus', Georgia, Cambria, 'Times New Roman', Times, serif;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+body {
+  font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
+  line-height: 1.8;
+
+  max-width: 80ch;
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+
+  counter-reset: theorem definition sidenote-counter;
+
+  color: var(--body-color);
+  background-color: var(--body-bg-color);
+
+  text-rendering: optimizeLegibility;
+
+  /* Allow automatic hyphenation for all text in the document */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+}
+
+p {
+  margin-top: 1rem;
+}
+
+/* Indents paragraphs like in LaTeX documents*/
+.indent-pars p {
+  text-indent: var(--text-indent-size);
+}
+
+.indent-pars p.no-indent,
+p.no-indent {
+  text-indent: 0;
+}
+
+.indent-pars ol p,
+.indent-pars ul p {
+  text-indent: 0;
+}
+
+.indent-pars h2 + p,
+.indent-pars h3 + p,
+.indent-pars h4 + p {
+  text-indent: 0;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Links styling */
+a,
+a:visited {
+  color: var(--link-visited);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+a:focus-visible {
+  outline-offset: 3px;
+  outline: 2px solid var(--link-focus-outline);
+  border-radius: 2px;
+}
+
+/* Allow line breaks between any two characters */
+.break-all {
+  /*
+    NOTE: Whith `break-all` value no hyphens are shown, even if the word breaks
+    at a hyphenation point
+  */
+  word-break: break-all;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Prevent textarea from overflowing */
+textarea {
+  width: 100%;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Styles for inline code or code snippets */
+code,
+pre,
+kbd {
+  font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  font-size: 85%;
+  hyphens: none;
+}
+pre {
+  padding: 1rem 1.4rem;
+  max-width: 100%;
+  overflow: auto;
+  border-radius: 4px;
+  background: var(--pre-bg-color);
+}
+pre code {
+  font-size: 95%;
+  position: relative;
+}
+kbd {
+  background: var(--kbd-bg-color);
+  border: 1px solid var(--kbd-border-color);
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 75%;
+}
+
+/* Better tables */
+table:not(.borders-custom) {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: auto;
+  max-width: 100%;
+  border-top: var(--border-width-thick) solid var(--table-border-color);
+  border-bottom: var(--border-width-thick) solid var(--table-border-color);
+  /* display: block; */
+  overflow-x: auto; /* does not work because element is not block */
+  /* white-space: nowrap; */
+  counter-increment: caption;
+}
+/* add bottom border on column table headings  */
+table:not(.borders-custom) tr > th[scope='col'] {
+  border-bottom: var(--border-width-thin) solid var(--table-border-color);
+}
+/* add right border on row table headings  */
+table:not(.borders-custom) tr > th[scope='row'] {
+  border-right: var(--border-width-thin) solid var(--table-border-color);
+}
+table:not(.borders-custom) > tbody > tr:first-child > td,
+table:not(.borders-custom) > tbody > tr:first-child > th {
+  border-top: var(--border-width-thin) solid var(--table-border-color);
+}
+table:not(.borders-custom) > tbody > tr:last-child > td,
+table:not(.borders-custom) > tbody > tr:last-child > th {
+  border-bottom: var(--border-width-thin) solid var(--table-border-color);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+  line-height: 1.1;
+}
+/* Table caption */
+caption {
+  text-align: left;
+  font-size: 0.923em;
+  /* border-bottom: 2pt solid #000; */
+  padding: 0 0.25em 0.25em;
+  width: 100%;
+  margin-left: 0;
+}
+
+caption::before {
+  content: 'Table ' counter(caption) '. ';
+  font-weight: bold;
+}
+
+/* allow scroll on the x-axis */
+.scroll-wrapper {
+  overflow-x: auto;
+}
+
+/* if a table is wrapped in a scroll wrapper,
+  the table cells shouldn't wrap */
+.scroll-wrapper > table td {
+  white-space: nowrap;
+}
+
+/* Table custom borders */
+table.borders-custom {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: auto;
+  max-width: 100%;
+  overflow-x: auto;
+  counter-increment: caption;
+}
+
+.border-top-thick {
+  border-top: var(--border-width-thick) solid var(--table-border-color);
+}
+.border-right-thick {
+  border-right: var(--border-width-thick) solid var(--table-border-color);
+}
+.border-bottom-thick {
+  border-bottom: var(--border-width-thick) solid var(--table-border-color);
+}
+.border-left-thick {
+  border-left: var(--border-width-thick) solid var(--table-border-color);
+}
+
+.border-top-thin {
+  border-top: var(--border-width-thin) solid var(--table-border-color);
+}
+.border-right-thin {
+  border-right: var(--border-width-thin) solid var(--table-border-color);
+}
+.border-bottom-thin {
+  border-bottom: var(--border-width-thin) solid var(--table-border-color);
+}
+.border-left-thin {
+  border-left: var(--border-width-thin) solid var(--table-border-color);
+}
+
+/* Table column alignment */
+.col-1-l tr > :nth-child(1),
+.col-2-l tr > :nth-child(2),
+.col-3-l tr > :nth-child(3),
+.col-4-l tr > :nth-child(4),
+.col-5-l tr > :nth-child(5),
+.col-6-l tr > :nth-child(6),
+.col-7-l tr > :nth-child(7),
+.col-8-l tr > :nth-child(8),
+.col-9-l tr > :nth-child(9),
+.col-10-l tr > :nth-child(10),
+.col-11-l tr > :nth-child(11),
+.col-12-l tr > :nth-child(12) {
+  text-align: left;
+}
+.col-1-c tr > :nth-child(1),
+.col-2-c tr > :nth-child(2),
+.col-3-c tr > :nth-child(3),
+.col-4-c tr > :nth-child(4),
+.col-5-c tr > :nth-child(5),
+.col-6-c tr > :nth-child(6),
+.col-7-c tr > :nth-child(7),
+.col-8-c tr > :nth-child(8),
+.col-9-c tr > :nth-child(9),
+.col-10-c tr > :nth-child(10),
+.col-11-c tr > :nth-child(11),
+.col-12-c tr > :nth-child(12) {
+  text-align: center;
+}
+.col-1-r tr > :nth-child(1),
+.col-2-r tr > :nth-child(2),
+.col-3-r tr > :nth-child(3),
+.col-4-r tr > :nth-child(4),
+.col-5-r tr > :nth-child(5),
+.col-6-r tr > :nth-child(6),
+.col-7-r tr > :nth-child(7),
+.col-8-r tr > :nth-child(8),
+.col-9-r tr > :nth-child(9),
+.col-10-r tr > :nth-child(10),
+.col-11-r tr > :nth-child(11),
+.col-12-r tr > :nth-child(12) {
+  text-align: right;
+}
+
+/* Format figure captions (based on table captions) */
+figure {
+  counter-increment: figcaption;
+}
+figcaption {
+  text-align: left;
+  font-size: 0.923em;
+  padding: 0.25em 0.25em 0;
+  width: 100%;
+  margin-left: 0;
+}
+figcaption::before {
+  content: 'Figure ' counter(figcaption) '. ';
+  font-weight: bold;
+}
+
+/* Center align the title */
+h1:first-child {
+  text-align: center;
+}
+
+/* Nested ordered list for ToC */
+nav ol {
+  counter-reset: item;
+  padding-left: 2rem;
+}
+nav ol > li {
+  display: block;
+}
+nav ol > li::before {
+  content: counters(item, '.') ' ';
+  counter-increment: item;
+  padding-right: 0.85rem;
+}
+
+/* Center definitions (most useful for display equations) */
+dl dd {
+  text-align: center;
+}
+
+/* Theorem */
+.theorem {
+  counter-increment: theorem;
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+}
+.theorem::before {
+  content: 'Theorem ' counter(theorem) '. ';
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Lemma */
+.lemma {
+  counter-increment: theorem;
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+}
+.lemma::before {
+  content: 'Lemma ' counter(theorem) '. ';
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Proof */
+.proof {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+  position: relative;
+}
+.proof::before {
+  content: 'Proof. ' attr(title);
+  font-style: italic;
+}
+.proof::after {
+  content: '◾️';
+  filter: var(--proof-symbol-filter);
+  position: absolute;
+  right: -12px;
+  bottom: -2px;
+}
+
+/* Definition */
+.definition {
+  counter-increment: definition;
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+}
+.definition::before {
+  content: 'Definition ' counter(definition) '. ';
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Center align author name, use small caps and add vertical spacing  */
+.author {
+  margin: 0.85rem 0;
+  font-variant-caps: small-caps;
+  text-align: center;
+}
+
+/* Sidenotes */
+
+.sidenote {
+  font-size: 0.8rem;
+  float: right;
+  clear: right;
+  width: 18vw;
+  margin-right: -20vw;
+  margin-bottom: 1em;
+  text-indent: 0;
+  /* Right sidenotes explicitly aligned to left for wide screens */
+  text-align: left;
+}
+
+.sidenote.left {
+  float: left;
+  margin-left: -20vw;
+  margin-bottom: 1em;
+  text-indent: 0;
+  /* Left sidenotes explicitly aligned to right for wide screens */
+  text-align: right;
+}
+
+/* Justify all sidenotes for wide screens when `text-justify` class is used */
+body.text-justify .sidenote,
+body.text-justify .sidenote.left {
+    text-align: justify;
+}
+
+/* (WIP) add border when a sidenote is clicked on */
+.sidenote:target {
+  border: var(--sidenote-target-border-color) 1.5px solid;
+  padding: 0 .5rem;
+  scroll-margin-block-start: 10rem;
+}
+
+/* sidenote counter */
+.sidenote-number {
+  counter-increment: sidenote-counter;
+}
+
+.sidenote-number::after,
+.sidenote::before {
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* add number in main content */
+.sidenote-number::after {
+  content: counter(sidenote-counter);
+  font-size: 0.7rem;
+  top: -0.5rem;
+  left: 0.1rem;
+}
+
+/* add number in front of the sidenote */
+.sidenote-number ~ .sidenote::before {
+  content: counter(sidenote-counter) ' ';
+  font-size: 0.7rem;
+  top: -0.5rem;
+}
+
+label.sidenote-toggle:not(.sidenote-number) {
+  display: none;
+}
+
+/* sidenotes inside blockquotes are indented more */
+blockquote .sidenote {
+  margin-right: -24vw;
+  width: 18vw;
+}
+
+
+label.sidenote-toggle {
+  display: inline;
+  cursor: pointer;
+}
+
+input.sidenote-toggle {
+  display: none;
+}
+
+@media (max-width: 1050px) {
+  label.sidenote-toggle:not(.sidenote-number) {
+    display: inline;
+  }
+  .sidenote {
+    display: none;
+  }
+  .sidenote-toggle:checked + .sidenote {
+    display: block;
+    margin: 0.5rem 1.25rem 1rem 0.5rem;
+    float: left;
+    left: 1rem;
+    clear: both;
+    width: 95%;
+  }
+
+  /* All sidenotes explicitly aligned to left for narrow screens */
+  .sidenote-toggle:checked + .sidenote.left {
+    text-align: left;
+  }
+
+  /* Justify all sidenotes for narrow screens when `text-justify` class is used */
+  body.text-justify .sidenote-toggle:checked + .sidenote.left {
+    text-align: justify;
+  }
+
+  /* tweak indentation of sidenote inside a blockquote */
+  blockquote .sidenote {
+    margin-right: -25vw;
+    width: 16vw;
+  }
+}
+
+/* Make footnote text smaller */
+.footnotes p {
+  line-height: 1.5;
+  font-size: 85%;
+  margin-bottom: 0.4rem;
+}
+.footnotes {
+  border-top: 1px solid var(--footnotes-border-color);
+}
+
+/* Center title and paragraph */
+.abstract,
+.abstract p {
+  text-align: center;
+  margin-top: 0;
+}
+.abstract {
+  margin: 2.25rem 0;
+}
+.abstract > h2 {
+  font-size: 1rem;
+  margin-bottom: -0.2rem;
+}
+
+/* Format the LaTeX symbol correctly (a higher up, e lower) */
+.latex span:nth-child(1) {
+  text-transform: uppercase;
+  font-size: 0.75em;
+  vertical-align: 0.28em;
+  margin-left: -0.48em;
+  margin-right: -0.15em;
+  line-height: 1ex;
+}
+
+.latex span:nth-child(2) {
+  text-transform: uppercase;
+  vertical-align: -0.5ex;
+  margin-left: -0.1667em;
+  margin-right: -0.125em;
+  line-height: 1ex;
+}
+
+/* Prevent line breaks inside an element */
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+/* Heading typography */
+h1 {
+  font-size: 2.5rem;
+  line-height: 3.25rem;
+  margin-bottom: 1.625rem;
+}
+
+h2 {
+  font-size: 1.7rem;
+  line-height: 2rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+  margin-top: 2.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+h5 {
+  font-size: 1rem;
+  margin-top: 1.8rem;
+}
+
+h6 {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: normal;
+  margin-top: 2.5rem;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.625rem;
+}
+
+h1 + h2 {
+  margin-top: 1.625rem;
+}
+
+h2 + h3,
+h3 + h4,
+h4 + h5 {
+  margin-top: 0.8rem;
+}
+
+h5 + h6 {
+  margin-top: -0.8rem;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.8rem;
+}
+
+/* ===========================================================================
+ * SITE LAYER
+ *
+ * Appended to the vendored LaTeX.css above. This is hand-written by me and is
+ * the only part to edit when the site needs a rule. It does not restyle
+ * LaTeX.css - it only fills gaps LaTeX.css does not cover: the site chrome
+ * (nav / footer / theme toggle), Markdown output that LaTeX.css leaves bare
+ * (blockquote, hr, video, tables that overflow), and the light/dark switching
+ * of Shiki's dual themes.
+ * =========================================================================== */
+
+/* ------------------------------------------------------------- structure -- */
+
+main {
+  display: block;
+}
+
+body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  overflow-wrap: break-word;
+}
+
+.section {
+  margin-top: 2.5rem;
+}
+
+/* Sections and page titles are divided by a crisp, visible rule under the heading */
+.section > h2,
+.post-body h2,
+h1.page-title {
+  border-bottom: var(--border-width-thin) solid var(--rule);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Prose headings sit inside left-aligned copy and stay left, and so do page
+   titles — they align with the body copy instead of being centred. The explicit
+   `left` also outranks LaTeX.css's `h1:first-child` by source order at equal
+   specificity. */
+.section > h2,
+.post-body h2 {
+  text-align: left;
+}
+
+h1.page-title {
+  text-align: left;
+}
+
+.section > h2 {
+  margin-top: 0;
+}
+
+.post-body h2 {
+  margin-top: 2.75rem;
+}
+
+ul.rule-list,
+ol.rule-list,
+.rule-list,
+main ul,
+main ol,
+section ul,
+section ol {
+  list-style: none !important;
+  list-style-type: none !important;
+  counter-reset: none !important;
+  padding: 0 !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  margin-left: 0 !important;
+}
+
+ul.rule-list > li,
+ol.rule-list > li,
+.rule-list > li,
+li.entry,
+.entry {
+  display: block !important;
+  list-style: none !important;
+  list-style-type: none !important;
+  padding: 0.85rem 0;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  /* No border separators — clean whitespace-only rhythm */
+}
+
+ul.rule-list > li:last-child,
+ol.rule-list > li:last-child,
+.rule-list > li:last-child,
+li.entry:last-child {
+  border-bottom: 0;
+}
+
+ul.rule-list > li::marker,
+ol.rule-list > li::marker,
+.rule-list > li::marker,
+li.entry::marker,
+.entry::marker,
+li::marker {
+  display: none !important;
+  content: "" !important;
+}
+
+ul.rule-list > li::before,
+ol.rule-list > li::before,
+.rule-list > li::before,
+li.entry::before,
+.entry::before {
+  display: none !important;
+  content: none !important;
+}
+
+.section .rule-list > li,
+.section .rule-list > li:last-child {
+  padding: 0.6rem 0;
+}
+
+.contact-list > li {
+  padding: 0.75rem 0;
+}
+
+/* Right-hand column of a contact row */
+.entry-detail {
+  flex: 0 1 auto;
+  font-size: 0.95em;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  font-family: var(--font-mono, monospace);
+  margin-left: auto;
+}
+
+/* Contact rows read as a two-column table of label + handle, so the labels run
+   a little larger than the generic listing titles. */
+.contact-list .entry-link {
+  font-size: 1.2rem;
+}
+
+.meta {
+  font-size: 0.95em;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------ header identity -- */
+
+.site-header {
+  text-align: center;
+  margin-bottom: 2.75rem;
+  /* No border — clean open space */
+}
+
+/* Set on the class, not inherited: the homepage renders the name as an <h1>
+   and every other page as a <p><a>, so an explicit weight is what keeps the
+   two from rendering at different boldness. */
+.site-name {
+  font-size: 2.5rem;
+  line-height: 3.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.site-name a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.15s ease;
+}
+
+.site-name a:hover {
+  color: var(--link-hover);
+}
+
+/* ------------------------------------------------------------------- nav -- */
+
+.site-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.site-nav-list li {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-nav-list a {
+  text-decoration: none;
+  color: var(--link);
+  transition: color 0.15s ease;
+}
+
+.site-nav-list a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.site-nav-list [aria-current='page'] {
+  font-style: italic;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--body-color);
+}
+
+/* Perfectly aligned and symmetrically spaced hairline separators */
+.site-nav-list li + li::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0.85em;
+  background-color: var(--rule-strong);
+  margin: 0 0.75rem;
+  opacity: 0.65;
+  border-radius: 1px;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------- theme toggle -- */
+
+.theme-toggle {
+  font: inherit;
+  font-size: 1em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.25em;
+  transition: color 0.15s ease;
+}
+
+.theme-toggle:hover {
+  text-decoration-style: solid;
+  color: var(--link-hover);
+}
+
+/* --------------------------------------------------------------- footer --- */
+
+.site-footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: var(--border-width-thin) solid var(--rule);
+  font-size: 0.875em;
+  color: var(--muted);
+  text-align: center;
+}
+
+.site-footer p {
+  margin-top: 0;
+}
+
+/* Webring — label removed from HTML; just show badge + arrows */
+.webring {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.webring-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.webring-row img {
+  width: 88px;
+  height: 31px;
+  display: block;
+  image-rendering: pixelated;
+  border-radius: 2px;
+}
+
+.webring-row a {
+  text-decoration: none;
+}
+
+.webring-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  border-radius: 3px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.webring-arrow:hover {
+  color: var(--link-hover);
+  background-color: var(--rule);
+}
+
+/* ------------------------------------------------------ listings / items -- */
+
+.entry-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.entry-link {
+  min-width: 0;
+  flex: 1 1 20rem;
+  overflow-wrap: break-word;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+/* Writeup titles on the writeups index are long sentences, not names, so they
+   stay at body size instead of the larger listing title. */
+.writeup-list .entry-link {
+  font-size: 1rem;
+}
+
+.entry-link a {
+  text-decoration: none;
+  color: var(--link);
+  transition: color 0.15s ease;
+}
+
+.entry-link a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.entry-date {
+  flex: 0 0 auto;
+  font-size: 0.85em;
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.entry-desc {
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.65;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.status-deprecated {
+  margin-left: 0.5rem;
+  font-variant-caps: small-caps;
+  font-size: 0.82em;
+  color: var(--muted);
+  opacity: 0.7;
+  white-space: nowrap;
+  display: inline-block;
+  border: 1px solid var(--rule-strong);
+  padding: 0 0.3em;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.section-more {
+  margin: 0.85rem 0 0;
+  font-size: 0.92em;
+}
+
+.section-more a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.section-more a:hover {
+  color: var(--link-hover);
+}
+
+/* ------------------------------------------------------------------ post -- */
+
+.post-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.post-header h1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.post-meta {
+  text-align: center;
+  margin-top: 0;
+  font-size: 0.95em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.post-lede {
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.65rem;
+  text-align: left;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.post-body h1 {
+  font-size: 1.7rem;
+  line-height: 2.1rem;
+  margin-top: 3rem;
+}
+
+.post-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6rem auto;
+  border-radius: 4px;
+}
+
+.post-body img + em,
+.post-body p > img + em {
+  display: block;
+  text-align: center;
+  font-size: 0.92em;
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+
+.post-body video {
+  display: block;
+  max-width: 100%;
+  margin: 1.6rem auto;
+  border-radius: 4px;
+}
+
+.post-body > p,
+.post-body > ul,
+.post-body > ol,
+.post-body > table,
+.post-body > blockquote {
+  overflow-wrap: break-word;
+}
+
+/* ------------------------------------------------- Markdown gap-fillers --- */
+
+.post-body blockquote {
+  margin: 1.4rem 0;
+  padding: 0.25rem 0 0.25rem 1.1rem;
+  border-left: 3px solid var(--rule-strong);
+  font-style: italic;
+  color: var(--muted);
+}
+
+.post-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.post-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.post-body hr {
+  height: 0;
+  border: 0;
+  border-top: var(--border-width-thin) solid var(--rule);
+  margin: 2.5rem 0;
+}
+
+.note {
+  margin: 1.5rem 0;
+  padding: 0.25rem 0 0.25rem 1.1rem;
+  border-left: 3px solid var(--link);
+  font-size: 0.95em;
+  background-color: var(--pre-bg-color);
+  border-radius: 0 4px 4px 0;
+}
+
+.note > :first-child {
+  margin-top: 0;
+}
+
+.note > :last-child {
+  margin-bottom: 0;
+}
+
+.post-body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+/* ------------------------------------------------------ syntax highlight -- */
+
+/* Default: dark code color (matches always-dark :root) */
+.shiki-code {
+  color: var(--shiki-dark, #cdd6f4);
+  background-color: var(--code-bg);
+  border: var(--border-width-thin) solid var(--rule);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+/* Light mode override */
+.latex-light .shiki-code {
+  color: var(--shiki-light, #383a42);
+  background-color: var(--code-bg);
+}
+
+/* Explicit dark class (same as the :root default, listed for clarity) */
+.latex-dark .shiki-code {
+  color: var(--shiki-dark, #cdd6f4);
+  background-color: var(--code-bg);
+}
+
+/* ------------------------------------------------------- code block chrome -- */
+
+.code-block {
+  margin: 1.5rem 0;
+}
+
+.code-block-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.78em;
+  color: var(--muted);
+  border-bottom: var(--border-width-thin) solid var(--rule);
+  padding: 0.2rem 0.4rem;
+}
+
+.code-block-bar::before {
+  content: none;
+}
+
+.code-block-lang {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.code-block-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.code-block-actions button {
+  font: inherit;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.25em;
+  transition: color 0.15s ease;
+}
+
+.code-block-actions button:hover {
+  text-decoration-style: solid;
+  color: var(--link-hover);
+}
+
+.code-block pre {
+  margin: 0;
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.code-block pre[hidden] {
+  display: none;
+}
+
+/* Post navigation bar (if injected) */
+/* Section pages (projects / writeups / contact) carry a single bottom link home */
+.back-link {
+  margin-top: 2.5rem;
+  font-size: 0.95rem;
+}
+
+.back-link a {
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+
+.back-link a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* Same link, but pinned above the post header so there is a way back without
+   scrolling to the bottom of a long writeup. */
+.post-top-link {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================== homepage === */
+
+.about p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: left;
+  hyphens: none;
+}
+
+/* The about copy is three short paragraphs; only the gaps between them need
+   spacing, so the first one keeps the zero margin from `.about p`. */
+.about p + p {
+  margin-top: 0.85rem;
+}
+
+/* ============================================================ responsive === */
+
+@media (max-width: 44rem) {
+  body {
+    padding: 2rem 1.25rem;
+  }
+
+  .site-header {
+    margin-bottom: 2rem;
+  }
+
+  .site-name {
+    font-size: 2.1rem;
+    line-height: 2.6rem;
+  }
+
+  .site-nav-list {
+    font-size: 0.92rem;
+  }
+
+  .section {
+    margin-top: 2.25rem;
+  }
+
+  .about p {
+    font-size: 1.05rem;
+  }
+
+  .entry-link {
+    font-size: 1.05rem;
+  }
+
+  .contact-list .entry-link {
+    font-size: 1.1rem;
+  }
+
+  .writeup-list .entry-link {
+    font-size: 1rem;
+  }
+
+  .entry-desc {
+    font-size: 0.975rem;
+  }
+
+  /* Titles and dates wrap gracefully with full visibility */
+  .entry-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .entry-date,
+  .entry-detail {
+    margin-left: 0;
+    font-size: 0.88em;
+  }
+}
+
+@media (max-width: 28rem) {
+  body {
+    padding: 1.5rem 1rem;
+  }
+
+  .site-name {
+    font-size: 1.75rem;
+    line-height: 2.2rem;
+  }
+
+  .site-nav-list {
+    font-size: 0.85rem;
+  }
+
+  .site-nav-list li + li::before {
+    margin: 0 0.45rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
