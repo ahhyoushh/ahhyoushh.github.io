@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en" class="latex-dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><!--
+      Runs before the body is parsed so the first paint is already in the right
+      colours. Default is dark; `latex-light` is set when the user picks light.
+    --><script>
+      (() => {
+        const root = document.documentElement;
+        let stored = null;
+        try { stored = localStorage.getItem('theme'); } catch {}
+        root.className = stored === 'light' ? 'latex-light' : 'latex-dark';
+      })();
+    </script><script>
+      // Writeups always open at the top. Browser scroll restoration (reload,
+      // back/forward) is turned off, and a page restored from bfcache is put
+      // back at the top too. In-page anchors still jump as usual.
+      (() => {
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        addEventListener('pageshow', () => {
+          if (!location.hash) scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        });
+      })();
+    </script><title>effect of diwali on aqi</title><meta name="description" content="made a simple aqi predicting linear regression model and accidentally found out how bad diwali affects AQI"><meta name="author" content="Ayush Bhalerao"><link rel="canonical" href="https://ahhyoushh.github.io/diwaliaqi/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ayush Bhalerao"><meta property="og:locale" content="en_US"><meta property="og:title" content="effect of diwali on aqi // Ayush Bhalerao"><meta property="og:description" content="made a simple aqi predicting linear regression model and accidentally found out how bad diwali affects AQI"><meta property="og:url" content="https://ahhyoushh.github.io/diwaliaqi/"><meta property="og:image" content="https://ahhyoushh.github.io/assets/og.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="effect of diwali on aqi // Ayush Bhalerao"><meta property="article:published_time" content="2025-12-01"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@i_u_sh"><meta name="twitter:creator" content="@i_u_sh"><meta name="twitter:title" content="effect of diwali on aqi // Ayush Bhalerao"><meta name="twitter:description" content="made a simple aqi predicting linear regression model and accidentally found out how bad diwali affects AQI"><meta name="twitter:image" content="https://ahhyoushh.github.io/assets/og.png"><meta name="twitter:image:alt" content="effect of diwali on aqi // Ayush Bhalerao"><meta name="theme-color" content="#0a0a0a"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"effect of diwali on aqi // Ayush Bhalerao","description":"made a simple aqi predicting linear regression model and accidentally found out how bad diwali affects AQI","image":"https://ahhyoushh.github.io/assets/og.png","url":"https://ahhyoushh.github.io/diwaliaqi/","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahhyoushh.github.io/diwaliaqi/"},"author":{"@type":"Person","name":"Ayush Bhalerao","url":"https://ahhyoushh.github.io/","sameAs":["https://github.com/ahhyoushh","https://linkedin.com/in/ayushbhalerao","https://x.com/i_u_sh","https://www.reddit.com/user/Few-Blueberry-1015/"]},"datePublished":"2025-12-01"}</script><!--
+      Both stylesheets are vendored under public/styles/ (with their woff2
+      fonts in public/styles/fonts/), so the built site has no CDN dependency.
+      latex.css = LaTeX.css + this site's overrides; katex.css typesets math.
+    --><link rel="stylesheet" href="../styles/latex.css"><link rel="stylesheet" href="../styles/katex.css"></head><body><header class="site-header"><p class="site-name"><a href="../">Ayush Bhalerao</a></p><nav aria-label="main"><ul class="site-nav-list"><li><a href="../">home</a></li><li><a href="../projects/">projects</a></li><li><a href="../blogs/">writeups</a></li><li><a href="../contact/">contact</a></li><li class="nav-theme"><button class="theme-toggle" type="button" data-theme-toggle><span data-theme-label>light</span></button></li></ul></nav></header><script src="../scripts/theme.js" defer></script><main><p class="back-link post-top-link"><a href="../blogs/">&larr; all writeups</a></p><article class="post"><header class="post-header"><h1>effect of diwali on aqi</h1><p class="post-meta"><span class="author">Ayush Bhalerao</span> · <time datetime="2025-12-01">dec 2025</time></p></header><div class="post-body"><p>Every year, Diwali brings a burst of lights, celebration, and, unfortunately, a spike in air pollution. Fireworks, increased traffic, and energy usage cause the Air Quality Index (AQI) to soar. This year, I decided to quantify that effect using a <strong>Random Forest Regressor</strong> trained on historical AQI data.</p>
+<h2 id="my-approach">My Approach</h2>
+<p>I collected hourly pollutant measurements from key air quality indicators like <strong>CO, NO₂, SO₂, O₃, PM10, PM2.5, and NH₃</strong>. These were aggregated into daily averages, and I added <strong>temporal features</strong> such as month and weekday to capture seasonal patterns.</p>
+<p>I then trained a <strong>Random Forest Regressor</strong> to predict the next day’s AQI. This model allowed me to see how “normal” air quality would behave and then compare it to the unusual spikes during Diwali.</p>
+<h2 id="key-findings">Key Findings</h2>
+<h3 id="1-pre-diwali-predictions">1. Pre-Diwali Predictions</h3>
+<ul>
+<li>The model performed very well on days leading up to the festival, with an <strong>R² score of ~0.86</strong>.</li>
+<li>It could reliably forecast AQI using historical pollutant levels and temporal patterns.</li>
+</ul>
+<h3 id="2-diwali-effect">2. Diwali Effect</h3>
+<ul>
+<li>During the festival, the predicted AQI often <strong>underestimated actual readings by 20–25 points</strong>.</li>
+<li>This shows how Diwali introduces an irregular spike in pollution that traditional temporal patterns cannot fully capture.</li>
+<li>The Month feature could not accurately predict this festival change due to Diwali being quite early this year.</li>
+</ul>
+<h3 id="3-feature-importance">3. Feature Importance</h3>
+<ul>
+<li>The model highlighted that the <strong>previous day’s AQI</strong> was the most influential predictor.</li>
+<li>When this feature was removed, performance dropped, indicating that AQI trends are strongly autocorrelated.</li>
+</ul>
+<h2 id="observations">Observations</h2>
+<ul>
+<li>These two reddit posts date just weeks apart: <a href="https://reddit.com/r/pune/comments/1oc8u0w/how_come_pune_got_good_aqi_post_diwali/">one on 21st Oct</a> before the Lakshmi Pujan and <a href="https://reddit.com/r/pune/comments/1opnvg0/why_aqi_is_this_bad_today/">the other on 6 Nov</a> even a week after Diwali festival — momentary fun causes long term impact.</li>
+<li>Diwali pushes AQI levels far above normal daily fluctuations.</li>
+<li>Temporal features like weekday or month are insufficient to capture sudden festival-driven surges.</li>
+<li>Predictive models need <strong>event-specific inputs</strong> (like festival dates) to better forecast extreme pollution events.</li>
+</ul>
+<h2 id="implications">Implications</h2>
+<ul>
+<li><strong>Urban planners:</strong> anticipate pollution spikes and manage traffic or industrial activity.</li>
+<li><strong>Healthcare providers:</strong> warn sensitive populations like children, elderly, and people with respiratory issues.</li>
+<li><strong>Citizens:</strong> make informed decisions about outdoor activity or preventive measures.</li>
+</ul>
+<h2 id="source">Source</h2>
+<p>The complete code and dataset used for this analysis are available on my <a href="https://github.com/ahhyoushh/AQI-Predictor">GitHub repository</a>.</p>
+<p><a href="https://github.com/ahhyoushh/AQI-Predictor" target="_blank" rel="noopener noreferrer">Go to AQI Project &rarr;</a></p>
+<h2 id="using-ai-for-cleaner-cities">Using AI for Cleaner Cities</h2>
+<p>My Random Forest model demonstrates how <strong>machine learning can capture normal AQI patterns</strong>, but it also highlights the limitations when sudden, human-driven events occur. By combining historical data, temporal features, and event-specific indicators, predictive models could help forecast pollution peaks more accurately and guide preventive action during festivals.</p>
+<p>Diwali is beautiful, but its environmental cost is real. Using data and predictive models, we can better understand the consequences and take informed steps to mitigate pollution while still celebrating responsibly.</p>
+<div class="note">
+<p>Note: My AQI predictions were done based on Pune’s AQI dataset from 2017-24 with a large number of values removed due to outliers and missing data.</p>
+</div>
+</div></article><p class="back-link"><a href="../blogs/">&larr; all writeups</a></p><script src="../scripts/code-blocks.js" defer></script></main><footer class="site-footer"><p>&copy; 2026 ayush bhalerao</p></footer><script data-goatcounter="https://ayush.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
