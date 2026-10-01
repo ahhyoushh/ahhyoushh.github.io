@@ -1423,7 +1423,11 @@ li.entry::before,
     font-size: 1.05rem;
   }
 
+  /* `.entry-row` is a column here, so the desktop `flex: 1 1 20rem` on the
+     title would become a 20rem *height* and leave a huge gap after every entry.
+     Titles size to their own text on this breakpoint. */
   .entry-link {
+    flex: 0 1 auto;
     font-size: 1.05rem;
   }
 
