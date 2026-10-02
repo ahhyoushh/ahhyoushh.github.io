@@ -1,0 +1,31 @@
+# Ayush Bhalerao
+
+> Electronics & Telecommunication engineering student (DSCE Bangalore), building toward edge AI / embedded ML engineering roles at the hardware-software-ML intersection. Ships fast, writes up what breaks, and has already put real systems in front of real users rather than just coursework.
+
+## About
+
+- Based in Pune, India. ECE undergrad at DSCE Bangalore.
+- Prior production engineering experience at an early-stage edtech startup (since acquired); does freelance backend/web work (Go, Cloudflare, GCP).
+- Five-year goal: end-to-end ownership of an inference stack, at places like Qualcomm, ARM, or an Apple Neural Engine / edge-AI team. Optimizing for shipped systems, not a PhD.
+
+
+## Flagship work
+
+- [betjee — virtual prediction market](https://ahhyoushh.github.io/betjee/): built in 24 hours for JEE exam-shift predictions, picked up organically on r/JEENEETards, scaled to 1.2M requests / 2.3K users on a free tier. Rebuilt as a real-time version with WebSockets and binary LMSR: https://ahhyoushh.github.io/betjee_v2/
+- FPGA Mini NPU: a from-scratch 12-phase Verilog systolic array accelerator with an ESP32 host, UART driver, and a working quantization pipeline — his most hardware-differentiated project, aimed squarely at NPU/accelerator teams.
+- Currently making a cost-model-driven CPU/iGPU/NPU backend selector for vector similarity search on AMD's XDNA1 NPU, built on the IRON/mlir-aie toolchain, with verified end-to-end NPU correctness and benchmarked throughput at scale.
+- [sakurafetch](https://github.com/ahhyoushh/sakurafetch), [no-cursor](https://github.com/ahhyoushh/no-cursor) (local LLM-integrated CLI editor), [FileSense](https://github.com/ahhyoushh/FileSense) — full list at /projects/.
+
+## Writing
+
+- [Finding vulnerabilities in a college cybersecurity registration portal](https://ahhyoushh.github.io/iitk_cyberugdam/)
+- [Making an actual realtime prediction market](https://ahhyoushh.github.io/betjee_v2/)
+- [Making a prediction market in 24 hours](https://ahhyoushh.github.io/betjee/)
+- [Diwali's effect on AQI](https://ahhyoushh.github.io/diwaliaqi/)
+
+## Contact
+
+- GitHub: https://github.com/ahhyoushh
+- X: https://x.com/i_u_sh
+- Email: iush.wrk@gmail.com
+- Site: https://ahhyoushh.github.io
