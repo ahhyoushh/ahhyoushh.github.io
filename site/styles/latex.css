@@ -1121,6 +1121,11 @@ li.entry::before,
   word-break: break-word;
 }
 
+/* Descriptions stay in the markup but are not shown on the writeups index. */
+.writeup-list .entry-desc {
+  display: none;
+}
+
 .status-deprecated {
   margin-left: 0.5rem;
   font-variant-caps: small-caps;
