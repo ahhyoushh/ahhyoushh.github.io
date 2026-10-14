@@ -1066,6 +1066,14 @@ li.entry::before,
   background-color: var(--rule);
 }
 
+/* Hit counter (count.getloli.com) — sits inline with the webring badge */
+.webring-counter {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
 /* ------------------------------------------------------ listings / items -- */
 
 .entry-row {
