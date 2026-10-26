@@ -1403,6 +1403,18 @@ article.post h1 {
   margin-bottom: 1rem;
 }
 
+.post-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.post-nav-bar .post-top-link {
+  margin: 0;
+}
+
 /* ============================================================== homepage === */
 
 .about p {
