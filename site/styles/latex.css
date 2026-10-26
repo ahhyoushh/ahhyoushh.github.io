@@ -438,9 +438,9 @@ figcaption::before {
   font-weight: bold;
 }
 
-/* Center align the title */
+/* Default LaTeX.css centered the first h1; keep it left-aligned */
 h1:first-child {
-  text-align: center;
+  text-align: left;
 }
 
 /* Nested ordered list for ToC */
@@ -1166,28 +1166,30 @@ li.entry::before,
 /* ------------------------------------------------------------------ post -- */
 
 .post-header {
-  margin-bottom: 1rem;
-  text-align: left;
+  margin-bottom: 0.75rem;
+  text-align: left !important;
 }
 
 .post-header h1,
-.post-header h1:first-child {
-  text-align: left;
-  font-size: 1.85rem;
-  line-height: 1.25;
+.post-header h1:first-child,
+article.post .post-header h1,
+article.post h1 {
+  text-align: left !important;
+  font-size: 1.55rem !important;
+  line-height: 1.25 !important;
   margin-top: 0;
   margin-bottom: 0.35rem;
 }
 
 .post-meta {
-  text-align: left;
+  text-align: left !important;
   margin-top: 0;
   margin-bottom: 1.25rem;
   font-size: 0.92em;
   color: var(--muted);
-  display: flex;
+  display: flex !important;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-start !important;
   gap: 0.5rem;
 }
 
@@ -1426,7 +1428,7 @@ li.entry::before,
 
   .post-header h1,
   .post-header h1:first-child {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     line-height: 1.25;
   }
 
