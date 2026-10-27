@@ -35,50 +35,77 @@
 <p>an earlier version of this post said "2017-24". the AQI values file goes back to nov 2017, but the pollutant data i trained on is one year. oops.</p>
 <h2 id="is-0-86-good">is 0.86 good?</h2>
 <p>with a random 80/20 split i get R² 0.86, which matches the notebook. but yesterday's AQI is the top feature (0.38 importance, then PM2.5 at 0.22), so i checked the dumbest possible baseline:</p>
-<pre class="shiki-code" style="overflow-x: auto;" tabindex="0" data-language="text"><code>                         R²      MAE
-random forest          0.86      8.9
-tomorrow = today       0.84     10.3</code></pre>
+<table class="col-1-l col-2-r col-3-r">
+<caption>R&sup2; and MAE on the random 80/20 split</caption>
+<thead>
+<tr><th scope="col"></th><th scope="col">R&sup2;</th><th scope="col">MAE</th></tr>
+</thead>
+<tbody>
+  <tr><th scope="row">random forest</th><td>0.86</td><td>8.9</td></tr>
+  <tr><th scope="row">tomorrow = today</th><td>0.84</td><td>10.3</td></tr>
+</tbody>
+</table>
 <p>so most of that 0.86 is "AQI is sticky". pulling the AQI feature out only drops R² to 0.84, because the pollutants it's computed from are still in there. my first post called that a big drop. it isn't.</p>
 <p>the random split is also leaky, since neighbouring days land on both sides of it. so i split by time instead: train on the first 80% of days, test on the rest (roughly late october onwards, into winter, with higher AQI than anything the model had seen).</p>
-<pre class="shiki-code" style="overflow-x: auto;" tabindex="0" data-language="text"><code>time-ordered split      R²      MAE
-random forest         -0.82     35.2
-tomorrow = today       0.40     18.2</code></pre>
+<table class="col-1-l col-2-r col-3-r">
+<caption>R&sup2; and MAE on the time-ordered split</caption>
+<thead>
+<tr><th scope="col"></th><th scope="col">R&sup2;</th><th scope="col">MAE</th></tr>
+</thead>
+<tbody>
+  <tr><th scope="row">random forest</th><td>-0.82</td><td>35.2</td></tr>
+  <tr><th scope="row">tomorrow = today</th><td>0.40</td><td>18.2</td></tr>
+</tbody>
+</table>
 <p>one year can't teach a model what winter looks like. that's the real limitation here, and it's why i wouldn't trust this model on anything, diwali or not.</p>
 <h2 id="how-wrong-on-diwali">how wrong is it on diwali?</h2>
 <p>this is the experiment i actually cared about. diwali started on 24 oct that year, and the air agrees: median PM2.5 went from 38 to 141 overnight. i cut the rows from 23 oct to 6 nov 2024 (so the table predicts 24 oct to 7 nov) out of the training data, trained on the rest in 10 contiguous blocks, and looked at the miss (actual minus predicted) for each day.</p>
-<pre class="shiki-code" style="overflow-x: auto;" tabindex="0" data-language="text"><code>predicting   yesterday   actual   model    miss
-for          AQI                  said
-24 oct              70      125      62     +63
-25 oct             125      129     125      +4
-26 oct             129      113     122      -9
-27 oct             113      107     110      -3
-28 oct             107      110     109      +1
-29 oct             110      126     111     +15
-30 oct             126      137     126     +11
-31 oct             137      121     129      -8
-01 nov             121      114     122      -8
-02 nov             114      208     115     +93
-03 nov             208      140     135      +5
-04 nov             140      126     129      -3
-05 nov             126      126     132      -6
-06 nov             126      140     133      +7
-07 nov             140      123     138     -15</code></pre>
-<pre class="shiki-code" style="overflow-x: auto;" tabindex="0" data-language="text"><code>miss = actual - predicted   (one char = 4 points)
-24 oct |################ +63
-25 oct |# +4
-26 oct |-- -9
-27 oct |- -3
-28 oct | +1
-29 oct |#### +15
-30 oct |### +11
-31 oct |-- -8
-01 nov |-- -8
-02 nov |####################### +93
-03 nov |# +5
-04 nov |- -3
-05 nov |-- -6
-06 nov |## +7
-07 nov |---- -15</code></pre>
+<table class="col-1-l col-2-r col-3-r col-4-r col-5-r">
+<caption>next-day predictions over the held-out diwali window</caption>
+<thead>
+<tr><th scope="col">predicting for</th><th scope="col">yesterday AQI</th><th scope="col">actual</th><th scope="col">model said</th><th scope="col">miss</th></tr>
+</thead>
+<tbody>
+  <tr><th scope="row">24 oct</th><td>70</td><td>125</td><td>62</td><td>+63</td></tr>
+  <tr><th scope="row">25 oct</th><td>125</td><td>129</td><td>125</td><td>+4</td></tr>
+  <tr><th scope="row">26 oct</th><td>129</td><td>113</td><td>122</td><td>-9</td></tr>
+  <tr><th scope="row">27 oct</th><td>113</td><td>107</td><td>110</td><td>-3</td></tr>
+  <tr><th scope="row">28 oct</th><td>107</td><td>110</td><td>109</td><td>+1</td></tr>
+  <tr><th scope="row">29 oct</th><td>110</td><td>126</td><td>111</td><td>+15</td></tr>
+  <tr><th scope="row">30 oct</th><td>126</td><td>137</td><td>126</td><td>+11</td></tr>
+  <tr><th scope="row">31 oct</th><td>137</td><td>121</td><td>129</td><td>-8</td></tr>
+  <tr><th scope="row">01 nov</th><td>121</td><td>114</td><td>122</td><td>-8</td></tr>
+  <tr><th scope="row">02 nov</th><td>114</td><td>208</td><td>115</td><td>+93</td></tr>
+  <tr><th scope="row">03 nov</th><td>208</td><td>140</td><td>135</td><td>+5</td></tr>
+  <tr><th scope="row">04 nov</th><td>140</td><td>126</td><td>129</td><td>-3</td></tr>
+  <tr><th scope="row">05 nov</th><td>126</td><td>126</td><td>132</td><td>-6</td></tr>
+  <tr><th scope="row">06 nov</th><td>126</td><td>140</td><td>133</td><td>+7</td></tr>
+  <tr><th scope="row">07 nov</th><td>140</td><td>123</td><td>138</td><td>-15</td></tr>
+</tbody>
+</table>
+<table class="col-1-l col-2-r">
+<caption>miss = actual - predicted, one bar = the daily miss</caption>
+<thead>
+<tr><th scope="col">predicting for</th><th scope="col">miss</th></tr>
+</thead>
+<tbody>
+  <tr><th scope="row">24 oct</th><td><span style="display:inline-block;width:63px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +63</td></tr>
+  <tr><th scope="row">25 oct</th><td><span style="display:inline-block;width:4px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +4</td></tr>
+  <tr><th scope="row">26 oct</th><td><span style="display:inline-block;width:9px;height:0.55em;background:var(--muted);vertical-align:-0.08em;"></span> -9</td></tr>
+  <tr><th scope="row">27 oct</th><td><span style="display:inline-block;width:3px;height:0.55em;background:var(--muted);vertical-align:-0.08em;"></span> -3</td></tr>
+  <tr><th scope="row">28 oct</th><td><span style="display:inline-block;width:1px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +1</td></tr>
+  <tr><th scope="row">29 oct</th><td><span style="display:inline-block;width:15px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +15</td></tr>
+  <tr><th scope="row">30 oct</th><td><span style="display:inline-block;width:11px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +11</td></tr>
+  <tr><th scope="row">31 oct</th><td><span style="display:inline-block;width:8px;height:0.55em;background:var(--muted);vertical-align:-0.08em;"></span> -8</td></tr>
+  <tr><th scope="row">01 nov</th><td><span style="display:inline-block;width:8px;height:0.55em;background:var(--muted);vertical-align:-0.08em;"></span> -8</td></tr>
+  <tr><th scope="row">02 nov</th><td><span style="display:inline-block;width:93px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +93</td></tr>
+  <tr><th scope="row">03 nov</th><td><span style="display:inline-block;width:5px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +5</td></tr>
+  <tr><th scope="row">04 nov</th><td><span style="display:inline-block;width:3px;height:0.55em;background:var(--muted);vertical-align:-0.08em;"></span> -3</td></tr>
+  <tr><th scope="row">05 nov</th><td><span style="display:inline-block;width:6px;height:0.55em;background:var(--muted);vertical-align:-0.08em;"></span> -6</td></tr>
+  <tr><th scope="row">06 nov</th><td><span style="display:inline-block;width:7px;height:0.55em;background:var(--link);vertical-align:-0.08em;"></span> +7</td></tr>
+  <tr><th scope="row">07 nov</th><td><span style="display:inline-block;width:15px;height:0.55em;background:var(--muted);vertical-align:-0.08em;"></span> -15</td></tr>
+</tbody>
+</table>
 <p>look at the shape. the model is fine for the days in between, because once AQI is up, yesterday's AQI tells it so. it can't see the jumps coming: the start of the festival on 24 oct, and the night of 1 nov into 2 nov, when AQI went from 114 to 208.</p>
 <p>on the other 333 days the miss averages +0.1 with a standard deviation of 16.3, and 95% of them are under 36 points. the biggest ordinary-day miss is +54 (28 jan). both festival jumps are bigger than that, and the 2 nov one is about 5.7 standard deviations out. 8 ordinary days were still off by 40 or more, so a single miss of 40 wouldn't have told me anything. these two do.</p>
 <p>but it's <em>one</em> diwali. that's an anecdote with a nice chart, not a distribution.</p>
@@ -92,5 +119,5 @@ for          AQI                  said
 <h2 id="source">source</h2>
 <p>code and data are in my <a href="https://github.com/ahhyoushh/AQI-Predictor">GitHub repository</a>. pune only, one year, one diwali.</p>
 <p><a href="https://github.com/ahhyoushh/AQI-Predictor" target="_blank" rel="noopener noreferrer">Go to AQI Project &rarr;</a></p>
-<div class="note"><p>Note: rewritten oct 2026. numbers above are from re-running the notebook's setup on the repo data, not from the first version of this post. the original title was "learning regression by seeing how wrong my AQI prediction is during diwali".</p></div>
+
 </div></article><p class="back-link"><a href="../blogs/">&larr; all writeups</a></p><script src="../scripts/code-blocks.js" defer></script></main><footer class="site-footer"><p>&copy; 2026 ayush bhalerao</p></footer><script data-goatcounter="https://ayush.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>

@@ -907,6 +907,14 @@ li.entry::before,
   /* No border — clean open space */
 }
 
+/* Center the name explicitly: the vendored `h1:first-child { text-align: left }`
+   (same specificity as `h1.site-name`, but this site layer comes later) would
+   otherwise out-rank `.site-header`'s inherited centering and pin the name —
+   the homepage's first-child h1 — to the left edge above the nav. */
+h1.site-name {
+  text-align: center;
+}
+
 /* Set on the class, not inherited: the homepage renders the name as an <h1>
    and every other page as a <p><a>, so an explicit weight is what keeps the
    two from rendering at different boldness. */
