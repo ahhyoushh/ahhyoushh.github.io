@@ -1,3 +1,4 @@
 # This repo has no build step. site/ is the source of truth and is published
 # as-is by .github/workflows/deploy.yml. Nothing to ignore.
 site/xdna1/
+site/betjee_v2/
